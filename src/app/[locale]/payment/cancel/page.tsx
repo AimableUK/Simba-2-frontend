@@ -1,0 +1,27 @@
+'use client';
+import { useLocale } from 'next-intl';
+import { XCircle } from 'lucide-react';
+import Link from 'next/link';
+
+export default function PaymentCancelPage() {
+  const locale = useLocale();
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-background px-4">
+      <div className="text-center max-w-md">
+        <div className="w-20 h-20 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+          <XCircle className="h-10 w-10 text-red-500" />
+        </div>
+        <h1 className="text-2xl font-bold mb-2">Payment Cancelled</h1>
+        <p className="text-muted-foreground mb-6">Your payment was cancelled. Your order is still saved - you can try again.</p>
+        <div className="flex gap-3 justify-center flex-wrap">
+          <Link href={`/${locale}/account/orders`} className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-medium hover:bg-primary/90 transition-colors">
+            My Orders
+          </Link>
+          <Link href={`/${locale}/cart`} className="border border-border px-6 py-3 rounded-xl font-medium hover:bg-muted transition-colors">
+            Back to Cart
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
