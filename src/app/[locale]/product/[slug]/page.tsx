@@ -17,7 +17,6 @@ import {
   Shield,
   Truck,
   RotateCcw,
-  Share2,
   AlertTriangle,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -26,12 +25,9 @@ import { useCart } from "@/hooks/useCart";
 import { useWishlistStore } from "@/store";
 import { useSession } from "@/lib/auth-client";
 import { formatPrice, getImageUrl, getDiscountPercent } from "@/lib/utils";
-import {
-  ProductDetailSkeleton,
-  ProductGridSkeleton,
-} from "@/components/common/skeletons";
-import { ProductCard } from "@/components/product/product-card";
+import { ProductDetailSkeleton } from "@/components/common/skeletons";
 import type { Review } from "@/types";
+import { ProductCard } from "@/components/product/product-card";
 
 function StarRating({
   rating,
@@ -223,7 +219,7 @@ export default function ProductPage() {
             {/* Thumbnails - up to 4, clickable */}
             {images.length > 1 && (
               <div className="grid grid-cols-4 gap-2">
-                {images.slice(0, 4).map((img, idx) => (
+                {images.slice(0, 4).map((img: string, idx: number) => (
                   <button
                     key={idx}
                     onClick={() => setActiveImage(idx)}
@@ -424,7 +420,7 @@ export default function ProductPage() {
                     {t("tags")}:
                   </span>
                   <div className="flex gap-1 flex-wrap">
-                    {product.tags.map((tag) => (
+                    {product.tags.map((tag: string) => (
                       <Link
                         key={tag}
                         href={`/${locale}/shop?tags=${tag}`}

@@ -44,7 +44,10 @@ export interface CartItem {
   id: string;
   productId: string;
   quantity: number;
-  product: Pick<Product, 'id' | 'name' | 'slug' | 'price' | 'comparePrice' | 'images' | 'stock'>;
+  product: Pick<
+    Product,
+    "id" | "name" | "slug" | "price" | "comparePrice" | "images" | "stock"
+  >;
 }
 
 export interface Order {
@@ -68,8 +71,14 @@ export interface Order {
   user?: { id: string; name: string; email: string; phone?: string };
 }
 
-export type OrderStatus = 'pending' | 'confirmed' | 'packaged' | 'on_the_way' | 'delivered' | 'cancelled';
-export type PaymentStatus = 'pending' | 'paid' | 'failed' | 'refunded';
+export type OrderStatus =
+  | "pending"
+  | "confirmed"
+  | "packaged"
+  | "on_the_way"
+  | "delivered"
+  | "cancelled";
+export type PaymentStatus = "pending" | "paid" | "failed" | "refunded";
 
 export interface OrderItem {
   id: string;
@@ -149,7 +158,7 @@ export interface User {
   name: string;
   email: string;
   phone?: string;
-  role: 'user' | 'poster' | 'admin' | 'super_admin';
+  role: "user" | "poster" | "admin" | "super_admin";
   image?: string;
   emailVerified: boolean;
   createdAt: string;

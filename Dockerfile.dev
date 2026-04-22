@@ -1,15 +1,22 @@
 FROM node:20-alpine
 WORKDIR /app
 
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat dumb-init
 RUN corepack enable && corepack prepare pnpm@10.30.3 --activate
 
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm install
+
+# Install all deps
+RUN pnpm install --frozen-lockfile
+
+# Copy source
+COPY . .
 
 ENV NODE_ENV=development
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
 
 EXPOSE 3000
 
-CMD ["pnpm", "run", "dev"]
+ENTRYPOINT ["dumb-init", "--"]
+CMD ["pnpm", "dev"]

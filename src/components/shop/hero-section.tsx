@@ -109,7 +109,7 @@ export function HeroSection() {
               <ChevronRight className="w-5 h-5" />
             </button>
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-              {slides.map((_, i) => (
+              {slides.map((_: unknown, i: number) => (
                 <button key={i} onClick={() => setCurrent(i)}
                   className={cn('w-2 h-2 rounded-full transition-all', i === current ? 'bg-white w-5' : 'bg-white/50')} />
               ))}

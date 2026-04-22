@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export interface CartItem {
   id: string;
@@ -16,7 +16,7 @@ export interface CartItem {
   };
 }
 
-//  Cart Store 
+//  Cart Store
 
 interface CartStore {
   items: CartItem[];
@@ -24,6 +24,7 @@ interface CartStore {
   deliveryFee: number;
   isOpen: boolean;
   setCart: (items: CartItem[], total: number, deliveryFee: number) => void;
+  addItem: (item: CartItem) => void;
   openCart: () => void;
   closeCart: () => void;
   toggleCart: () => void;
@@ -36,6 +37,22 @@ export const useCartStore = create<CartStore>((set, get) => ({
   total: 0,
   deliveryFee: 1000,
   isOpen: false,
+  addItem: (item) =>
+    set((s) => {
+      const existing = s.items.find((i) => i.id === item.id);
+      const items = existing
+        ? s.items.map((i) =>
+            i.id === item.id
+              ? { ...i, quantity: i.quantity + item.quantity }
+              : i,
+          )
+        : [...s.items, item];
+      const total = items.reduce(
+        (sum, i) => sum + i.product.price * i.quantity,
+        0,
+      );
+      return { items, total };
+    }),
   setCart: (items, total, deliveryFee) => set({ items, total, deliveryFee }),
   openCart: () => set({ isOpen: true }),
   closeCart: () => set({ isOpen: false }),
@@ -44,11 +61,12 @@ export const useCartStore = create<CartStore>((set, get) => ({
   getGrandTotal: () => get().total + get().deliveryFee,
 }));
 
-//  UI Store 
+//  UI Store
 
 interface UIStore {
   mobileMenuOpen: boolean;
   searchOpen: boolean;
+  openMobileMenu: () => void;
   toggleMobileMenu: () => void;
   closeMobileMenu: () => void;
   openSearch: () => void;
@@ -59,6 +77,7 @@ interface UIStore {
 export const useUIStore = create<UIStore>((set) => ({
   mobileMenuOpen: false,
   searchOpen: false,
+  openMobileMenu: () => set({ mobileMenuOpen: true }),
   toggleMobileMenu: () => set((s) => ({ mobileMenuOpen: !s.mobileMenuOpen })),
   closeMobileMenu: () => set({ mobileMenuOpen: false }),
   openSearch: () => set({ searchOpen: true }),
@@ -66,7 +85,7 @@ export const useUIStore = create<UIStore>((set) => ({
   toggleSearch: () => set((s) => ({ searchOpen: !s.searchOpen })),
 }));
 
-//  Wishlist Store (persisted) 
+//  Wishlist Store (persisted)
 
 interface WishlistStore {
   productIds: string[];
@@ -81,12 +100,14 @@ export const useWishlistStore = create<WishlistStore>()(
       toggle: (id) => {
         const has = get().productIds.includes(id);
         set((s) => ({
-          productIds: has ? s.productIds.filter((i) => i !== id) : [...s.productIds, id],
+          productIds: has
+            ? s.productIds.filter((i) => i !== id)
+            : [...s.productIds, id],
         }));
         return !has;
       },
       has: (id) => get().productIds.includes(id),
     }),
-    { name: 'simba-wishlist' }
-  )
+    { name: "simba-wishlist" },
+  ),
 );

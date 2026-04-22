@@ -1,10 +1,11 @@
-'use client';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { cartApi } from '@/lib/api';
-import { useCartStore } from '@/store';
-import { useSession } from '@/lib/auth-client';
-import { useEffect } from 'react';
-import { toast } from 'sonner';
+"use client";
+
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { cartApi } from "@/lib/api";
+import { useCartStore } from "@/store";
+import { useSession } from "@/lib/auth-client";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 export function useCart() {
   const { data: session } = useSession();
@@ -12,37 +13,49 @@ export function useCart() {
   const qc = useQueryClient();
 
   const { data, isLoading } = useQuery({
-    queryKey: ['cart'],
+    queryKey: ["cart"],
     queryFn: () => cartApi.get().then((r) => r.data),
     enabled: !!session?.user,
     staleTime: 30_000,
   });
 
   useEffect(() => {
-    if (data) setCart(data.items || [], data.total || 0, data.deliveryFee || 1000);
+    if (data)
+      setCart(data.items || [], data.total || 0, data.deliveryFee || 1000);
   }, [data, setCart]);
 
   const addMutation = useMutation({
-    mutationFn: ({ productId, quantity }: { productId: string; quantity: number }) =>
-      cartApi.add({ productId, quantity }),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['cart'] }),
-    onError: (err: any) => toast.error(err?.response?.data?.message || 'Failed to add to cart'),
+    mutationFn: ({
+      productId,
+      quantity,
+    }: {
+      productId: string;
+      quantity: number;
+    }) => cartApi.add({ productId, quantity }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cart"] }),
+    onError: (err: any) =>
+      toast.error(err?.response?.data?.message || "Failed to add to cart"),
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ productId, quantity }: { productId: string; quantity: number }) =>
-      cartApi.update(productId, quantity),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['cart'] }),
+    mutationFn: ({
+      productId,
+      quantity,
+    }: {
+      productId: string;
+      quantity: number;
+    }) => cartApi.update(productId, quantity),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cart"] }),
   });
 
   const removeMutation = useMutation({
     mutationFn: (productId: string) => cartApi.remove(productId),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['cart'] }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cart"] }),
   });
 
   const clearMutation = useMutation({
     mutationFn: () => cartApi.clear(),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['cart'] }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cart"] }),
   });
 
   return {
