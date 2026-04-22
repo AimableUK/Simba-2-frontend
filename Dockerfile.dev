@@ -1,0 +1,15 @@
+FROM node:20-alpine
+WORKDIR /app
+
+RUN apk add --no-cache libc6-compat
+RUN corepack enable && corepack prepare pnpm@10.30.3 --activate
+
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install
+
+ENV NODE_ENV=development
+ENV NEXT_TELEMETRY_DISABLED=1
+
+EXPOSE 3000
+
+CMD ["pnpm", "run", "dev"]
