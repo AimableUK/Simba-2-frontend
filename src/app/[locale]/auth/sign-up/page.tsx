@@ -13,7 +13,7 @@ import { toast } from "sonner";
 const schema = z
   .object({
     name: z.string().min(2),
-    email: z.string().email(),
+    email: z.email(),
     phone: z.string().optional(),
     password: z.string().min(8, "Password must be at least 8 characters"),
     confirmPassword: z.string(),
@@ -66,6 +66,24 @@ export default function SignUpPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4 py-12">
       <div className="w-full max-w-md">
+        <div className="text-center mb-8">
+          <Link href={`/${locale}`} className="inline-flex items-center gap-2">
+            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+              <ShoppingBag className="h-5 w-5 text-white" />
+            </div>
+            <span className="text-xl font-bold">Simba Super Market</span>
+          </Link>
+          <h1 className="text-2xl font-bold mt-6 mb-1">{t("signUp")}</h1>
+          <p className="text-muted-foreground text-sm">
+            {t("hasAccount")}{" "}
+            <Link
+              href={`/${locale}/auth/sign-in`}
+              className="text-primary font-medium hover:underline"
+            >
+              {t("signInHere")}
+            </Link>
+          </p>
+        </div>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
             <label className="block text-sm font-medium mb-1.5">
@@ -104,7 +122,7 @@ export default function SignUpPage() {
             <label className="block text-sm font-medium mb-1.5">
               {t("phone")}{" "}
               <span className="text-muted-foreground font-normal">
-                ({t("optional") || "optional"})
+                ({t("common.optional") || "optional"})
               </span>
             </label>
             <input
@@ -172,24 +190,6 @@ export default function SignUpPage() {
             {loading ? t("loading") : t("signUp")}
           </button>
         </form>
-        <div className="text-center mb-8">
-          <Link href={`/${locale}`} className="inline-flex items-center gap-2">
-            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
-              <ShoppingBag className="h-5 w-5 text-white" />
-            </div>
-            <span className="text-xl font-bold">Simba Super Market</span>
-          </Link>
-          <h1 className="text-2xl font-bold mt-6 mb-1">{t("signUp")}</h1>
-          <p className="text-muted-foreground text-sm">
-            {t("hasAccount")}{" "}
-            <Link
-              href={`/${locale}/auth/sign-in`}
-              className="text-primary font-medium hover:underline"
-            >
-              {t("signInHere")}
-            </Link>
-          </p>
-        </div>
       </div>
     </div>
   );

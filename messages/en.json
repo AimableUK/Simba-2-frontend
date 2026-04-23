@@ -263,7 +263,7 @@
     "next": "Next",
     "previous": "Previous",
     "page": "Page {page} of {total}",
-    "showing": "Showing {from}–{to} of {total}",
+    "showing": "Showing {from}-{to} of {total}",
     "currency": "RWF",
     "free": "Free",
     "required": "Required",

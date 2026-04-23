@@ -57,6 +57,26 @@ export default function SignInPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4 py-12">
       <div className="w-full max-w-md">
+        {/* Logo */}
+        <div className="text-center mb-8">
+          <Link href={`/${locale}`} className="inline-flex items-center gap-2">
+            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+              <ShoppingBag className="h-5 w-5 text-white" />
+            </div>
+            <span className="text-xl font-bold">Simba Super Market</span>
+          </Link>
+          <h1 className="text-2xl font-bold mt-6 mb-1">{t("signIn")}</h1>
+          <p className="text-muted-foreground text-sm">
+            {t("noAccount")}{" "}
+            <Link
+              href={`/${locale}/auth/sign-up`}
+              className="text-primary font-medium hover:underline"
+            >
+              {t("signUpHere")}
+            </Link>
+          </p>
+        </div>
+        
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
             <label className="block text-sm font-medium mb-1.5">
@@ -121,25 +141,6 @@ export default function SignInPage() {
             {loading ? t("loading") : t("signIn")}
           </button>
         </form>
-        {/* Logo */}
-        <div className="text-center mb-8">
-          <Link href={`/${locale}`} className="inline-flex items-center gap-2">
-            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
-              <ShoppingBag className="h-5 w-5 text-white" />
-            </div>
-            <span className="text-xl font-bold">Simba Super Market</span>
-          </Link>
-          <h1 className="text-2xl font-bold mt-6 mb-1">{t("signIn")}</h1>
-          <p className="text-muted-foreground text-sm">
-            {t("noAccount")}{" "}
-            <Link
-              href={`/${locale}/auth/sign-up`}
-              className="text-primary font-medium hover:underline"
-            >
-              {t("signUpHere")}
-            </Link>
-          </p>
-        </div>
       </div>
     </div>
   );
