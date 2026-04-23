@@ -87,7 +87,7 @@ export function Navbar() {
     router.push(segments.join("/"));
   };
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (searchQuery.trim()) {
       router.push(
