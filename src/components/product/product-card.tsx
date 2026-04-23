@@ -105,7 +105,7 @@ export function ProductCard({ product }: { product: Product }) {
                   <Star
                     size={16}
                     fill="currentColor"
-                    className="stroke-amber-500 text-amber-500 border border-amber-500"
+                    className="stroke-amber-500 text-amber-500"
                   />{" "}
                   Featured
                 </span>
