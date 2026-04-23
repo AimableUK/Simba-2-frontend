@@ -14,13 +14,14 @@
     "signOut": "Se Déconnecter",
     "admin": "Panneau Admin",
     "search": "Rechercher des produits...",
-    "searchPlaceholder": "Rechercher des produits, marques..."
+    "searchPlaceholder": "Rechercher des produits, marques...",
+    "branches": "Agences"
   },
   "home": {
     "hero": {
       "badge": "Le Supermarché Favori de Kigali",
       "title": "Épicerie Fraîche Livrée à Votre Porte",
-      "subtitle": "Achetez des milliers de produits - alimentation, boissons, essentiels ménagers et plus, livrés rapidement à Kigali.",
+      "subtitle": "Achetez des milliers de produits — alimentation, boissons, essentiels ménagers et plus, livrés rapidement à Kigali.",
       "shopNow": "Acheter Maintenant",
       "viewCategories": "Parcourir les Catégories"
     },
@@ -275,7 +276,7 @@
     "language": "Langue"
   },
   "footer": {
-    "tagline": "Le supermarché favori de Kigali - frais, rapide et fiable.",
+    "tagline": "Le supermarché favori de Kigali — frais, rapide et fiable.",
     "shop": "Boutique",
     "allProducts": "Tous les Produits",
     "categories": "Catégories",
@@ -294,5 +295,75 @@
     "delivery": "Info Livraison",
     "rights": "© {year} Simba Super Market. Tous droits réservés.",
     "madeIn": "Fabriqué au Rwanda 🇷🇼"
+  },
+  "branches": {
+    "title": "Nos Agences",
+    "subtitle": "Retirez votre commande dans l'une de nos 9 agences à Kigali",
+    "selectBranch": "Choisir une Agence",
+    "pickupTime": "Heure de Retrait",
+    "pickupTimeNote": "Choisissez une heure entre l'ouverture et la fermeture",
+    "openTime": "Ouvre",
+    "closeTime": "Ferme",
+    "inStock": "en stock",
+    "outOfStock": "Indisponible dans cette agence",
+    "placePickupOrder": "Passer une Commande de Retrait",
+    "depositRequired": "Un acompte de RWF {amount} est requis pour confirmer votre commande.",
+    "depositNote": "Cela évite les absences et réserve votre commande.",
+    "payDeposit": "Payer l'acompte de RWF {amount} via MoMo",
+    "momoNumber": "Numéro MoMo",
+    "momoPlaceholder": "+250 7XX XXX XXX",
+    "momoNote": "Entrez le numéro pour débiter l'acompte",
+    "processingPayment": "Traitement...",
+    "depositPaid": "Acompte payé ! Votre commande est confirmée.",
+    "orderConfirmed": "Commande Confirmée !",
+    "orderConfirmedDesc": "Commande #{number} confirmée à {branch}. Retrait à {time}.",
+    "viewMyOrders": "Voir Mes Commandes",
+    "rating": "Note de l'Agence",
+    "reviewBranch": "Évaluez Votre Expérience",
+    "reviewPlaceholder": "Comment s'est passé votre retrait ?",
+    "submitReview": "Soumettre l'Évaluation",
+    "reviewSuccess": "Merci pour votre évaluation !",
+    "noReviews": "Aucune évaluation",
+    "map": "Voir sur la Carte",
+    "distance": "agences près de vous",
+    "myPickupOrders": "Mes Commandes de Retrait",
+    "status": {
+      "pending": "En attente",
+      "accepted": "Acceptée",
+      "preparing": "En préparation",
+      "ready": "Prête pour retrait",
+      "picked_up": "Retirée",
+      "cancelled": "Annulée"
+    }
+  },
+  "search": {
+    "title": "Rechercher des Produits",
+    "placeholder": "Posez n'importe quelle question — \"Avez-vous du lait frais ?\"",
+    "searching": "Recherche...",
+    "results": "{count} résultats trouvés",
+    "noResults": "Aucun produit trouvé. Essayez autre chose.",
+    "poweredBy": "Propulsé par l'IA",
+    "tryExample": "Essayez : \"légumes frais\", \"boissons froides\", \"petit-déjeuner\""
+  },
+  "branchDashboard": {
+    "title": "Tableau de Bord",
+    "pending": "En attente",
+    "accepted": "Acceptée",
+    "preparing": "En préparation",
+    "ready": "Prête",
+    "assignTo": "Assigner au Personnel",
+    "markPreparing": "Commencer la Préparation",
+    "markReady": "Marquer Prête",
+    "markPickedUp": "Marquer Retirée",
+    "customerInfo": "Infos Client",
+    "pickupAt": "Retrait à",
+    "items": "Articles",
+    "deposit": "Acompte",
+    "noOrders": "Aucune commande",
+    "allOrders": "Toutes les Commandes",
+    "stockManagement": "Gestion des Stocks",
+    "updateStock": "Mettre à jour le Stock",
+    "currentStock": "Stock actuel",
+    "markOutOfStock": "Marquer Indisponible"
   }
 }

@@ -190,6 +190,12 @@ export function Navbar() {
               </div>
 
               <Link
+                href={`/${locale}/branches`}
+                className="px-3 py-2 rounded-md text-sm font-medium text-foreground/80 hover:text-primary hover:bg-accent transition-colors"
+              >
+                {t("branches")}
+              </Link>
+              <Link
                 href={`/${locale}/blog`}
                 className="px-3 py-2 rounded-md text-sm font-medium text-foreground/80 hover:text-primary hover:bg-accent transition-colors"
               >
@@ -469,6 +475,7 @@ export function Navbar() {
                 {[
                   { href: `/${locale}`, label: t("home") },
                   { href: `/${locale}/shop`, label: t("shop") },
+                  { href: `/${locale}/branches`, label: t("branches") },
                   { href: `/${locale}/blog`, label: t("blog") },
                   { href: `/${locale}/contact`, label: t("contact") },
                 ].map((item) => (

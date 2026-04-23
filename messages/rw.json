@@ -14,13 +14,14 @@
     "signOut": "Sohoka",
     "admin": "Icyumba cy'Abayobozi",
     "search": "Shakisha ibicuruzwa...",
-    "searchPlaceholder": "Shakisha ibicuruzwa, amasoko..."
+    "searchPlaceholder": "Shakisha ibicuruzwa, amasoko...",
+    "branches": "Amashami"
   },
   "home": {
     "hero": {
       "badge": "Isoko Ryiza i Kigali",
       "title": "Ibiryo Bishya Bitumwe Ku Rugi Rwawe",
-      "subtitle": "Gura ibicuruzwa ibihumbi - ibiryo, ibinyobwa, ibikenewe mu ngo no kurushaho, bitumwa vuba i Kigali.",
+      "subtitle": "Gura ibicuruzwa ibihumbi — ibiryo, ibinyobwa, ibikenewe mu ngo no kurushaho, bitumwa vuba i Kigali.",
       "shopNow": "Gura Ubu",
       "viewCategories": "Reba Ibyiciro"
     },
@@ -275,7 +276,7 @@
     "language": "Ururimi"
   },
   "footer": {
-    "tagline": "Isoko ryiza i Kigali - bishya, byihuse, no kwizerwa.",
+    "tagline": "Isoko ryiza i Kigali — bishya, byihuse, no kwizerwa.",
     "shop": "Gutura",
     "allProducts": "Ibicuruzwa Byose",
     "categories": "Ibyiciro",
@@ -294,5 +295,75 @@
     "delivery": "Amakuru y'Gutumiza",
     "rights": "© {year} Simba Super Market. Uburenganzira bwose burabitswe.",
     "madeIn": "Byakozwe mu Rwanda 🇷🇼"
+  },
+  "branches": {
+    "title": "Amashami Yacu",
+    "subtitle": "Gaba ibicuruzwa byawe mu cyumba kimwe cya Kigali",
+    "selectBranch": "Hitamo Ishami",
+    "pickupTime": "Igihe cyo Gutura",
+    "pickupTimeNote": "Hitamo igihe hagati y'amasaha y'akazi",
+    "openTime": "Ifungurwa",
+    "closeTime": "Ifungwa",
+    "inStock": "gihari",
+    "outOfStock": "Ntigihari muri iki cyumba",
+    "placePickupOrder": "Ohereza Itumiza ryo Gutura",
+    "depositRequired": "Inguzanyo ya RWF {amount} irasabwa kugira ngo uremeze itumiza ryawe.",
+    "depositNote": "Ibi birinda abataza no kubika itumiza ryawe.",
+    "payDeposit": "Ishyura RWF {amount} Inguzanyo ya MoMo",
+    "momoNumber": "Nomero ya MoMo",
+    "momoPlaceholder": "+250 7XX XXX XXX",
+    "momoNote": "Injiza nomero yo gutuza inguzanyo",
+    "processingPayment": "Birimo gukora...",
+    "depositPaid": "Inguzanyo ishyuwe! Itumiza ryawe ryemejwe.",
+    "orderConfirmed": "Itumiza Ryemejwe!",
+    "orderConfirmedDesc": "Itumiza #{number} ryemejwe kuri {branch}. Gaba saa {time}.",
+    "viewMyOrders": "Reba Amatumiza Yanjye",
+    "rating": "Amanota y'Ishami",
+    "reviewBranch": "Tanga Ibitekerezo",
+    "reviewPlaceholder": "Urugendo rwawe rwagenze bite?",
+    "submitReview": "Ohereza Ibitekerezo",
+    "reviewSuccess": "Urakoze ibitekerezo byawe!",
+    "noReviews": "Nta bitekerezo buriho",
+    "map": "Reba ku Makarita",
+    "distance": "amashami hafi yawe",
+    "myPickupOrders": "Amatumiza Yanjye yo Gutura",
+    "status": {
+      "pending": "Ritegerezwa",
+      "accepted": "Ryemejwe",
+      "preparing": "Rikozwa",
+      "ready": "Riteguye Guturwa",
+      "picked_up": "Ryaturiwe",
+      "cancelled": "Rirahagaritswe"
+    }
+  },
+  "search": {
+    "title": "Shakisha Ibicuruzwa",
+    "placeholder": "Baza ikibazo — \"Mufite amata mashya?\" cyangwa \"Ndashaka ikintu cya su\"",
+    "searching": "Birakora...",
+    "results": "Ibisubizo {count} bibonetse",
+    "noResults": "Nta bicuruzwa bibonetse. Gerageza ibindi.",
+    "poweredBy": "Bikoreshwa na AI",
+    "tryExample": "Gerageza: \"imboga nshya\", \"ibinyobwa bikonje\", \"ibiryo bya su\""
+  },
+  "branchDashboard": {
+    "title": "Ikibaho cy'Ishami",
+    "pending": "Bitegerezwa",
+    "accepted": "Byemejwe",
+    "preparing": "Birikozwa",
+    "ready": "Biteguye",
+    "assignTo": "Ha umukozi",
+    "markPreparing": "Tangira Gutegura",
+    "markReady": "Tos Biteguye",
+    "markPickedUp": "Tos Byaturiwe",
+    "customerInfo": "Amakuru y'Umukiriya",
+    "pickupAt": "Gaba saa",
+    "items": "Ibintu",
+    "deposit": "Inguzanyo",
+    "noOrders": "Nta matumiza",
+    "allOrders": "Amatumiza Yose",
+    "stockManagement": "Gucunga Ububiko",
+    "updateStock": "Vugurura Ububiko",
+    "currentStock": "Ububiko Buriho",
+    "markOutOfStock": "Ntigihari"
   }
 }

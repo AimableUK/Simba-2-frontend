@@ -14,7 +14,8 @@
     "signOut": "Sign Out",
     "admin": "Admin Panel",
     "search": "Search products...",
-    "searchPlaceholder": "Search for products, brands..."
+    "searchPlaceholder": "Search for products, brands...",
+    "branches": "Branches"
   },
   "home": {
     "hero": {
@@ -294,5 +295,75 @@
     "delivery": "Delivery Info",
     "rights": "© {year} Simba Super Market. All rights reserved.",
     "madeIn": "Made in Rwanda 🇷🇼"
+  },
+  "branches": {
+    "title": "Our Branches",
+    "subtitle": "Pick up your order at any of our 9 Kigali locations",
+    "selectBranch": "Select a Branch",
+    "pickupTime": "Pick-up Time",
+    "pickupTimeNote": "Select a time between opening and closing hours",
+    "openTime": "Opens",
+    "closeTime": "Closes",
+    "inStock": "in stock",
+    "outOfStock": "Out of stock at this branch",
+    "placePickupOrder": "Place Pick-up Order",
+    "depositRequired": "A deposit of RWF {amount} is required to confirm your order.",
+    "depositNote": "This prevents no-shows and reserves your order.",
+    "payDeposit": "Pay RWF {amount} Deposit via MoMo",
+    "momoNumber": "MoMo Number",
+    "momoPlaceholder": "+250 7XX XXX XXX",
+    "momoNote": "Enter the number to charge the deposit",
+    "processingPayment": "Processing payment...",
+    "depositPaid": "Deposit paid! Your order is confirmed.",
+    "orderConfirmed": "Order Confirmed!",
+    "orderConfirmedDesc": "Order #{number} is confirmed at {branch}. Pick up at {time}.",
+    "viewMyOrders": "View My Orders",
+    "rating": "Branch Rating",
+    "reviewBranch": "Rate Your Experience",
+    "reviewPlaceholder": "How was your pick-up experience?",
+    "submitReview": "Submit Review",
+    "reviewSuccess": "Thank you for your review!",
+    "noReviews": "No reviews yet",
+    "map": "View on Map",
+    "distance": "branches near you",
+    "myPickupOrders": "My Pick-up Orders",
+    "status": {
+      "pending": "Pending",
+      "accepted": "Accepted",
+      "preparing": "Preparing",
+      "ready": "Ready for Pick-up",
+      "picked_up": "Picked Up",
+      "cancelled": "Cancelled"
+    }
+  },
+  "search": {
+    "title": "Search Products",
+    "placeholder": "Ask anything - \"Do you have fresh milk?\" or \"I need something for breakfast\"",
+    "searching": "Searching...",
+    "results": "{count} results found",
+    "noResults": "No products found for that query. Try something else.",
+    "poweredBy": "Powered by AI",
+    "tryExample": "Try: \"fresh vegetables\", \"cold drinks\", \"breakfast items\""
+  },
+  "branchDashboard": {
+    "title": "Branch Dashboard",
+    "pending": "Pending",
+    "accepted": "Accepted",
+    "preparing": "Preparing",
+    "ready": "Ready",
+    "assignTo": "Assign to Staff",
+    "markPreparing": "Start Preparing",
+    "markReady": "Mark as Ready",
+    "markPickedUp": "Mark as Picked Up",
+    "customerInfo": "Customer Info",
+    "pickupAt": "Pick-up at",
+    "items": "Items",
+    "deposit": "Deposit",
+    "noOrders": "No orders",
+    "allOrders": "All Orders",
+    "stockManagement": "Stock Management",
+    "updateStock": "Update Stock",
+    "currentStock": "Current Stock",
+    "markOutOfStock": "Mark Out of Stock"
   }
 }

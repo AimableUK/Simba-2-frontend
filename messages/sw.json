@@ -14,13 +14,14 @@
     "signOut": "Toka",
     "admin": "Ukanda wa Wasimamizi",
     "search": "Tafuta bidhaa...",
-    "searchPlaceholder": "Tafuta bidhaa, chapa..."
+    "searchPlaceholder": "Tafuta bidhaa, chapa...",
+    "branches": "Matawi"
   },
   "home": {
     "hero": {
       "badge": "Supermarket Bora Kigali",
       "title": "Bidhaa Mbichi Zinapokelewa Mlangoni Kwako",
-      "subtitle": "Nunua bidhaa maelfu - vyakula, vinywaji, bidhaa za nyumbani na zaidi, vikitumwa haraka Kigali.",
+      "subtitle": "Nunua bidhaa maelfu — vyakula, vinywaji, bidhaa za nyumbani na zaidi, vikitumwa haraka Kigali.",
       "shopNow": "Nunua Sasa",
       "viewCategories": "Angalia Makundi"
     },
@@ -275,7 +276,7 @@
     "language": "Lugha"
   },
   "footer": {
-    "tagline": "Supermarket bora Kigali - safi, haraka, na ya kuamini.",
+    "tagline": "Supermarket bora Kigali — safi, haraka, na ya kuamini.",
     "shop": "Duka",
     "allProducts": "Bidhaa Zote",
     "categories": "Makundi",
@@ -294,5 +295,75 @@
     "delivery": "Taarifa ya Uwasilishaji",
     "rights": "© {year} Simba Super Market. Haki zote zimehifadhiwa.",
     "madeIn": "Imetengenezwa Rwanda 🇷🇼"
+  },
+  "branches": {
+    "title": "Matawi Yetu",
+    "subtitle": "Chukua oda yako katika tawi lolote la Kigali",
+    "selectBranch": "Chagua Tawi",
+    "pickupTime": "Wakati wa Kuchukua",
+    "pickupTimeNote": "Chagua wakati kati ya masaa ya kazi",
+    "openTime": "Inafungua",
+    "closeTime": "Inafunga",
+    "inStock": "ipo stokini",
+    "outOfStock": "Haipo katika tawi hili",
+    "placePickupOrder": "Weka Oda ya Kuchukua",
+    "depositRequired": "Amana ya RWF {amount} inahitajika kuthibitisha oda yako.",
+    "depositNote": "Hii inazuia kutofika na kuhifadhi oda yako.",
+    "payDeposit": "Lipa Amana ya RWF {amount} kupitia MoMo",
+    "momoNumber": "Nambari ya MoMo",
+    "momoPlaceholder": "+250 7XX XXX XXX",
+    "momoNote": "Ingiza nambari ya kutoza amana",
+    "processingPayment": "Inashughulikiwa...",
+    "depositPaid": "Amana imelipwa! Oda yako imethibitishwa.",
+    "orderConfirmed": "Oda Imethibitishwa!",
+    "orderConfirmedDesc": "Oda #{number} imethibitishwa katika {branch}. Chukua saa {time}.",
+    "viewMyOrders": "Angalia Maagizo Yangu",
+    "rating": "Ukadiriaji wa Tawi",
+    "reviewBranch": "Kadiria Uzoefu Wako",
+    "reviewPlaceholder": "Uzoefu wako wa kuchukua ulikuwaje?",
+    "submitReview": "Tuma Ukadiriaji",
+    "reviewSuccess": "Asante kwa ukadiriaji wako!",
+    "noReviews": "Hakuna ukadiriaji bado",
+    "map": "Angalia kwenye Ramani",
+    "distance": "matawi karibu nawe",
+    "myPickupOrders": "Maagizo Yangu ya Kuchukua",
+    "status": {
+      "pending": "Inasubiri",
+      "accepted": "Imekubaliwa",
+      "preparing": "Inatayarishwa",
+      "ready": "Tayari Kuchukuliwa",
+      "picked_up": "Imechukuliwa",
+      "cancelled": "Imeghairiwa"
+    }
+  },
+  "search": {
+    "title": "Tafuta Bidhaa",
+    "placeholder": "Uliza chochote — \"Una maziwa mapya?\" au \"Ninahitaji kitu cha kiamsha kinywa\"",
+    "searching": "Inatafuta...",
+    "results": "Matokeo {count} yamepatikana",
+    "noResults": "Hakuna bidhaa zilizopatikana. Jaribu tena.",
+    "poweredBy": "Inasaidiwa na AI",
+    "tryExample": "Jaribu: \"mboga safi\", \"vinywaji baridi\", \"vyakula vya asubuhi\""
+  },
+  "branchDashboard": {
+    "title": "Dashibodi ya Tawi",
+    "pending": "Inasubiri",
+    "accepted": "Imekubaliwa",
+    "preparing": "Inatayarishwa",
+    "ready": "Tayari",
+    "assignTo": "Assign kwa Mfanyakazi",
+    "markPreparing": "Anza Kutayarisha",
+    "markReady": "Weka kama Tayari",
+    "markPickedUp": "Weka kama Imechukuliwa",
+    "customerInfo": "Taarifa za Mteja",
+    "pickupAt": "Chukua saa",
+    "items": "Vitu",
+    "deposit": "Amana",
+    "noOrders": "Hakuna maagizo",
+    "allOrders": "Maagizo Yote",
+    "stockManagement": "Usimamizi wa Hisa",
+    "updateStock": "Sasisha Hisa",
+    "currentStock": "Hisa ya Sasa",
+    "markOutOfStock": "Weka kama Imeisha"
   }
 }

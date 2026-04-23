@@ -9,7 +9,7 @@ Next.js 15 App Router frontend with full i18n (EN/RW/SW/FR), dark/light mode, re
 npm install
 
 # 2. Copy and configure environment
-cp .env.example .env.local
+cp .env .env.local
 
 # 3. Start development server
 npm run dev

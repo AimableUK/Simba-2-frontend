@@ -154,3 +154,32 @@ export const uploadApi = {
     });
   },
 };
+
+export const branchApi = {
+  list: () => api.get("/branches"),
+  get: (slug: string) => api.get(`/branches/${slug}`),
+  stock: (branchId: string, params?: Record<string, any>) =>
+    api.get(`/branches/${branchId}/stock`, { params }),
+  createOrder: (data: any) => api.post("/branches/orders", data),
+  payDeposit: (id: string, momoNumber: string) =>
+    api.post(`/branches/orders/${id}/pay`, { momoNumber }),
+  myOrders: (params?: Record<string, any>) =>
+    api.get("/branches/orders/my", { params }),
+  myOrder: (id: string) => api.get(`/branches/orders/my/${id}`),
+  reviewBranch: (orderId: string, data: { rating: number; comment?: string }) =>
+    api.post(`/branches/orders/${orderId}/review`, data),
+  dashboard: (params?: Record<string, any>) =>
+    api.get("/branches/dashboard", { params }),
+  assignOrder: (id: string, staffId: string) =>
+    api.post(`/branches/dashboard/orders/${id}/assign`, { staffId }),
+  updateStatus: (id: string, data: { status: string; note?: string }) =>
+    api.put(`/branches/dashboard/orders/${id}/status`, data),
+  updateStock: (data: any) => api.put("/branches/dashboard/stock", data),
+};
+
+// Search
+
+export const searchApi = {
+  search: (q: string, branchId?: string) =>
+    api.get("/search", { params: { q, ...(branchId && { branchId }) } }),
+};
