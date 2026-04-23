@@ -101,11 +101,11 @@ export function ProductCard({ product }: { product: Product }) {
                 </span>
               )}
               {product.isFeatured && (
-                <span className="bg-foreground text-background text-[10px] font-bold px-2 py-0.5 rounded-full">
+                <span className="flex flex-row whitespace-nowrap bg-foreground text-background text-[10px] font-bold px-2 py-0.5 rounded-full">
                   <Star
                     size={16}
                     fill="currentColor"
-                    className="stroke-black text-amber-500"
+                    className="stroke-amber-500 text-amber-500 border border-amber-500"
                   />{" "}
                   Featured
                 </span>
