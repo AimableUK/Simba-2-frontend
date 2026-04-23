@@ -53,6 +53,7 @@ export function Navbar() {
     openMobileMenu,
     closeMobileMenu,
   } = useUIStore();
+  const isAdminRoute = pathname.includes("/admin");
 
   const [searchQuery, setSearchQuery] = useState("");
   const [langOpen, setLangOpen] = useState(false);
@@ -100,6 +101,8 @@ export function Navbar() {
 
   const isAdmin =
     user?.role && ["admin", "super_admin", "poster"].includes(user.role);
+
+  if (isAdminRoute) return null;
 
   return (
     <>
@@ -337,7 +340,7 @@ export function Navbar() {
                         </div>
                         <div className="py-1">
                           <Link
-                            href={`/${locale}/account`}
+                            href={`/${locale}/account/profile`}
                             onClick={() => setUserOpen(false)}
                             className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-accent transition-colors"
                           >

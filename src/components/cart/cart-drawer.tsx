@@ -1,47 +1,61 @@
-'use client';
-import { useEffect } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useLocale, useTranslations } from 'next-intl';
-import { X, ShoppingBag, Plus, Minus, Trash2 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { cartApi } from '@/lib/api';
-import { useCartStore } from '@/store';
-import { cn, formatPrice, getImageUrl } from '@/lib/utils';
-import { useSession } from '@/lib/auth-client';
-import { toast } from 'sonner';
+"use client";
+import { useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { useLocale, useTranslations } from "next-intl";
+import { X, ShoppingBag, Plus, Minus, Trash2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { cartApi } from "@/lib/api";
+import { useCartStore } from "@/store";
+import { cn, formatPrice, getImageUrl } from "@/lib/utils";
+import { useSession } from "@/lib/auth-client";
+import { toast } from "sonner";
+import { usePathname } from "next/navigation";
 
 export function CartDrawer() {
-  const t = useTranslations('cart');
+  const t = useTranslations("cart");
   const locale = useLocale();
   const { data: session } = useSession();
-  const { isOpen, closeCart, setCart, items, total, deliveryFee } = useCartStore();
+  const { isOpen, closeCart, setCart, items, total, deliveryFee } =
+    useCartStore();
   const qc = useQueryClient();
 
+  const pathname = usePathname();
+  const isAdminRoute = pathname.includes("/admin");
+
   const { data } = useQuery({
-    queryKey: ['cart'],
+    queryKey: ["cart"],
     queryFn: () => cartApi.get().then((r) => r.data),
     enabled: !!session?.user && isOpen,
   });
 
   useEffect(() => {
-    if (data) setCart(data.items || [], data.total || 0, data.deliveryFee || 1000);
+    if (data)
+      setCart(data.items || [], data.total || 0, data.deliveryFee || 1000);
   }, [data]);
 
   const removeMutation = useMutation({
     mutationFn: (productId: string) => cartApi.remove(productId),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['cart'] }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cart"] }),
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ productId, quantity }: { productId: string; quantity: number }) =>
-      cartApi.update(productId, quantity),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['cart'] }),
-    onError: (err: any) => toast.error(err?.response?.data?.message || 'Error updating cart'),
+    mutationFn: ({
+      productId,
+      quantity,
+    }: {
+      productId: string;
+      quantity: number;
+    }) => cartApi.update(productId, quantity),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cart"] }),
+    onError: (err: any) =>
+      toast.error(err?.response?.data?.message || "Error updating cart"),
   });
 
   const grandTotal = total + deliveryFee;
+
+  if (isAdminRoute) return null;
 
   return (
     <AnimatePresence>
@@ -55,24 +69,29 @@ export function CartDrawer() {
             onClick={closeCart}
           />
           <motion.div
-            initial={{ x: '100%' }}
+            initial={{ x: "100%" }}
             animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'tween', duration: 0.3 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "tween", duration: 0.3 }}
             className="fixed right-0 top-0 h-full w-full sm:w-96 bg-card border-l border-border shadow-2xl z-50 flex flex-col"
           >
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-4 border-b border-border">
               <div className="flex items-center gap-2">
                 <ShoppingBag className="w-5 h-5 text-primary" />
-                <h2 className="font-semibold text-foreground">{t('title')}</h2>
+                <h2 className="font-semibold text-foreground">{t("title")}</h2>
                 {items.length > 0 && (
                   <span className="bg-primary text-white text-xs px-2 py-0.5 rounded-full font-medium">
-                    {t('items', { count: items.reduce((s, i) => s + i.quantity, 0) })}
+                    {t("items", {
+                      count: items.reduce((s, i) => s + i.quantity, 0),
+                    })}
                   </span>
                 )}
               </div>
-              <button onClick={closeCart} className="p-1.5 rounded-lg hover:bg-accent transition-colors">
+              <button
+                onClick={closeCart}
+                className="p-1.5 rounded-lg hover:bg-accent transition-colors"
+              >
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -85,14 +104,16 @@ export function CartDrawer() {
                     <ShoppingBag className="w-8 h-8 text-muted-foreground" />
                   </div>
                   <div>
-                    <p className="font-medium text-foreground">{t('empty')}</p>
-                    <p className="text-sm text-muted-foreground mt-1">{t('emptyDesc')}</p>
+                    <p className="font-medium text-foreground">{t("empty")}</p>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {t("emptyDesc")}
+                    </p>
                   </div>
                   <button
                     onClick={closeCart}
                     className="px-6 py-2.5 bg-primary text-white rounded-full text-sm font-medium hover:bg-primary/90 transition-colors"
                   >
-                    {t('shopNow')}
+                    {t("shopNow")}
                   </button>
                 </div>
               ) : (
@@ -123,17 +144,27 @@ export function CartDrawer() {
                           <div className="flex items-center gap-1.5 bg-muted rounded-full px-1 py-0.5">
                             <button
                               onClick={() => {
-                                if (item.quantity <= 1) removeMutation.mutate(item.productId);
-                                else updateMutation.mutate({ productId: item.productId, quantity: item.quantity - 1 });
+                                if (item.quantity <= 1)
+                                  removeMutation.mutate(item.productId);
+                                else
+                                  updateMutation.mutate({
+                                    productId: item.productId,
+                                    quantity: item.quantity - 1,
+                                  });
                               }}
                               className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
                             >
                               <Minus className="w-3 h-3" />
                             </button>
-                            <span className="text-sm font-medium w-5 text-center">{item.quantity}</span>
+                            <span className="text-sm font-medium w-5 text-center">
+                              {item.quantity}
+                            </span>
                             <button
                               onClick={() =>
-                                updateMutation.mutate({ productId: item.productId, quantity: item.quantity + 1 })
+                                updateMutation.mutate({
+                                  productId: item.productId,
+                                  quantity: item.quantity + 1,
+                                })
                               }
                               disabled={item.quantity >= item.product.stock}
                               className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors disabled:opacity-40"
@@ -142,7 +173,9 @@ export function CartDrawer() {
                             </button>
                           </div>
                           <button
-                            onClick={() => removeMutation.mutate(item.productId)}
+                            onClick={() =>
+                              removeMutation.mutate(item.productId)
+                            }
                             className="p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -160,31 +193,35 @@ export function CartDrawer() {
               <div className="border-t border-border p-5 space-y-3">
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between text-muted-foreground">
-                    <span>{t('subtotal')}</span>
+                    <span>{t("subtotal")}</span>
                     <span>{formatPrice(total)}</span>
                   </div>
                   <div className="flex justify-between text-muted-foreground">
-                    <span>{t('delivery')}</span>
+                    <span>{t("delivery")}</span>
                     <span>{formatPrice(deliveryFee)}</span>
                   </div>
                   <div className="flex justify-between font-bold text-base text-foreground border-t border-border pt-2">
-                    <span>{t('total')}</span>
-                    <span className="text-primary">{formatPrice(grandTotal)}</span>
+                    <span>{t("total")}</span>
+                    <span className="text-primary">
+                      {formatPrice(grandTotal)}
+                    </span>
                   </div>
                 </div>
-                <p className="text-[11px] text-muted-foreground text-center">{t('deliveryNote')}</p>
+                <p className="text-[11px] text-muted-foreground text-center">
+                  {t("deliveryNote")}
+                </p>
                 <Link
                   href={`/${locale}/checkout`}
                   onClick={closeCart}
                   className="block w-full text-center py-3 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-colors"
                 >
-                  {t('checkout')}
+                  {t("checkout")}
                 </Link>
                 <button
                   onClick={closeCart}
                   className="block w-full text-center py-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  {t('continueShopping')}
+                  {t("continueShopping")}
                 </button>
               </div>
             )}

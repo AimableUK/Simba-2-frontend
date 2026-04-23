@@ -82,7 +82,7 @@ export function ProductCard({ product }: { product: Product }) {
       className="group"
     >
       <Link href={`/${locale}/product/${product.slug}`}>
-        <div className="bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-lg transition-all duration-300">
+        <div className="h-full bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-lg transition-all duration-300">
           {/* Image */}
           <div className="relative aspect-square overflow-hidden bg-muted">
             <Image
@@ -96,13 +96,17 @@ export function ProductCard({ product }: { product: Product }) {
             {/* Badges */}
             <div className="absolute top-2 left-2 flex flex-col gap-1">
               {discount && (
-                <span className="bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+                <span className="bg-primary text-white w-fit text-[10px] font-bold px-2 py-0.5 rounded-full">
                   -{discount}%
                 </span>
               )}
               {product.isFeatured && (
                 <span className="bg-foreground text-background text-[10px] font-bold px-2 py-0.5 rounded-full">
-                  ⭐ Featured
+                  <Star
+                    size={16}
+                    className="bg-amber-500 border border-amber-500"
+                  />{" "}
+                  Featured
                 </span>
               )}
               {product.isAlcohol && (
@@ -192,7 +196,7 @@ export function ProductCard({ product }: { product: Product }) {
             )}
 
             {/* Price */}
-            <div className="flex items-baseline gap-2">
+            <div className="flex flex-col sm:flex-row items-baseline gap-2 ">
               <span className="text-base font-bold text-primary">
                 {formatPrice(product.price)}
               </span>

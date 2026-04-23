@@ -105,8 +105,8 @@ export const blogApi = {
 export const contactApi = {
   submit: (data: any) => api.post("/contact", data),
   adminList: (params?: Record<string, any>) =>
-    api.get("/admin/contacts", { params }),
-  markRead: (id: string) => api.put(`/admin/contacts/${id}/read`),
+    api.get("/contact/admin/all", { params }),
+  markRead: (id: string) => api.put(`/contact/admin/${id}/read`),
 };
 
 //  Users
