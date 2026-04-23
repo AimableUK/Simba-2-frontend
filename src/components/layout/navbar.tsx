@@ -10,8 +10,6 @@ import {
   Search,
   Menu,
   X,
-  Sun,
-  Moon,
   Globe,
   Heart,
   User,
@@ -28,6 +26,7 @@ import { categoryApi } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { routing } from "@/i18n/routing";
 import { useNotifications } from "@/hooks/useSocket";
+import { ThemeSwitcherV1 } from "@/lib/theme-switcher-v1";
 
 const LOCALES = [
   { code: "en", label: "English", flag: "🇬🇧" },
@@ -239,11 +238,7 @@ export function Navbar() {
                   theme === "dark" ? tCommon("lightMode") : tCommon("darkMode")
                 }
               >
-                {theme === "dark" ? (
-                  <Sun className="w-5 h-5" />
-                ) : (
-                  <Moon className="w-5 h-5" />
-                )}
+                <ThemeSwitcherV1 />
               </button>
 
               {/* Language */}
@@ -491,7 +486,7 @@ export function Navbar() {
                   <p className="px-4 py-1 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                     {t("categories")}
                   </p>
-                  {categories?.map((cat: any) => (
+                  {categories?.slice(0, 6).map((cat: any) => (
                     <Link
                       key={cat.id}
                       href={`/${locale}/shop?category=${cat.slug}`}
