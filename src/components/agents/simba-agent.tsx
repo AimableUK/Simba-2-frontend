@@ -1,9 +1,9 @@
 "use client";
+
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useLocale } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  MessageCircle,
   X,
   Send,
   Loader2,
@@ -11,14 +11,8 @@ import {
   MapPin,
   Star,
   Heart,
-  Trash2,
-  Plus,
-  Minus,
   Bot,
   User as UserIcon,
-  Sparkles,
-  ChevronDown,
-  Package,
   RefreshCw,
 } from "lucide-react";
 import Image from "next/image";
@@ -26,7 +20,6 @@ import Link from "next/link";
 import { useSession } from "@/lib/auth-client";
 import { useQueryClient } from "@tanstack/react-query";
 import { formatPrice, getImageUrl } from "@/lib/utils";
-import { toast } from "sonner";
 
 //  Types
 
@@ -96,7 +89,7 @@ function BranchMap({ branches }: { branches: any[] }) {
     <div className="mt-3 space-y-2">
       {branches.map((b) => (
         <div
-          key={b.slug}
+          key={b.slug || b.id}
           className="bg-background border border-border rounded-xl p-3 flex items-start gap-3"
         >
           <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center shrink-0 mt-0.5">
@@ -104,13 +97,15 @@ function BranchMap({ branches }: { branches: any[] }) {
           </div>
           <div className="min-w-0 flex-1">
             <p className="font-semibold text-xs">
-              {b.name.replace("Simba Supermarket ", "")}
+              {b.name?.replace("Simba Supermarket ", "")}
             </p>
             <p className="text-[11px] text-muted-foreground">{b.address}</p>
             <div className="flex items-center gap-3 mt-1">
-              <span className="text-[10px] text-muted-foreground">
-                {b.hours}
-              </span>
+              {b.hours && (
+                <span className="text-[10px] text-muted-foreground">
+                  {b.hours}
+                </span>
+              )}
               {b.rating > 0 && (
                 <span className="flex items-center gap-0.5 text-[10px]">
                   <Star className="h-2.5 w-2.5 fill-primary text-primary" />
@@ -193,7 +188,7 @@ function WishlistDisplay({ items }: { items: any[] }) {
       <div className="divide-y divide-border max-h-40 overflow-y-auto">
         {items.map((item: any) => (
           <div
-            key={item.productId}
+            key={item.productId || item.id}
             className="px-3 py-2 flex items-center gap-2"
           >
             <div className="relative w-8 h-8 rounded-lg overflow-hidden bg-muted shrink-0">
@@ -212,7 +207,11 @@ function WishlistDisplay({ items }: { items: any[] }) {
               </p>
             </div>
             <span
-              className={`text-[10px] px-1.5 py-0.5 rounded-full shrink-0 ${item.inStock ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" : "bg-red-100 text-red-700 dark:bg-red-900/30"}`}
+              className={`text-[10px] px-1.5 py-0.5 rounded-full shrink-0 ${
+                item.inStock
+                  ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                  : "bg-red-100 text-red-700 dark:bg-red-900/30"
+              }`}
             >
               {item.inStock ? "In stock" : "Out of stock"}
             </span>
@@ -231,26 +230,19 @@ function ToolResultRenderer({
   locale: string;
 }) {
   if (!toolResults?.length) return null;
-
   return (
     <div className="space-y-1">
       {toolResults.map((tr, i) => {
         const r = tr.result;
-
-        if (tr.toolName === "get_products" && r.products?.length) {
+        if (tr.toolName === "get_products" && r.products?.length)
           return <ProductGrid key={i} products={r.products} locale={locale} />;
-        }
-        if (tr.toolName === "get_branches" && r.branches?.length) {
+        if (tr.toolName === "get_branches" && r.branches?.length)
           return <BranchMap key={i} branches={r.branches} />;
-        }
-        if (tr.toolName === "get_cart") {
-          return <CartDisplay key={i} cart={r} />;
-        }
-        if (tr.toolName === "get_wishlist") {
+        if (tr.toolName === "get_cart") return <CartDisplay key={i} cart={r} />;
+        if (tr.toolName === "get_wishlist")
           return <WishlistDisplay key={i} items={r.items || []} />;
-        }
         if (tr.toolName === "add_to_cart") {
-          if (r.success) return null; // silent success
+          if (r.success) return null;
           return (
             <p key={i} className="text-xs text-destructive mt-1">
               {r.error}
@@ -267,14 +259,12 @@ function ToolResultRenderer({
 
 function MessageBubble({ msg, locale }: { msg: Message; locale: string }) {
   const isUser = msg.role === "user";
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       className={`flex gap-2.5 ${isUser ? "flex-row-reverse" : "flex-row"}`}
     >
-      {/* Avatar */}
       <div
         className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
           isUser ? "bg-primary/10" : "bg-primary"
@@ -286,8 +276,6 @@ function MessageBubble({ msg, locale }: { msg: Message; locale: string }) {
           <Bot className="h-3.5 w-3.5 text-white" />
         )}
       </div>
-
-      {/* Content */}
       <div
         className={`max-w-[85%] ${isUser ? "items-end" : "items-start"} flex flex-col gap-1`}
       >
@@ -313,8 +301,6 @@ function MessageBubble({ msg, locale }: { msg: Message; locale: string }) {
             <p className="whitespace-pre-wrap">{msg.content}</p>
           )}
         </div>
-
-        {/* Tool results rendered below the bubble */}
         {!isUser && msg.toolResults && (
           <div className="w-full">
             <ToolResultRenderer toolResults={msg.toolResults} locale={locale} />
@@ -325,7 +311,7 @@ function MessageBubble({ msg, locale }: { msg: Message; locale: string }) {
   );
 }
 
-//  Quick action chips
+//  Quick actions
 
 const QUICK_ACTIONS = [
   { label: "🛒 My cart", message: "Show me my cart" },
@@ -337,6 +323,40 @@ const QUICK_ACTIONS = [
     message: "Add all my wishlist items to my cart",
   },
 ];
+
+//  Helper: get session token from cookies
+// better-auth may store the token under different cookie names depending on config.
+// We try several possible names and also check localStorage as a fallback.
+function getSessionToken(): string | null {
+  if (typeof document === "undefined") return null;
+
+  const cookieNames = [
+    "better-auth.session_token",
+    "authjs.session-token",
+    "next-auth.session-token",
+    "__Secure-next-auth.session-token",
+    "session_token",
+  ];
+
+  for (const name of cookieNames) {
+    const match = document.cookie
+      .split("; ")
+      .find((c) => c.startsWith(`${name}=`));
+    if (match) return decodeURIComponent(match.split("=").slice(1).join("="));
+  }
+
+  // Fallback: some setups store it in localStorage
+  try {
+    const stored =
+      localStorage.getItem("better-auth.session_token") ||
+      localStorage.getItem("session_token");
+    if (stored) return stored;
+  } catch {
+    // ignore
+  }
+
+  return null;
+}
 
 //  Main Agent component
 
@@ -386,27 +406,32 @@ export function SimbaAgent() {
       setInput("");
       setLoading(true);
 
-      // Build history for API (exclude loading messages)
       const history = [...messages, userMsg]
         .filter((m) => !m.loading)
         .map((m) => ({ role: m.role, content: m.content }));
 
       try {
-        // Get session token from cookie for backend auth
-        const sessionToken = document.cookie
-          .split("; ")
-          .find((c) => c.startsWith("better-auth.session_token="))
-          ?.split("=")?.[1];
+        // Try to get token from cookie/localStorage
+        const sessionToken = getSessionToken();
 
         const res = await fetch("/api/agent", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            ...(sessionToken
+              ? { Authorization: `Bearer ${sessionToken}` }
+              : {}),
+          },
+          credentials: "include",
           body: JSON.stringify({ messages: history, sessionToken }),
         });
 
+        if (!res.ok) {
+          throw new Error(`Agent API returned ${res.status}`);
+        }
+
         const data = await res.json();
 
-        // If cart was modified, refresh cart query
         const cartModified = data.toolResults?.some((tr: any) =>
           ["add_to_cart", "remove_from_cart", "clear_cart"].includes(
             tr.toolName,
@@ -428,7 +453,8 @@ export function SimbaAgent() {
         setMessages((prev) =>
           prev.filter((m) => !m.loading).concat(assistantMsg),
         );
-      } catch {
+      } catch (err) {
+        console.error("Agent error:", err);
         setMessages((prev) =>
           prev
             .filter((m) => !m.loading)

@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -19,6 +20,7 @@ import {
   Bell,
   ChevronRight,
   Clock,
+  Blocks,
 } from "lucide-react";
 import { useSession, signOut } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
@@ -36,6 +38,7 @@ const NAV_ITEMS = [
   { label: "Messages", href: "contacts", icon: MessageSquare },
   { label: "Banners", href: "banners", icon: ImageIcon },
   { label: "Settings", href: "settings", icon: Settings },
+  { label: "Branches", href: "branches", icon: Blocks },
 ];
 
 export default function AdminLayout({

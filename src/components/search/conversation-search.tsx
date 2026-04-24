@@ -10,34 +10,36 @@ import {
   MapPin,
   ExternalLink,
 } from "lucide-react";
-import { searchApi } from "@/lib/api";
+import { branchApi, searchApi } from "@/lib/api";
 import { formatPrice, getImageUrl } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
+import { useQuery } from "@tanstack/react-query";
 
 interface SearchResult {
   reply: string;
   products: any[];
 }
 
-//  Embedded Google Maps for branch results
-
 function BranchesMap({ branches }: { branches: any[] }) {
   const [activeIdx, setActiveIdx] = useState(0);
   const active = branches[activeIdx];
 
-  if (!branches?.length || !active?.lat) return null;
+  if (!branches?.length) return null;
 
-  const mapsUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyB_placeholder&q=${active.lat},${active.lng}&zoom=15`;
-  // Use staticmap-style fallback that works without API key
-  const staticUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${active.lng - 0.005},${active.lat - 0.005},${active.lng + 0.005},${active.lat + 0.005}&layer=mapnik&marker=${active.lat},${active.lng}`;
+  // If no coordinates, show list-only view
+  const hasCoords = active?.lat && active?.lng;
+
+  const staticUrl = hasCoords
+    ? `https://www.openstreetmap.org/export/embed.html?bbox=${Number(active.lng) - 0.005},${Number(active.lat) - 0.005},${Number(active.lng) + 0.005},${Number(active.lat) + 0.005}&layer=mapnik&marker=${active.lat},${active.lng}`
+    : null;
 
   return (
     <div className="mt-3 rounded-xl overflow-hidden border border-border">
       {/* Branch selector tabs */}
       {branches.length > 1 && (
         <div className="flex overflow-x-auto bg-muted/50 border-b border-border">
-          {branches.slice(0, 5).map((b, i) => (
+          {branches.slice(0, 6).map((b, i) => (
             <button
               key={i}
               onClick={() => setActiveIdx(i)}
@@ -53,27 +55,31 @@ function BranchesMap({ branches }: { branches: any[] }) {
         </div>
       )}
 
-      {/* Map iframe */}
-      <div className="relative">
-        <iframe
-          src={staticUrl}
-          width="100%"
-          height="200"
-          className="block border-0"
-          title={active.name}
-          loading="lazy"
-        />
-        <a
-          href={`https://www.google.com/maps?q=${active.lat},${active.lng}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="absolute top-2 right-2 bg-background/90 backdrop-blur border border-border text-xs font-medium px-2.5 py-1.5 rounded-lg flex items-center gap-1 hover:bg-primary hover:text-white hover:border-primary transition-all shadow"
-        >
-          <ExternalLink className="h-3 w-3" /> Open in Maps
-        </a>
-      </div>
+      {/* Map iframe - only if coordinates exist */}
+      {staticUrl && (
+        <div className="relative">
+          <iframe
+            key={activeIdx} // force re-render when branch changes
+            src={staticUrl}
+            width="100%"
+            height="220"
+            className="block border-0"
+            title={active.name}
+            loading="lazy"
+            sandbox="allow-scripts allow-same-origin"
+          />
+          <a
+            href={`https://www.google.com/maps?q=${active.lat},${active.lng}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute top-2 right-2 bg-background/90 backdrop-blur border border-border text-xs font-medium px-2.5 py-1.5 rounded-lg flex items-center gap-1 hover:bg-primary hover:text-white hover:border-primary transition-all shadow"
+          >
+            <ExternalLink className="h-3 w-3" /> Open in Maps
+          </a>
+        </div>
+      )}
 
-      {/* Branch info */}
+      {/* Branch info card */}
       <div className="p-3 bg-background">
         <p className="font-semibold text-sm">{active.name}</p>
         <p className="text-xs text-muted-foreground mt-0.5 flex items-center gap-1">
@@ -84,12 +90,25 @@ function BranchesMap({ branches }: { branches: any[] }) {
             📞 {active.phone}
           </p>
         )}
+        {active.hours && (
+          <p className="text-xs text-muted-foreground mt-0.5">
+            🕐 {active.hours}
+          </p>
+        )}
+        {!hasCoords && active.lat === undefined && (
+          <a
+            href={`https://www.google.com/maps/search/${encodeURIComponent(active.name + " " + active.address)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-xs text-primary hover:underline mt-1"
+          >
+            <ExternalLink className="h-3 w-3" /> Find on Maps
+          </a>
+        )}
       </div>
     </div>
   );
 }
-
-//  Product grid
 
 function ProductGrid({
   products,
@@ -134,8 +153,6 @@ function ProductGrid({
   );
 }
 
-//  Main component
-
 export function ConversationalSearch({ branchId }: { branchId?: string }) {
   const t = useTranslations("search");
   const locale = useLocale();
@@ -159,27 +176,42 @@ export function ConversationalSearch({ branchId }: { branchId?: string }) {
     setLoading(true);
     setOpen(true);
     setBranches([]);
+    setResult(null);
 
-    // Check if it's a branch / location query
-    const isBranchQuery = /branch|location|kigali|where|address|map/i.test(q);
+    const isBranchQuery =
+      /branch|location|kigali|where|address|map|store|outlet/i.test(q);
 
     try {
       if (isBranchQuery) {
-        // Fetch branches from backend
-        const API_BASE =
-          process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
-        const res = await fetch(`${API_BASE}/branches`);
+        const { data: res, isLoading } = useQuery({
+          queryKey: ["branches"],
+          queryFn: () => branchApi.list().then((r) => r.data),
+        });
+        if (!res.ok) throw new Error("Failed to fetch branches");
         const data = await res.json();
-        setBranches(data || []);
+        const branchList = Array.isArray(data) ? data : data.branches || [];
+        setBranches(branchList);
         setResult({
-          reply: `Here are all ${data.length} Simba Supermarket branches in Kigali. Click a branch tab to see it on the map.`,
+          reply:
+            branchList.length > 0
+              ? `Here are all ${branchList.length} Simba Supermarket branches in Kigali. Click a branch tab to see it on the map.`
+              : "I couldn't find any branch information right now. Please try again.",
           products: [],
         });
       } else {
         const res = await searchApi.search(q, branchId);
-        setResult(res.data);
+        const data = res.data;
+        setResult({
+          reply:
+            data?.reply ||
+            (data?.products?.length
+              ? `Found ${data.products.length} result(s) for "${q}".`
+              : `No products found for "${q}". Try a different search term.`),
+          products: data?.products || [],
+        });
       }
-    } catch {
+    } catch (err) {
+      console.error("Search error:", err);
       setResult({
         reply: "Search is unavailable right now. Please try again.",
         products: [],
