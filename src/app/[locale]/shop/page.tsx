@@ -92,7 +92,7 @@ export default function ShopPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">
+          <h1 className="text-lg md:text-2xl font-bold text-foreground">
             {search
               ? `Results for "${search}"`
               : category
@@ -109,7 +109,7 @@ export default function ShopPage() {
             </p>
           )}
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col md:flex-row items-center gap-2">
           {hasFilters && (
             <button
               onClick={clearFilters}

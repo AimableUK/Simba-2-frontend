@@ -28,7 +28,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { formatPrice, getImageUrl } from "@/lib/utils";
 import { toast } from "sonner";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+//  Types
 
 interface Message {
   id: string;
@@ -44,7 +44,7 @@ interface ToolResult {
   result: any;
 }
 
-// ─── Tool result renderers ────────────────────────────────────────────────────
+//  Tool result renderers
 
 function ProductGrid({
   products,
@@ -263,7 +263,7 @@ function ToolResultRenderer({
   );
 }
 
-// ─── Message bubble ───────────────────────────────────────────────────────────
+//  Message bubble
 
 function MessageBubble({ msg, locale }: { msg: Message; locale: string }) {
   const isUser = msg.role === "user";
@@ -325,7 +325,7 @@ function MessageBubble({ msg, locale }: { msg: Message; locale: string }) {
   );
 }
 
-// ─── Quick action chips ───────────────────────────────────────────────────────
+//  Quick action chips
 
 const QUICK_ACTIONS = [
   { label: "🛒 My cart", message: "Show me my cart" },
@@ -338,7 +338,7 @@ const QUICK_ACTIONS = [
   },
 ];
 
-// ─── Main Agent component ─────────────────────────────────────────────────────
+//  Main Agent component
 
 export function SimbaAgent() {
   const locale = useLocale();
