@@ -358,7 +358,7 @@ export function Navbar() {
                           </Link>
                           {isAdmin && (
                             <Link
-                              href={`/${locale}/admin`}
+                              href={`/${locale}/admin/dashboard`}
                               onClick={() => setUserOpen(false)}
                               className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-accent transition-colors text-primary font-medium"
                             >
