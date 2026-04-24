@@ -90,7 +90,7 @@ export default function ShopPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
       {/* Header */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex flex-col md:flex-row items-center justify-between mb-4">
         <div>
           <h1 className="text-lg md:text-2xl font-bold text-foreground">
             {search
@@ -109,7 +109,7 @@ export default function ShopPage() {
             </p>
           )}
         </div>
-        <div className="flex flex-col md:flex-row items-center gap-2">
+        <div className="flex items-center gap-2">
           {hasFilters && (
             <button
               onClick={clearFilters}
