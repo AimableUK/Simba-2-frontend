@@ -47,10 +47,10 @@ export const productApi = {
   top: () => api.get("/products/top"),
   recommendations: () => api.get("/products/recommendations"),
   adminList: (params?: Record<string, any>) =>
-    api.get("/admin/products", { params }),
-  create: (data: any) => api.post("/admin/products", data),
-  update: (id: string, data: any) => api.put(`/admin/products/${id}`, data),
-  delete: (id: string) => api.delete(`/admin/products/${id}`),
+    api.get("/products/admin/all", { params }),
+  create: (data: any) => api.post("/products/admin", data),
+  update: (id: string, data: any) => api.put(`/products/admin/${id}`, data),
+  delete: (id: string) => api.delete(`/products/admin/${id}`),
 };
 
 //  Categories
