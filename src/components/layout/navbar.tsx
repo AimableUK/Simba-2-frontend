@@ -10,30 +10,21 @@ import {
   Search,
   Menu,
   X,
-  Globe,
   Heart,
   User,
   LogOut,
   Settings,
   Package,
   ChevronDown,
-  Bell,
 } from "lucide-react";
 import { useCartStore, useUIStore } from "@/store";
 import { useSession, signOut } from "@/lib/auth-client";
 import { useQuery } from "@tanstack/react-query";
 import { categoryApi } from "@/lib/api";
 import { cn } from "@/lib/utils";
-import { routing } from "@/i18n/routing";
 import { useNotifications } from "@/hooks/useSocket";
 import { ThemeSwitcherV1 } from "@/lib/theme-switcher-v1";
-
-const LOCALES = [
-  { code: "en", label: "English", flag: "🇬🇧" },
-  { code: "rw", label: "Kinyarwanda", flag: "🇷🇼" },
-  { code: "sw", label: "Kiswahili", flag: "🇹🇿" },
-  { code: "fr", label: "Français", flag: "🇫🇷" },
-];
+import LanguageSwitcherV1 from "../common/LanguageSwitcherV1";
 
 export function Navbar() {
   const t = useTranslations("nav");
@@ -55,7 +46,6 @@ export function Navbar() {
   const isAdminRoute = pathname.includes("/admin");
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [langOpen, setLangOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
   const [catOpen, setCatOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -79,13 +69,6 @@ export function Navbar() {
   useEffect(() => {
     if (searchOpen) searchRef.current?.focus();
   }, [searchOpen]);
-
-  const switchLocale = (newLocale: string) => {
-    setLangOpen(false);
-    const segments = pathname.split("/");
-    segments[1] = newLocale;
-    router.push(segments.join("/"));
-  };
 
   const handleSearch = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -248,42 +231,10 @@ export function Navbar() {
               </button>
 
               {/* Language */}
-              <div className="relative">
-                <button
-                  onClick={() => setLangOpen(!langOpen)}
-                  className="p-2 rounded-lg hover:bg-accent text-foreground/70 hover:text-primary transition-colors flex items-center gap-1"
-                >
-                  <Globe className="w-5 h-5" />
-                  <span className="hidden sm:inline text-xs uppercase font-medium">
-                    {locale}
-                  </span>
-                </button>
-                <AnimatePresence>
-                  {langOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      className="absolute right-0 top-full mt-2 w-44 bg-card border border-border rounded-xl shadow-xl overflow-hidden z-50"
-                    >
-                      {LOCALES.map((l) => (
-                        <button
-                          key={l.code}
-                          onClick={() => switchLocale(l.code)}
-                          className={cn(
-                            "w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-accent transition-colors",
-                            locale === l.code &&
-                              "text-primary font-semibold bg-accent",
-                          )}
-                        >
-                          <span>{l.flag}</span>
-                          {l.label}
-                        </button>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+              <LanguageSwitcherV1
+                userOpen={userOpen}
+                setUserOpen={setUserOpen}
+              />
 
               {/* Wishlist */}
               {user && (
@@ -545,17 +496,6 @@ export function Navbar() {
           </>
         )}
       </AnimatePresence>
-
-      {/* Click outside to close dropdowns */}
-      {(langOpen || userOpen) && (
-        <div
-          className="fixed inset-0 z-40"
-          onClick={() => {
-            setLangOpen(false);
-            setUserOpen(false);
-          }}
-        />
-      )}
     </>
   );
 }
