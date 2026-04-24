@@ -4,7 +4,8 @@ import { routing } from "./i18n/routing";
 
 const SESSION_COOKIE = "better-auth.session_token";
 const SECURE_SESSION_COOKIE = "__Secure-better-auth.session_token";
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+const BACKEND_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
 
 // Routes that require authentication (after locale prefix)
 const PROTECTED_PREFIXES = ["/dashboard", "/admin", "/orders", "/profile"];
@@ -33,7 +34,9 @@ function getSessionToken(request: NextRequest): string | undefined {
 // Proxy /api/* → backend
 async function handleApiProxy(request: NextRequest): Promise<NextResponse> {
   const { pathname, search } = request.nextUrl;
-  const target = `${BACKEND_URL}${pathname}${search}`;
+
+  const strippedApiPath = pathname.replace(/^\/api/, "");
+  const target = `${BACKEND_URL}${strippedApiPath}${search}`;
 
   const headers = new Headers(request.headers);
   headers.set("x-forwarded-host", request.headers.get("host") || "");
