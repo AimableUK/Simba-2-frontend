@@ -108,10 +108,10 @@ export const blogApi = {
   deleteComment: (id: string, commentId: string) =>
     api.delete(`/blogs/${id}/comments/${commentId}`),
   adminList: (params?: Record<string, any>) =>
-    api.get("/admin/blogs", { params }),
-  create: (data: any) => api.post("/admin/blogs", data),
-  update: (id: string, data: any) => api.put(`/admin/blogs/${id}`, data),
-  delete: (id: string) => api.delete(`/admin/blogs/${id}`),
+    api.get("/blogs/admin/all", { params }),
+  create: (data: any) => api.post("/blogs/admin", data),
+  update: (id: string, data: any) => api.put(`/blogs/admin/${id}`, data),
+  delete: (id: string) => api.delete(`/blogs/admin/${id}`),
 };
 
 //  Contact
