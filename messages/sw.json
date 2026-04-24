@@ -42,7 +42,7 @@
     "addedToCart": "Imeongezwa kwenye kikapu!",
     "buyNow": "Nunua Sasa",
     "outOfStock": "Imeisha",
-    "lowStock": "Zimebaki {count} tu",
+    "lowStock": "Zimebaki tu",
     "inStock": "Ipo Stokini",
     "reviews": "Maoni",
     "rating": "Ukadiriaji",
@@ -340,7 +340,7 @@
     "title": "Tafuta Bidhaa",
     "placeholder": "Uliza chochote - \"Una maziwa mapya?\" au \"Ninahitaji kitu cha kiamsha kinywa\"",
     "searching": "Inatafuta...",
-    "results": "Matokeo {count} yamepatikana",
+    "results": "Matokeo yamepatikana",
     "noResults": "Hakuna bidhaa zilizopatikana. Jaribu tena.",
     "poweredBy": "Inasaidiwa na AI",
     "tryExample": "Jaribu: \"mboga safi\", \"vinywaji baridi\", \"vyakula vya asubuhi\""

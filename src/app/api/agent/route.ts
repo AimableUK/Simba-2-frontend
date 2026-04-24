@@ -3,26 +3,17 @@ import { NextRequest, NextResponse } from "next/server";
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
 
-const SYSTEM_PROMPT = `You are Simba, the friendly AI shopping assistant for Simba Super Market - Kigali's favourite supermarket chain.
+const SYSTEM_PROMPT = `You are Simba, the friendly AI shopping assistant for Simba Super Market — Kigali's favourite supermarket chain with 9 branches.
 
-You have access to these tools:
-- get_products: Search/list products from the store
-- get_branches: List all 9 Kigali branches with locations
-- get_cart: View the user's current cart
-- get_wishlist: View the user's wishlist
-- add_to_cart: Add a product to cart
-- remove_from_cart: Remove a product from cart
-- clear_cart: Empty the entire cart
+You have access to tools to fetch live data. Always call a tool to get real data before answering questions about products, branches, cart, or wishlist.
 
-RULES:
-- Always respond in the SAME language the user writes in (English, Kinyarwanda, French, or Swahili)
-- Be warm, helpful and concise - you are a friendly Rwandan supermarket assistant
-- When showing products, include price in RWF, stock status, and a short description
-- When the user asks to add wishlist items to cart, FIRST call get_wishlist, then add each item
-- NEVER make up products - only use real data from the tools
-- For branch questions, always show the real 9 Kigali locations
-- Keep replies short and conversational unless detail is needed
-- Use emojis sparingly but warmly 🛒`;
+BEHAVIOUR:
+- Respond in the SAME language the user writes in (English, Kinyarwanda, French, Swahili)
+- Be warm, concise, and helpful — you are a friendly Rwandan supermarket assistant
+- Always use real data from tools — never invent product names, prices, or branch info
+- When adding wishlist to cart: call get_wishlist first, then add each in-stock item one by one
+- Keep replies short (2-4 sentences max) unless listing items
+- Use light emojis: 🛒 🥛 📍 ✅ ❤️`;
 
 export async function POST(req: NextRequest) {
   try {
@@ -30,11 +21,19 @@ export async function POST(req: NextRequest) {
     const groqKey = process.env.GROQ_API_KEY;
 
     if (!groqKey) {
-      return NextResponse.json(
-        { error: "Groq API key not configured" },
-        { status: 500 },
-      );
+      return NextResponse.json({
+        reply:
+          "I'm not configured yet. Please add a GROQ_API_KEY to the environment.",
+        toolResults: [],
+      });
     }
+
+    const backendHeaders: Record<string, string> = {
+      "Content-Type": "application/json",
+      ...(sessionToken && {
+        Cookie: `better-auth.session_token=${sessionToken}`,
+      }),
+    };
 
     const tools = [
       {
@@ -42,22 +41,15 @@ export async function POST(req: NextRequest) {
         function: {
           name: "get_products",
           description:
-            "Search for products in the store by keyword, category, or browse all",
+            "Search products in the store. Call this for ANY question about products, food, drinks, availability.",
           parameters: {
             type: "object",
             properties: {
               query: {
                 type: "string",
-                description: "Search query or empty for all",
+                description: "Search keyword (empty = browse all)",
               },
-              category: {
-                type: "string",
-                description: "Category slug to filter by",
-              },
-              limit: {
-                type: "number",
-                description: "Max products to return (default 8)",
-              },
+              limit: { type: "number", description: "Max results, default 8" },
             },
           },
         },
@@ -67,7 +59,7 @@ export async function POST(req: NextRequest) {
         function: {
           name: "get_branches",
           description:
-            "Get all 9 Simba Supermarket branches in Kigali with their locations",
+            "Get all 9 Simba branches in Kigali. Call for ANY branch/location/address questions.",
           parameters: { type: "object", properties: {} },
         },
       },
@@ -75,7 +67,7 @@ export async function POST(req: NextRequest) {
         type: "function",
         function: {
           name: "get_cart",
-          description: "Get the current user cart contents and total",
+          description: "Get user's current cart contents and total.",
           parameters: { type: "object", properties: {} },
         },
       },
@@ -83,7 +75,7 @@ export async function POST(req: NextRequest) {
         type: "function",
         function: {
           name: "get_wishlist",
-          description: "Get all items in the user wishlist",
+          description: "Get all items in the user's wishlist.",
           parameters: { type: "object", properties: {} },
         },
       },
@@ -91,19 +83,13 @@ export async function POST(req: NextRequest) {
         type: "function",
         function: {
           name: "add_to_cart",
-          description: "Add a product to the user cart",
+          description: "Add a product to cart by productId.",
           parameters: {
             type: "object",
-            required: ["productId", "quantity"],
+            required: ["productId"],
             properties: {
-              productId: {
-                type: "string",
-                description: "The product ID to add",
-              },
-              quantity: {
-                type: "number",
-                description: "Quantity to add (default 1)",
-              },
+              productId: { type: "string" },
+              quantity: { type: "number", description: "Default 1" },
             },
           },
         },
@@ -112,16 +98,11 @@ export async function POST(req: NextRequest) {
         type: "function",
         function: {
           name: "remove_from_cart",
-          description: "Remove a product from the user cart",
+          description: "Remove a product from cart.",
           parameters: {
             type: "object",
             required: ["productId"],
-            properties: {
-              productId: {
-                type: "string",
-                description: "The product ID to remove",
-              },
-            },
+            properties: { productId: { type: "string" } },
           },
         },
       },
@@ -129,37 +110,28 @@ export async function POST(req: NextRequest) {
         type: "function",
         function: {
           name: "clear_cart",
-          description: "Remove all items from the user cart",
+          description: "Remove ALL items from cart.",
           parameters: { type: "object", properties: {} },
         },
       },
     ];
 
-    // Build auth headers for backend calls
-    const backendHeaders: Record<string, string> = {
-      "Content-Type": "application/json",
-      ...(sessionToken && {
-        Cookie: `better-auth.session_token=${sessionToken}`,
-      }),
-    };
-
-    // Tool executor
-    async function executeTool(name: string, args: any): Promise<string> {
+    async function executeTool(
+      name: string,
+      args: Record<string, any>,
+    ): Promise<string> {
       try {
         switch (name) {
           case "get_products": {
-            const params = new URLSearchParams();
+            const params = new URLSearchParams({
+              limit: String(args.limit || 8),
+            });
             if (args.query) params.set("search", args.query);
-            if (args.category) params.set("category", args.category);
-            if (args.limit) params.set("limit", String(args.limit));
-            else params.set("limit", "8");
-            const res = await fetch(`${API_BASE}/products?${params}`, {
+            const r = await fetch(`${API_BASE}/products?${params}`, {
               headers: backendHeaders,
             });
-            const data = await res.json();
-            const products = data.data || data;
-            if (!products?.length)
-              return JSON.stringify({ found: 0, message: "No products found" });
+            const d = await r.json();
+            const products = Array.isArray(d) ? d : d.data || [];
             return JSON.stringify({
               found: products.length,
               products: products.slice(0, 8).map((p: any) => ({
@@ -167,19 +139,19 @@ export async function POST(req: NextRequest) {
                 name: p.name,
                 price: p.price,
                 stock: p.stock,
-                category: p.category?.name,
                 slug: p.slug,
-                images: p.images?.slice(0, 1),
-                description: p.shortDescription || p.description?.slice(0, 80),
+                category: p.category?.name || "",
+                images: p.images?.slice(0, 1) || [],
+                description:
+                  p.shortDescription || p.description?.slice(0, 80) || "",
               })),
             });
           }
-
           case "get_branches": {
-            const res = await fetch(`${API_BASE}/branches`, {
+            const r = await fetch(`${API_BASE}/branches`, {
               headers: backendHeaders,
             });
-            const branches = await res.json();
+            const branches = await r.json();
             return JSON.stringify({
               count: branches.length,
               branches: branches.map((b: any) => ({
@@ -188,25 +160,24 @@ export async function POST(req: NextRequest) {
                 district: b.district,
                 lat: b.lat,
                 lng: b.lng,
-                phone: b.phone,
+                phone: b.phone || null,
                 hours: `${b.openTime}–${b.closeTime}`,
                 rating: b.rating,
                 slug: b.slug,
               })),
             });
           }
-
           case "get_cart": {
-            const res = await fetch(`${API_BASE}/cart`, {
+            const r = await fetch(`${API_BASE}/cart`, {
               headers: backendHeaders,
             });
-            if (!res.ok) return JSON.stringify({ error: "Not authenticated" });
-            const data = await res.json();
+            if (!r.ok)
+              return JSON.stringify({ error: "Not signed in", items: [] });
+            const d = await r.json();
             return JSON.stringify({
-              itemCount: data.items?.length || 0,
-              total: data.total,
-              deliveryFee: data.deliveryFee,
-              items: data.items?.map((i: any) => ({
+              itemCount: d.items?.length || 0,
+              total: d.total || 0,
+              items: (d.items || []).map((i: any) => ({
                 productId: i.productId,
                 name: i.product?.name,
                 quantity: i.quantity,
@@ -215,29 +186,28 @@ export async function POST(req: NextRequest) {
               })),
             });
           }
-
           case "get_wishlist": {
-            const res = await fetch(`${API_BASE}/wishlist`, {
+            const r = await fetch(`${API_BASE}/wishlist`, {
               headers: backendHeaders,
             });
-            if (!res.ok) return JSON.stringify({ error: "Not authenticated" });
-            const items = await res.json();
+            if (!r.ok)
+              return JSON.stringify({ error: "Not signed in", items: [] });
+            const items = await r.json();
             return JSON.stringify({
               count: items.length,
-              items: items.map((i: any) => ({
+              items: (items || []).map((i: any) => ({
                 productId: i.productId,
                 name: i.product?.name,
                 price: i.product?.price,
                 stock: i.product?.stock,
                 slug: i.product?.slug,
-                images: i.product?.images?.slice(0, 1),
-                inStock: i.product?.stock > 0,
+                images: i.product?.images?.slice(0, 1) || [],
+                inStock: (i.product?.stock || 0) > 0,
               })),
             });
           }
-
           case "add_to_cart": {
-            const res = await fetch(`${API_BASE}/cart`, {
+            const r = await fetch(`${API_BASE}/cart`, {
               method: "POST",
               headers: backendHeaders,
               body: JSON.stringify({
@@ -245,47 +215,44 @@ export async function POST(req: NextRequest) {
                 quantity: args.quantity || 1,
               }),
             });
-            if (!res.ok) {
-              const err = await res.json();
-              return JSON.stringify({ success: false, error: err.message });
+            if (!r.ok) {
+              const e = await r.json();
+              return JSON.stringify({ success: false, error: e.message });
             }
-            return JSON.stringify({ success: true, message: `Added to cart` });
+            return JSON.stringify({ success: true });
           }
-
           case "remove_from_cart": {
-            const res = await fetch(`${API_BASE}/cart/${args.productId}`, {
+            const r = await fetch(`${API_BASE}/cart/${args.productId}`, {
               method: "DELETE",
               headers: backendHeaders,
             });
-            return JSON.stringify({ success: res.ok });
+            return JSON.stringify({ success: r.ok });
           }
-
           case "clear_cart": {
-            const res = await fetch(`${API_BASE}/cart`, {
+            const r = await fetch(`${API_BASE}/cart`, {
               method: "DELETE",
               headers: backendHeaders,
             });
-            return JSON.stringify({ success: res.ok });
+            return JSON.stringify({ success: r.ok });
           }
-
           default:
             return JSON.stringify({ error: "Unknown tool" });
         }
-      } catch (err) {
-        return JSON.stringify({ error: String(err) });
+      } catch (e) {
+        return JSON.stringify({ error: String(e) });
       }
     }
 
-    // Agentic loop - allow up to 5 tool call rounds
-    const groqMessages = [
+    // Build message history
+    const groqMessages: any[] = [
       { role: "system", content: SYSTEM_PROMPT },
-      ...messages,
+      ...messages.map((m: any) => ({ role: m.role, content: m.content })),
     ];
 
-    let finalContent = "";
-    let toolResults: any[] = [];
+    const allToolResults: any[] = [];
 
-    for (let round = 0; round < 5; round++) {
+    // Agentic loop — sequential tool execution to avoid race conditions
+    for (let round = 0; round < 6; round++) {
       const response = await fetch(GROQ_API_URL, {
         method: "POST",
         headers: {
@@ -297,10 +264,19 @@ export async function POST(req: NextRequest) {
           messages: groqMessages,
           tools,
           tool_choice: "auto",
-          temperature: 0.4,
+          temperature: 0.3,
           max_tokens: 1024,
         }),
       });
+
+      if (!response.ok) {
+        const err = await response.text();
+        console.error("Groq API error:", response.status, err);
+        return NextResponse.json({
+          reply: `I ran into an issue (${response.status}). Please try again.`,
+          toolResults: allToolResults,
+        });
+      }
 
       const data = await response.json();
       const choice = data.choices?.[0];
@@ -308,40 +284,66 @@ export async function POST(req: NextRequest) {
 
       if (!msg) break;
 
-      // No tool calls - we have final answer
+      // No tool calls = final text answer
       if (!msg.tool_calls || msg.tool_calls.length === 0) {
-        finalContent = msg.content || "";
-        break;
+        return NextResponse.json({
+          reply: msg.content || "",
+          toolResults: allToolResults,
+        });
       }
 
-      // Execute all tool calls in parallel
+      // Push assistant message first (with tool_calls)
       groqMessages.push({
         role: "assistant",
         content: msg.content || null,
         tool_calls: msg.tool_calls,
       });
 
-      await Promise.all(
-        msg.tool_calls.map(async (tc: any) => {
-          const args = JSON.parse(tc.function.arguments || "{}");
-          const result = await executeTool(tc.function.name, args);
-          toolResults.push({
-            toolName: tc.function.name,
-            args,
-            result: JSON.parse(result),
-          });
-          groqMessages.push({
-            role: "tool",
-            tool_call_id: tc.id,
-            content: result,
-          });
-        }),
-      );
+      // Execute tools SEQUENTIALLY to maintain message order
+      for (const tc of msg.tool_calls) {
+        const args = (() => {
+          try {
+            return JSON.parse(tc.function.arguments || "{}");
+          } catch {
+            return {};
+          }
+        })();
+
+        const resultStr = await executeTool(tc.function.name, args);
+        const resultObj = (() => {
+          try {
+            return JSON.parse(resultStr);
+          } catch {
+            return { raw: resultStr };
+          }
+        })();
+
+        allToolResults.push({
+          toolName: tc.function.name,
+          args,
+          result: resultObj,
+        });
+
+        // Push tool result immediately after executing
+        groqMessages.push({
+          role: "tool",
+          tool_call_id: tc.id,
+          content: resultStr,
+        });
+      }
     }
 
-    return NextResponse.json({ reply: finalContent, toolResults });
+    // Fallback if loop exhausted
+    return NextResponse.json({
+      reply:
+        "I processed your request but couldn't form a final answer. Please try rephrasing.",
+      toolResults: allToolResults,
+    });
   } catch (err) {
-    console.error("Agent error:", err);
-    return NextResponse.json({ error: "Agent unavailable" }, { status: 500 });
+    console.error("Agent route error:", err);
+    return NextResponse.json({
+      reply: "Something went wrong on my end. Please try again.",
+      toolResults: [],
+    });
   }
 }

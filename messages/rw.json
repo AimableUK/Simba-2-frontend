@@ -42,7 +42,7 @@
     "addedToCart": "Byashyizwe mu gasanduku!",
     "buyNow": "Gura Ubu",
     "outOfStock": "Ntigihari",
-    "lowStock": "Hasigaye {count} gusa",
+    "lowStock": "Hasigaye gusa",
     "inStock": "Gihari",
     "reviews": "Ibitekerezo",
     "rating": "Amanota",
@@ -340,7 +340,7 @@
     "title": "Shakisha Ibicuruzwa",
     "placeholder": "Baza ikibazo - \"Mufite amata mashya?\" cyangwa \"Ndashaka ikintu cya su\"",
     "searching": "Birakora...",
-    "results": "Ibisubizo {count} bibonetse",
+    "results": "Ibisubizo bibonetse",
     "noResults": "Nta bicuruzwa bibonetse. Gerageza ibindi.",
     "poweredBy": "Bikoreshwa na AI",
     "tryExample": "Gerageza: \"imboga nshya\", \"ibinyobwa bikonje\", \"ibiryo bya su\""
