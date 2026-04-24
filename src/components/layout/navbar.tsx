@@ -56,8 +56,8 @@ export function Navbar() {
   useNotifications(user?.id);
 
   const { data: categories } = useQuery({
-    queryKey: ["categories"],
-    queryFn: () => categoryApi.list().then((r) => r.data.data),
+    queryKey: ["categories", 6],
+    queryFn: () => categoryApi.list({ limit: 6 }).then((r) => r.data),
     staleTime: 1000 * 60 * 10,
   });
 

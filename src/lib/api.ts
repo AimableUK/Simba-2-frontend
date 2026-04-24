@@ -56,7 +56,7 @@ export const productApi = {
 //  Categories
 
 export const categoryApi = {
-  list: () => api.get("/categories"),
+  list: (params?: Record<string, any>) => api.get("/categories", { params }),
   get: (slug: string) => api.get(`/categories/${slug}`),
   adminList: (params?: Record<string, any>) =>
     api.get("/admin/categories", { params }),
