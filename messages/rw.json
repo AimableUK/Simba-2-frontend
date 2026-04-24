@@ -21,7 +21,7 @@
     "hero": {
       "badge": "Isoko Ryiza i Kigali",
       "title": "Ibiryo Bishya Bitumwe Ku Rugi Rwawe",
-      "subtitle": "Gura ibicuruzwa ibihumbi — ibiryo, ibinyobwa, ibikenewe mu ngo no kurushaho, bitumwa vuba i Kigali.",
+      "subtitle": "Gura ibicuruzwa ibihumbi - ibiryo, ibinyobwa, ibikenewe mu ngo no kurushaho, bitumwa vuba i Kigali.",
       "shopNow": "Gura Ubu",
       "viewCategories": "Reba Ibyiciro"
     },
@@ -276,7 +276,7 @@
     "language": "Ururimi"
   },
   "footer": {
-    "tagline": "Isoko ryiza i Kigali — bishya, byihuse, no kwizerwa.",
+    "tagline": "Isoko ryiza i Kigali - bishya, byihuse, no kwizerwa.",
     "shop": "Gutura",
     "allProducts": "Ibicuruzwa Byose",
     "categories": "Ibyiciro",
@@ -338,7 +338,7 @@
   },
   "search": {
     "title": "Shakisha Ibicuruzwa",
-    "placeholder": "Baza ikibazo — \"Mufite amata mashya?\" cyangwa \"Ndashaka ikintu cya su\"",
+    "placeholder": "Baza ikibazo - \"Mufite amata mashya?\" cyangwa \"Ndashaka ikintu cya su\"",
     "searching": "Birakora...",
     "results": "Ibisubizo {count} bibonetse",
     "noResults": "Nta bicuruzwa bibonetse. Gerageza ibindi.",

@@ -177,7 +177,7 @@ export default function BranchOrdersPage() {
                         </span>
                       </td>
                       <td className="px-4 py-3 text-xs text-muted-foreground">
-                        {order.assignedTo?.user?.name || "—"}
+                        {order.assignedTo?.user?.name || "-"}
                       </td>
                       <td className="px-4 py-3">
                         <button

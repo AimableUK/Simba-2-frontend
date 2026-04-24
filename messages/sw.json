@@ -21,7 +21,7 @@
     "hero": {
       "badge": "Supermarket Bora Kigali",
       "title": "Bidhaa Mbichi Zinapokelewa Mlangoni Kwako",
-      "subtitle": "Nunua bidhaa maelfu — vyakula, vinywaji, bidhaa za nyumbani na zaidi, vikitumwa haraka Kigali.",
+      "subtitle": "Nunua bidhaa maelfu - vyakula, vinywaji, bidhaa za nyumbani na zaidi, vikitumwa haraka Kigali.",
       "shopNow": "Nunua Sasa",
       "viewCategories": "Angalia Makundi"
     },
@@ -276,7 +276,7 @@
     "language": "Lugha"
   },
   "footer": {
-    "tagline": "Supermarket bora Kigali — safi, haraka, na ya kuamini.",
+    "tagline": "Supermarket bora Kigali - safi, haraka, na ya kuamini.",
     "shop": "Duka",
     "allProducts": "Bidhaa Zote",
     "categories": "Makundi",
@@ -338,7 +338,7 @@
   },
   "search": {
     "title": "Tafuta Bidhaa",
-    "placeholder": "Uliza chochote — \"Una maziwa mapya?\" au \"Ninahitaji kitu cha kiamsha kinywa\"",
+    "placeholder": "Uliza chochote - \"Una maziwa mapya?\" au \"Ninahitaji kitu cha kiamsha kinywa\"",
     "searching": "Inatafuta...",
     "results": "Matokeo {count} yamepatikana",
     "noResults": "Hakuna bidhaa zilizopatikana. Jaribu tena.",

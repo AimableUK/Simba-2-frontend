@@ -1,20 +1,30 @@
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, getTranslations } from 'next-intl/server';
-import { notFound } from 'next/navigation';
-import { routing } from '@/i18n/routing';
-import { Providers } from '@/components/providers';
-import { Navbar } from '@/components/layout/navbar';
-import { Footer } from '@/components/layout/footer';
-import { CartDrawer } from '@/components/cart/cart-drawer';
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages, getTranslations } from "next-intl/server";
+import { notFound } from "next/navigation";
+import { routing } from "@/i18n/routing";
+import { Providers } from "@/components/providers";
+import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
+import { CartDrawer } from "@/components/cart/cart-drawer";
+import { SimbaAgent } from "@/components/agents/simba-agent";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'nav' });
-  return { title: { default: 'Simba Super Market', template: '%s | Simba Super Market' } };
+  const t = await getTranslations({ locale, namespace: "nav" });
+  return {
+    title: {
+      default: "Simba Super Market",
+      template: "%s | Simba Super Market",
+    },
+  };
 }
 
 export default async function LocaleLayout({
@@ -40,6 +50,7 @@ export default async function LocaleLayout({
           <main className="flex-1">{children}</main>
           <Footer />
           <CartDrawer />
+          <SimbaAgent />
         </div>
       </Providers>
     </NextIntlClientProvider>

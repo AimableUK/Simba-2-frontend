@@ -21,7 +21,7 @@
     "hero": {
       "badge": "Le Supermarché Favori de Kigali",
       "title": "Épicerie Fraîche Livrée à Votre Porte",
-      "subtitle": "Achetez des milliers de produits — alimentation, boissons, essentiels ménagers et plus, livrés rapidement à Kigali.",
+      "subtitle": "Achetez des milliers de produits - alimentation, boissons, essentiels ménagers et plus, livrés rapidement à Kigali.",
       "shopNow": "Acheter Maintenant",
       "viewCategories": "Parcourir les Catégories"
     },
@@ -276,7 +276,7 @@
     "language": "Langue"
   },
   "footer": {
-    "tagline": "Le supermarché favori de Kigali — frais, rapide et fiable.",
+    "tagline": "Le supermarché favori de Kigali - frais, rapide et fiable.",
     "shop": "Boutique",
     "allProducts": "Tous les Produits",
     "categories": "Catégories",
@@ -338,7 +338,7 @@
   },
   "search": {
     "title": "Rechercher des Produits",
-    "placeholder": "Posez n'importe quelle question — \"Avez-vous du lait frais ?\"",
+    "placeholder": "Posez n'importe quelle question - \"Avez-vous du lait frais ?\"",
     "searching": "Recherche...",
     "results": "{count} résultats trouvés",
     "noResults": "Aucun produit trouvé. Essayez autre chose.",
