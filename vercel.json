@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://simba-backend.onrender.com/api/:path*"
+      "destination": "https://simba-api-3295.onrender.com/api/:path*"
     }
   ]
 }
