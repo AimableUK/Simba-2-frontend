@@ -18,11 +18,13 @@ import {
   LogOut,
   Bell,
   ChevronRight,
+  Clock,
 } from "lucide-react";
 import { useSession, signOut } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { useAdminSocket } from "@/hooks/useSocket";
 import { toast } from "sonner";
+import { ThemeSwitcherV1 } from "@/lib/theme-switcher-v1";
 
 const NAV_ITEMS = [
   { label: "Dashboard", href: "dashboard", icon: LayoutDashboard },
@@ -46,6 +48,12 @@ export default function AdminLayout({
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notifications, setNotifications] = useState(0);
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const interval = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   useAdminSocket({
     onNewOrder: (data) => {
@@ -97,7 +105,7 @@ export default function AdminLayout({
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border flex flex-col transition-transform duration-300 lg:translate-x-0 lg:static lg:z-auto",
+          "fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border flex flex-col transition-transform duration-300 lg:translate-x-0 lg:static lg:z-auto lg:h-screen lg:top-0",
           sidebarOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
@@ -192,6 +200,16 @@ export default function AdminLayout({
           >
             <Menu className="h-5 w-5" />
           </button>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground ml-3">
+            <Clock className="h-4 w-4" />
+            <span className="font-mono">
+              {time.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+              })}
+            </span>
+          </div>
           <div className="flex-1" />
           <div className="flex items-center gap-2">
             <button className="relative p-2 hover:bg-muted rounded-lg transition-colors">
@@ -202,6 +220,7 @@ export default function AdminLayout({
                 </span>
               )}
             </button>
+            <ThemeSwitcherV1 />
           </div>
         </header>
 
