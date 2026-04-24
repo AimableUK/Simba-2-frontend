@@ -73,12 +73,12 @@ const LanguageSwitcherV1 = ({
       </div>
 
       {/* Click outside to close dropdowns */}
-      {(langOpen || userOpen || setUserOpen) && (
+      {(langOpen || userOpen) && (
         <div
           className="fixed inset-0 z-40"
           onClick={() => {
             setLangOpen(false);
-            setUserOpen!(false);
+            setUserOpen?.(false);
           }}
         />
       )}
