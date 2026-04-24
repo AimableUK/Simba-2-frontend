@@ -66,7 +66,7 @@ export function Navbar() {
 
   const { data: categories } = useQuery({
     queryKey: ["categories"],
-    queryFn: () => categoryApi.list().then((r) => r.data),
+    queryFn: () => categoryApi.list().then((r) => r.data.data),
     staleTime: 1000 * 60 * 10,
   });
 
