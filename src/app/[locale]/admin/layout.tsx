@@ -25,6 +25,7 @@ import { cn } from "@/lib/utils";
 import { useAdminSocket } from "@/hooks/useSocket";
 import { toast } from "sonner";
 import { ThemeSwitcherV1 } from "@/lib/theme-switcher-v1";
+import LanguageSwitcherV1 from "@/components/common/LanguageSwitcherV1";
 
 const NAV_ITEMS = [
   { label: "Dashboard", href: "dashboard", icon: LayoutDashboard },
@@ -212,6 +213,7 @@ export default function AdminLayout({
           </div>
           <div className="flex-1" />
           <div className="flex items-center gap-2">
+            <LanguageSwitcherV1 />
             <button className="relative p-2 hover:bg-muted rounded-lg transition-colors">
               <Bell className="h-5 w-5" />
               {notifications > 0 && (
