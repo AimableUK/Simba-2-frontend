@@ -65,6 +65,8 @@ async function handleApiProxy(request: NextRequest): Promise<NextResponse> {
 
     const responseHeaders = new Headers(backendRes.headers);
     responseHeaders.delete("x-frame-options");
+    responseHeaders.delete("content-encoding");
+    responseHeaders.delete("transfer-encoding");
 
     return new NextResponse(backendRes.body, {
       status: backendRes.status,
