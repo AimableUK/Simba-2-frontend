@@ -91,10 +91,10 @@ export const orderApi = {
   myOrders: (params?: Record<string, any>) => api.get("/orders/my", { params }),
   myOrder: (id: string) => api.get(`/orders/my/${id}`),
   adminList: (params?: Record<string, any>) =>
-    api.get("/admin/orders", { params }),
+    api.get("/orders/admin/all", { params }),
   updateStatus: (id: string, data: { status: string; note?: string }) =>
-    api.put(`/admin/orders/${id}/status`, data),
-  dashboard: () => api.get("/admin/dashboard"),
+    api.put(`/orders/admin/${id}/status`, data),
+  dashboard: () => api.get("/orders/admin/dashboard"),
 };
 
 //  Blogs
@@ -126,12 +126,12 @@ export const contactApi = {
 //  Users
 
 export const userApi = {
-  me: () => api.get("/me"),
-  updateMe: (data: any) => api.put("/me", data),
+  me: () => api.get("/users/me"),
+  updateMe: (data: any) => api.put("/users/me", data),
   adminList: (params?: Record<string, any>) =>
-    api.get("/admin/users", { params }),
+    api.get("/users/admin/all", { params }),
   updateRole: (id: string, role: string) =>
-    api.put(`/admin/users/${id}/role`, { role }),
+    api.put(`/users/admin/${id}/role`, { role }),
 };
 
 //  Reviews
