@@ -27,6 +27,7 @@ import { useAdminSocket } from "@/hooks/useSocket";
 import { toast } from "sonner";
 import { ThemeSwitcherV1 } from "@/lib/theme-switcher-v1";
 import LanguageSwitcherV1 from "@/components/common/LanguageSwitcherV1";
+import Image from "next/image";
 
 const NAV_ITEMS = [
   {
@@ -155,8 +156,13 @@ export default function AdminLayout({
         {/* Logo */}
         <div className="flex items-center justify-between p-5 border-b border-border">
           <Link href={`/${locale}`} className="flex items-center gap-2.5">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <ShoppingBag className="h-4 w-4 text-white" />
+            <div className="flex items-center justify-center">
+              <Image
+                src="/simbalogo.png"
+                alt="Simba Super Market logo"
+                width={30}
+                height={30}
+              />
             </div>
             <div>
               <p className="font-bold text-sm leading-none">Simba Market</p>

@@ -10,6 +10,7 @@ import {
   Twitter,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 export function Footer() {
   const t = useTranslations("footer");
@@ -28,8 +29,13 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-xl">S</span>
+              <div className="flex items-center justify-center">
+                <Image
+                  src="/simbalogo.png"
+                  alt="Simba Super Market logo"
+                  width={30}
+                  height={30}
+                />
               </div>
               <div>
                 <div className="font-bold text-lg text-foreground">
@@ -61,6 +67,7 @@ export function Footer() {
                 <MapPin className="w-4 h-4 text-primary flex-shrink-0" />{" "}
                 <a
                   href="https://maps.app.goo.gl/sQsE5ERQ48yB1ih4A"
+                  target="_blank"
                   className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
                   Kigali, Rwanda

@@ -27,6 +27,7 @@ import { cn } from "@/lib/utils";
 import { useNotifications } from "@/hooks/useSocket";
 import { ThemeSwitcherV1 } from "@/lib/theme-switcher-v1";
 import LanguageSwitcherV1 from "../common/LanguageSwitcherV1";
+import Image from "next/image";
 
 export function Navbar() {
   const t = useTranslations("nav");
@@ -409,8 +410,13 @@ export function Navbar() {
             >
               <div className="flex items-center justify-between p-4 border-b border-border">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                    <span className="text-white font-bold">S</span>
+                  <div className="flex items-center justify-center">
+                    <Image
+                      src="/simbalogo.png"
+                      alt="Simba Super Market logo"
+                      width={30}
+                      height={30}
+                    />
                   </div>
                   <span className="font-bold text-foreground">
                     Simba Super Market
