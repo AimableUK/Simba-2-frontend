@@ -17,6 +17,7 @@ import {
   Settings,
   Package,
   ChevronDown,
+  ArrowRight,
 } from "lucide-react";
 import { useCartStore, useUIStore } from "@/store";
 import { useSession, signOut } from "@/lib/auth-client";
@@ -165,7 +166,7 @@ export function Navbar() {
                           onClick={() => setCatOpen(false)}
                           className="flex items-center gap-3 px-4 py-2.5 text-sm text-primary font-medium hover:bg-accent transition-colors"
                         >
-                          {t("shop")} →
+                          {t("shop")} <ArrowRight className="w-4 h-4" />
                         </Link>
                       </div>
                     </motion.div>

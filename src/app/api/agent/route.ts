@@ -1,38 +1,44 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
 
-const SYSTEM_PROMPT = `You are Simba, the friendly AI shopping assistant for Simba Super Market — Kigali's favourite supermarket chain with 9 branches.
+const API_BASE =
+  process.env.API_URL ||
+  process.env.NEXT_PUBLIC_API_URL ||
+  "http://localhost:5000/api";
 
-You have access to tools to fetch live data. Always call a tool to get real data before answering questions about products, branches, cart, or wishlist.
+const SYSTEM_PROMPT = `You are Simba, the friendly AI shopping assistant for Simba Super Market - Kigali's favourite supermarket chain with 9 branches across Kigali, Rwanda.
 
-BEHAVIOUR:
-- Respond in the SAME language the user writes in (English, Kinyarwanda, French, Swahili)
-- Be warm, concise, and helpful — you are a friendly Rwandan supermarket assistant
-- Always use real data from tools — never invent product names, prices, or branch info
-- When adding wishlist to cart: call get_wishlist first, then add each in-stock item one by one
-- Keep replies short (2-4 sentences max) unless listing items
-- Use light emojis: 🛒 🥛 📍 ✅ ❤️`;
+You have access to LIVE tools that fetch real data from the database. ALWAYS use tools before answering - never guess or invent data.
+
+CRITICAL RULES:
+- Always call get_products when asked about ANY product, food, drink, or item
+- Always call get_branches when asked about ANY branch, location, address, map
+- Always call get_cart before saying anything about the cart
+- Always call get_wishlist before saying anything about the wishlist
+- When user says "add wishlist to cart": call get_wishlist FIRST, then call add_to_cart for EACH in-stock item
+- Never say "you are not signed in" - just call the tool and return what it gives you
+- Respond in the SAME language the user uses (English, Kinyarwanda, French, Swahili)
+- Be warm and concise. Use 🛒 📍 ✅ ❤️ sparingly`;
 
 export async function POST(req: NextRequest) {
   try {
-    const { messages, sessionToken } = await req.json();
+    const body = await req.json();
+    const { messages } = body;
     const groqKey = process.env.GROQ_API_KEY;
 
     if (!groqKey) {
       return NextResponse.json({
         reply:
-          "I'm not configured yet. Please add a GROQ_API_KEY to the environment.",
+          "I need a GROQ_API_KEY configured to work. Please add it to your .env file.",
         toolResults: [],
       });
     }
 
+    const cookieHeader = req.headers.get("cookie") || "";
     const backendHeaders: Record<string, string> = {
       "Content-Type": "application/json",
-      ...(sessionToken && {
-        Cookie: `better-auth.session_token=${sessionToken}`,
-      }),
+      ...(cookieHeader && { Cookie: cookieHeader }),
     };
 
     const tools = [
@@ -41,15 +47,23 @@ export async function POST(req: NextRequest) {
         function: {
           name: "get_products",
           description:
-            "Search products in the store. Call this for ANY question about products, food, drinks, availability.",
+            "Search or list products from the store database. ALWAYS call this for product questions.",
           parameters: {
             type: "object",
             properties: {
               query: {
                 type: "string",
-                description: "Search keyword (empty = browse all)",
+                description: "Search keyword. Empty = return popular products.",
               },
-              limit: { type: "number", description: "Max results, default 8" },
+              category: {
+                type: "string",
+                description:
+                  "Category slug e.g. beverages, fresh-produce, food-groceries",
+              },
+              limit: {
+                type: "number",
+                description: "Max results (default 8, max 20)",
+              },
             },
           },
         },
@@ -59,7 +73,7 @@ export async function POST(req: NextRequest) {
         function: {
           name: "get_branches",
           description:
-            "Get all 9 Simba branches in Kigali. Call for ANY branch/location/address questions.",
+            "Get all Simba Supermarket branches in Kigali with addresses and coordinates. ALWAYS call for branch/location questions.",
           parameters: { type: "object", properties: {} },
         },
       },
@@ -67,7 +81,8 @@ export async function POST(req: NextRequest) {
         type: "function",
         function: {
           name: "get_cart",
-          description: "Get user's current cart contents and total.",
+          description:
+            "Get the current user's cart items and total. Call this for ANY cart question.",
           parameters: { type: "object", properties: {} },
         },
       },
@@ -75,7 +90,8 @@ export async function POST(req: NextRequest) {
         type: "function",
         function: {
           name: "get_wishlist",
-          description: "Get all items in the user's wishlist.",
+          description:
+            "Get all items in the user's wishlist. Call this for ANY wishlist question.",
           parameters: { type: "object", properties: {} },
         },
       },
@@ -83,13 +99,19 @@ export async function POST(req: NextRequest) {
         type: "function",
         function: {
           name: "add_to_cart",
-          description: "Add a product to cart by productId.",
+          description: "Add a product to the cart by its productId.",
           parameters: {
             type: "object",
             required: ["productId"],
             properties: {
-              productId: { type: "string" },
-              quantity: { type: "number", description: "Default 1" },
+              productId: {
+                type: "string",
+                description: "Product UUID from get_products or get_wishlist",
+              },
+              quantity: {
+                type: "number",
+                description: "Quantity to add, default 1",
+              },
             },
           },
         },
@@ -98,11 +120,13 @@ export async function POST(req: NextRequest) {
         type: "function",
         function: {
           name: "remove_from_cart",
-          description: "Remove a product from cart.",
+          description: "Remove a specific product from the cart.",
           parameters: {
             type: "object",
             required: ["productId"],
-            properties: { productId: { type: "string" } },
+            properties: {
+              productId: { type: "string" },
+            },
           },
         },
       },
@@ -110,7 +134,31 @@ export async function POST(req: NextRequest) {
         type: "function",
         function: {
           name: "clear_cart",
-          description: "Remove ALL items from cart.",
+          description: "Remove ALL items from the cart at once.",
+          parameters: { type: "object", properties: {} },
+        },
+      },
+      {
+        type: "function",
+        function: {
+          name: "get_blogs",
+          description: "Get recent blog posts from the store.",
+          parameters: {
+            type: "object",
+            properties: {
+              limit: {
+                type: "number",
+                description: "Max posts to return, default 5",
+              },
+            },
+          },
+        },
+      },
+      {
+        type: "function",
+        function: {
+          name: "get_categories",
+          description: "Get all product categories.",
           parameters: { type: "object", properties: {} },
         },
       },
@@ -124,34 +172,57 @@ export async function POST(req: NextRequest) {
         switch (name) {
           case "get_products": {
             const params = new URLSearchParams({
-              limit: String(args.limit || 8),
+              limit: String(Math.min(args.limit || 8, 20)),
             });
             if (args.query) params.set("search", args.query);
+            if (args.category) params.set("category", args.category);
             const r = await fetch(`${API_BASE}/products?${params}`, {
               headers: backendHeaders,
             });
+            if (!r.ok)
+              return JSON.stringify({
+                error: `Products API returned ${r.status}`,
+                products: [],
+              });
             const d = await r.json();
             const products = Array.isArray(d) ? d : d.data || [];
+            if (!products.length)
+              return JSON.stringify({
+                found: 0,
+                products: [],
+                message: "No products found for that query",
+              });
             return JSON.stringify({
               found: products.length,
-              products: products.slice(0, 8).map((p: any) => ({
+              products: products.slice(0, 20).map((p: any) => ({
                 id: p.id,
                 name: p.name,
                 price: p.price,
+                currency: "RWF",
                 stock: p.stock,
                 slug: p.slug,
                 category: p.category?.name || "",
+                tags: p.tags || [],
                 images: p.images?.slice(0, 1) || [],
                 description:
-                  p.shortDescription || p.description?.slice(0, 80) || "",
+                  p.shortDescription || p.description?.slice(0, 100) || "",
+                inStock: p.stock > 0,
               })),
             });
           }
+
           case "get_branches": {
             const r = await fetch(`${API_BASE}/branches`, {
               headers: backendHeaders,
             });
+            if (!r.ok)
+              return JSON.stringify({
+                error: `Branches API returned ${r.status}`,
+                branches: [],
+              });
             const branches = await r.json();
+            if (!Array.isArray(branches) || !branches.length)
+              return JSON.stringify({ count: 0, branches: [] });
             return JSON.stringify({
               count: branches.length,
               branches: branches.map((b: any) => ({
@@ -164,17 +235,31 @@ export async function POST(req: NextRequest) {
                 hours: `${b.openTime}–${b.closeTime}`,
                 rating: b.rating,
                 slug: b.slug,
+                isActive: b.isActive,
               })),
             });
           }
+
           case "get_cart": {
             const r = await fetch(`${API_BASE}/cart`, {
               headers: backendHeaders,
             });
-            if (!r.ok)
-              return JSON.stringify({ error: "Not signed in", items: [] });
+            if (!r.ok) {
+              if (r.status === 401)
+                return JSON.stringify({
+                  signedIn: false,
+                  items: [],
+                  total: 0,
+                  message: "User not authenticated",
+                });
+              return JSON.stringify({
+                error: `Cart API returned ${r.status}`,
+                items: [],
+              });
+            }
             const d = await r.json();
             return JSON.stringify({
+              signedIn: true,
               itemCount: d.items?.length || 0,
               total: d.total || 0,
               items: (d.items || []).map((i: any) => ({
@@ -182,30 +267,44 @@ export async function POST(req: NextRequest) {
                 name: i.product?.name,
                 quantity: i.quantity,
                 price: i.product?.price,
-                subtotal: i.quantity * i.product?.price,
+                subtotal: i.quantity * (i.product?.price || 0),
+                image: i.product?.images?.[0],
               })),
             });
           }
+
           case "get_wishlist": {
             const r = await fetch(`${API_BASE}/wishlist`, {
               headers: backendHeaders,
             });
-            if (!r.ok)
-              return JSON.stringify({ error: "Not signed in", items: [] });
+            if (!r.ok) {
+              if (r.status === 401)
+                return JSON.stringify({
+                  signedIn: false,
+                  items: [],
+                  message: "User not authenticated",
+                });
+              return JSON.stringify({
+                error: `Wishlist API returned ${r.status}`,
+                items: [],
+              });
+            }
             const items = await r.json();
             return JSON.stringify({
+              signedIn: true,
               count: items.length,
               items: (items || []).map((i: any) => ({
                 productId: i.productId,
                 name: i.product?.name,
                 price: i.product?.price,
-                stock: i.product?.stock,
+                stock: i.product?.stock || 0,
                 slug: i.product?.slug,
                 images: i.product?.images?.slice(0, 1) || [],
                 inStock: (i.product?.stock || 0) > 0,
               })),
             });
           }
+
           case "add_to_cart": {
             const r = await fetch(`${API_BASE}/cart`, {
               method: "POST",
@@ -216,11 +315,14 @@ export async function POST(req: NextRequest) {
               }),
             });
             if (!r.ok) {
-              const e = await r.json();
+              const e = await r
+                .json()
+                .catch(() => ({ message: `Error ${r.status}` }));
               return JSON.stringify({ success: false, error: e.message });
             }
-            return JSON.stringify({ success: true });
+            return JSON.stringify({ success: true, productId: args.productId });
           }
+
           case "remove_from_cart": {
             const r = await fetch(`${API_BASE}/cart/${args.productId}`, {
               method: "DELETE",
@@ -228,6 +330,7 @@ export async function POST(req: NextRequest) {
             });
             return JSON.stringify({ success: r.ok });
           }
+
           case "clear_cart": {
             const r = await fetch(`${API_BASE}/cart`, {
               method: "DELETE",
@@ -235,15 +338,55 @@ export async function POST(req: NextRequest) {
             });
             return JSON.stringify({ success: r.ok });
           }
+
+          case "get_blogs": {
+            const params = new URLSearchParams({
+              limit: String(args.limit || 5),
+            });
+            const r = await fetch(`${API_BASE}/blogs?${params}`, {
+              headers: backendHeaders,
+            });
+            if (!r.ok) return JSON.stringify({ blogs: [] });
+            const d = await r.json();
+            const blogs = d.data || d;
+            return JSON.stringify({
+              count: blogs.length,
+              blogs: blogs.slice(0, 8).map((b: any) => ({
+                title: b.title,
+                slug: b.slug,
+                excerpt: b.excerpt || b.content?.slice(0, 120),
+                author: b.authorName,
+                views: b.viewCount,
+                date: b.createdAt?.slice(0, 10),
+              })),
+            });
+          }
+
+          case "get_categories": {
+            const r = await fetch(`${API_BASE}/categories`, {
+              headers: backendHeaders,
+            });
+            if (!r.ok) return JSON.stringify({ categories: [] });
+            const cats = await r.json();
+            return JSON.stringify({
+              count: cats.length,
+              categories: cats.map((c: any) => ({
+                name: c.name,
+                slug: c.slug,
+                productCount: c._count?.products || 0,
+              })),
+            });
+          }
+
           default:
-            return JSON.stringify({ error: "Unknown tool" });
+            return JSON.stringify({ error: `Unknown tool: ${name}` });
         }
-      } catch (e) {
-        return JSON.stringify({ error: String(e) });
+      } catch (e: any) {
+        console.error(`Tool ${name} error:`, e.message);
+        return JSON.stringify({ error: e.message });
       }
     }
 
-    // Build message history
     const groqMessages: any[] = [
       { role: "system", content: SYSTEM_PROMPT },
       ...messages.map((m: any) => ({ role: m.role, content: m.content })),
@@ -251,8 +394,8 @@ export async function POST(req: NextRequest) {
 
     const allToolResults: any[] = [];
 
-    // Agentic loop — sequential tool execution to avoid race conditions
-    for (let round = 0; round < 6; round++) {
+    // Agentic loop - sequential to maintain strict message ordering
+    for (let round = 0; round < 8; round++) {
       const response = await fetch(GROQ_API_URL, {
         method: "POST",
         headers: {
@@ -264,27 +407,39 @@ export async function POST(req: NextRequest) {
           messages: groqMessages,
           tools,
           tool_choice: "auto",
-          temperature: 0.3,
+          temperature: 0.2,
           max_tokens: 1024,
         }),
       });
 
       if (!response.ok) {
-        const err = await response.text();
-        console.error("Groq API error:", response.status, err);
+        const errText = await response.text();
+        console.error(`Groq error ${response.status}:`, errText);
         return NextResponse.json({
-          reply: `I ran into an issue (${response.status}). Please try again.`,
+          reply: `I'm having trouble connecting to my AI (${response.status}). Please try again in a moment.`,
           toolResults: allToolResults,
         });
       }
 
       const data = await response.json();
+
+      if (data.error) {
+        console.error("Groq error response:", data.error);
+        return NextResponse.json({
+          reply: `AI error: ${data.error.message || "unknown"}. Please try again.`,
+          toolResults: allToolResults,
+        });
+      }
+
       const choice = data.choices?.[0];
       const msg = choice?.message;
 
-      if (!msg) break;
+      if (!msg) {
+        console.error("No message in Groq response:", JSON.stringify(data));
+        break;
+      }
 
-      // No tool calls = final text answer
+      // Final text answer - no more tool calls
       if (!msg.tool_calls || msg.tool_calls.length === 0) {
         return NextResponse.json({
           reply: msg.content || "",
@@ -292,31 +447,29 @@ export async function POST(req: NextRequest) {
         });
       }
 
-      // Push assistant message first (with tool_calls)
+      // Push assistant message with tool_calls
       groqMessages.push({
         role: "assistant",
         content: msg.content || null,
         tool_calls: msg.tool_calls,
       });
 
-      // Execute tools SEQUENTIALLY to maintain message order
+      // Execute each tool call SEQUENTIALLY
       for (const tc of msg.tool_calls) {
-        const args = (() => {
-          try {
-            return JSON.parse(tc.function.arguments || "{}");
-          } catch {
-            return {};
-          }
-        })();
+        let args: Record<string, any> = {};
+        try {
+          args = JSON.parse(tc.function.arguments || "{}");
+        } catch {
+          /* empty args */
+        }
 
         const resultStr = await executeTool(tc.function.name, args);
-        const resultObj = (() => {
-          try {
-            return JSON.parse(resultStr);
-          } catch {
-            return { raw: resultStr };
-          }
-        })();
+        let resultObj: any = {};
+        try {
+          resultObj = JSON.parse(resultStr);
+        } catch {
+          resultObj = { raw: resultStr };
+        }
 
         allToolResults.push({
           toolName: tc.function.name,
@@ -324,7 +477,6 @@ export async function POST(req: NextRequest) {
           result: resultObj,
         });
 
-        // Push tool result immediately after executing
         groqMessages.push({
           role: "tool",
           tool_call_id: tc.id,
@@ -333,16 +485,15 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Fallback if loop exhausted
     return NextResponse.json({
       reply:
-        "I processed your request but couldn't form a final answer. Please try rephrasing.",
+        "I finished processing but couldn't compose a final answer. Please try rephrasing.",
       toolResults: allToolResults,
     });
-  } catch (err) {
-    console.error("Agent route error:", err);
+  } catch (err: any) {
+    console.error("Agent route fatal error:", err);
     return NextResponse.json({
-      reply: "Something went wrong on my end. Please try again.",
+      reply: "Something went wrong. Please try again.",
       toolResults: [],
     });
   }

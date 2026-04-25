@@ -9,107 +9,87 @@ import {
   Loader2,
   MapPin,
   ExternalLink,
+  Star,
+  Clock,
 } from "lucide-react";
-import { branchApi, searchApi } from "@/lib/api";
 import { formatPrice, getImageUrl } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
-import { useQuery } from "@tanstack/react-query";
 
 interface SearchResult {
   reply: string;
   products: any[];
 }
 
-function BranchesMap({ branches }: { branches: any[] }) {
-  const [activeIdx, setActiveIdx] = useState(0);
-  const active = branches[activeIdx];
-
-  if (!branches?.length) return null;
-
-  // If no coordinates, show list-only view
-  const hasCoords = active?.lat && active?.lng;
-
-  const staticUrl = hasCoords
-    ? `https://www.openstreetmap.org/export/embed.html?bbox=${Number(active.lng) - 0.005},${Number(active.lat) - 0.005},${Number(active.lng) + 0.005},${Number(active.lat) + 0.005}&layer=mapnik&marker=${active.lat},${active.lng}`
-    : null;
+//  OpenStreetMap embed (no API key needed)
+function BranchMap({ branch }: { branch: any }) {
+  if (!branch?.lat || !branch?.lng) return null;
+  const bbox = `${branch.lng - 0.006},${branch.lat - 0.006},${branch.lng + 0.006},${branch.lat + 0.006}`;
+  const src = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${branch.lat},${branch.lng}`;
 
   return (
-    <div className="mt-3 rounded-xl overflow-hidden border border-border">
-      {/* Branch selector tabs */}
-      {branches.length > 1 && (
-        <div className="flex overflow-x-auto bg-muted/50 border-b border-border">
-          {branches.slice(0, 6).map((b, i) => (
-            <button
-              key={i}
-              onClick={() => setActiveIdx(i)}
-              className={`shrink-0 px-3 py-2 text-xs font-medium transition-colors whitespace-nowrap border-b-2 ${
-                activeIdx === i
-                  ? "border-primary text-primary bg-background"
-                  : "border-transparent text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              {b.name?.replace("Simba Supermarket ", "") || b.address}
-            </button>
-          ))}
-        </div>
-      )}
-
-      {/* Map iframe - only if coordinates exist */}
-      {staticUrl && (
-        <div className="relative">
-          <iframe
-            key={activeIdx} // force re-render when branch changes
-            src={staticUrl}
-            width="100%"
-            height="220"
-            className="block border-0"
-            title={active.name}
-            loading="lazy"
-            sandbox="allow-scripts allow-same-origin"
-          />
-          <a
-            href={`https://www.google.com/maps?q=${active.lat},${active.lng}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="absolute top-2 right-2 bg-background/90 backdrop-blur border border-border text-xs font-medium px-2.5 py-1.5 rounded-lg flex items-center gap-1 hover:bg-primary hover:text-white hover:border-primary transition-all shadow"
-          >
-            <ExternalLink className="h-3 w-3" /> Open in Maps
-          </a>
-        </div>
-      )}
-
-      {/* Branch info card */}
-      <div className="p-3 bg-background">
-        <p className="font-semibold text-sm">{active.name}</p>
-        <p className="text-xs text-muted-foreground mt-0.5 flex items-center gap-1">
-          <MapPin className="h-3 w-3 shrink-0" /> {active.address}
-        </p>
-        {active.phone && (
-          <p className="text-xs text-muted-foreground mt-0.5">
-            📞 {active.phone}
+    <div className="rounded-xl overflow-hidden border border-border mt-1">
+      <iframe
+        src={src}
+        width="100%"
+        height="220"
+        className="block border-0"
+        title={branch.name}
+        loading="lazy"
+        sandbox="allow-scripts allow-same-origin"
+      />
+      <div className="p-3 bg-background flex items-center justify-between">
+        <div>
+          <p className="font-semibold text-sm">{branch.name}</p>
+          <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
+            <MapPin className="h-3 w-3 shrink-0" />
+            {branch.address}
           </p>
-        )}
-        {active.hours && (
-          <p className="text-xs text-muted-foreground mt-0.5">
-            🕐 {active.hours}
-          </p>
-        )}
-        {!hasCoords && active.lat === undefined && (
-          <a
-            href={`https://www.google.com/maps/search/${encodeURIComponent(active.name + " " + active.address)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-xs text-primary hover:underline mt-1"
-          >
-            <ExternalLink className="h-3 w-3" /> Find on Maps
-          </a>
-        )}
+        </div>
+        <a
+          href={`https://www.google.com/maps?q=${branch.lat},${branch.lng}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="shrink-0 flex items-center gap-1.5 text-xs bg-primary text-primary-foreground px-3 py-1.5 rounded-lg hover:bg-primary/90 transition-colors ml-3"
+        >
+          <ExternalLink className="h-3 w-3" /> Maps
+        </a>
       </div>
     </div>
   );
 }
 
+function BranchesPanel({ branches }: { branches: any[] }) {
+  const [activeIdx, setActiveIdx] = useState(0);
+  if (!branches.length) return null;
+  return (
+    <div className="mt-3">
+      {/* Branch list */}
+      <div className="grid grid-cols-2 gap-1.5 mb-3">
+        {branches.map((b, i) => (
+          <button
+            key={b.slug}
+            onClick={() => setActiveIdx(i)}
+            className={`text-left p-2.5 rounded-xl border text-xs transition-all ${
+              activeIdx === i
+                ? "border-primary bg-primary/5 text-primary"
+                : "border-border hover:border-primary/40 text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <p className="font-medium truncate">
+              {b.name.replace("Simba Supermarket ", "")}
+            </p>
+            <p className="text-[10px] mt-0.5 opacity-70">{b.district}</p>
+          </button>
+        ))}
+      </div>
+      {/* Map of selected branch */}
+      <BranchMap branch={branches[activeIdx]} />
+    </div>
+  );
+}
+
+//  Product grid
 function ProductGrid({
   products,
   locale,
@@ -142,7 +122,7 @@ function ProductGrid({
               {formatPrice(p.price)}
             </p>
             <p
-              className={`text-[10px] mt-0.5 ${p.stock > 0 ? "text-green-600" : "text-destructive"}`}
+              className={`text-[10px] mt-0.5 ${p.stock > 0 ? "text-green-600 dark:text-green-400" : "text-destructive"}`}
             >
               {p.stock > 0 ? `${p.stock} in stock` : "Out of stock"}
             </p>
@@ -153,6 +133,9 @@ function ProductGrid({
   );
 }
 
+//  Main component
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+
 export function ConversationalSearch({ branchId }: { branchId?: string }) {
   const t = useTranslations("search");
   const locale = useLocale();
@@ -161,14 +144,13 @@ export function ConversationalSearch({ branchId }: { branchId?: string }) {
   const [branches, setBranches] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const EXAMPLES = [
-    "Do you have fresh milk?",
-    "I need something for breakfast",
+    "Fresh milk",
     "Where are your branches?",
-    "Fresh vegetables",
     "Cold drinks",
+    "Breakfast items",
+    "Vegetables",
   ];
 
   const handleSearch = async (q: string) => {
@@ -179,54 +161,65 @@ export function ConversationalSearch({ branchId }: { branchId?: string }) {
     setResult(null);
 
     const isBranchQuery =
-      /branch|location|kigali|where|address|map|store|outlet/i.test(q);
+      /branch|location|kigali|where|address|map|branches/i.test(q);
 
     try {
       if (isBranchQuery) {
-        const { data: res, isLoading } = useQuery({
-          queryKey: ["branches"],
-          queryFn: () => branchApi.list().then((r) => r.data),
-        });
-        if (!res.ok) throw new Error("Failed to fetch branches");
+        const res = await fetch(`${API_BASE}/branches`);
+        if (!res.ok) throw new Error(`Branches API error: ${res.status}`);
         const data = await res.json();
-        const branchList = Array.isArray(data) ? data : data.branches || [];
-        setBranches(branchList);
+        const list = Array.isArray(data) ? data : data.data || [];
+        setBranches(list);
         setResult({
-          reply:
-            branchList.length > 0
-              ? `Here are all ${branchList.length} Simba Supermarket branches in Kigali. Click a branch tab to see it on the map.`
-              : "I couldn't find any branch information right now. Please try again.",
+          reply: `Here are all ${list.length} Simba Supermarket branches in Kigali. Click any branch to see it on the map.`,
           products: [],
         });
       } else {
-        const res = await searchApi.search(q, branchId);
-        const data = res.data;
-        setResult({
-          reply:
-            data?.reply ||
-            (data?.products?.length
-              ? `Found ${data.products.length} result(s) for "${q}".`
-              : `No products found for "${q}". Try a different search term.`),
-          products: data?.products || [],
-        });
+        // Search products directly via API
+        const params = new URLSearchParams({ limit: "8" });
+        if (q.trim()) params.set("search", q.trim());
+        if (branchId) {
+          // Branch-scoped: search branch stock
+          const res = await fetch(
+            `${API_BASE}/branches/${branchId}/stock?${params}`,
+          );
+          if (!res.ok) throw new Error(`Stock API error: ${res.status}`);
+          const data = await res.json();
+          const items = data.data || data || [];
+          const products = items.map((i: any) => ({
+            ...i.product,
+            stock: i.stock,
+          }));
+          setResult({
+            reply:
+              products.length > 0
+                ? `Found ${products.length} product${products.length === 1 ? "" : "s"} for "${q}" at this branch.`
+                : `No products found for "${q}" at this branch. Try a different keyword.`,
+            products,
+          });
+        } else {
+          // Global product search
+          const res = await fetch(`${API_BASE}/products?${params}`);
+          if (!res.ok) throw new Error(`Products API error: ${res.status}`);
+          const data = await res.json();
+          const products = data.data || data || [];
+          setResult({
+            reply:
+              products.length > 0
+                ? `Found ${products.length} product${products.length === 1 ? "" : "s"} for "${q}".`
+                : `No products found for "${q}". Try "milk", "rice", or "vegetables".`,
+            products,
+          });
+        }
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error("Search error:", err);
       setResult({
-        reply: "Search is unavailable right now. Please try again.",
+        reply: `Search error: ${err.message}. Please try again.`,
         products: [],
       });
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") handleSearch(query);
-    if (e.key === "Escape") {
-      setOpen(false);
-      setResult(null);
-      setBranches([]);
     }
   };
 
@@ -239,22 +232,20 @@ export function ConversationalSearch({ branchId }: { branchId?: string }) {
 
   return (
     <div className="relative w-full max-w-2xl mx-auto">
-      {/* Input */}
       <div className="relative flex items-center">
         <div className="absolute left-4 flex items-center gap-1.5 text-primary pointer-events-none">
           <Sparkles className="h-4 w-4" />
-          <span className="text-xs font-semibold hidden sm:block">
-            AI Search
-          </span>
+          <span className="text-xs font-semibold hidden sm:block">Search</span>
         </div>
         <input
-          ref={inputRef}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={handleKeyDown}
-          onFocus={() => result && setOpen(true)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleSearch(query);
+            if (e.key === "Escape") clear();
+          }}
           placeholder={t("placeholder")}
-          className="w-full pl-28 pr-24 py-4 rounded-2xl border-2 border-primary/30 bg-background focus:outline-none focus:border-primary text-sm shadow-sm transition-all"
+          className="w-full pl-24 pr-14 py-4 rounded-2xl border-2 border-primary/30 bg-background focus:outline-none focus:border-primary text-sm shadow-sm transition-all"
         />
         {query && (
           <button
@@ -295,14 +286,15 @@ export function ConversationalSearch({ branchId }: { branchId?: string }) {
         </div>
       )}
 
-      {/* Results dropdown */}
+      {/* Results */}
       <AnimatePresence>
         {open && (result || loading) && (
           <motion.div
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            className="absolute top-full left-0 right-0 mt-2 bg-card border border-border rounded-2xl shadow-xl z-50 overflow-hidden max-h-[80vh] overflow-y-auto"
+            className="absolute top-full left-0 right-0 mt-2 bg-card border border-border rounded-2xl shadow-xl z-50 overflow-hidden"
+            style={{ maxHeight: "80vh", overflowY: "auto" }}
           >
             {loading ? (
               <div className="flex items-center gap-3 p-6 text-muted-foreground">
@@ -311,7 +303,7 @@ export function ConversationalSearch({ branchId }: { branchId?: string }) {
               </div>
             ) : result ? (
               <div className="p-4">
-                {/* AI reply bubble */}
+                {/* AI reply */}
                 <div className="flex items-start gap-3 mb-4 p-3 bg-primary/5 border border-primary/20 rounded-xl">
                   <Sparkles className="h-4 w-4 text-primary mt-0.5 shrink-0" />
                   <p className="text-sm text-foreground leading-relaxed">
@@ -319,30 +311,25 @@ export function ConversationalSearch({ branchId }: { branchId?: string }) {
                   </p>
                 </div>
 
-                {/* Branch map */}
-                {branches.length > 0 && <BranchesMap branches={branches} />}
+                {/* Branches with maps */}
+                {branches.length > 0 && <BranchesPanel branches={branches} />}
 
-                {/* Product results */}
+                {/* Products */}
                 {result.products.length > 0 && (
                   <>
-                    <p className="text-xs text-muted-foreground font-medium mb-2">
-                      {t("results", { count: result.products.length })}
+                    <p className="text-xs text-muted-foreground font-medium mb-2 mt-1">
+                      {result.products.length} result
+                      {result.products.length !== 1 ? "s" : ""}
                     </p>
                     <ProductGrid products={result.products} locale={locale} />
                   </>
-                )}
-
-                {result.products.length === 0 && branches.length === 0 && (
-                  <p className="text-sm text-muted-foreground text-center py-4">
-                    {t("noResults")}
-                  </p>
                 )}
 
                 <button
                   onClick={clear}
                   className="mt-4 w-full text-xs text-muted-foreground hover:text-foreground py-2 border-t border-border transition-colors"
                 >
-                  Close search
+                  Close
                 </button>
               </div>
             ) : null}
