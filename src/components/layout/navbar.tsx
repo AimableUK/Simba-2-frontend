@@ -111,8 +111,13 @@ export function Navbar() {
               href={`/${locale}`}
               className="flex items-center gap-2 flex-shrink-0"
             >
-              <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">S</span>
+              <div className="flex items-center justify-center">
+                <Image
+                  src="/simbalogo.png"
+                  alt="Simba Super Market logo"
+                  width={35}
+                  height={35}
+                />
               </div>
               <div className="hidden sm:block">
                 <div className="font-bold text-base leading-tight text-foreground">
@@ -414,8 +419,8 @@ export function Navbar() {
                     <Image
                       src="/simbalogo.png"
                       alt="Simba Super Market logo"
-                      width={30}
-                      height={30}
+                      width={35}
+                      height={35}
                     />
                   </div>
                   <span className="font-bold text-foreground">

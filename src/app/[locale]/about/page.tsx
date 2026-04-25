@@ -61,7 +61,7 @@ const values = [
   {
     icon: Users,
     title: "Respect for the Individual",
-    body: "We're hardworking, ordinary people who've teamed up to accomplish extraordinary things. We treat each other with dignity and encourage everyone to express their thoughts — this is how we show respect.",
+    body: "We're hardworking, ordinary people who've teamed up to accomplish extraordinary things. We treat each other with dignity and encourage everyone to express their thoughts - this is how we show respect.",
   },
   {
     icon: Heart,
@@ -71,7 +71,7 @@ const values = [
   {
     icon: Star,
     title: "Striving for Excellence",
-    body: "We're proud of our accomplishments but never satisfied. We constantly reach further to bring new ideas and goals to life — Is this the best I can do? That question drives everything.",
+    body: "We're proud of our accomplishments but never satisfied. We constantly reach further to bring new ideas and goals to life - Is this the best I can do? That question drives everything.",
   },
 ];
 
@@ -84,17 +84,17 @@ const milestones = [
   {
     year: "2008",
     label: "1st Branch",
-    desc: "Official launch on August 8th — Simba Centenary opens, creating over 450 jobs for Rwandese citizens.",
+    desc: "Official launch on August 8th - Simba Centenary opens, creating over 450 jobs for Rwandese citizens.",
   },
   {
     year: "2013",
     label: "1st Award",
-    desc: "1st Best Exhibitor — Retail and Distribution.",
+    desc: "1st Best Exhibitor - Retail and Distribution.",
   },
   {
     year: "2014",
     label: "Expanding",
-    desc: "Simba Gishushu branch opens. Awarded Best Exhibitor Retail & Distribution — EBM Best Award.",
+    desc: "Simba Gishushu branch opens. Awarded Best Exhibitor Retail & Distribution - EBM Best Award.",
   },
   {
     year: "2015",
@@ -104,7 +104,7 @@ const milestones = [
   {
     year: "2016",
     label: "Scaling Up",
-    desc: "Two new branches open — Simba Kicukiro and Simba Kigali Height.",
+    desc: "Two new branches open - Simba Kicukiro and Simba Kigali Height.",
   },
   {
     year: "2019",
@@ -119,12 +119,12 @@ const milestones = [
   {
     year: "2023",
     label: "Major Expansion",
-    desc: "Five new branches launch simultaneously — Simba Gacuriro, Simba Gikondo, Simba Sonatube, Simba Kisimenti, and Simba Rebero.",
+    desc: "Five new branches launch simultaneously - Simba Gacuriro, Simba Gikondo, Simba Sonatube, Simba Kisimenti, and Simba Rebero.",
   },
   {
     year: "2024",
     label: "Going Digital",
-    desc: "Simba Online Sales launches — bringing the supermarket experience directly to customers' doors.",
+    desc: "Simba Online Sales launches - bringing the supermarket experience directly to customers' doors.",
   },
 ];
 
@@ -184,7 +184,7 @@ const services = [
   {
     icon: Globe,
     title: "Online Sales",
-    desc: "Extending our reach to your door — Simba Supermarket is everywhere.",
+    desc: "Extending our reach to your door - Simba Supermarket is everywhere.",
   },
   {
     icon: Factory,
@@ -229,7 +229,7 @@ export default function AboutPage() {
             transition={{ duration: 0.6, delay: 0.16 }}
             className="max-w-2xl text-lg leading-relaxed text-white/80"
           >
-            Rwanda's most admired supermarket — a testament to the country's
+            Rwanda's most admired supermarket - a testament to the country's
             economic resurgence, proudly meeting the daily needs of Kigali and
             beyond since 2008.
           </motion.p>
@@ -265,8 +265,8 @@ export default function AboutPage() {
             <strong className="text-foreground">August 8, 2008</strong> created
             over <strong className="text-foreground">450 jobs</strong> for
             Rwandese citizens. With 11 branches across Rwanda, Simba provides a
-            one-stop shopping experience — butchery, bakery, coffee shop, and
-            more — serving international organisations, local NGOs, private
+            one-stop shopping experience - butchery, bakery, coffee shop, and
+            more - serving international organisations, local NGOs, private
             companies, and government ministries.
           </p>
         </Reveal>
@@ -498,14 +498,14 @@ export default function AboutPage() {
             {[
               {
                 year: "2013",
-                text: "1st Best Exhibitor — Retail & Distribution",
+                text: "1st Best Exhibitor - Retail & Distribution",
               },
               {
                 year: "2014",
-                text: "Best Exhibitor Retail & Distribution — EBM",
+                text: "Best Exhibitor Retail & Distribution - EBM",
               },
               { year: "2015", text: "RRA Compliant Taxpayer Award" },
-              { year: "2020", text: "1st Merchant of the Year — Rwanda" },
+              { year: "2020", text: "1st Merchant of the Year - Rwanda" },
             ].map((a, i) => (
               <Reveal key={a.year} delay={i * 0.5}>
                 <div className="flex flex-col items-center rounded-2xl border border-primary/20 bg-card p-5 text-center">

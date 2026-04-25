@@ -160,8 +160,8 @@ export default function AdminLayout({
               <Image
                 src="/simbalogo.png"
                 alt="Simba Super Market logo"
-                width={30}
-                height={30}
+                width={35}
+                height={35}
               />
             </div>
             <div>
