@@ -15,7 +15,8 @@
     "admin": "Icyumba cy'Abayobozi",
     "search": "Shakisha ibicuruzwa...",
     "searchPlaceholder": "Shakisha ibicuruzwa, amasoko...",
-    "branches": "Amashami"
+    "branches": "Amashami",
+    "allProducts": "Ibicuruzwa Byose"
   },
   "home": {
     "hero": {
@@ -264,7 +265,7 @@
     "next": "Komeza",
     "previous": "Ibanza",
     "page": "Urupapuro {page} kuri {total}",
-    "showing": "Werekwa {from}–{to} kuri {total}",
+    "showing": "Werekwa {from}-{to} kuri {total}",
     "currency": "RWF",
     "free": "Biridwa",
     "required": "Bisabwa",
@@ -273,7 +274,8 @@
     "and": "na",
     "darkMode": "Isura Yijimye",
     "lightMode": "Isura Nziza",
-    "language": "Ururimi"
+    "language": "Ururimi",
+    "allProducts": "Ibicuruzwa Byose"
   },
   "footer": {
     "tagline": "Isoko ryiza i Kigali - bishya, byihuse, no kwizerwa.",
@@ -365,5 +367,16 @@
     "updateStock": "Vugurura Ububiko",
     "currentStock": "Ububiko Buriho",
     "markOutOfStock": "Ntigihari"
+  },
+  "wishlist": {
+    "title": "Ibyo Nshaka",
+    "empty": "Nta gicuruzwa kibitswe",
+    "emptyDesc": "Bika ibicuruzwa ukunda uzibuke hano",
+    "browseProducts": "Reba Ibicuruzwa",
+    "addToCart": "Shyira mu Gasanduku",
+    "remove": "Kura",
+    "inStock": "Gihari",
+    "outOfStock": "Ntigihari",
+    "items": "Ibibitswe"
   }
 }

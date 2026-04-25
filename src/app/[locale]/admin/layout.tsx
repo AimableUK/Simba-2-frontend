@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -15,18 +16,17 @@ import {
   Menu,
   X,
   ShoppingBag,
-  LogOut,
   Bell,
   ChevronRight,
-  MapPin,
   Clock,
+  MapPin,
 } from "lucide-react";
 import { useSession } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { useAdminSocket } from "@/hooks/useSocket";
 import { toast } from "sonner";
-import LanguageSwitcherV1 from "@/components/common/LanguageSwitcherV1";
 import { ThemeSwitcherV1 } from "@/lib/theme-switcher-v1";
+import LanguageSwitcherV1 from "@/components/common/LanguageSwitcherV1";
 
 const NAV_ITEMS = [
   {
@@ -148,7 +148,7 @@ export default function AdminLayout({
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border flex flex-col transition-transform duration-300 lg:translate-x-0 lg:static lg:z-auto",
+          "fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border flex flex-col transition-transform duration-300 lg:translate-x-0",
           sidebarOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
@@ -202,19 +202,21 @@ export default function AdminLayout({
 
         {/* User */}
         <div className="p-4 border-t border-border">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary text-sm">
-              {session.user.name?.[0]?.toUpperCase()}
+          <Link href={`/${locale}/admin/profile`}>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary text-sm">
+                {session.user.name?.[0]?.toUpperCase()}
+              </div>
+              <div className="min-w-0">
+                <p className="text-sm font-medium truncate">
+                  {session.user.name}
+                </p>
+                <p className="text-xs text-muted-foreground capitalize">
+                  {role?.replace("_", " ")}
+                </p>
+              </div>
             </div>
-            <div className="min-w-0">
-              <p className="text-sm font-medium truncate">
-                {session.user.name}
-              </p>
-              <p className="text-xs text-muted-foreground capitalize">
-                {role?.replace("_", " ")}
-              </p>
-            </div>
-          </div>
+          </Link>
         </div>
       </aside>
 

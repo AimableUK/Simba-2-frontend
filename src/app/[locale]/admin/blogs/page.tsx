@@ -364,7 +364,7 @@ export default function AdminBlogsPage() {
                   <input
                     value={tags}
                     onChange={(e) => setTags(e.target.value)}
-                    placeholder="recipe, news, tips"
+                    placeholder="Enter tags e.g. recipe, news, tips"
                     className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
                   />
                 </div>

@@ -45,10 +45,10 @@ export function Footer() {
             </p>
             <div className="space-y-2">
               <a
-                href="tel:+250788000000"
+                href="tel:+250788307200"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
               >
-                <Phone className="w-4 h-4 text-primary" /> +250 788 000 000
+                <Phone className="w-4 h-4 text-primary" /> +250 788307200
               </a>
               <a
                 href="mailto:info@simbasupermarket.rw"
@@ -59,14 +59,34 @@ export function Footer() {
               </a>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4 text-primary flex-shrink-0" />{" "}
-                Kigali, Rwanda
+                <a
+                  href="https://maps.app.goo.gl/sQsE5ERQ48yB1ih4A"
+                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Kigali, Rwanda
+                </a>
               </div>
             </div>
             <div className="flex items-center gap-3 mt-4">
-              {[Facebook, Instagram, Twitter].map((Icon, i) => (
+              {[
+                {
+                  Icon: Facebook,
+                  url: "https://www.facebook.com/simbasupermarket/",
+                },
+                {
+                  Icon: Instagram,
+                  url: "https://www.instagram.com/simba_supermarket/",
+                },
+                {
+                  Icon: Twitter,
+                  url: "https://x.com/SimbaRwanda",
+                },
+              ].map(({ Icon, url }, i) => (
                 <a
                   key={i}
-                  href="#"
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-8 h-8 bg-muted rounded-lg flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-white transition-colors"
                 >
                   <Icon className="w-4 h-4" />
@@ -81,7 +101,6 @@ export function Footer() {
             <ul className="space-y-2">
               {[
                 { label: t("allProducts"), href: `/${locale}/shop` },
-                { label: t("categories"), href: `/${locale}/shop` },
                 {
                   label: t("deals"),
                   href: `/${locale}/shop?sort=comparePrice`,
@@ -113,7 +132,6 @@ export function Footer() {
                 { label: t("about"), href: `/${locale}/about` },
                 { label: t("blog"), href: `/${locale}/blog` },
                 { label: t("contact"), href: `/${locale}/contact` },
-                { label: t("careers"), href: "#" },
               ].map((item) => (
                 <li key={item.label}>
                   <Link
@@ -151,13 +169,6 @@ export function Footer() {
               ))}
             </ul>
           </div>
-        </div>
-
-        <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-muted-foreground">
-            {t("rights", { year })}
-          </p>
-          <p className="text-xs text-muted-foreground">{t("madeIn")}</p>
         </div>
       </div>
     </footer>

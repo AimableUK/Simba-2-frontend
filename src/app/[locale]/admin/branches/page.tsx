@@ -440,7 +440,7 @@ export default function AdminBranchesPage() {
                 <FormInput
                   registration={register("name")}
                   error={!!errors.name}
-                  placeholder="Simba Supermarket Remera"
+                  placeholder="Enter branch name"
                 />
               </FormField>
 
@@ -452,7 +452,7 @@ export default function AdminBranchesPage() {
                 <FormInput
                   registration={register("address")}
                   error={!!errors.address}
-                  placeholder="Remera, Kigali"
+                  placeholder="Enter branch location"
                 />
               </FormField>
 

@@ -126,7 +126,7 @@ export default function ContactPage() {
                     <FormInput
                       registration={register("name")}
                       error={!!errors.name}
-                      placeholder="Jean Uwimana"
+                      placeholder="Enter your name"
                     />
                   </FormField>
                   <FormField
@@ -138,7 +138,7 @@ export default function ContactPage() {
                       registration={register("email")}
                       error={!!errors.email}
                       type="email"
-                      placeholder="you@email.com"
+                      placeholder="Enter your email"
                     />
                   </FormField>
                 </div>
@@ -151,7 +151,7 @@ export default function ContactPage() {
                   <FormInput
                     registration={register("phone")}
                     type="tel"
-                    placeholder="+250 788 000 000"
+                    placeholder="Enter your phone number"
                   />
                 </FormField>
 

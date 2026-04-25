@@ -1,4 +1,5 @@
 "use client";
+
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations, useLocale } from "next-intl";
 import { useSession, signOut } from "@/lib/auth-client";
@@ -10,7 +11,7 @@ import { toast } from "sonner";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { User, Package, Heart, LogOut, ShieldCheck } from "lucide-react";
+import { User, Package, LogOut } from "lucide-react";
 
 const schema = z.object({
   name: z.string().min(2),
@@ -36,7 +37,7 @@ export default function ProfilePage() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  } = useForm<FormData>({ resolver: zodResolver(schema), mode: "onBlur" });
 
   useEffect(() => {
     if (profile) reset({ name: profile.name, phone: profile.phone || "" });
@@ -147,7 +148,7 @@ export default function ProfilePage() {
               </label>
               <input
                 {...register("phone")}
-                placeholder="+250 788 000 000"
+                placeholder="Your Phone number"
                 className="w-full px-4 py-3 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
               />
             </div>

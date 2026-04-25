@@ -157,7 +157,7 @@ export default function ProfilePage() {
               </label>
               <input
                 {...register("phone")}
-                placeholder="+250 788 000 000"
+                placeholder="Enter your phone number"
                 className="w-full px-4 py-3 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
               />
             </div>

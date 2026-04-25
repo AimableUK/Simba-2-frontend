@@ -145,7 +145,7 @@ export default function CheckoutPage() {
                   <FormInput
                     registration={register("fullName")}
                     error={!!errors.fullName}
-                    placeholder="Jean Uwimana"
+                    placeholder="Enter your name"
                     autoComplete="name"
                   />
                 </FormField>
@@ -158,7 +158,7 @@ export default function CheckoutPage() {
                     registration={register("phone")}
                     error={!!errors.phone}
                     type="tel"
-                    placeholder="+250 788 000 000"
+                    placeholder="Enter your phone number"
                   />
                 </FormField>
                 <FormField
@@ -169,7 +169,7 @@ export default function CheckoutPage() {
                   <FormInput
                     registration={register("street")}
                     error={!!errors.street}
-                    placeholder="KK 123 St, Kicukiro"
+                    placeholder="Enter your address e.g. KK 123 St, Kicukiro"
                   />
                 </FormField>
                 <FormField
@@ -180,7 +180,7 @@ export default function CheckoutPage() {
                   <FormInput
                     registration={register("district")}
                     error={!!errors.district}
-                    placeholder="Kicukiro"
+                    placeholder="Enter district e.g. Kicukiro"
                   />
                 </FormField>
                 <FormField
@@ -191,7 +191,7 @@ export default function CheckoutPage() {
                   <FormInput
                     registration={register("sector")}
                     error={!!errors.sector}
-                    placeholder="Niboye"
+                    placeholder="Enter your sector e.g. Niboye"
                   />
                 </FormField>
                 <FormField

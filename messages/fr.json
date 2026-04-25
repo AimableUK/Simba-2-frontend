@@ -15,7 +15,8 @@
     "admin": "Panneau Admin",
     "search": "Rechercher des produits...",
     "searchPlaceholder": "Rechercher des produits, marques...",
-    "branches": "Agences"
+    "branches": "Agences",
+    "allProducts": "Tous les Produits"
   },
   "home": {
     "hero": {
@@ -264,7 +265,7 @@
     "next": "Suivant",
     "previous": "Précédent",
     "page": "Page {page} sur {total}",
-    "showing": "Affichage {from}–{to} sur {total}",
+    "showing": "Affichage {from}-{to} sur {total}",
     "currency": "RWF",
     "free": "Gratuit",
     "required": "Obligatoire",
@@ -273,7 +274,8 @@
     "and": "et",
     "darkMode": "Mode Sombre",
     "lightMode": "Mode Clair",
-    "language": "Langue"
+    "language": "Langue",
+    "allProducts": "Tous les Produits"
   },
   "footer": {
     "tagline": "Le supermarché favori de Kigali - frais, rapide et fiable.",
@@ -365,5 +367,16 @@
     "updateStock": "Mettre à jour le Stock",
     "currentStock": "Stock actuel",
     "markOutOfStock": "Marquer Indisponible"
+  },
+  "wishlist": {
+    "title": "Ma Liste de Souhaits",
+    "empty": "Votre liste de souhaits est vide",
+    "emptyDesc": "Sauvegardez les articles que vous aimez",
+    "browseProducts": "Parcourir les Produits",
+    "addToCart": "Ajouter au Panier",
+    "remove": "Supprimer",
+    "inStock": "En stock",
+    "outOfStock": "Rupture de stock",
+    "items": "articles sauvegardés"
   }
 }

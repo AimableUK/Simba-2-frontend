@@ -241,7 +241,7 @@ export function Navbar() {
               {/* Wishlist */}
               {user && (
                 <Link
-                  href={`/${locale}/account/wishlist`}
+                  href={`/${locale}/wishlist`}
                   className="hidden sm:flex p-2 rounded-lg hover:bg-accent text-foreground/70 hover:text-primary transition-colors"
                 >
                   <Heart className="w-5 h-5" />

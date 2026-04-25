@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -10,6 +9,7 @@ import { z } from "zod";
 import { Eye, EyeOff, ShoppingCart, Check } from "lucide-react";
 import { motion } from "framer-motion";
 import { signUp, signIn } from "@/lib/auth-client";
+import { FormField, FormInput } from "@/components/ui/form-field";
 import { toast } from "sonner";
 
 const schema = z
@@ -75,6 +75,7 @@ export default function SignUpPage() {
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
+    mode: "onBlur",
   });
 
   const password = watch("password") || "";
@@ -188,7 +189,7 @@ export default function SignUpPage() {
         </p>
       </div>
 
-      {/*  Right panel: form  */}
+      {/* ── Right panel: form ────────────────────────────────────────────── */}
       <div className="flex items-center justify-center px-6 py-10 bg-background overflow-y-auto">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -264,72 +265,55 @@ export default function SignUpPage() {
 
           {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            {/* Name */}
-            <div>
-              <label className="block text-sm font-medium mb-1.5">
-                {t("name")}
-              </label>
-              <input
-                {...register("name")}
-                placeholder="Jean Uwimana"
+            <FormField label={t("name")} error={errors.name?.message} required>
+              <FormInput
+                registration={register("name")}
+                error={!!errors.name}
+                placeholder="Enter your name"
                 autoComplete="name"
-                className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary text-sm transition-all placeholder:text-muted-foreground/60"
               />
-              {errors.name && (
-                <p className="text-destructive text-xs mt-1.5">
-                  {errors.name.message}
-                </p>
-              )}
-            </div>
+            </FormField>
 
-            {/* Email */}
-            <div>
-              <label className="block text-sm font-medium mb-1.5">
-                {t("email")}
-              </label>
-              <input
-                {...register("email")}
+            <FormField
+              label={t("email")}
+              error={errors.email?.message}
+              required
+            >
+              <FormInput
+                registration={register("email")}
+                error={!!errors.email}
                 type="email"
                 autoComplete="email"
-                placeholder="you@example.com"
-                className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary text-sm transition-all placeholder:text-muted-foreground/60"
+                placeholder="Enter your email"
               />
-              {errors.email && (
-                <p className="text-destructive text-xs mt-1.5">
-                  {errors.email.message}
-                </p>
-              )}
-            </div>
+            </FormField>
 
-            {/* Phone */}
-            <div>
-              <label className="block text-sm font-medium mb-1.5">
-                {t("phone")}
-                <span className="text-muted-foreground font-normal ml-1">
-                  (optional)
-                </span>
-              </label>
-              <input
-                {...register("phone")}
+            <FormField
+              label={t("phone")}
+              error={errors.phone?.message}
+              optional
+            >
+              <FormInput
+                registration={register("phone")}
                 type="tel"
                 autoComplete="tel"
-                placeholder="+250 788 000 000"
-                className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary text-sm transition-all placeholder:text-muted-foreground/60"
+                placeholder="Enter your phone number"
               />
-            </div>
+            </FormField>
 
             {/* Password */}
-            <div>
-              <label className="block text-sm font-medium mb-1.5">
-                {t("password")}
-              </label>
+            <FormField
+              label={t("password")}
+              error={errors.password?.message}
+              required
+            >
               <div className="relative">
                 <input
                   {...register("password")}
                   type={showPw ? "text" : "password"}
                   autoComplete="new-password"
                   placeholder="Min. 8 characters"
-                  className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary text-sm pr-11 transition-all"
+                  className={`w-full px-4 py-3 rounded-xl border bg-background focus:outline-none focus:ring-2 text-sm pr-11 transition-all ${errors.password ? "border-destructive focus:ring-destructive/20 bg-destructive/5" : "border-border focus:ring-primary/40 focus:border-primary"}`}
                 />
                 <button
                   type="button"
@@ -344,25 +328,21 @@ export default function SignUpPage() {
                 </button>
               </div>
               <PasswordStrength password={password} />
-              {errors.password && (
-                <p className="text-destructive text-xs mt-1.5">
-                  {errors.password.message}
-                </p>
-              )}
-            </div>
+            </FormField>
 
             {/* Confirm password */}
-            <div>
-              <label className="block text-sm font-medium mb-1.5">
-                {t("confirmPassword")}
-              </label>
+            <FormField
+              label={t("confirmPassword")}
+              error={errors.confirmPassword?.message}
+              required
+            >
               <div className="relative">
                 <input
                   {...register("confirmPassword")}
                   type={showConfirm ? "text" : "password"}
                   autoComplete="new-password"
                   placeholder="••••••••"
-                  className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary text-sm pr-11 transition-all"
+                  className={`w-full px-4 py-3 rounded-xl border bg-background focus:outline-none focus:ring-2 text-sm pr-11 transition-all ${errors.confirmPassword ? "border-destructive focus:ring-destructive/20 bg-destructive/5" : "border-border focus:ring-primary/40 focus:border-primary"}`}
                 />
                 <button
                   type="button"
@@ -376,12 +356,7 @@ export default function SignUpPage() {
                   )}
                 </button>
               </div>
-              {errors.confirmPassword && (
-                <p className="text-destructive text-xs mt-1.5">
-                  {errors.confirmPassword.message}
-                </p>
-              )}
-            </div>
+            </FormField>
 
             <button
               type="submit"

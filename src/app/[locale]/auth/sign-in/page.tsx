@@ -38,6 +38,7 @@ export default function SignInPage() {
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
+    mode: "onBlur",
   });
 
   const onSubmit = async (data: FormData) => {
@@ -224,8 +225,8 @@ export default function SignInPage() {
                 {...register("email")}
                 type="email"
                 autoComplete="email"
-                placeholder="you@example.com"
-                className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary text-sm transition-all placeholder:text-muted-foreground/60"
+                placeholder="Enter your Email"
+                className={`w-full px-4 py-3 rounded-xl border bg-background focus:outline-none focus:ring-2 text-sm transition-all placeholder:text-muted-foreground/60 ${errors.email ? "border-destructive focus:ring-destructive/20 bg-destructive/5" : "border-border focus:ring-primary/40 focus:border-primary"}`}
               />
               {errors.email && (
                 <p className="text-destructive text-xs mt-1.5 flex items-center gap-1">
@@ -253,7 +254,7 @@ export default function SignInPage() {
                   type={showPw ? "text" : "password"}
                   autoComplete="current-password"
                   placeholder="••••••••"
-                  className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary text-sm pr-11 transition-all"
+                  className={`w-full px-4 py-3 rounded-xl border bg-background focus:outline-none focus:ring-2 text-sm pr-11 transition-all ${errors.password ? "border-destructive focus:ring-destructive/20 bg-destructive/5" : "border-border focus:ring-primary/40 focus:border-primary"}`}
                 />
                 <button
                   type="button"

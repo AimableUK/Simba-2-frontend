@@ -15,7 +15,8 @@
     "admin": "Admin Panel",
     "search": "Search products...",
     "searchPlaceholder": "Search for products, brands...",
-    "branches": "Branches"
+    "branches": "Branches",
+    "allProducts": "All Products"
   },
   "home": {
     "hero": {
@@ -274,7 +275,7 @@
     "darkMode": "Dark Mode",
     "lightMode": "Light Mode",
     "language": "Language",
-    "allProducts" : "All Products"
+    "allProducts": "All Products"
   },
   "footer": {
     "tagline": "Kigali's favourite supermarket - fresh, fast, and reliable.",
@@ -366,5 +367,16 @@
     "updateStock": "Update Stock",
     "currentStock": "Current Stock",
     "markOutOfStock": "Mark Out of Stock"
+  },
+  "wishlist": {
+    "title": "My Wishlist",
+    "empty": "Your wishlist is empty",
+    "emptyDesc": "Save items you love and find them here",
+    "browseProducts": "Browse Products",
+    "addToCart": "Add to Cart",
+    "remove": "Remove",
+    "inStock": "In stock",
+    "outOfStock": "Out of stock",
+    "items": "saved items"
   }
 }

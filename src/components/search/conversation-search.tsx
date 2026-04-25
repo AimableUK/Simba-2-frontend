@@ -1,5 +1,6 @@
 "use client";
-import { useState, useRef } from "react";
+
+import { useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -9,8 +10,6 @@ import {
   Loader2,
   MapPin,
   ExternalLink,
-  Star,
-  Clock,
 } from "lucide-react";
 import { formatPrice, getImageUrl } from "@/lib/utils";
 import Link from "next/link";

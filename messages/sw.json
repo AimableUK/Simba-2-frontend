@@ -15,7 +15,8 @@
     "admin": "Ukanda wa Wasimamizi",
     "search": "Tafuta bidhaa...",
     "searchPlaceholder": "Tafuta bidhaa, chapa...",
-    "branches": "Matawi"
+    "branches": "Matawi",
+    "allProducts": "Bidhaa Zote"
   },
   "home": {
     "hero": {
@@ -264,7 +265,7 @@
     "next": "Mbele",
     "previous": "Nyuma",
     "page": "Ukurasa {page} kati ya {total}",
-    "showing": "Inaonyesha {from}–{to} kati ya {total}",
+    "showing": "Inaonyesha {from}-{to} kati ya {total}",
     "currency": "RWF",
     "free": "Bure",
     "required": "Inahitajika",
@@ -273,7 +274,8 @@
     "and": "na",
     "darkMode": "Hali ya Giza",
     "lightMode": "Hali ya Mwanga",
-    "language": "Lugha"
+    "language": "Lugha",
+    "allProducts": "Ibicuruzwa Byose"
   },
   "footer": {
     "tagline": "Supermarket bora Kigali - safi, haraka, na ya kuamini.",
@@ -365,5 +367,16 @@
     "updateStock": "Sasisha Hisa",
     "currentStock": "Hisa ya Sasa",
     "markOutOfStock": "Weka kama Imeisha"
+  },
+  "wishlist": {
+    "title": "Orodha ya Matakwa",
+    "empty": "Orodha yako ya matakwa iko wazi",
+    "emptyDesc": "Hifadhi vitu unavyovipenda upate hapa",
+    "browseProducts": "Vinjari Bidhaa",
+    "addToCart": "Ongeza kwenye Kikapu",
+    "remove": "Ondoa",
+    "inStock": "Ipo stokini",
+    "outOfStock": "Haipo stokini",
+    "items": "Vitu vilivyohifadhiwa"
   }
 }
