@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -19,26 +18,66 @@ import {
   LogOut,
   Bell,
   ChevronRight,
+  MapPin,
   Clock,
-  Blocks,
 } from "lucide-react";
-import { useSession, signOut } from "@/lib/auth-client";
+import { useSession } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { useAdminSocket } from "@/hooks/useSocket";
 import { toast } from "sonner";
-import { ThemeSwitcherV1 } from "@/lib/theme-switcher-v1";
 import LanguageSwitcherV1 from "@/components/common/LanguageSwitcherV1";
+import { ThemeSwitcherV1 } from "@/lib/theme-switcher-v1";
 
 const NAV_ITEMS = [
-  { label: "Dashboard", href: "dashboard", icon: LayoutDashboard },
-  { label: "Products", href: "products", icon: Package },
-  { label: "Orders", href: "orders", icon: ShoppingCart },
-  { label: "Users", href: "users", icon: Users },
-  { label: "Blog Posts", href: "blogs", icon: FileText },
-  { label: "Messages", href: "contacts", icon: MessageSquare },
-  { label: "Banners", href: "banners", icon: ImageIcon },
-  { label: "Settings", href: "settings", icon: Settings },
-  { label: "Branches", href: "branches", icon: Blocks },
+  {
+    label: "Dashboard",
+    href: "dashboard",
+    icon: LayoutDashboard,
+    roles: ["admin", "super_admin"],
+  },
+  {
+    label: "Products",
+    href: "products",
+    icon: Package,
+    roles: ["poster", "admin", "super_admin"],
+  },
+  {
+    label: "Orders",
+    href: "orders",
+    icon: ShoppingCart,
+    roles: ["admin", "super_admin"],
+  },
+  {
+    label: "Branches",
+    href: "branches",
+    icon: MapPin,
+    roles: ["admin", "super_admin"],
+  },
+  { label: "Users", href: "users", icon: Users, roles: ["super_admin"] },
+  {
+    label: "Blog Posts",
+    href: "blogs",
+    icon: FileText,
+    roles: ["poster", "admin", "super_admin"],
+  },
+  {
+    label: "Messages",
+    href: "contacts",
+    icon: MessageSquare,
+    roles: ["admin", "super_admin"],
+  },
+  {
+    label: "Banners",
+    href: "banners",
+    icon: ImageIcon,
+    roles: ["admin", "super_admin"],
+  },
+  {
+    label: "Settings",
+    href: "settings",
+    icon: Settings,
+    roles: ["super_admin"],
+  },
 ];
 
 export default function AdminLayout({
@@ -109,7 +148,7 @@ export default function AdminLayout({
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border flex flex-col transition-transform duration-300 lg:translate-x-0",
+          "fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border flex flex-col transition-transform duration-300 lg:translate-x-0 lg:static lg:z-auto",
           sidebarOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
@@ -136,52 +175,46 @@ export default function AdminLayout({
 
         {/* Nav */}
         <nav className="flex-1 py-4 overflow-y-auto">
-          {NAV_ITEMS.filter((item) => {
-            if (item.href === "users" || item.href === "settings")
-              return role === "super_admin";
-            if (item.href === "products" || item.href === "blogs")
-              return ["poster", "admin", "super_admin"].includes(role);
-            return ["admin", "super_admin"].includes(role);
-          }).map(({ label, href, icon: Icon }) => {
-            const fullPath = `/${locale}/admin/${href}`;
-            const active = pathname.includes(`/admin/${href}`);
-            return (
-              <Link
-                key={href}
-                href={fullPath}
-                onClick={() => setSidebarOpen(false)}
-                className={cn(
-                  "flex items-center gap-3 mx-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors mb-0.5",
-                  active
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground",
-                )}
-              >
-                <Icon className="h-4 w-4 shrink-0" />
-                {label}
-                {active && <ChevronRight className="h-3 w-3 ml-auto" />}
-              </Link>
-            );
-          })}
+          {NAV_ITEMS.filter((item) => item.roles.includes(role)).map(
+            ({ label, href, icon: Icon }) => {
+              const fullPath = `/${locale}/admin/${href}`;
+              const active = pathname.includes(`/admin/${href}`);
+              return (
+                <Link
+                  key={href}
+                  href={fullPath}
+                  onClick={() => setSidebarOpen(false)}
+                  className={cn(
+                    "flex items-center gap-3 mx-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors mb-0.5",
+                    active
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                  )}
+                >
+                  <Icon className="h-4 w-4 shrink-0" />
+                  {label}
+                  {active && <ChevronRight className="h-3 w-3 ml-auto" />}
+                </Link>
+              );
+            },
+          )}
         </nav>
 
         {/* User */}
         <div className="p-4 border-t border-border">
-          <Link href={`/${locale}/admin/profile`}>
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary text-sm">
-                {session.user.name?.[0]?.toUpperCase()}
-              </div>
-              <div className="min-w-0">
-                <p className="text-sm font-medium truncate">
-                  {session.user.name}
-                </p>
-                <p className="text-xs text-muted-foreground capitalize">
-                  {role?.replace("_", " ")}
-                </p>
-              </div>
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary text-sm">
+              {session.user.name?.[0]?.toUpperCase()}
             </div>
-          </Link>
+            <div className="min-w-0">
+              <p className="text-sm font-medium truncate">
+                {session.user.name}
+              </p>
+              <p className="text-xs text-muted-foreground capitalize">
+                {role?.replace("_", " ")}
+              </p>
+            </div>
+          </div>
         </div>
       </aside>
 
