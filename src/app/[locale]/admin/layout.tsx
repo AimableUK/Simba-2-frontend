@@ -167,30 +167,21 @@ export default function AdminLayout({
 
         {/* User */}
         <div className="p-4 border-t border-border">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary text-sm">
-              {session.user.name?.[0]?.toUpperCase()}
+          <Link href={`/${locale}/admin/profile`}>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary text-sm">
+                {session.user.name?.[0]?.toUpperCase()}
+              </div>
+              <div className="min-w-0">
+                <p className="text-sm font-medium truncate">
+                  {session.user.name}
+                </p>
+                <p className="text-xs text-muted-foreground capitalize">
+                  {role?.replace("_", " ")}
+                </p>
+              </div>
             </div>
-            <div className="min-w-0">
-              <p className="text-sm font-medium truncate">
-                {session.user.name}
-              </p>
-              <p className="text-xs text-muted-foreground capitalize">
-                {role?.replace("_", " ")}
-              </p>
-            </div>
-          </div>
-          <button
-            onClick={() =>
-              signOut({
-                fetchOptions: { onSuccess: () => router.push(`/${locale}`) },
-              })
-            }
-            className="flex items-center gap-2 w-full text-sm text-muted-foreground hover:text-destructive transition-colors px-2 py-1.5 rounded-lg hover:bg-destructive/10"
-          >
-            <LogOut className="h-4 w-4" />
-            Sign Out
-          </button>
+          </Link>
         </div>
       </aside>
 

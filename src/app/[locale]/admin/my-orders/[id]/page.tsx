@@ -67,7 +67,7 @@ export default function OrderDetailPage() {
       <div className="container mx-auto px-4 py-20 text-center">
         <p className="text-muted-foreground">Order not found</p>
         <Link
-          href={`/${locale}/account/orders`}
+          href={`/${locale}/admin/my-orders`}
           className="mt-4 inline-block text-primary hover:underline"
         >
           ← {t("title")}
@@ -82,7 +82,7 @@ export default function OrderDetailPage() {
     <div className="container mx-auto px-4 py-8 max-w-3xl">
       <div className="flex items-center gap-3 mb-6">
         <Link
-          href={`/${locale}/account/orders`}
+          href={`/${locale}/admin/my-orders`}
           className="text-muted-foreground hover:text-primary transition-colors text-sm"
         >
           ← {t("title")}
