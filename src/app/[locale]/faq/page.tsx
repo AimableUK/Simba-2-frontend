@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import {
   motion,
   useInView,
@@ -140,7 +140,6 @@ function AccordionItem({
 //  Page
 export default function FAQPage() {
   const t = useTranslations("faq");
-  const locale = useLocale();
   const [activeCategory, setActiveCategory] = useState<string>(
     CATEGORY_KEYS[0],
   );
@@ -266,7 +265,7 @@ export default function FAQPage() {
           </h2>
           <p className="mb-6 text-muted-foreground">{t("contact.body")}</p>
           <a
-            href={`${locale}/contact`}
+            href="/contact"
             className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
           >
             {t("contact.cta")}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { motion, useInView, type Variants } from "framer-motion";
 import { useRef, useState } from "react";
 import {
@@ -144,7 +144,6 @@ function ContentSection({
 //  Page
 export default function TermsOfServicePage() {
   const t = useTranslations("terms");
-  const locale = useLocale();
   const [activeSection, setActiveSection] = useState<string>(SECTIONS[0].key);
 
   return (
@@ -302,13 +301,13 @@ export default function TermsOfServicePage() {
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <a
-              href={`${locale}/contact`}
+              href="/contact"
               className="rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
             >
               {t("agreement.ctaContact")}
             </a>
             <a
-              href={`${locale}/privacy-policy`}
+              href="/privacy-policy"
               className="rounded-full border border-border bg-background px-6 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-primary/30"
             >
               {t("agreement.ctaPrivacy")}

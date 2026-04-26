@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { motion, useInView, type Variants } from "framer-motion";
 import { useRef } from "react";
 import {
@@ -164,7 +164,6 @@ const OPTION_HIGHS = [false, true, false];
 
 export default function DeliveryInfoPage() {
   const t = useTranslations("delivery");
-  const locale = useLocale();
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -364,7 +363,7 @@ export default function DeliveryInfoPage() {
             </div>
           </div>
           <a
-            href={`${locale}/contact`}
+            href="/contact"
             className="shrink-0 rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
           >
             {t("contact.cta")}

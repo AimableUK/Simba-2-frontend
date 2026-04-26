@@ -89,7 +89,7 @@ export default function ContactPage() {
             <div className="space-y-5">
               {info.map(({ icon: Icon, label, value, href }) => {
                 const content = (
-                  <div className="flex gap-4 group">
+                  <div className="flex gap-4 group pb-2">
                     <div className="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center shrink-0 transition-colors group-hover:bg-primary/20">
                       <Icon className="h-5 w-5 text-primary" />
                     </div>
