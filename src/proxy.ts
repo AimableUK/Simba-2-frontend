@@ -35,7 +35,7 @@ export default async function middleware(
 
   if (isSkippable(pathname)) return NextResponse.next();
 
-  // Skip /api/* - handled by vercel.json rewrites
+  // Skip /api/* — handled by vercel.json rewrites
   if (pathname.startsWith("/api/")) return NextResponse.next();
 
   const sessionToken = getSessionToken(request);
