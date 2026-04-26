@@ -149,7 +149,7 @@
   "contact": {
     "title": "Contact Us",
     "subtitle": "We're here to help. Send us a message and we'll get back to you within 24 hours.",
-    "sendOtherMessage" : "Send another Message",
+    "sendOtherMessage": "Send another Message",
     "messageSent": "Message Sent!",
     "touch": "Get in Touch",
     "name": "Your Name",
@@ -170,6 +170,27 @@
     "hoursValueSun": "Sun: 9am–5pm"
   },
   "auth": {
+    "signin": {
+      "title": "Rwanda's favourite \n supermarket, \n online.",
+      "description": "Browse thousands of products and pick up your order at any of our 9 Kigali branches.",
+      "features": {
+        "feature1": "Fast pickup at 9 Kigali branches",
+        "feature2": "Secure and private shopping",
+        "feature3": "Trusted by thousands in Kigali"
+      }
+    },
+    "signup": {
+      "title": "Join Simba today",
+      "subtitle": "Your groceries, \n your way.",
+      "description": "Create a free account and start ordering from Kigali's most trusted supermarket chain.",
+      "features": {
+        "feature1": "Track your pick-up orders in real time",
+        "feature2": "Save favourites to your wishlist",
+        "feature3": "Exclusive member deals & offers",
+        "feature4": "Quick re-order from history"
+      },
+      "customer": "Customers in Kigali"
+    },
     "signIn": "Sign In",
     "signUp": "Create Account",
     "email": "Email Address",
@@ -188,7 +209,8 @@
     "verifyEmail": "Verify your email",
     "resetSent": "Password reset link sent to your email",
     "passwordMismatch": "Passwords do not match",
-    "loading": "Please wait..."
+    "loading": "Please wait...",
+    "continueWithGoogle": "Continue with Google"
   },
   "admin": {
     "dashboard": "Dashboard",

@@ -18,12 +18,6 @@ const schema = z.object({
 });
 type FormData = z.infer<typeof schema>;
 
-const TRUST_ITEMS = [
-  { icon: Truck, text: "Fast pickup at 9 Kigali branches" },
-  { icon: Shield, text: "Secure & private shopping" },
-  { icon: Star, text: "Trusted by thousands in Kigali" },
-];
-
 export default function SignInPage() {
   const t = useTranslations("auth");
   const locale = useLocale();
@@ -31,6 +25,12 @@ export default function SignInPage() {
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
+
+  const TRUST_ITEMS = [
+    { icon: Truck, text: t("signin.features.feature1") },
+    { icon: Shield, text: t("signin.features.feature2") },
+    { icon: Star, text: t("signin.features.feature3") },
+  ];
 
   const {
     register,
@@ -110,15 +110,10 @@ export default function SignInPage() {
         <div className="relative z-10 space-y-8">
           <div>
             <h2 className="text-4xl font-bold text-white leading-tight">
-              Rwanda's favourite
-              <br />
-              supermarket,
-              <br />
-              online.
+              {t("signin.title")}
             </h2>
             <p className="text-white/80 mt-4 text-lg">
-              Browse thousands of products and pick up at any of our 9 Kigali
-              branches.
+              {t("signin.description")}
             </p>
           </div>
 
@@ -203,7 +198,7 @@ export default function SignInPage() {
                 />
               </svg>
             )}
-            Continue with Google
+            {t("continueWithGoogle")}
           </button>
 
           {/* Divider */}
@@ -291,23 +286,6 @@ export default function SignInPage() {
               )}
             </button>
           </form>
-
-          <p className="text-center text-xs text-muted-foreground mt-6">
-            By signing in, you agree to our{" "}
-            <Link
-              href={`/${locale}/terms`}
-              className="hover:text-primary underline underline-offset-2"
-            >
-              Terms
-            </Link>{" "}
-            and{" "}
-            <Link
-              href={`/${locale}/privacy`}
-              className="hover:text-primary underline underline-offset-2"
-            >
-              Privacy Policy
-            </Link>
-          </p>
         </motion.div>
       </div>
     </div>

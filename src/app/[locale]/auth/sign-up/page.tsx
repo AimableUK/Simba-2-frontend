@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -26,13 +27,6 @@ const schema = z
   });
 
 type FormData = z.infer<typeof schema>;
-
-const PERKS = [
-  "Track your pick-up orders in real time",
-  "Save favourites to your wishlist",
-  "Exclusive member deals & offers",
-  "Quick re-order from history",
-];
 
 function PasswordStrength({ password }: { password: string }) {
   const checks = [
@@ -67,6 +61,13 @@ export default function SignUpPage() {
   const [showConfirm, setShowConfirm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
+
+  const PERKS = [
+    t("signup.features.feature1"),
+    t("signup.features.feature2"),
+    t("signup.features.feature3"),
+    t("signup.features.feature4"),
+  ];
 
   const {
     register,
@@ -142,17 +143,12 @@ export default function SignUpPage() {
         <div className="relative z-10 space-y-8">
           <div>
             <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">
-              Join Simba today
+              {t("signup.title")}
             </p>
             <h2 className="text-4xl font-bold text-background leading-tight">
-              Your groceries,
-              <br />
-              your way.
+              {t("signup.subtitle")}
             </h2>
-            <p className="text-background/60 mt-4">
-              Create a free account and start ordering from Kigali's most
-              trusted supermarket chain.
-            </p>
+            <p className="text-background/60 mt-4">{t("signup.description")}</p>
           </div>
 
           <div className="space-y-3">
@@ -179,13 +175,13 @@ export default function SignUpPage() {
             </div>
             <p className="text-background/70 text-sm">
               <span className="text-background font-semibold">2,000+</span>{" "}
-              customers in Kigali
+              {t("signup.customer")}
             </p>
           </div>
         </div>
 
         <p className="relative z-10 text-background/40 text-xs">
-          © 2025 Simba Super Market, Kigali Rwanda
+          &copy; 2025 Simba Super Market, Kigali Rwanda
         </p>
       </div>
 

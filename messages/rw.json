@@ -166,10 +166,31 @@
     "emailLabel": "Imeyili",
     "phoneLabel": "Telefoni",
     "hours": "Amasaha y'Akazi",
-    "hoursValue": "Ku wa 1–6: 8h00–20h00",
-    "hoursValueSun": "Ku cyumweru: 9h00–17h00"
+    "hoursValue": "Ku wa 1-6: 8h00-20h00",
+    "hoursValueSun": "Ku cyumweru: 9h00-17h00"
   },
   "auth": {
+    "signin": {
+      "title": "Isoko rikunzwe cyane mu Rwanda, kuri internet.",
+      "description": "Reba ibicuruzwa ibihumbi hanyuma ubitoragure ku mashami 9 yacu ari i Kigali.",
+      "features": {
+        "feature1": "Gutoragura vuba ku mashami 9 ya Kigali",
+        "feature2": "Guhaha mu mutekano n'ibanga",
+        "feature3": "Iringirwa n'ibihumbi by'abakiriya i Kigali"
+      }
+    },
+    "signup": {
+      "title": "Injira muri Simba uyu munsi",
+      "subtitle": "Ibyo ukeneye byose, uko ubishaka.",
+      "description": "Fungura konti ku buntu utangire gutumiza mu isoko ryizewe cyane i Kigali.",
+      "features": {
+        "feature1": "Kurikira ibicuruzwa byawe mu gihe nyacyo",
+        "feature2": "Bika ibyo ukunda ku rutonde rwawe",
+        "feature3": "Ibihembo n'masezerano byihariye ku banyamuryango",
+        "feature4": "Ongera utumize vuba uhereye ku mateka"
+      },
+      "customer": "Abakiriya bari i Kigali"
+    },
     "signIn": "Injira",
     "signUp": "Fungura Konti",
     "email": "Imeyili",
@@ -184,11 +205,12 @@
     "signInHere": "Injira hano",
     "signUpHere": "Fungura",
     "orContinueWith": "Cyangwa komeza na",
-    "agreeTerms": "Usubikira, wemeye amategeko yacu",
+    "agreeTerms": "Niwinjira, uraba wemera {terms} na {privacy}",
     "verifyEmail": "Emeza imeyili yawe",
     "resetSent": "Uhuza wo gusubiranya ijambo ryibanga yoherejwe ku imeyili yawe",
     "passwordMismatch": "Amagambo y'ibanga ntafanye",
-    "loading": "Tegereza..."
+    "loading": "Tegereza...",
+    "continueWithGoogle": "Komeza ukoresheje Google"
   },
   "admin": {
     "dashboard": "Ikibaho",

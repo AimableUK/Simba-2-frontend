@@ -170,6 +170,27 @@
     "hoursValueSun": "Jmapumziko: 9asubuhi–5jioni"
   },
   "auth": {
+    "signin": {
+      "title": "Duka kuu pendwa la Rwanda, mtandaoni.",
+      "description": "Vinjari maelfu ya bidhaa na chukua ununuzi wako katika matawi yetu 9 ya Kigali.",
+      "features": {
+        "feature1": "Chukua haraka katika matawi 9 ya Kigali",
+        "feature2": "Ununuzi salama na wa siri",
+        "feature3": "Inaaminika na maelfu ya watu Kigali"
+      }
+    },
+    "signup": {
+      "title": "Jiunge na Simba leo",
+      "subtitle": "Mahitaji yako ya chakula, kwa njia yako.",
+      "description": "Fungua akaunti bure na anza kuagiza kutoka kwenye msururu wa maduka unaoaminika zaidi Kigali.",
+      "features": {
+        "feature1": "Fuatilia oda zako za kuchukua kwa wakati halisi",
+        "feature2": "Hifadhi vipendwa kwenye orodha yako",
+        "feature3": "Ofa na punguzo maalum kwa wanachama",
+        "feature4": "Agiza upya kwa haraka kutoka historia"
+      },
+      "customer": "Wateja wa Kigali"
+    },
     "signIn": "Ingia",
     "signUp": "Fungua Akaunti",
     "email": "Barua Pepe",
@@ -184,11 +205,12 @@
     "signInHere": "Ingia hapa",
     "signUpHere": "Fungua moja",
     "orContinueWith": "Au endelea na",
-    "agreeTerms": "Kwa kujisajili unakubaliana na Masharti ya Huduma",
+    "agreeTerms": "Kwa kuingia, unakubali {terms} na {privacy}",
     "verifyEmail": "Thibitisha barua pepe yako",
     "resetSent": "Kiungo cha kuweka upya nenosiri kimetumwa",
     "passwordMismatch": "Manenosiri hayafanani",
-    "loading": "Tafadhali subiri..."
+    "loading": "Tafadhali subiri...",
+    "continueWithGoogle": "Endelea na Google"
   },
   "admin": {
     "dashboard": "Dashibodi",

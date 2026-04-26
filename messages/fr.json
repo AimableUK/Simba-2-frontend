@@ -170,6 +170,27 @@
     "hoursValueSun": "Dim : 9h–17h"
   },
   "auth": {
+    "signin": {
+      "title": "Le supermarché préféré du Rwanda, en ligne.",
+      "description": "Parcourez des milliers de produits et récupérez vos achats dans l'une de nos 9 succursales à Kigali.",
+      "features": {
+        "feature1": "Retrait rapide dans 9 succursales à Kigali",
+        "feature2": "Achats sécurisés et privés",
+        "feature3": "Approuvé par des milliers de clients à Kigali"
+      }
+    },
+    "signup": {
+      "title": "Rejoignez Simba aujourd'hui",
+      "subtitle": "Vos courses, à votre façon.",
+      "description": "Créez un compte gratuit et commencez à commander auprès de la chaîne de supermarchés la plus fiable de Kigali.",
+      "features": {
+        "feature1": "Suivez vos commandes de retrait en temps réel",
+        "feature2": "Enregistrez vos favoris dans votre liste de souhaits",
+        "feature3": "Offres et avantages exclusifs pour membres",
+        "feature4": "Recommandez rapidement depuis l'historique"
+      },
+      "customer": "Clients à Kigali"
+    },
     "signIn": "Se Connecter",
     "signUp": "Créer un Compte",
     "email": "Adresse E-mail",
@@ -184,11 +205,12 @@
     "signInHere": "Connectez-vous ici",
     "signUpHere": "Créez-en un",
     "orContinueWith": "Ou continuer avec",
-    "agreeTerms": "En vous inscrivant, vous acceptez nos Conditions d'Utilisation",
+    "agreeTerms": "En vous connectant, vous acceptez nos {terms} et notre {privacy}",
     "verifyEmail": "Vérifiez votre e-mail",
     "resetSent": "Lien de réinitialisation envoyé à votre e-mail",
     "passwordMismatch": "Les mots de passe ne correspondent pas",
-    "loading": "Veuillez patienter..."
+    "loading": "Veuillez patienter...",
+    "continueWithGoogle": "Continuer avec Google"
   },
   "admin": {
     "dashboard": "Tableau de Bord",
