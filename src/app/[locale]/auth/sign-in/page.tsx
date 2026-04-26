@@ -68,6 +68,7 @@ export default function SignInPage() {
       await signIn.social({
         provider: "google",
         callbackURL: `${window.location.origin}/${locale}`,
+        errorCallbackURL: `${window.location.origin}/${locale}/auth/sign-in?error=oauth`,
       });
     } catch {
       toast.error("Google sign in failed");
