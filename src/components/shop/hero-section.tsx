@@ -102,7 +102,7 @@ export function HeroSection() {
                         onClick={() => setOpenVideo(true)}
                         className="px-6 py-3 bg-white/20 backdrop-blur text-white font-semibold rounded-full hover:bg-white/30 transition-colors text-sm border border-white/30"
                       >
-                        {t("hero.viewCategories")}
+                        {t("hero.viewDemo")}
                       </Link>
                     </div>
                   </motion.div>
