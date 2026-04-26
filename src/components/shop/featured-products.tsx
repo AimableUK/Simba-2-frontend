@@ -4,12 +4,8 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
-import { productApi, categoryApi } from "@/lib/api";
-import {
-  ProductCard,
-  ProductCardSkeleton,
-} from "@/components/product/product-card";
-import { cn, getImageUrl } from "@/lib/utils";
+import { categoryApi } from "@/lib/api";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 function SectionHeader({
@@ -40,97 +36,174 @@ function SectionHeader({
   );
 }
 
-//  Featured Products
+const CATEGORY_IMAGE_MAP: { keywords: string[]; photoId: string }[] = [
+  {
+    keywords: ["fruit", "veg", "produce", "fresh", "salad", "green"],
+    photoId: "1542838132-92c53300491e", // colorful fresh market vegetables
+  },
+  {
+    keywords: [
+      "meat",
+      "butch",
+      "beef",
+      "chicken",
+      "pork",
+      "lamb",
+      "fish",
+      "seafood",
+    ],
+    photoId: "1529692076929-c3d9b6e47c06", // raw steak on dark background
+  },
+  {
+    keywords: ["frozen", "ice", "freeze"],
+    photoId: "1608686207856-001b71d4eb0e", // frozen food / ice crystals
+  },
+  {
+    keywords: [
+      "wine",
+      "spirit",
+      "alcohol",
+      "beer",
+      "beverage",
+      "drink",
+      "liquor",
+      "whisky",
+      "champagne",
+    ],
+    photoId: "1510812431401-41d2bd2722f3", // wine bottles on shelf
+  },
+  {
+    keywords: [
+      "furniture",
+      "sofa",
+      "couch",
+      "chair",
+      "table",
+      "bed",
+      "living",
+      "bedroom",
+      "decor",
+    ],
+    photoId: "1555041469-a586c61ea9bc", // modern living room sofa
+  },
+  {
+    keywords: [
+      "electron",
+      "gadget",
+      "tech",
+      "phone",
+      "laptop",
+      "computer",
+      "tv",
+      "camera",
+      "device",
+    ],
+    photoId: "1498049794561-7780e7231661", // electronics / tech devices
+  },
+  {
+    keywords: [
+      "utensil",
+      "ornament",
+      "kitchen",
+      "cookware",
+      "tool",
+      "pot",
+      "pan",
+      "cutlery",
+      "crockery",
+    ],
+    photoId: "1556909114-f6e7ad7d3136", // kitchen utensils
+  },
+  {
+    keywords: [
+      "homecare",
+      "home care",
+      "clean",
+      "detergent",
+      "laundry",
+      "hygiene",
+      "household",
+    ],
+    photoId: "1585771724684-38269d6639fd", // cleaning products
+  },
+  {
+    keywords: [
+      "baby",
+      "infant",
+      "toddler",
+      "child",
+      "kid",
+      "diaper",
+      "toy",
+      "nappy",
+    ],
+    photoId: "1515488042361-ee00e41557a4", // baby products / cute baby
+  },
+  {
+    keywords: [
+      "gym",
+      "sport",
+      "fitness",
+      "workout",
+      "exercise",
+      "weight",
+      "yoga",
+      "running",
+      "athletic",
+    ],
+    photoId: "1534438327276-14e5300c3a48", // gym equipment
+  },
+  {
+    keywords: [
+      "health",
+      "beauty",
+      "cosmetic",
+      "skin",
+      "makeup",
+      "perfume",
+      "hair",
+      "lotion",
+      "cream",
+    ],
+    photoId: "1596462502278-27bfdc403348", // beauty / makeup cosmetics
+  },
+  {
+    keywords: [
+      "baker",
+      "bread",
+      "pastry",
+      "cake",
+      "biscuit",
+      "cookie",
+      "muffin",
+      "flour",
+    ],
+    photoId: "1509440159596-0249088772ff", // fresh bread in bakery
+  },
+];
 
-export function FeaturedProducts() {
-  const t = useTranslations("home");
-  const locale = useLocale();
+// Fallback gradient colors (index-based, used when no keyword matches)
+const FALLBACK_GRADIENTS = [
+  "from-orange-500 to-amber-400",
+  "from-blue-500 to-cyan-400",
+  "from-emerald-500 to-green-400",
+  "from-violet-500 to-purple-400",
+  "from-rose-500 to-pink-400",
+  "from-yellow-500 to-lime-400",
+  "from-fuchsia-500 to-pink-400",
+  "from-teal-500 to-cyan-400",
+];
 
-  const { data: products, isLoading } = useQuery({
-    queryKey: ["featured-products"],
-    queryFn: () => productApi.featured().then((r) => r.data),
-  });
-
-  return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
-      <SectionHeader
-        title={t("featured")}
-        desc={t("featuredDesc")}
-        href={`/${locale}/shop?featured=true`}
-      />
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4">
-        {isLoading
-          ? Array.from({ length: 10 }).map((_, i) => (
-              <ProductCardSkeleton key={i} />
-            ))
-          : products?.map((p: any) => <ProductCard key={p.id} product={p} />)}
-      </div>
-    </section>
+function getCategoryImage(name: string): string | null {
+  const lower = name.toLowerCase();
+  const match = CATEGORY_IMAGE_MAP.find((entry) =>
+    entry.keywords.some((kw) => lower.includes(kw)),
   );
-}
-
-//  Top Products
-
-export function TopProducts() {
-  const t = useTranslations("home");
-  const locale = useLocale();
-
-  const { data: products, isLoading } = useQuery({
-    queryKey: ["top-products"],
-    queryFn: () => productApi.top().then((r) => r.data),
-  });
-
-  return (
-    <section className="bg-muted/50 py-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <SectionHeader
-          title={t("topProducts")}
-          desc={t("topProductsDesc")}
-          href={`/${locale}/shop?sort=salesCount`}
-        />
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4">
-          {isLoading
-            ? Array.from({ length: 10 }).map((_, i) => (
-                <ProductCardSkeleton key={i} />
-              ))
-            : products?.map((p: any) => <ProductCard key={p.id} product={p} />)}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-//  Recommended Products
-
-export function RecommendedProducts() {
-  const t = useTranslations("home");
-  const locale = useLocale();
-
-  const { data: products, isLoading } = useQuery({
-    queryKey: ["recommended-products"],
-    queryFn: () => productApi.recommendations().then((r) => r.data),
-  });
-
-  return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
-      <SectionHeader
-        title={t("recommended")}
-        desc={t("recommendedDesc")}
-        href={`/${locale}/shop`}
-      />
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4">
-        {isLoading
-          ? Array.from({ length: 10 }).map((_, i) => (
-              <ProductCardSkeleton key={i} />
-            ))
-          : products?.map((p: any) => <ProductCard key={p.id} product={p} />)}
-      </div>
-    </section>
-  );
+  if (!match) return null;
+  return `https://images.unsplash.com/photo-${match.photoId}?w=400&q=80&fit=crop&crop=center`;
 }
 
 //  Category Grid
-
 export function CategoryGrid() {
   const t = useTranslations("home");
   const locale = useLocale();
@@ -140,17 +213,6 @@ export function CategoryGrid() {
     queryFn: () => categoryApi.list().then((r) => r.data),
     staleTime: 1000 * 60 * 10,
   });
-
-  const COLORS = [
-    "from-orange-500/20 to-orange-100/20",
-    "from-blue-500/20 to-blue-100/20",
-    "from-green-500/20 to-green-100/20",
-    "from-purple-500/20 to-purple-100/20",
-    "from-red-500/20 to-red-100/20",
-    "from-yellow-500/20 to-yellow-100/20",
-    "from-pink-500/20 to-pink-100/20",
-    "from-teal-500/20 to-teal-100/20",
-  ];
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
@@ -164,37 +226,46 @@ export function CategoryGrid() {
           ? Array.from({ length: 8 }).map((_, i) => (
               <div key={i} className="aspect-square skeleton rounded-2xl" />
             ))
-          : categories?.slice(0, 8).map((cat: any, i: number) => (
-              <Link
-                key={cat.id}
-                href={`/${locale}/shop?category=${cat.slug}`}
-                className={cn(
-                  "group aspect-square rounded-2xl flex flex-col items-center justify-center gap-2 p-3 text-center hover:border-primary border border-border transition-all bg-card hover:shadow-md",
-                )}
-              >
-                <div
-                  className={cn(
-                    "w-10 h-10 rounded-xl flex items-center justify-center text-xl",
-                    `bg-gradient-to-br ${COLORS[i % COLORS.length]}`,
-                  )}
+          : categories?.slice(0, 8).map((cat: any, i: number) => {
+              const unsplashUrl = getCategoryImage(cat.name);
+              return (
+                <Link
+                  key={cat.id}
+                  href={`/${locale}/shop?category=${cat.slug}`}
+                  className="group relative aspect-square rounded-2xl overflow-hidden border border-border hover:border-primary/50 transition-all hover:shadow-lg hover:shadow-primary/10"
                 >
-                  {cat.image ? (
+                  {/* Background: Unsplash image OR gradient fallback */}
+                  {unsplashUrl ? (
                     <Image
-                      src={getImageUrl(cat.image)}
+                      src={unsplashUrl}
                       alt={cat.name}
-                      width={32}
-                      height={32}
-                      className="object-cover rounded-lg"
+                      fill
+                      sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, 12.5vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      unoptimized // Unsplash already optimises via their CDN params
                     />
                   ) : (
-                    <span>🛒</span>
+                    <div
+                      className={cn(
+                        "absolute inset-0 bg-gradient-to-br",
+                        FALLBACK_GRADIENTS[i % FALLBACK_GRADIENTS.length],
+                      )}
+                    />
                   )}
-                </div>
-                <span className="text-[10px] sm:text-xs font-medium text-foreground group-hover:text-primary transition-colors leading-tight line-clamp-2">
-                  {cat.name}
-                </span>
-              </Link>
-            ))}
+
+                  {/* Persistent dark overlay for readability */}
+                  <div className="absolute inset-0 bg-black/45 transition-opacity duration-300 group-hover:bg-black/30" />
+
+                  {/* Bottom gradient for name legibility */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+
+                  {/* Category name */}
+                  <span className="absolute bottom-0 inset-x-0 px-2 pb-2 pt-4 text-center text-[10px] sm:text-xs font-semibold text-white leading-tight line-clamp-2">
+                    {cat.name}
+                  </span>
+                </Link>
+              );
+            })}
       </div>
     </section>
   );

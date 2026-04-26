@@ -97,13 +97,12 @@ export function HeroSection() {
                       >
                         {t("hero.shopNow")}
                       </Link>
-                      <Link
-                        href={`/${locale}/shop`}
+                      <a
                         onClick={() => setOpenVideo(true)}
                         className="px-6 py-3 bg-white/20 backdrop-blur text-white font-semibold rounded-full hover:bg-white/30 transition-colors text-sm border border-white/30"
                       >
                         {t("hero.viewDemo")}
-                      </Link>
+                      </a>
                     </div>
                   </motion.div>
                 </div>
