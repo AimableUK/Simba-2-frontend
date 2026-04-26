@@ -275,7 +275,14 @@
     "darkMode": "Hali ya Giza",
     "lightMode": "Hali ya Mwanga",
     "language": "Lugha",
-    "allProducts": "Ibicuruzwa Byose"
+    "allProducts": "Bidhaa Zote",
+    "sortOptions": {
+      "newestFirst": "Mpya Kwanza",
+      "mostPopular": "Maarufu Zaidi",
+      "priceLowToHigh": "Bei: Chini hadi Juu",
+      "priceHighToLow": "Bei: Juu hadi Chini",
+      "highestRated": "Zilizopewa Alama Zaidi"
+    }
   },
   "footer": {
     "tagline": "Supermarket bora Kigali - safi, haraka, na ya kuamini.",

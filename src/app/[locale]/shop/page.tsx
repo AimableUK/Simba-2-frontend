@@ -13,14 +13,6 @@ import {
 } from "@/components/product/product-card";
 import { cn } from "@/lib/utils";
 
-const SORT_OPTIONS = [
-  { value: "createdAt-desc", label: "Newest First" },
-  { value: "salesCount-desc", label: "Most Popular" },
-  { value: "price-asc", label: "Price: Low to High" },
-  { value: "price-desc", label: "Price: High to Low" },
-  { value: "rating-desc", label: "Highest Rated" },
-];
-
 export default function ShopPage() {
   const t = useTranslations("common");
   const locale = useLocale();
@@ -30,6 +22,14 @@ export default function ShopPage() {
 
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [page, setPage] = useState(1);
+
+  const SORT_OPTIONS = [
+    { value: "createdAt-desc", label: t("sortOptions.newestFirst") },
+    { value: "salesCount-desc", label: t("sortOptions.mostPopular") },
+    { value: "price-asc", label: t("sortOptions.priceLowToHigh") },
+    { value: "price-desc", label: t("sortOptions.priceHighToLow") },
+    { value: "rating-desc", label: t("sortOptions.highestRated") },
+  ];
 
   const search = searchParams.get("search") || "";
   const category = searchParams.get("category") || "";

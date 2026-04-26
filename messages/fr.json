@@ -275,7 +275,14 @@
     "darkMode": "Mode Sombre",
     "lightMode": "Mode Clair",
     "language": "Langue",
-    "allProducts": "Tous les Produits"
+    "allProducts": "Tous les Produits",
+    "sortOptions": {
+      "newestFirst": "Les plus récents",
+      "mostPopular": "Les plus populaires",
+      "priceLowToHigh": "Prix : Croissant",
+      "priceHighToLow": "Prix : Décroissant",
+      "highestRated": "Mieux notés"
+    }
   },
   "footer": {
     "tagline": "Le supermarché favori de Kigali - frais, rapide et fiable.",

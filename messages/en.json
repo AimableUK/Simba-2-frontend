@@ -275,7 +275,14 @@
     "darkMode": "Dark Mode",
     "lightMode": "Light Mode",
     "language": "Language",
-    "allProducts": "All Products"
+    "allProducts": "All Products",
+    "sortOptions": {
+      "newestFirst": "Newest First",
+      "mostPopular": "Most Popular",
+      "priceLowToHigh": "Price: Low to High",
+      "priceHighToLow": "Price: High to Low",
+      "highestRated": "Highest Rated"
+    }
   },
   "footer": {
     "tagline": "Kigali's favourite supermarket - fresh, fast, and reliable.",

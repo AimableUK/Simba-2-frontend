@@ -275,7 +275,14 @@
     "darkMode": "Isura Yijimye",
     "lightMode": "Isura Nziza",
     "language": "Ururimi",
-    "allProducts": "Ibicuruzwa Byose"
+    "allProducts": "Ibicuruzwa Byose",
+    "sortOptions": {
+      "newestFirst": "Bishya Mbere",
+      "mostPopular": "Bikunzwe Cyane",
+      "priceLowToHigh": "Igiciro: Hasi kugeza Hejuru",
+      "priceHighToLow": "Igiciro: Hejuru kugeza Hasi",
+      "highestRated": "Byahawe Amanota Menshi"
+    }
   },
   "footer": {
     "tagline": "Isoko ryiza i Kigali - bishya, byihuse, no kwizerwa.",
