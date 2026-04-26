@@ -45,13 +45,29 @@ export default function ContactPage() {
   });
 
   const info = [
-    { icon: MapPin, label: t("address"), value: t("addressValue") },
-    { icon: Mail, label: t("emailLabel"), value: "info@simbasupermarket.rw" },
-    { icon: Phone, label: t("phoneLabel"), value: "+250 788 000 000" },
+    {
+      icon: MapPin,
+      label: t("address"),
+      value: t("addressValue"),
+      href: `https://maps.google.com/?q=${encodeURIComponent(t("addressValue"))}`,
+    },
+    {
+      icon: Mail,
+      label: t("emailLabel"),
+      value: "info@simbasupermarket.rw",
+      href: "mailto:info@simbasupermarket.rw",
+    },
+    {
+      icon: Phone,
+      label: t("phoneLabel"),
+      value: "+250 788 000 000",
+      href: "tel:+250788000000",
+    },
     {
       icon: Clock,
       label: t("hours"),
       value: `${t("hoursValue")}\n${t("hoursValueSun")}`,
+      href: null,
     },
   ];
 
@@ -71,21 +87,41 @@ export default function ContactPage() {
           <div className="space-y-6">
             <h2 className="text-xl font-bold">{t("touch")}</h2>
             <div className="space-y-5">
-              {info.map(({ icon: Icon, label, value }) => (
-                <div key={label} className="flex gap-4">
-                  <div className="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
-                    <Icon className="h-5 w-5 text-primary" />
+              {info.map(({ icon: Icon, label, value, href }) => {
+                const content = (
+                  <div className="flex gap-4 group">
+                    <div className="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center shrink-0 transition-colors group-hover:bg-primary/20">
+                      <Icon className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-sm">{label}</p>
+                      {value.split("\n").map((v, i) => (
+                        <p key={i} className="text-muted-foreground text-sm">
+                          {v}
+                        </p>
+                      ))}
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-medium text-sm">{label}</p>
-                    {value.split("\n").map((v, i) => (
-                      <p key={i} className="text-muted-foreground text-sm">
-                        {v}
-                      </p>
-                    ))}
-                  </div>
-                </div>
-              ))}
+                );
+
+                return href ? (
+                  <a
+                    key={label}
+                    href={href}
+                    target={href.startsWith("http") ? "_blank" : undefined}
+                    rel={
+                      href.startsWith("http")
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
+                    className="cursor-pointer"
+                  >
+                    {content}
+                  </a>
+                ) : (
+                  <div key={label}>{content}</div>
+                );
+              })}
             </div>
           </div>
 
