@@ -549,16 +549,16 @@
           "a": "Sura urubuga rwacu, shakisha ibicuruzwa, ongeraho ibintu mu gitebo cyawe hanyuma ukomeze kwishyura. Uzakenera gushinga konti cyangwa kwinjira kugira ngo urangize kugura."
         },
         "1": {
-          "q": "Nshobora guhindura cyangwa guhagarika ilagizo ryanjye nyuma yo kuritya?",
-          "a": "Amalagizo ashobora guhindurwa cyangwa guhagarikwa mu minota 30 nyuma yo kuritya. Nyuma y'igihe cy'amaminota 30, ilagizo rinjira mu gusindika kandi impinduka ntizishoboka."
+          "q": "Nshobora guhindura cyangwa guhagarika order yanjye nyuma yo kuritya?",
+          "a": "Amalagizo ashobora guhindurwa cyangwa guhagarikwa mu minota 30 nyuma yo kuritya. Nyuma y'igihe cy'amaminota 30, order rinjira mu gusindika kandi impinduka ntizishoboka."
         },
         "2": {
-          "q": "Nzamenya nate ko ilagizo ryanjye ryakiranijwe?",
-          "a": "Uzakira imeyili y'inyemeza n'inomero yawe y'ilagizo na incamake bihita nyuma yo kwishyura. Ushobora nanone gukurikirana uko ilagizo ryawe rikora mu dashibodi yawe."
+          "q": "Nzamenya gute ko order yanjye ryakiranijwe?",
+          "a": "Uzakira imeyili y'inyemeza n'inomero yawe y'order na incamake bihita nyuma yo kwishyura. Ushobora nanone gukurikirana uko order ryawe rikora mu dashibodi yawe."
         },
         "3": {
-          "q": "Mukiramo uburyo ubuhe bwo kwishyura?",
-          "a": "Tukiramo MTN Mobile Money, Airtel Money, Visa, Mastercard, no kwishyura iyo mugurishijwe ku malagizo asumba. Ibikorwa byose by'amafaranga kuri interineti birindwa n'uburyo bw'iperereza rya sosiyete."
+          "q": "Mugiramo uburyo ubuhe bwo kwishyura?",
+          "a": "Tugiramo MTN Mobile Money, Airtel Money, Visa, Mastercard, no kwishyura iyo mugurishijwe ku malagizo asumba. Ibikorwa byose by'amafaranga kuri interineti birindwa n'uburyo bw'iperereza rya sosiyete."
         }
       },
       "shipping": {
@@ -571,8 +571,8 @@
           "a": "Kohereza bisanzwe bitwara amasaha 2-4 ku bintu biri mu bubiko byalagijwe mbere ya saa 9 z'ijoro. Kohereza by'ihutirwa bigaragara mu kanya k'isaha 1 ku musanzu wo hejuru."
         },
         "2": {
-          "q": "Hari ingano nke y'ilagizo yo kohereza?",
-          "a": "Yego, ingano nke y'ilagizo yo kohereza ni RWF 5,000. Amalagizo munsi y'umubare uri hasi asumba kujyana dukani gusa."
+          "q": "Hari ingano nke y'order yo kohereza?",
+          "a": "Yego, ingano nke y'order yo kohereza ni RWF 5,000. Amalagizo munsi y'umubare uri hasi asumba kujyana dukani gusa."
         },
         "3": {
           "q": "Kohereza bitwara amafaranga angana gute?",
@@ -586,7 +586,7 @@
         },
         "1": {
           "q": "Nzatangira gute gusubiza?",
-          "a": "Wasiliana na timu yacu y'ubufasha bw'abakiriya binyuze ku rupapuro rwa Wasiliana Natwe cyangwa hamagara imfashanyigisho yacu. Itsinda ryacu rizagutoza inzira yo gusubiza."
+          "a": "Wavugana na timu yacu y'ubufasha bw'abakiriya binyuze ku rupapuro rwa Wavugana Natwe cyangwa hamagara imfashanyigisho yacu. Itsinda ryacu rizagutoza inzira yo gusubiza."
         },
         "2": {
           "q": "Nzakira ryari amafaranga yanjye yo gusubizwa?",
@@ -624,8 +624,8 @@
     },
     "contact": {
       "heading": "Uracyafite ibibazo?",
-      "body": "Itsinda ryacu riraboneka iminsi 7 mu cyumweru kukufasha na byose ukeneye.",
-      "cta": "Wasiliana Natwe"
+      "body": "Itsinda ryacu riraboneka iminsi 7 mu cyumweru kugufasha na byose ukeneye.",
+      "cta": "Wavugana Natwe"
     }
   },
 
@@ -665,8 +665,8 @@
       "subtitle": "Kurikira iyi nzira yoroshye kandi itsinda ryacu rizashughulikira ibisigaye.",
       "steps": {
         "contact": {
-          "title": "Wasiliana na itsinda ryacu",
-          "desc": "Fika binyuze ku rupapuro rwa Wasiliana Natwe, hamagara imfashanyigisho yacu, cyangwa sura ishami iriyeri rya Simba mu minsi 7 y'ugura."
+          "title": "Wavugana na itsinda ryacu",
+          "desc": "Fika binyuze ku rupapuro rwa Wavugana Natwe, hamagara imfashanyigisho yacu, cyangwa sura ishami iriyeri rya Simba mu minsi 7 y'ugura."
         },
         "pack": {
           "title": "Pakira igicuruzwa",
@@ -759,7 +759,7 @@
       "contact": {
         "nav": "Mawasiliano",
         "heading": "Ibibazo Bijyanye n'Ibanga Ryawe",
-        "body": "Niba ufite ibibazo bijyanye na iyi politiki cyangwa ugomba gukoresha uburenganzira bwawe bwa data, wasiliana na Perezida w'Uburinzi bw'Amakuru wacu ku privacy@simbasupermarket.rw cyangwa sura imwe mu mashami yacu."
+        "body": "Niba ufite ibibazo bijyanye na iyi politiki cyangwa ugomba gukoresha uburenganzira bwawe bwa data, Wavugana na Perezida w'Uburinzi bw'Amakuru wacu ku privacy@simbasupermarket.rw cyangwa sura imwe mu mashami yacu."
       }
     },
     "rights": {
@@ -782,7 +782,7 @@
     },
     "stats": {
       "branches": { "value": "11", "label": "Amashami" },
-      "minOrder": { "value": "5K RWF", "label": "Ilagizo Ryo hasi" },
+      "minOrder": { "value": "5K RWF", "label": "order Ryo hasi" },
       "coverage": { "value": "Kigali", "label": "Akarere" }
     },
     "options": {
@@ -799,7 +799,7 @@
           "title": "By'ihutirwa",
           "time": "Mu kanya k'isaha 1",
           "price": "RWF 2,500",
-          "note": "Ukeneye vuba? Kohereza by'ihutirwa bitura ilagizo ryawe mu kanya gito cy'isaha imwe."
+          "note": "Ukeneye vuba? Kohereza by'ihutirwa bitura order ryawe mu kanya gito cy'isaha imwe."
         },
         "sameDay": {
           "title": "Kohereza Bure",
@@ -818,16 +818,16 @@
       "heading": "Uburyo kohereza bikorwa",
       "steps": {
         "order": {
-          "title": "Shyira ilagizo ryawe",
+          "title": "Shyira order ryawe",
           "desc": "Ongeraho ibintu mu gitebo cyawe hanyuma uhitemo kohereza igihe cy'kwishyura."
         },
         "confirm": {
-          "title": "Ilagizo ryemejwe",
+          "title": "order ryemejwe",
           "desc": "Ukira inyemeza ya SMS n'imeyili bihita."
         },
         "dispatch": {
           "title": "Ryatumwe",
-          "desc": "Itsinda ryacu ripakira ilagizo ryawe mu ishami riri hafi."
+          "desc": "Itsinda ryacu ripakira order ryawe mu ishami riri hafi."
         },
         "deliver": {
           "title": "Ryatanzwe kuri we",
@@ -847,19 +847,19 @@
           "desc": "Amalagizo yose apakiwa mu mwakagari no mu mutekano kugira ngo ubuziranenge bubungabungwe."
         },
         "tracking": {
-          "title": "Gukurikirana ilagizo",
+          "title": "Gukurikirana order",
           "desc": "Kurikirana ukohereza kwawe mu gihe nyacyo binyuze muri porogaramu cyangwa uhuza gw'ikurikirana cya SMS."
         },
         "failed": {
           "title": "Kohereza byanze",
-          "desc": "Niba tutashobora kukugera, tuzabika ilagizo ryawe amasaha 2 mbere yo kugishyira inyuma. Umusanzu wo kohereza bishya ushobora gukurikira."
+          "desc": "Niba tutashobora kukugera, tuzabika order ryawe amasaha 2 mbere yo kugishyira inyuma. Umusanzu wo kohereza bishya ushobora gukurikira."
         }
       }
     },
     "contact": {
       "heading": "Ibibazo bijyanye no kohereza?",
       "body": "Itsinda ryacu ry'ubufasha riraboneka iminsi 7 mu cyumweru.",
-      "cta": "Wasiliana natwe"
+      "cta": "Wavugana natwe"
     }
   }
 }
