@@ -1,11 +1,11 @@
 import { getTranslations } from "next-intl/server";
 import { HeroSection } from "@/components/shop/hero-section";
-import { FeaturedProducts } from "@/components/shop/featured-products";
 import { TopProducts } from "@/components/shop/top-products";
 import { RecommendedProducts } from "@/components/shop/recommended-products";
 import { CategoryGrid } from "@/components/shop/category-grid";
 import { SearchSection } from "@/components/shop/search-section";
 import { BranchesStrip } from "@/components/shop/branches-strip";
+import { FeaturedProducts } from "@/components/shop/featured-products";
 
 export async function generateMetadata({
   params,
