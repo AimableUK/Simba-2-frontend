@@ -63,18 +63,18 @@
   ],
   "screenshots": [
     {
-      "src": "/icons/screenshot-mobile.png",
+      "src": "/icons/screenshot-mobile.jpg",
       "sizes": "390x844",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Simba Super Market — Home"
+      "label": "Simba Super Market - Home"
     },
     {
       "src": "/icons/screenshot-desktop.png",
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Simba Super Market — Desktop"
+      "label": "Simba Super Market - Desktop"
     }
   ],
   "shortcuts": [
