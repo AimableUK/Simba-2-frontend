@@ -189,6 +189,14 @@ export const branchApi = {
   updateStatus: (id: string, data: { status: string; note?: string }) =>
     api.put(`/branches/dashboard/orders/${id}/status`, data),
   updateStock: (data: any) => api.put("/branches/dashboard/stock", data),
+  adminList: (params?: Record<string, any>) =>
+    api.get("/branches/admin/all", { params }),
+  createBranch: (data: any) => api.post("/branches/admin", data),
+  updateBranch: (id: string, data: any) =>
+    api.put(`/branches/admin/${id}`, data),
+  deleteBranch: (id: string) => api.delete(`/branches/admin/${id}`),
+  assignStaff: (data: { userId: string; branchId: string; role: string }) =>
+    api.post("/branches/admin/staff", data),
 };
 
 // Search

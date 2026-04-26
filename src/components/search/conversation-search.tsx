@@ -20,38 +20,52 @@ interface SearchResult {
   products: any[];
 }
 
-//  OpenStreetMap embed (no API key needed)
+//  Map embed
 function BranchMap({ branch }: { branch: any }) {
-  if (!branch?.lat || !branch?.lng) return null;
-  const bbox = `${branch.lng - 0.006},${branch.lat - 0.006},${branch.lng + 0.006},${branch.lat + 0.006}`;
-  const src = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${branch.lat},${branch.lng}`;
+  if (!branch?.lat || !branch?.lng)
+    return (
+      <div className="h-[200px] bg-muted rounded-xl flex items-center justify-center border border-border mt-1">
+        <div className="text-center">
+          <MapPin className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+          <p className="text-xs text-muted-foreground">
+            No coordinates available
+          </p>
+        </div>
+      </div>
+    );
+
+  // Use OSM without sandbox restriction so tiles can load
+  const bbox = `${branch.lng - 0.005},${branch.lat - 0.005},${branch.lng + 0.005},${branch.lat + 0.005}`;
+  const osmSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${branch.lat},${branch.lng}`;
 
   return (
-    <div className="rounded-xl overflow-hidden border border-border mt-1">
+    <div className="mt-2 rounded-xl overflow-hidden border border-border">
       <iframe
-        src={src}
+        key={branch.slug}
+        src={osmSrc}
         width="100%"
         height="220"
-        className="block border-0"
-        title={branch.name}
+        className="block border-0 w-full"
+        title={`Map: ${branch.name}`}
         loading="lazy"
-        sandbox="allow-scripts allow-same-origin"
+        referrerPolicy="no-referrer"
+        allowFullScreen
       />
-      <div className="p-3 bg-background flex items-center justify-between">
-        <div>
-          <p className="font-semibold text-sm">{branch.name}</p>
+      <div className="p-3 bg-background flex items-center justify-between gap-2">
+        <div className="min-w-0">
+          <p className="font-semibold text-sm truncate">{branch.name}</p>
           <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
             <MapPin className="h-3 w-3 shrink-0" />
-            {branch.address}
+            <span className="truncate">{branch.address}</span>
           </p>
         </div>
         <a
           href={`https://www.google.com/maps?q=${branch.lat},${branch.lng}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="shrink-0 flex items-center gap-1.5 text-xs bg-primary text-primary-foreground px-3 py-1.5 rounded-lg hover:bg-primary/90 transition-colors ml-3"
+          className="shrink-0 flex items-center gap-1.5 text-xs bg-primary text-primary-foreground px-3 py-2 rounded-lg hover:bg-primary/90 transition-colors font-medium"
         >
-          <ExternalLink className="h-3 w-3" /> Maps
+          <ExternalLink className="h-3 w-3" /> Google Maps
         </a>
       </div>
     </div>
@@ -292,8 +306,12 @@ export function ConversationalSearch({ branchId }: { branchId?: string }) {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            className="absolute top-full left-0 right-0 mt-2 bg-card border border-border rounded-2xl shadow-xl z-50 overflow-hidden"
-            style={{ maxHeight: "80vh", overflowY: "auto" }}
+            className="absolute top-full left-0 right-0 mt-2 bg-card border border-border rounded-2xl shadow-xl z-50"
+            style={{
+              maxHeight: "85vh",
+              overflowY: "auto",
+              overflowX: "hidden",
+            }}
           >
             {loading ? (
               <div className="flex items-center gap-3 p-6 text-muted-foreground">
