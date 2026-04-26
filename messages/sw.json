@@ -148,14 +148,6 @@
   "orders": {
     "title": "Maagizo Yangu",
     "order": "Agizo",
-    "status": {
-      "pending": "Inasubiri",
-      "confirmed": "Imethibitishwa",
-      "packaged": "Imefungashwa",
-      "on_the_way": "Iko Njiani",
-      "delivered": "Imetolewa",
-      "cancelled": "Imeghairiwa"
-    },
     "payment": {
       "pending": "Malipo Yanasubiri",
       "paid": "Imelipwa",
@@ -163,14 +155,33 @@
       "refunded": "Imerudishwa"
     },
     "date": "Tarehe ya Agizo",
-    "total": "Jumla",
-    "items": "Vitu",
     "track": "Fuatilia Agizo",
     "noOrders": "Hakuna maagizo bado",
     "noOrdersDesc": "Weka agizo lako la kwanza kuona hapa",
+    "notFound": "Agizo halipatikani",
     "orderNumber": "Agizo #",
-    "timeline": "Mstari wa Agizo",
-    "deliveryAddress": "Anwani ya Uwasilishaji"
+    "timeline": "Mwendo wa Agizo",
+    "pickupInfo": "Maelezo ya Kuchukua",
+    "pickupTime": "Wakati wa Kuchukua",
+    "branch": "Tawi",
+    "address": "Anwani",
+    "phone": "Simu",
+    "notes": "Maelezo",
+    "items": "Bidhaa",
+    "each": "kila moja",
+    "subtotal": "Jumla ndogo",
+    "deposit": "Amana",
+    "total": "Jumla",
+    "cancelledMessage": "Agizo hili limefutwa.",
+    "deliveryAddress": "Anwani ya Utoaji",
+    "status": {
+      "pending": "Agizo Limewekwa",
+      "accepted": "Agizo Limekubaliwa",
+      "preparing": "Inaandaliwa",
+      "ready": "Iko Tayari Kuchukuliwa",
+      "picked_up": "Imechukuliwa",
+      "cancelled": "Imefutwa"
+    }
   },
   "blog": {
     "title": "Blogu Yetu",

@@ -148,14 +148,6 @@
   "orders": {
     "title": "Mes Commandes",
     "order": "Commande",
-    "status": {
-      "pending": "En Attente",
-      "confirmed": "Confirmée",
-      "packaged": "Emballée",
-      "on_the_way": "En Route",
-      "delivered": "Livrée",
-      "cancelled": "Annulée"
-    },
     "payment": {
       "pending": "Paiement en Attente",
       "paid": "Payée",
@@ -163,14 +155,33 @@
       "refunded": "Remboursée"
     },
     "date": "Date de Commande",
-    "total": "Total",
-    "items": "Articles",
     "track": "Suivre la Commande",
     "noOrders": "Aucune commande pour l'instant",
     "noOrdersDesc": "Passez votre première commande pour la voir ici",
+    "notFound": "Commande introuvable",
     "orderNumber": "Commande #",
-    "timeline": "Suivi de la Commande",
-    "deliveryAddress": "Adresse de Livraison"
+    "timeline": "Suivi de commande",
+    "pickupInfo": "Informations de retrait",
+    "pickupTime": "Heure de retrait",
+    "branch": "Succursale",
+    "address": "Adresse",
+    "phone": "Téléphone",
+    "notes": "Notes",
+    "items": "Articles",
+    "each": "chacun",
+    "subtotal": "Sous-total",
+    "deposit": "Dépôt",
+    "total": "Total",
+    "cancelledMessage": "Cette commande a été annulée.",
+    "deliveryAddress": "Adresse de livraison",
+    "status": {
+      "pending": "Commande passée",
+      "accepted": "Commande acceptée",
+      "preparing": "En préparation",
+      "ready": "Prête pour le retrait",
+      "picked_up": "Récupérée",
+      "cancelled": "Annulée"
+    }
   },
   "blog": {
     "title": "Notre Blog",

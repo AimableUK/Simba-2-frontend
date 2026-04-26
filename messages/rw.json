@@ -148,14 +148,6 @@
   "orders": {
     "title": "Amatumiza Yanjye",
     "order": "Itumiza",
-    "status": {
-      "pending": "Ritegerezwa",
-      "confirmed": "Ryemejwe",
-      "packaged": "Ripakijwe",
-      "on_the_way": "Riri mu Nzira",
-      "delivered": "Ryatumijwe",
-      "cancelled": "Rirahagaritswe"
-    },
     "payment": {
       "pending": "Kwishyura Birategerezwa",
       "paid": "Byishyuwe",
@@ -163,14 +155,33 @@
       "refunded": "Amafaranga Asubijwe"
     },
     "date": "Itariki y'Itumiza",
-    "total": "Igiteranyo",
-    "items": "Ibintu",
     "track": "Kurikirana Itumiza",
     "noOrders": "Nta matumiza buriho",
     "noOrdersDesc": "Ohereza itumiza rya mbere uribone hano",
     "orderNumber": "Itumiza #",
     "timeline": "Inzira y'Itumiza",
-    "deliveryAddress": "Aderesi yo Gutumiza"
+    "notFound": "Itumba ntiryabonetse",
+    "pickupInfo": "Amakuru yo Gufata",
+    "pickupTime": "Igihe cyo Gufata",
+    "branch": "Ishami",
+    "address": "Aderesi",
+    "phone": "Telefoni",
+    "notes": "Ibisobanuro",
+    "items": "Ibintu",
+    "each": "buri kimwe",
+    "subtotal": "Igiteranyo gito",
+    "deposit": "Inguzanyo",
+    "total": "Igiteranyo",
+    "cancelledMessage": "Iri tumba rahagaritswe.",
+    "deliveryAddress": "Aderesi yo Gutanga",
+    "status": {
+      "pending": "Itumba Ryoherejwe",
+      "accepted": "Itumba Ryemerewe",
+      "preparing": "Rirategurwa",
+      "ready": "Riteguye Gufatwa",
+      "picked_up": "Rafashwe",
+      "cancelled": "Rahagaritswe"
+    }
   },
   "blog": {
     "title": "Ibinyamakuru Byacu",

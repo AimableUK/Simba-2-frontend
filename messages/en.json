@@ -148,14 +148,6 @@
   "orders": {
     "title": "My Orders",
     "order": "Order",
-    "status": {
-      "pending": "Pending",
-      "confirmed": "Confirmed",
-      "packaged": "Packaged",
-      "on_the_way": "On The Way",
-      "delivered": "Delivered",
-      "cancelled": "Cancelled"
-    },
     "payment": {
       "pending": "Payment Pending",
       "paid": "Paid",
@@ -170,7 +162,26 @@
     "noOrdersDesc": "Place your first order to see it here",
     "orderNumber": "Order #",
     "timeline": "Order Timeline",
-    "deliveryAddress": "Delivery Address"
+    "deliveryAddress": "Delivery Address",
+    "notFound": "Order not found",
+    "pickupInfo": "Pickup Information",
+    "pickupTime": "Pickup Time",
+    "branch": "Branch",
+    "address": "Address",
+    "phone": "Phone",
+    "notes": "Notes",
+    "each": "each",
+    "subtotal": "Subtotal",
+    "deposit": "Deposit",
+    "cancelledMessage": "This order has been cancelled.",
+    "status": {
+      "pending": "Order Placed",
+      "accepted": "Order Accepted",
+      "preparing": "Being Prepared",
+      "ready": "Ready for Pickup",
+      "picked_up": "Picked Up",
+      "cancelled": "Cancelled"
+    }
   },
   "blog": {
     "title": "Our Blog",

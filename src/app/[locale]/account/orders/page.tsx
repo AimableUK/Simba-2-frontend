@@ -20,12 +20,12 @@ import type { Order } from "@/types";
 const STATUS_COLORS: Record<string, string> = {
   pending:
     "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
-  confirmed: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
-  packaged:
+  accepted: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
+  preparing:
     "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400",
-  on_the_way:
+  ready:
     "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400",
-  delivered:
+  picked_up:
     "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
   cancelled: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
 };
