@@ -1,4 +1,5 @@
 "use client";
+
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslations, useLocale } from "next-intl";
 import { useParams } from "next/navigation";
