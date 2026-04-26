@@ -247,7 +247,7 @@ export default function SignUpPage() {
                 />
               </svg>
             )}
-            Continue with Google
+            {t("continueWithGoogle")}
           </button>
 
           {/* Divider */}
@@ -265,7 +265,7 @@ export default function SignUpPage() {
               <FormInput
                 registration={register("name")}
                 error={!!errors.name}
-                placeholder="Enter your name"
+                placeholder={t("name")}
                 autoComplete="name"
               />
             </FormField>
@@ -280,7 +280,7 @@ export default function SignUpPage() {
                 error={!!errors.email}
                 type="email"
                 autoComplete="email"
-                placeholder="Enter your email"
+                placeholder={t("email")}
               />
             </FormField>
 
@@ -293,7 +293,7 @@ export default function SignUpPage() {
                 registration={register("phone")}
                 type="tel"
                 autoComplete="tel"
-                placeholder="Enter your phone number"
+                placeholder={t("phone")}
               />
             </FormField>
 
@@ -308,7 +308,7 @@ export default function SignUpPage() {
                   {...register("password")}
                   type={showPw ? "text" : "password"}
                   autoComplete="new-password"
-                  placeholder="Min. 8 characters"
+                  placeholder={t("password")}
                   className={`w-full px-4 py-3 rounded-xl border bg-background focus:outline-none focus:ring-2 text-sm pr-11 transition-all ${errors.password ? "border-destructive focus:ring-destructive/20 bg-destructive/5" : "border-border focus:ring-primary/40 focus:border-primary"}`}
                 />
                 <button
@@ -373,14 +373,13 @@ export default function SignUpPage() {
           <p className="text-center text-xs text-muted-foreground mt-5">
             {t("agreeTerms")}{" "}
             <Link
-              href={`/${locale}/terms`}
+              href={`/${locale}/terms-of-service`}
               className="hover:text-primary underline underline-offset-2"
             >
-              Terms of Service
+              Terms of Service,
             </Link>{" "}
-            and{" "}
             <Link
-              href={`/${locale}/privacy`}
+              href={`/${locale}/privacy-policy`}
               className="hover:text-primary underline underline-offset-2"
             >
               Privacy Policy

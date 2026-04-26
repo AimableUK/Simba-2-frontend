@@ -220,7 +220,7 @@ export default function SignInPage() {
                 {...register("email")}
                 type="email"
                 autoComplete="email"
-                placeholder="Enter your Email"
+                placeholder={t("email")}
                 className={`w-full px-4 py-3 rounded-xl border bg-background focus:outline-none focus:ring-2 text-sm transition-all placeholder:text-muted-foreground/60 ${errors.email ? "border-destructive focus:ring-destructive/20 bg-destructive/5" : "border-border focus:ring-primary/40 focus:border-primary"}`}
               />
               {errors.email && (
