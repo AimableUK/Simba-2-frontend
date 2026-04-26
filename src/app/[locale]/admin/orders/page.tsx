@@ -253,7 +253,7 @@ export default function AdminOrdersPage() {
                 <select
                   value={newStatus}
                   onChange={(e) => setNewStatus(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                  className="flex whitespace-nowrap w-full px-4 py-3 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
                 >
                   {STATUSES.filter(Boolean).map((s) => (
                     <option key={s} value={s}>

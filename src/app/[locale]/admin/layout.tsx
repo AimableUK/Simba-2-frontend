@@ -249,14 +249,14 @@ export default function AdminLayout({
           <div className="flex-1" />
           <div className="flex items-center gap-2">
             <LanguageSwitcherV1 />
-            <button className="relative p-2 hover:bg-muted rounded-lg transition-colors">
+            {/* <button className="relative p-2 hover:bg-muted rounded-lg transition-colors">
               <Bell className="h-5 w-5" />
               {notifications > 0 && (
                 <span className="absolute top-1 right-1 w-4 h-4 bg-primary text-primary-foreground text-[10px] font-bold rounded-full flex items-center justify-center">
                   {notifications > 9 ? "9+" : notifications}
                 </span>
               )}
-            </button>
+            </button> */}
             <ThemeSwitcherV1 />
           </div>
         </header>
