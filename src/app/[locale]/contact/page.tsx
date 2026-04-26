@@ -69,7 +69,7 @@ export default function ContactPage() {
       <div className="container mx-auto px-4 py-16">
         <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
           <div className="space-y-6">
-            <h2 className="text-xl font-bold">Get in Touch</h2>
+            <h2 className="text-xl font-bold">{t("touch")}</h2>
             <div className="space-y-5">
               {info.map(({ icon: Icon, label, value }) => (
                 <div key={label} className="flex gap-4">
@@ -87,27 +87,19 @@ export default function ContactPage() {
                 </div>
               ))}
             </div>
-            <div className="bg-primary/5 border border-primary/20 rounded-2xl p-6 mt-8">
-              <p className="font-semibold text-primary mb-1">
-                Kigali Delivery & Pick-up Only
-              </p>
-              <p className="text-sm text-muted-foreground">
-                We currently serve within Kigali city at 9 branch locations.
-              </p>
-            </div>
           </div>
 
           <div className="bg-card border border-border rounded-2xl p-8">
             {sent ? (
               <div className="text-center py-8">
                 <CheckCircle className="h-14 w-14 text-green-500 mx-auto mb-4" />
-                <h3 className="text-xl font-bold mb-2">Message Sent!</h3>
+                <h3 className="text-xl font-bold mb-2">{t("messageSent")}</h3>
                 <p className="text-muted-foreground">{t("success")}</p>
                 <button
                   onClick={() => setSent(false)}
                   className="mt-6 text-primary hover:underline text-sm"
                 >
-                  Send another message
+                  {t("sendOtherMessage")}
                 </button>
               </div>
             ) : (
@@ -115,7 +107,7 @@ export default function ContactPage() {
                 onSubmit={handleSubmit((d) => mutation.mutate(d))}
                 className="space-y-4"
               >
-                <h2 className="text-lg font-bold mb-5">Send a Message</h2>
+                <h2 className="text-lg font-bold mb-5">{t("send")}</h2>
 
                 <div className="grid sm:grid-cols-2 gap-4">
                   <FormField
@@ -126,7 +118,7 @@ export default function ContactPage() {
                     <FormInput
                       registration={register("name")}
                       error={!!errors.name}
-                      placeholder="Enter your name"
+                      placeholder={t("name")}
                     />
                   </FormField>
                   <FormField
@@ -138,7 +130,7 @@ export default function ContactPage() {
                       registration={register("email")}
                       error={!!errors.email}
                       type="email"
-                      placeholder="Enter your email"
+                      placeholder={t("email")}
                     />
                   </FormField>
                 </div>
@@ -151,7 +143,7 @@ export default function ContactPage() {
                   <FormInput
                     registration={register("phone")}
                     type="tel"
-                    placeholder="Enter your phone number"
+                    placeholder={t("phone")}
                   />
                 </FormField>
 
@@ -163,7 +155,7 @@ export default function ContactPage() {
                   <FormInput
                     registration={register("subject")}
                     error={!!errors.subject}
-                    placeholder="Order issue, feedback..."
+                    placeholder={t("subject")}
                   />
                 </FormField>
 
@@ -176,7 +168,7 @@ export default function ContactPage() {
                     registration={register("message")}
                     error={!!errors.message}
                     rows={4}
-                    placeholder="Tell us how we can help..."
+                    placeholder={t("messagePlaceholder")}
                   />
                 </FormField>
 
