@@ -107,7 +107,10 @@ export default function SignUpPage() {
   const handleGoogle = async () => {
     setGoogleLoading(true);
     try {
-      await signIn.social({ provider: "google", callbackURL: `/${locale}` });
+      await signIn.social({
+        provider: "google",
+        callbackURL: `${window.location.origin}/${locale}`,
+      });
     } catch {
       toast.error("Google sign in failed");
       setGoogleLoading(false);
