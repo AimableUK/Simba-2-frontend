@@ -123,12 +123,12 @@
     "today": "Uyu munsi",
     "tomorrow": "Ejo",
     "placeholders": {
-      "fullName": "Jean Uwimana",
-      "phone": "+250 788 000 000",
-      "street": "KK 123 St, Kicukiro",
-      "district": "Kicukiro",
-      "sector": "Niboye",
-      "notes": "Amabwiriza yihariye..."
+      "fullName": "Andika amazina yawe",
+      "phone": "Andika nimero ya telefoni yawe",
+      "street": "Andika aderesi yawe urugero. KK 123 St, Kicukiro",
+      "district": "Andika akarere kawe urugero. Kicukiro",
+      "sector": "Andika umurenge wawe urugero. Niboye",
+      "notes": "Amabwiriza yihariye yose..."
     },
     "errors": {
       "fullNameMin": "Amazina yuzuye agomba kuba afite nibura inyuguti 2",

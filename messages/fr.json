@@ -123,12 +123,12 @@
     "today": "Aujourd'hui",
     "tomorrow": "Demain",
     "placeholders": {
-      "fullName": "Jean Uwimana",
-      "phone": "+250 788 000 000",
-      "street": "KK 123 St, Kicukiro",
-      "district": "Kicukiro",
-      "sector": "Niboye",
-      "notes": "Instructions spéciales..."
+      "fullName": "Entrez votre nom",
+      "phone": "Entrez votre numéro de téléphone",
+      "street": "Entrez votre adresse ex. KK 123 St, Kicukiro",
+      "district": "Entrez votre district ex. Kicukiro",
+      "sector": "Entrez votre secteur ex. Niboye",
+      "notes": "Instructions spéciales éventuelles..."
     },
     "errors": {
       "fullNameMin": "Le nom complet doit contenir au moins 2 caractères",

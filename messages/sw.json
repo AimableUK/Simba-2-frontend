@@ -123,12 +123,12 @@
     "today": "Leo",
     "tomorrow": "Kesho",
     "placeholders": {
-      "fullName": "Jean Uwimana",
-      "phone": "+250 788 000 000",
-      "street": "KK 123 St, Kicukiro",
-      "district": "Kicukiro",
-      "sector": "Niboye",
-      "notes": "Maagizo maalum..."
+      "fullName": "Ingiza jina lako",
+      "phone": "Ingiza nambari yako ya simu",
+      "street": "Ingiza anwani yako mfano KK 123 St, Kicukiro",
+      "district": "Ingiza wilaya yako mfano Kicukiro",
+      "sector": "Ingiza sekta yako mfano Niboye",
+      "notes": "Maelekezo yoyote maalum..."
     },
     "errors": {
       "fullNameMin": "Jina kamili lazima liwe na herufi angalau 2",
