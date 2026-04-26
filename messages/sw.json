@@ -378,5 +378,147 @@
     "inStock": "Ipo stokini",
     "outOfStock": "Haipo stokini",
     "items": "Vitu vilivyohifadhiwa"
+  },
+
+  "about": {
+    "hero": {
+      "eyebrow": "Wasifu wa Kampuni",
+      "title_line1": "Kuhusu Simba",
+      "title_line2": "Supermarket",
+      "subtitle": "Supermarket inayoheshimika zaidi Rwanda — ushuhuda wa mafanikio ya kiuchumi ya nchi, ikitoa mahitaji ya kila siku ya Kigali na zaidi tangu 2008."
+    },
+    "origin": {
+      "eyebrow": "Historia ya Asili",
+      "heading": "Hapo Ndipo Ilipoanza",
+      "paragraph1": "SIMBA SUPERMARKET LTD ilianzishwa mnamo <strong>3 Desemba 2007</strong> kama Kampuni ya Dhima Ndogo na lengo wazi: kuwa duka kubwa zaidi la rejareja katika eneo hili. Ilianzishwa na <strong>Bw. Teklay Teame</strong> na washirika wake, kampuni inaagiza bidhaa kutoka Ulaya, Misri, Dubai, China, Uturuki na zaidi kuhakikisha aina mbalimbali za bidhaa.",
+      "paragraph2": "Uzinduzi rasmi mnamo <strong>8 Agosti 2008</strong> uliunda zaidi ya <strong>kazi 450</strong> kwa wananchi wa Rwanda. Na matawi 11 kote Rwanda, Simba inatoa uzoefu wa ununuzi wa kila kitu — butchery, bakery, cafe na zaidi — ikihudumia mashirika ya kimataifa, NGO za ndani, makampuni ya kibinafsi na wizara za serikali."
+    },
+    "values": {
+      "eyebrow": "Imani & Maadili",
+      "heading": "Tunachosimamia",
+      "items": {
+        "respect": {
+          "title": "Heshima kwa Mtu Binafsi",
+          "body": "Sisi ni watu wa kawaida wanaofanya kazi kwa bidii waliojumuika kukamilisha mambo ya ajabu. Tunashauriana kwa heshima na kuhamasisha kila mtu kutoa mawazo yao — hivi ndivyo tunavyoonyesha heshima."
+        },
+        "service": {
+          "title": "Huduma kwa Wateja",
+          "body": "Wateja wetu ndio sababu ya biashara yetu. Tunatoa bidhaa bora kwa bei nafuu zaidi na huduma bora ya wateja inayowezekana, ikitafuta daima kuzidi matarajio."
+        },
+        "excellence": {
+          "title": "Kujitahidi kwa Ubora",
+          "body": "Tunajivunia mafanikio yetu lakini hatujaridhika kamwe. Tunaendelea kutafuta zaidi kuleta mawazo na malengo mapya maishani — Je, hii ndiyo bora ninayoweza kufanya? Swali hilo linasukuma kila kitu."
+        }
+      }
+    },
+    "milestones": {
+      "eyebrow": "Hatua Muhimu",
+      "heading": "Safari Yetu",
+      "items": {
+        "2007": {
+          "label": "Kuanzishwa",
+          "desc": "Ilianzishwa kama Kampuni ya Dhima Ndogo mnamo 3 Desemba na Bw. Teklay Teame na washirika."
+        },
+        "2008": {
+          "label": "Tawi la 1",
+          "desc": "Uzinduzi rasmi mnamo 8 Agosti — Simba Centenary inafunguliwa, ikiunda zaidi ya kazi 450 kwa wananchi wa Rwanda."
+        },
+        "2013": {
+          "label": "Tuzo ya 1",
+          "desc": "Monyeshaji Bora wa 1 — Rejareja na Usambazaji."
+        },
+        "2014": {
+          "label": "Kupanuka",
+          "desc": "Tawi la Simba Gishushu linafunguliwa. Kupewa Tuzo ya Monyeshaji Bora wa Rejareja & Usambazaji — EBM."
+        },
+        "2015": {
+          "label": "Kukua",
+          "desc": "Tawi la Simba Kimironko linafunguliwa. Hali ya mlipa kodi mzuri ya RRA inatolewa."
+        },
+        "2016": {
+          "label": "Kupanda Juu",
+          "desc": "Matawi mawili mapya yanafunguliwa — Simba Kicukiro na Simba Kigali Height."
+        },
+        "2019": {
+          "label": "Kituo cha Mji",
+          "desc": "Simba UTC inafunguliwa katikati ya Kigali."
+        },
+        "2020": {
+          "label": "Mfanyabiashara wa Mwaka",
+          "desc": "Kutuzwa 1 Mfanyabiashara wa Mwaka Rwanda."
+        },
+        "2023": {
+          "label": "Upanuzi Mkubwa",
+          "desc": "Matawi matano mapya yanafunguliwa wakati mmoja — Simba Gacuriro, Simba Gikondo, Simba Sonatube, Simba Kisimenti, na Simba Rebero."
+        },
+        "2024": {
+          "label": "Kuingia Kidijitali",
+          "desc": "Simba Online Sales inazinduliwa — kuleta uzoefu wa supermarket moja kwa moja mlangoni kwa wateja."
+        }
+      }
+    },
+    "categories": {
+      "eyebrow": "Tunachotoa",
+      "heading": "Aina za Bidhaa",
+      "items": {
+        "fruitsVeg": "Matunda & Mboga",
+        "meats": "Nyama",
+        "frozen": "Bidhaa za kugandishwa",
+        "winesSpirits": "Mvinyo & Pombe",
+        "furniture": "Samani",
+        "electronics": "Vifaa vya Elektroniki",
+        "utensils": "Vyombo & Mapambo",
+        "homecare": "Utunzaji wa Nyumba",
+        "baby": "Bidhaa za Mtoto",
+        "gym": "Gym & Michezo",
+        "healthBeauty": "Afya & Urembo",
+        "bakery": "Mkate"
+      }
+    },
+    "services": {
+      "eyebrow": "Huduma",
+      "heading": "Kila Kitu Chini ya Paa Moja",
+      "items": {
+        "supermarket": {
+          "title": "Supermarket",
+          "desc": "Matawi 11 kote Rwanda yanayotoa bidhaa mbalimbali kwa mahitaji ya kila siku."
+        },
+        "coffee": {
+          "title": "Mkahawa & Cafe",
+          "desc": "Trucillo Café na huduma za cafe katika matawi 5 ya Simba."
+        },
+        "arcade": {
+          "title": "Simba Arcade",
+          "desc": "Burudani ya michezo ya arcade inapatikana katika tawi la Simba Gacuriro."
+        },
+        "online": {
+          "title": "Mauzo ya Mtandaoni",
+          "desc": "Kupanua ufikiaji wetu hadi mlangoni kwako — Simba Supermarket ipo kila mahali."
+        },
+        "bakery": {
+          "title": "Kiwanda cha Mkate",
+          "desc": "Kiwanda cha mkate cha ndani kinachozalisha bidhaa mpya kwa matawi yetu yote."
+        }
+      }
+    },
+    "branches": {
+      "eyebrow": "Maeneo",
+      "heading": "Matawi Yetu 11"
+    },
+    "coffee": {
+      "eyebrow": "Cafe",
+      "heading": "Maduka ya Cafe",
+      "desc": "Maduka ya Cafe ya Simba na Trucillo Café moja katika matawi matano, yakitoa uzoefu wa kupumzika kwa kila mnunuzi."
+    },
+    "awards": {
+      "eyebrow": "Mafanikio",
+      "heading": "Ubora wa Tuzo",
+      "items": {
+        "2013": "Monyeshaji Bora wa 1 — Rejareja & Usambazaji",
+        "2014": "Monyeshaji Bora wa Rejareja & Usambazaji — EBM",
+        "2015": "Tuzo ya Mlipa Kodi Mzuri wa RRA",
+        "2020": "Mfanyabiashara wa 1 wa Mwaka — Rwanda"
+      }
+    }
   }
 }

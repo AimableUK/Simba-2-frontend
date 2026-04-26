@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useQuery } from "@tanstack/react-query";
-import { SlidersHorizontal, X, MoveRight, MoveLeft } from "lucide-react";
+import { SlidersHorizontal, X, ChevronRight, ChevronLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { productApi, categoryApi } from "@/lib/api";
 import {
@@ -329,7 +329,7 @@ export default function ShopPage() {
                     disabled={page === 1}
                     className="flex flex-row whitespace-nowrap px-4 py-2 border border-border rounded-full text-sm disabled:opacity-40 hover:border-primary transition-colors"
                   >
-                    <MoveLeft /> Previous
+                    <ChevronLeft className="h-4 w-4" />
                   </button>
                   <div className="flex gap-1">
                     {Array.from(
@@ -343,7 +343,13 @@ export default function ShopPage() {
                         return (
                           <button
                             key={p}
-                            onClick={() => setPage(p)}
+                            onClick={() => {
+                              setPage(p);
+                              window.scrollTo({
+                                top: 0,
+                                behavior: "auto",
+                              });
+                            }}
                             className={cn(
                               "w-9 h-9 rounded-full text-sm font-medium transition-colors",
                               p === page
@@ -366,7 +372,7 @@ export default function ShopPage() {
                     disabled={page === data.pagination.totalPages}
                     className="flex flex-row whitespace-nowrap px-4 py-2 border border-border rounded-full text-sm disabled:opacity-40 hover:border-primary transition-colors"
                   >
-                    Next <MoveRight />
+                    <ChevronRight className="h-4 w-4" />
                   </button>
                 </div>
               )}

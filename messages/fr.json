@@ -378,5 +378,147 @@
     "inStock": "En stock",
     "outOfStock": "Rupture de stock",
     "items": "articles sauvegardés"
+  },
+
+  "about": {
+    "hero": {
+      "eyebrow": "Profil de l'entreprise",
+      "title_line1": "À propos de Simba",
+      "title_line2": "Supermarché",
+      "subtitle": "Le supermarché le plus admiré du Rwanda — un témoignage de la reprise économique du pays, répondant fièrement aux besoins quotidiens de Kigali et au-delà depuis 2008."
+    },
+    "origin": {
+      "eyebrow": "Histoire des origines",
+      "heading": "Là où tout a commencé",
+      "paragraph1": "SIMBA SUPERMARKET LTD a été fondée le <strong>3 décembre 2007</strong> en tant que société à responsabilité limitée avec une ambition claire : devenir le plus grand point de vente de la région. Fondée par <strong>M. Teklay Teame</strong> et ses associés, l'entreprise importe des produits d'Europe, d'Égypte, de Dubaï, de Chine, de Turquie et d'ailleurs pour garantir une gamme de produits vraiment diversifiée.",
+      "paragraph2": "Le lancement officiel le <strong>8 août 2008</strong> a créé plus de <strong>450 emplois</strong> pour les citoyens rwandais. Avec 11 succursales à travers le Rwanda, Simba offre une expérience de shopping tout-en-un — boucherie, boulangerie, café et plus encore — au service des organisations internationales, des ONG locales, des entreprises privées et des ministères gouvernementaux."
+    },
+    "values": {
+      "eyebrow": "Croyances & Valeurs",
+      "heading": "Ce pour quoi nous nous battons",
+      "items": {
+        "respect": {
+          "title": "Respect de l'individu",
+          "body": "Nous sommes des gens ordinaires et travailleurs qui se sont associés pour accomplir des choses extraordinaires. Nous nous traitons mutuellement avec dignité et encourageons chacun à exprimer ses pensées — c'est ainsi que nous montrons notre respect."
+        },
+        "service": {
+          "title": "Service aux clients",
+          "body": "Nos clients sont la raison de notre existence. Nous offrons des marchandises de qualité aux prix les plus bas avec le meilleur service client possible, cherchant toujours à dépasser les attentes."
+        },
+        "excellence": {
+          "title": "Recherche de l'excellence",
+          "body": "Nous sommes fiers de nos réalisations mais jamais satisfaits. Nous cherchons constamment à aller plus loin pour donner vie à de nouvelles idées et objectifs — Est-ce le mieux que je puisse faire ? Cette question guide tout."
+        }
+      }
+    },
+    "milestones": {
+      "eyebrow": "Étapes clés",
+      "heading": "Notre parcours",
+      "items": {
+        "2007": {
+          "label": "Fondation",
+          "desc": "Établie en tant que société à responsabilité limitée le 3 décembre par M. Teklay Teame et ses associés."
+        },
+        "2008": {
+          "label": "1ère Succursale",
+          "desc": "Lancement officiel le 8 août — ouverture de Simba Centenary, créant plus de 450 emplois pour les citoyens rwandais."
+        },
+        "2013": {
+          "label": "1er Prix",
+          "desc": "1er meilleur exposant — Commerce de détail et distribution."
+        },
+        "2014": {
+          "label": "Expansion",
+          "desc": "Ouverture de la succursale Simba Gishushu. Prix du meilleur exposant Commerce de détail & Distribution — EBM."
+        },
+        "2015": {
+          "label": "Croissance",
+          "desc": "Ouverture de la succursale Simba Kimironko. Statut de contribuable conforme RRA accordé."
+        },
+        "2016": {
+          "label": "Montée en puissance",
+          "desc": "Deux nouvelles succursales ouvrent — Simba Kicukiro et Simba Kigali Height."
+        },
+        "2019": {
+          "label": "Centre-ville",
+          "desc": "Simba UTC ouvre au cœur de Kigali."
+        },
+        "2020": {
+          "label": "Commerçant de l'année",
+          "desc": "Primé 1er Commerçant de l'Année au Rwanda."
+        },
+        "2023": {
+          "label": "Expansion majeure",
+          "desc": "Cinq nouvelles succursales ouvrent simultanément — Simba Gacuriro, Simba Gikondo, Simba Sonatube, Simba Kisimenti et Simba Rebero."
+        },
+        "2024": {
+          "label": "Transition numérique",
+          "desc": "Simba Online Sales est lancé — apportant l'expérience du supermarché directement à la porte des clients."
+        }
+      }
+    },
+    "categories": {
+      "eyebrow": "Ce que nous offrons",
+      "heading": "Catégories de produits",
+      "items": {
+        "fruitsVeg": "Fruits & Légumes",
+        "meats": "Viandes",
+        "frozen": "Surgelés",
+        "winesSpirits": "Vins & Spiritueux",
+        "furniture": "Meubles",
+        "electronics": "Électronique",
+        "utensils": "Ustensiles & Ornements",
+        "homecare": "Entretien maison",
+        "baby": "Produits bébé",
+        "gym": "Gym & Sports",
+        "healthBeauty": "Santé & Beauté",
+        "bakery": "Boulangerie"
+      }
+    },
+    "services": {
+      "eyebrow": "Services",
+      "heading": "Tout sous un même toit",
+      "items": {
+        "supermarket": {
+          "title": "Supermarché",
+          "desc": "11 succursales à travers le Rwanda offrant une large gamme de produits pour les besoins quotidiens."
+        },
+        "coffee": {
+          "title": "Restaurant & Café",
+          "desc": "Trucillo Café et services de café dans 5 succursales Simba."
+        },
+        "arcade": {
+          "title": "Simba Arcade",
+          "desc": "Divertissement de jeux d'arcade disponible à la succursale Simba Gacuriro."
+        },
+        "online": {
+          "title": "Ventes en ligne",
+          "desc": "Étendre notre portée jusqu'à votre porte — Simba Supermarché est partout."
+        },
+        "bakery": {
+          "title": "Usine de boulangerie",
+          "desc": "Usine de boulangerie maison produisant des produits frais pour toutes nos succursales."
+        }
+      }
+    },
+    "branches": {
+      "eyebrow": "Emplacements",
+      "heading": "Nos 11 succursales"
+    },
+    "coffee": {
+      "eyebrow": "Café",
+      "heading": "Cafés",
+      "desc": "Cafés Simba et un Trucillo Café dans cinq succursales, offrant une expérience de détente pour chaque acheteur."
+    },
+    "awards": {
+      "eyebrow": "Réalisations",
+      "heading": "Excellence primée",
+      "items": {
+        "2013": "1er meilleur exposant — Commerce de détail & Distribution",
+        "2014": "Meilleur exposant Commerce de détail & Distribution — EBM",
+        "2015": "Prix du contribuable conforme RRA",
+        "2020": "1er Commerçant de l'Année — Rwanda"
+      }
+    }
   }
 }

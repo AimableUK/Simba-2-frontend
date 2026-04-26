@@ -378,5 +378,147 @@
     "inStock": "In stock",
     "outOfStock": "Out of stock",
     "items": "saved items"
+  },
+
+  "about": {
+    "hero": {
+      "eyebrow": "Company Profile",
+      "title_line1": "About Simba",
+      "title_line2": "Supermarket",
+      "subtitle": "Rwanda's most admired supermarket — a testament to the country's economic resurgence, proudly meeting the daily needs of Kigali and beyond since 2008."
+    },
+    "origin": {
+      "eyebrow": "Origin History",
+      "heading": "Where It All Began",
+      "paragraph1": "SIMBA SUPERMARKET LTD was established on <strong>December 3, 2007</strong>, as a Limited Liability Company with a clear ambition: to become the region's largest retail outlet. Founded by <strong>Mr. Teklay Teame</strong> and his partners, the company imports products from Europe, Egypt, Dubai, China, Turkey, and beyond to ensure a truly diverse product range.",
+      "paragraph2": "The official launch on <strong>August 8, 2008</strong> created over <strong>450 jobs</strong> for Rwandese citizens. With 11 branches across Rwanda, Simba provides a one-stop shopping experience — butchery, bakery, coffee shop, and more — serving international organisations, local NGOs, private companies, and government ministries."
+    },
+    "values": {
+      "eyebrow": "Beliefs & Values",
+      "heading": "What We Stand For",
+      "items": {
+        "respect": {
+          "title": "Respect for the Individual",
+          "body": "We're hardworking, ordinary people who've teamed up to accomplish extraordinary things. We treat each other with dignity and encourage everyone to express their thoughts — this is how we show respect."
+        },
+        "service": {
+          "title": "Service to Customers",
+          "body": "Our customers are the reason we're in business. We offer quality merchandise at the lowest prices with the best customer service possible, always seeking to exceed expectations."
+        },
+        "excellence": {
+          "title": "Striving for Excellence",
+          "body": "We're proud of our accomplishments but never satisfied. We constantly reach further to bring new ideas and goals to life — Is this the best I can do? That question drives everything."
+        }
+      }
+    },
+    "milestones": {
+      "eyebrow": "Milestones",
+      "heading": "Our Journey",
+      "items": {
+        "2007": {
+          "label": "Founded",
+          "desc": "Established as a Limited Liability Company on December 3rd by Mr. Teklay Teame and partners."
+        },
+        "2008": {
+          "label": "1st Branch",
+          "desc": "Official launch on August 8th — Simba Centenary opens, creating over 450 jobs for Rwandese citizens."
+        },
+        "2013": {
+          "label": "1st Award",
+          "desc": "1st Best Exhibitor — Retail and Distribution."
+        },
+        "2014": {
+          "label": "Expanding",
+          "desc": "Simba Gishushu branch opens. Awarded Best Exhibitor Retail & Distribution — EBM Best Award."
+        },
+        "2015": {
+          "label": "Growing",
+          "desc": "Simba Kimironko branch opens. Awarded RRA Compliant Taxpayer status."
+        },
+        "2016": {
+          "label": "Scaling Up",
+          "desc": "Two new branches open — Simba Kicukiro and Simba Kigali Height."
+        },
+        "2019": {
+          "label": "City Centre",
+          "desc": "Simba UTC opens in the heart of Kigali."
+        },
+        "2020": {
+          "label": "Merchant of Year",
+          "desc": "Awarded 1st Merchant of the Year in Rwanda."
+        },
+        "2023": {
+          "label": "Major Expansion",
+          "desc": "Five new branches launch simultaneously — Simba Gacuriro, Simba Gikondo, Simba Sonatube, Simba Kisimenti, and Simba Rebero."
+        },
+        "2024": {
+          "label": "Going Digital",
+          "desc": "Simba Online Sales launches — bringing the supermarket experience directly to customers' doors."
+        }
+      }
+    },
+    "categories": {
+      "eyebrow": "What We Offer",
+      "heading": "Product Categories",
+      "items": {
+        "fruitsVeg": "Fruits & Vegetables",
+        "meats": "Meats",
+        "frozen": "Frozen",
+        "winesSpirits": "Wines & Spirits",
+        "furniture": "Furniture",
+        "electronics": "Electronics",
+        "utensils": "Utensils & Ornaments",
+        "homecare": "Homecare",
+        "baby": "Baby Products",
+        "gym": "Gym & Sports",
+        "healthBeauty": "Health & Beauty",
+        "bakery": "Bakery"
+      }
+    },
+    "services": {
+      "eyebrow": "Services",
+      "heading": "Everything Under One Roof",
+      "items": {
+        "supermarket": {
+          "title": "Supermarket",
+          "desc": "11 branches across Rwanda offering a wide range of products for daily needs."
+        },
+        "coffee": {
+          "title": "Restaurant & Coffee Shop",
+          "desc": "Trucillo Café and coffee shop services across 5 Simba branches."
+        },
+        "arcade": {
+          "title": "Simba Arcade",
+          "desc": "Arcade gaming entertainment available at Simba Gacuriro branch."
+        },
+        "online": {
+          "title": "Online Sales",
+          "desc": "Extending our reach to your door — Simba Supermarket is everywhere."
+        },
+        "bakery": {
+          "title": "Bakery Factory",
+          "desc": "In-house bakery factory producing fresh goods for all our branches."
+        }
+      }
+    },
+    "branches": {
+      "eyebrow": "Locations",
+      "heading": "Our 11 Branches"
+    },
+    "coffee": {
+      "eyebrow": "Coffee",
+      "heading": "Coffee Shops",
+      "desc": "Simba Coffee Shops and one Trucillo Café across five branches, offering a relaxing experience for every shopper."
+    },
+    "awards": {
+      "eyebrow": "Achievements",
+      "heading": "Award-Winning Excellence",
+      "items": {
+        "2013": "1st Best Exhibitor — Retail & Distribution",
+        "2014": "Best Exhibitor Retail & Distribution — EBM",
+        "2015": "RRA Compliant Taxpayer Award",
+        "2020": "1st Merchant of the Year — Rwanda"
+      }
+    }
   }
 }

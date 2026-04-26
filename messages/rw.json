@@ -378,5 +378,147 @@
     "inStock": "Gihari",
     "outOfStock": "Ntigihari",
     "items": "Ibibitswe"
+  },
+
+  "about": {
+    "hero": {
+      "eyebrow": "Umwirondoro w'Ikigo",
+      "title_line1": "Itumaini rya Simba",
+      "title_line2": "Supermarket",
+      "subtitle": "Supermarket ikunzwe cyane mu Rwanda — ikigaragaza iterambere ry'ubukungu bw'igihugu, ihuza buri munsi ibikenye by'abaturage ba Kigali n'ahandi kuva 2008."
+    },
+    "origin": {
+      "eyebrow": "Amateka y'Inkomoko",
+      "heading": "Aho Byatangiriye",
+      "paragraph1": "SIMBA SUPERMARKET LTD yashinzwe ku wa <strong>3 Ukuboza 2007</strong> nk'Isosiyete y'Inshingano Nkeya ifite intego igaragara: kuba iduka rinini cyane ry'ubucuruzi mu karere. Yashinzwe na <strong>Bwana Teklay Teame</strong> n'inshuti ze, sosiyete itera mu mahanga ibicuruzwa biva mu Burayi, Misiri, Dubayı, Ubushinwa, Ubuturukiya no handi kugira ngo igwize urutonde rw'ibicuruzwa.",
+      "paragraph2": "Ugufungurwa gusesuye ku wa <strong>8 Kanama 2008</strong> kwatumye habaho akazi ka <strong>abantu barenga 450</strong> b'abanyarwanda. Ifite amashami 11 mu Rwanda hose, Simba itanga serivisi zuzuye z'ubukiranyi — inyama, imigati, kafeteriya n'ibindi byinshi — ikorera imiryango mpuzamahanga, amashyirahamwe y'abaturage, sosiyete za leta n'abikorera."
+    },
+    "values": {
+      "eyebrow": "Imyemerere & Indangagaciro",
+      "heading": "Ibyo Dushyigikira",
+      "items": {
+        "respect": {
+          "title": "Gukunda Umuntu ku Giti Cye",
+          "body": "Turi abantu basanzwe bakora cyane bifatanije kugira ngo barangize ibintu bidasanzwe. Twita ku bandi isoni kandi twashishikariza buri wese kuvuga ibitekerezo bye — uko ni ko tugaragaza icyubahiro."
+        },
+        "service": {
+          "title": "Serivisi ku Bakiriya",
+          "body": "Abakiriya bacu ni yo mpamvu tubaho mu bucuruzi. Dutanga ibicuruzwa byiza ku giciro cyihuse gikwiye hamwe na serivisi nziza z'abakiriya bishoboka, tugerageza buri gihe kunesha ibyifuzo byabo."
+        },
+        "excellence": {
+          "title": "Gushaka Ubuziranenge",
+          "body": "Turishimira ibyo turangije ariko ntitugera ku mahoro. Dukomeza gushaka byinshi kugira ngo dutekeleze ibitekerezo n'intego nshya — Ese iyi ni iyo nziza bishoboka? Icyo kibazo niwo mukorere wacu."
+        }
+      }
+    },
+    "milestones": {
+      "eyebrow": "Intambwe Ingenzi",
+      "heading": "Rugendo Rwacu",
+      "items": {
+        "2007": {
+          "label": "Gushingwa",
+          "desc": "Yashinzwe nk'Isosiyete y'Inshingano Nkeya ku wa 3 Ukuboza na Bwana Teklay Teame n'inshuti ze."
+        },
+        "2008": {
+          "label": "Ishami rya 1",
+          "desc": "Ugufungurwa gusesuye ku wa 8 Kanama — Simba Centenary ifunguwe, itera akazi abanyarwanda barenga 450."
+        },
+        "2013": {
+          "label": "Igihembo cya 1",
+          "desc": "Uwagaragaje neza wa 1 mu bucuruzi bw'ibicuruzwa no gutangaza."
+        },
+        "2014": {
+          "label": "Kwaguka",
+          "desc": "Ishami rya Simba Gishushu rifunguwe. Igihembo cya Best Exhibitor mu bucuruzi & gutangaza — EBM."
+        },
+        "2015": {
+          "label": "Gukura",
+          "desc": "Ishami rya Simba Kimironko rifunguwe. Igihamya cyo kwishyura umusoro neza cya RRA gitangwa."
+        },
+        "2016": {
+          "label": "Gukomeza Kwaguka",
+          "desc": "Amashami mabiri mashya afunguwe — Simba Kicukiro na Simba Kigali Height."
+        },
+        "2019": {
+          "label": "Hagati y'Umujyi",
+          "desc": "Simba UTC ifunguwe mu mutima wa Kigali."
+        },
+        "2020": {
+          "label": "Umucuruzi w'Umwaka",
+          "desc": "Nawe 1 Umucuruzi w'Umwaka mu Rwanda."
+        },
+        "2023": {
+          "label": "Kwaguka Gukomeye",
+          "desc": "Amashami atanu mashya afungurwa icyarimwe — Simba Gacuriro, Simba Gikondo, Simba Sonatube, Simba Kisimenti, na Simba Rebero."
+        },
+        "2024": {
+          "label": "Guturika mu Ikoranabuhanga",
+          "desc": "Simba Online Sales itangwa — iteye serivisi za supermarket mu muryango w'abakiriya."
+        }
+      }
+    },
+    "categories": {
+      "eyebrow": "Ibyo Dutanga",
+      "heading": "Inzego z'Ibicuruzwa",
+      "items": {
+        "fruitsVeg": "Imbuto & Imboga",
+        "meats": "Inyama",
+        "frozen": "Ibyo Gutonoza",
+        "winesSpirits": "Vino & Inzoga",
+        "furniture": "Imbago",
+        "electronics": "Ikoranabuhanga",
+        "utensils": "Ibikoresho & Imihimbano",
+        "homecare": "Isuku y'Inzu",
+        "baby": "Ibicuruzwa by'Umwana",
+        "gym": "Siporo & Imyitozo",
+        "healthBeauty": "Ubuzima & Ubutwari",
+        "bakery": "Imigati"
+      }
+    },
+    "services": {
+      "eyebrow": "Serivisi",
+      "heading": "Byose Munsi y'Umwe",
+      "items": {
+        "supermarket": {
+          "title": "Supermarket",
+          "desc": "Amashami 11 mu Rwanda hose atanga urutonde ruryoshe rw'ibicuruzwa by'ibikenye bya buri munsi."
+        },
+        "coffee": {
+          "title": "Resitora & Kafeteriya",
+          "desc": "Trucillo Café na serivisi za kafeteriya mu mashami 5 ya Simba."
+        },
+        "arcade": {
+          "title": "Simba Arcade",
+          "desc": "Imyitozo y'imikorere ibonerwa ku ishami rya Simba Gacuriro."
+        },
+        "online": {
+          "title": "Kugura kuri Interineti",
+          "desc": "Tugambira abaturage ku muryango wabo — Simba Supermarket ihari hose."
+        },
+        "bakery": {
+          "title": "Fabrika y'Imigati",
+          "desc": "Fabrika y'imigati yo mu rugo itera imigati mishya ku mashami yacu yose."
+        }
+      }
+    },
+    "branches": {
+      "eyebrow": "Aho Tuba",
+      "heading": "Amashami Yacu 11"
+    },
+    "coffee": {
+      "eyebrow": "Kafeteriya",
+      "heading": "Kafeteriya zacu",
+      "desc": "Kafeteriya za Simba hamwe na Trucillo Café imwe mu mashami atanu, zitanga uburambe bwo kuruhuka ku mucuruzi wese."
+    },
+    "awards": {
+      "eyebrow": "Ibikorwa Biheruye",
+      "heading": "Ibihembo by'Ubuziranenge",
+      "items": {
+        "2013": "1 Ugaragaje Neza — Ubucuruzi & Gutangaza",
+        "2014": "Ugaragaje Neza mu Bucuruzi & Gutangaza — EBM",
+        "2015": "Igihembo cy'Ubwishyu Neza cya RRA",
+        "2020": "1 Umucuruzi w'Umwaka — Rwanda"
+      }
+    }
   }
 }
