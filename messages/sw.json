@@ -887,5 +887,83 @@
       "body": "Timu yetu ya msaada inapatikana siku 7 kwa wiki.",
       "cta": "Wasiliana nasi"
     }
+  },
+
+  "terms": {
+    "hero": {
+      "eyebrow": "Kisheria",
+      "title": "Masharti ya Huduma",
+      "subtitle": "Tafadhali soma masharti haya kwa makini kabla ya kutumia tovuti yetu, programu ya simu, au huduma yoyote ya Simba Supermarket.",
+      "effective": "Inaanza kutumika: Januari 1, 2025",
+      "jurisdiction": "Inadhibitiwa na sheria ya Rwanda"
+    },
+    "banner": "Kwa kufikia au kutumia huduma yoyote ya Simba Supermarket, unathibitisha kuwa umesoma, umeelewa, na unakubali kufungwa na Masharti haya ya Huduma. Kama hukubaliani, tafadhali usitumie huduma zetu.",
+    "toc": "Yaliyomo",
+    "sections": {
+      "acceptance": {
+        "nav": "Kukubaliana",
+        "heading": "Kukubali Masharti",
+        "body": "Masharti haya ya Huduma yanadhibiti matumizi yako ya tovuti ya Simba Supermarket, programu ya simu, na huduma zote zinazohusiana. Kwa kuunda akaunti, kuweka agizo, au tu kuvinjari jukwaa letu, unakiri kuwa umesoma na kukubaliana na masharti haya. Masharti haya yanatumika kwa watumiaji wote ikiwa ni pamoja na wageni, wateja waliosajiliwa, na wateja wa kibiashara. Simba Supermarket inashikilia haki ya kusasisha masharti haya wakati wowote. Matumizi yanayoendelea ya huduma zetu baada ya mabadiliko yanajumuisha kukubalika kwa masharti yaliyorekebishwa."
+      },
+      "purchases": {
+        "nav": "Manunuzi",
+        "heading": "Manunuzi na Maagizo",
+        "body": "Unapoweka agizo na Simba Supermarket, unafanya ofa ya kununua bidhaa chini ya masharti haya. Maagizo yote yanategemea upatikanaji na uthibitisho.",
+        "points": {
+          "0": "Maagizo yanathibitishwa tu kupokea malipo au idhini ya malipo",
+          "1": "Bei zinaonyeshwa katika Faranga za Rwanda (RWF) na zinajumuisha kodi zinazohusika",
+          "2": "Tunashikilia haki ya kufuta maagizo kwa sababu ya ukosefu wa hisa au makosa ya bei",
+          "3": "Maagizo ya jumla au ya kibiashara yanaweza kuhitaji mpango wa awali na yanategemea masharti tofauti"
+        }
+      },
+      "payments": {
+        "nav": "Malipo",
+        "heading": "Masharti ya Malipo",
+        "body": "Simba Supermarket inakubali MTN Mobile Money, Airtel Money, Visa, Mastercard, na malipo ya kupokelewa kwa maagizo yanayostahili. Malipo yote ya mtandaoni yanashughulikiwa kupitia lango salama na zilizosimbwa. Kwa kutoa maelezo ya malipo, unathibitisha kuwa una ruhusa ya kutumia njia ya malipo. Katika tukio la malipo yaliyoshindwa, agizo lako litafutwa na utaarifiwa. Migogoro yoyote inayohusu malipo inapaswa kuwasilishwa kwa timu yetu ya msaada wa wateja ndani ya siku 14 za muamala."
+      },
+      "liability": {
+        "nav": "Uwajibikaji",
+        "heading": "Upungufu wa Uwajibikaji",
+        "body": "Kwa kiwango kamili kinachoruhusiwa na sheria, Simba Supermarket haitawajibika kwa uharibifu wowote usio wa moja kwa moja, wa bahati mbaya, au unaofuata unaotokana na matumizi ya huduma zetu.",
+        "points": {
+          "0": "Hatuwajibiki kwa ucheleweshaji unaosababishwa na hali zinazozidi udhibiti wetu wa kawaida",
+          "1": "Uwajibikaji wetu kwa dai lolote umepunguzwa kwa thamani ya agizo linalozozanishwa",
+          "2": "Hatuhakikishi uendeshaji usiokatizwa au usio na makosa wa majukwaa yetu ya kidijitali",
+          "3": "Picha za bidhaa ni kwa ajili ya kielelezo tu; bidhaa halisi zinaweza kutofautiana kidogo"
+        }
+      },
+      "prohibited": {
+        "nav": "Marufuku",
+        "heading": "Shughuli Zilizopigwa Marufuku",
+        "body": "Unakubaliana kutotumia vibaya huduma zetu au kusaidia wengine kufanya hivyo. Shughuli zifuatazo zimepigwa marufuku kabisa:",
+        "points": {
+          "0": "Kutumia jukwaa letu kwa madhumuni yoyote ya uhalifu, udanganyifu, au ya kudhuru",
+          "1": "Kujaribu kupata ufikiaji usioidhinishwa kwa mifumo au data yetu",
+          "2": "Kuwasilisha maoni au maudhui ya uongo, ya kupotosha, au ya unyanyasaji",
+          "3": "Kuuza tena bidhaa zilizonnunuliwa kutoka Simba bila idhini ya maandishi ya awali"
+        }
+      },
+      "disputes": {
+        "nav": "Migogoro",
+        "heading": "Utatuzi wa Migogoro",
+        "body": "Katika tukio la mgogoro unaotokana na masharti haya au matumizi yako ya huduma zetu, tunakuhamasisha kwanza kuwasiliana na timu yetu ya msaada wa wateja kutafuta azimio la kirafiki. Ikiwa mgogoro hauwezi kutatuliwa kwa njia isiyo rasmi, utawasilishwa kwa mahakama zinazohusika za Rwanda kwa mujibu wa sheria inayotumika ya Rwanda. Simba Supermarket imejitolea kwa azimio la haki na la uwazi la wasiwasi wote wa wateja."
+      },
+      "changes": {
+        "nav": "Mabadiliko",
+        "heading": "Mabadiliko ya Masharti Haya",
+        "body": "Simba Supermarket inashikilia haki ya kurekebisha Masharti haya ya Huduma wakati wowote. Tunapofanya mabadiliko makubwa, tutaarifa watumiaji waliosajiliwa kupitia barua pepe au arifa ya ndani ya programu angalau siku 14 kabla ya mabadiliko kuanza kutumika. Tarehe ya kuanza kutumika juu ya ukurasa huu itaonyesha daima marekebisho ya hivi karibuni zaidi. Matumizi yako yanayoendelea ya huduma zetu baada ya tarehe ya kuanza kutumika yanajumuisha kukubalika kwa masharti yaliyosasishwa."
+      },
+      "contact": {
+        "nav": "Mawasiliano",
+        "heading": "Wasiliana Nasi",
+        "body": "Ikiwa una maswali, wasiwasi, au maombi yanayohusu Masharti haya ya Huduma, tafadhali usisite kuwasiliana nasi. Timu zetu za kisheria na msaada wa wateja ziko tayari kukusaidia. Unaweza kuwasiliana nasi kupitia ukurasa wa Wasiliana Nasi kwenye tovuti yetu, kwa kutuma barua pepe kwa legal@simbasupermarket.rw, au kwa kutembelea mojawapo ya matawi yetu 11 kote Rwanda."
+      }
+    },
+    "agreement": {
+      "heading": "Umelindwa",
+      "body": "Masharti haya yako ili kulinda wewe na Simba Supermarket. Tumejitolea kwa uwazi, haki, na huduma bora kwa kila mteja.",
+      "ctaContact": "Wasiliana Nasi",
+      "ctaPrivacy": "Sera ya Faragha"
+    }
   }
 }

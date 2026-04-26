@@ -887,5 +887,83 @@
       "body": "Our support team is available 7 days a week.",
       "cta": "Get in touch"
     }
+  },
+
+  "terms": {
+    "hero": {
+      "eyebrow": "Legal",
+      "title": "Terms of Service",
+      "subtitle": "Please read these terms carefully before using our website, mobile app, or any Simba Supermarket service.",
+      "effective": "Effective: January 1, 2025",
+      "jurisdiction": "Governed by Rwandan law"
+    },
+    "banner": "By accessing or using any Simba Supermarket service, you confirm that you have read, understood, and agree to be bound by these Terms of Service. If you do not agree, please do not use our services.",
+    "toc": "Contents",
+    "sections": {
+      "acceptance": {
+        "nav": "Acceptance",
+        "heading": "Acceptance of Terms",
+        "body": "These Terms of Service govern your use of the Simba Supermarket website, mobile application, and all related services. By creating an account, placing an order, or simply browsing our platform, you acknowledge that you have read and agree to these terms. These terms apply to all users including visitors, registered customers, and business clients. Simba Supermarket reserves the right to update these terms at any time. Continued use of our services after changes constitutes acceptance of the revised terms."
+      },
+      "purchases": {
+        "nav": "Purchases",
+        "heading": "Purchases & Orders",
+        "body": "When you place an order with Simba Supermarket, you are making an offer to purchase goods subject to these terms. All orders are subject to availability and confirmation.",
+        "points": {
+          "0": "Orders are confirmed only upon receipt of payment or payment authorisation",
+          "1": "Prices are displayed in Rwandan Francs (RWF) and are inclusive of applicable taxes",
+          "2": "We reserve the right to cancel orders due to stock unavailability or pricing errors",
+          "3": "Bulk or commercial orders may require prior arrangement and are subject to separate terms"
+        }
+      },
+      "payments": {
+        "nav": "Payments",
+        "heading": "Payment Terms",
+        "body": "Simba Supermarket accepts MTN Mobile Money, Airtel Money, Visa, Mastercard, and cash on delivery for eligible orders. All online payments are processed through secure, encrypted gateways. By providing payment details, you confirm that you are authorised to use the payment method. In the event of a failed payment, your order will be cancelled and you will be notified. Any disputes regarding charges should be raised with our customer support team within 14 days of the transaction."
+      },
+      "liability": {
+        "nav": "Liability",
+        "heading": "Limitation of Liability",
+        "body": "To the fullest extent permitted by law, Simba Supermarket shall not be liable for any indirect, incidental, or consequential damages arising from the use of our services.",
+        "points": {
+          "0": "We are not liable for delays caused by circumstances beyond our reasonable control",
+          "1": "Our liability for any claim is limited to the value of the order in dispute",
+          "2": "We do not guarantee uninterrupted or error-free operation of our digital platforms",
+          "3": "Product images are for illustration only; actual products may vary slightly"
+        }
+      },
+      "prohibited": {
+        "nav": "Prohibited Use",
+        "heading": "Prohibited Activities",
+        "body": "You agree not to misuse our services or assist others in doing so. The following activities are strictly prohibited:",
+        "points": {
+          "0": "Using our platform for any unlawful, fraudulent, or harmful purpose",
+          "1": "Attempting to gain unauthorised access to our systems or data",
+          "2": "Submitting false, misleading, or abusive reviews or content",
+          "3": "Reselling products purchased from Simba without prior written consent"
+        }
+      },
+      "disputes": {
+        "nav": "Disputes",
+        "heading": "Dispute Resolution",
+        "body": "In the event of a dispute arising from these terms or your use of our services, we encourage you to first contact our customer support team to seek an amicable resolution. If a dispute cannot be resolved informally, it shall be submitted to the competent courts of Rwanda in accordance with applicable Rwandan law. Simba Supermarket is committed to fair and transparent resolution of all customer concerns."
+      },
+      "changes": {
+        "nav": "Changes",
+        "heading": "Changes to These Terms",
+        "body": "Simba Supermarket reserves the right to modify these Terms of Service at any time. When we make significant changes, we will notify registered users via email or an in-app notification at least 14 days before the changes take effect. The effective date at the top of this page will always reflect the most recent revision. Your continued use of our services after the effective date constitutes acceptance of the updated terms."
+      },
+      "contact": {
+        "nav": "Contact",
+        "heading": "Contact Us",
+        "body": "If you have any questions, concerns, or requests regarding these Terms of Service, please do not hesitate to reach out to us. Our legal and customer support teams are available to assist you. You can contact us via the Contact Us page on our website, by emailing legal@simbasupermarket.rw, or by visiting any of our 11 branches across Rwanda in person."
+      }
+    },
+    "agreement": {
+      "heading": "You are protected",
+      "body": "These terms exist to protect both you and Simba Supermarket. We are committed to transparency, fairness, and exceptional service for every customer.",
+      "ctaContact": "Contact Us",
+      "ctaPrivacy": "Privacy Policy"
+    }
   }
 }

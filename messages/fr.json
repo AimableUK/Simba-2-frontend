@@ -887,5 +887,83 @@
       "body": "Notre équipe d'assistance est disponible 7 jours sur 7.",
       "cta": "Nous contacter"
     }
+  },
+
+  "terms": {
+    "hero": {
+      "eyebrow": "Juridique",
+      "title": "Conditions d'utilisation",
+      "subtitle": "Veuillez lire attentivement ces conditions avant d'utiliser notre site web, notre application mobile ou tout service Simba Supermarché.",
+      "effective": "En vigueur depuis : 1er janvier 2025",
+      "jurisdiction": "Régi par le droit rwandais"
+    },
+    "banner": "En accédant ou en utilisant tout service Simba Supermarché, vous confirmez avoir lu, compris et accepté d'être lié par ces Conditions d'utilisation. Si vous n'êtes pas d'accord, veuillez ne pas utiliser nos services.",
+    "toc": "Sommaire",
+    "sections": {
+      "acceptance": {
+        "nav": "Acceptation",
+        "heading": "Acceptation des conditions",
+        "body": "Ces Conditions d'utilisation régissent votre utilisation du site web, de l'application mobile et de tous les services connexes de Simba Supermarché. En créant un compte, en passant une commande ou simplement en naviguant sur notre plateforme, vous reconnaissez avoir lu et accepté ces conditions. Ces conditions s'appliquent à tous les utilisateurs, y compris les visiteurs, les clients enregistrés et les clients professionnels. Simba Supermarché se réserve le droit de mettre à jour ces conditions à tout moment. L'utilisation continue de nos services après toute modification constitue une acceptation des conditions révisées."
+      },
+      "purchases": {
+        "nav": "Achats",
+        "heading": "Achats et commandes",
+        "body": "Lorsque vous passez une commande chez Simba Supermarché, vous faites une offre d'achat de biens soumise à ces conditions. Toutes les commandes sont soumises à la disponibilité et à la confirmation.",
+        "points": {
+          "0": "Les commandes ne sont confirmées qu'à la réception du paiement ou de l'autorisation de paiement",
+          "1": "Les prix sont affichés en Francs Rwandais (RWF) et incluent les taxes applicables",
+          "2": "Nous nous réservons le droit d'annuler des commandes en raison d'une indisponibilité de stock ou d'erreurs de prix",
+          "3": "Les commandes en gros ou commerciales peuvent nécessiter un arrangement préalable et sont soumises à des conditions distinctes"
+        }
+      },
+      "payments": {
+        "nav": "Paiements",
+        "heading": "Conditions de paiement",
+        "body": "Simba Supermarché accepte MTN Mobile Money, Airtel Money, Visa, Mastercard et le paiement à la livraison pour les commandes éligibles. Tous les paiements en ligne sont traités via des passerelles sécurisées et cryptées. En fournissant vos informations de paiement, vous confirmez que vous êtes autorisé à utiliser le mode de paiement. En cas d'échec de paiement, votre commande sera annulée et vous en serez informé. Tout litige concernant les charges doit être signalé à notre équipe d'assistance dans les 14 jours suivant la transaction."
+      },
+      "liability": {
+        "nav": "Responsabilité",
+        "heading": "Limitation de responsabilité",
+        "body": "Dans toute la mesure permise par la loi, Simba Supermarché ne sera pas responsable des dommages indirects, accessoires ou consécutifs découlant de l'utilisation de nos services.",
+        "points": {
+          "0": "Nous ne sommes pas responsables des retards causés par des circonstances indépendantes de notre volonté raisonnable",
+          "1": "Notre responsabilité pour toute réclamation est limitée à la valeur de la commande en litige",
+          "2": "Nous ne garantissons pas un fonctionnement ininterrompu ou sans erreur de nos plateformes numériques",
+          "3": "Les images de produits sont fournies à titre illustratif uniquement ; les produits réels peuvent légèrement varier"
+        }
+      },
+      "prohibited": {
+        "nav": "Utilisations interdites",
+        "heading": "Activités interdites",
+        "body": "Vous acceptez de ne pas utiliser abusivement nos services ou d'aider d'autres personnes à le faire. Les activités suivantes sont strictement interdites :",
+        "points": {
+          "0": "Utiliser notre plateforme à des fins illégales, frauduleuses ou préjudiciables",
+          "1": "Tenter d'obtenir un accès non autorisé à nos systèmes ou données",
+          "2": "Soumettre des avis ou contenus faux, trompeurs ou abusifs",
+          "3": "Revendre des produits achetés chez Simba sans consentement écrit préalable"
+        }
+      },
+      "disputes": {
+        "nav": "Litiges",
+        "heading": "Résolution des litiges",
+        "body": "En cas de litige découlant de ces conditions ou de votre utilisation de nos services, nous vous encourageons à contacter d'abord notre équipe d'assistance pour trouver une résolution à l'amiable. Si un litige ne peut être résolu de manière informelle, il sera soumis aux tribunaux compétents du Rwanda conformément au droit rwandais applicable. Simba Supermarché s'engage à une résolution juste et transparente de toutes les préoccupations des clients."
+      },
+      "changes": {
+        "nav": "Modifications",
+        "heading": "Modifications des présentes conditions",
+        "body": "Simba Supermarché se réserve le droit de modifier ces Conditions d'utilisation à tout moment. Lorsque nous apportons des modifications importantes, nous en informerons les utilisateurs enregistrés par e-mail ou notification intégrée à l'application au moins 14 jours avant l'entrée en vigueur des modifications. La date d'entrée en vigueur en haut de cette page reflétera toujours la révision la plus récente. Votre utilisation continue de nos services après la date d'entrée en vigueur constitue une acceptation des conditions mises à jour."
+      },
+      "contact": {
+        "nav": "Contact",
+        "heading": "Nous contacter",
+        "body": "Si vous avez des questions, des préoccupations ou des demandes concernant ces Conditions d'utilisation, n'hésitez pas à nous contacter. Nos équipes juridique et d'assistance client sont disponibles pour vous aider. Vous pouvez nous contacter via la page Nous contacter sur notre site web, en envoyant un e-mail à legal@simbasupermarket.rw, ou en visitant l'une de nos 11 succursales à travers le Rwanda."
+      }
+    },
+    "agreement": {
+      "heading": "Vous êtes protégé",
+      "body": "Ces conditions existent pour vous protéger, vous et Simba Supermarché. Nous nous engageons à la transparence, l'équité et un service exceptionnel pour chaque client.",
+      "ctaContact": "Nous contacter",
+      "ctaPrivacy": "Politique de confidentialité"
+    }
   }
 }

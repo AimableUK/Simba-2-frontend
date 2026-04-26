@@ -7,7 +7,13 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Image from "next/image";
-import { CreditCard, Banknote, CheckCircle, Package } from "lucide-react";
+import {
+  CreditCard,
+  Banknote,
+  CheckCircle,
+  Package,
+  AlertCircle,
+} from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { orderApi } from "@/lib/api";
@@ -19,7 +25,7 @@ import { FormField, FormInput, FormTextarea } from "@/components/ui/form-field";
 
 const schema = z.object({
   fullName: z.string().min(2, "Full name must be at least 2 characters"),
-  phone: z.string().min(10, "Enter a valid phone number"),
+  phone: z.string().min(10, "Enter a valid phone number (min 10 digits)"),
   street: z.string().min(3, "Please enter your street address"),
   district: z.string().min(2, "Please enter your district"),
   sector: z.string().optional(),
@@ -32,7 +38,13 @@ export default function CheckoutPage() {
   const locale = useLocale();
   const router = useRouter();
   const { data: session } = useSession();
-  const { items, total, deliveryFee, grandTotal } = useCart();
+  const {
+    items,
+    total,
+    deliveryFee,
+    grandTotal,
+    isLoading: cartLoading,
+  } = useCart();
   const [paymentMethod, setPaymentMethod] = useState<
     "dpo" | "cash_on_delivery"
   >("dpo");
@@ -40,29 +52,42 @@ export default function CheckoutPage() {
     orderNumber: string;
     orderId: string;
   } | null>(null);
+  const [serverErrors, setServerErrors] = useState<string[]>([]);
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     mode: "onBlur",
   });
 
   const mutation = useMutation({
-    mutationFn: (data: FormData) =>
-      orderApi
-        .create({
-          items: items.map((i) => ({
-            productId: i.productId,
-            quantity: i.quantity,
-          })),
-          deliveryAddress: data,
-          notes: data.notes,
-          paymentMethod,
-        })
-        .then((r) => r.data),
+    mutationFn: async (formData: FormData) => {
+      setServerErrors([]);
+
+      // Build the exact shape the backend expects
+      const payload = {
+        items: items.map((i) => ({
+          productId: i.productId,
+          quantity: i.quantity,
+        })),
+        deliveryAddress: {
+          fullName: formData.fullName,
+          phone: formData.phone,
+          street: formData.street,
+          district: formData.district,
+          sector: formData.sector || undefined,
+          notes: formData.notes || undefined,
+        },
+        notes: formData.notes || undefined,
+        paymentMethod,
+      };
+
+      const res = await orderApi.create(payload);
+      return res.data;
+    },
     onSuccess: (data) => {
       if (paymentMethod === "dpo" && data.paymentUrl) {
         window.location.href = data.paymentUrl;
@@ -73,10 +98,29 @@ export default function CheckoutPage() {
         });
       }
     },
-    onError: (err: any) =>
-      toast.error(err?.response?.data?.message || "Order failed"),
+    onError: (err: any) => {
+      const response = err?.response?.data;
+
+      // Show Zod validation errors from the backend clearly
+      if (response?.errors && Array.isArray(response.errors)) {
+        const msgs: string[] = response.errors.map(
+          (e: any) =>
+            `${e.path?.join(".") || e.field || "Field"}: ${e.message}`,
+        );
+        setServerErrors(msgs);
+        toast.error("Please fix the errors below");
+        return;
+      }
+
+      // Single message error
+      const msg =
+        response?.message || err?.message || "Order failed. Please try again.";
+      toast.error(msg);
+      setServerErrors([msg]);
+    },
   });
 
+  // Not signed in
   if (!session?.user) {
     return (
       <div className="container mx-auto px-4 py-20 text-center">
@@ -91,11 +135,7 @@ export default function CheckoutPage() {
     );
   }
 
-  if (items.length === 0 && !success) {
-    router.push(`/${locale}/cart`);
-    return null;
-  }
-
+  // Order placed successfully
   if (success) {
     return (
       <div className="container mx-auto px-4 py-20 text-center max-w-md">
@@ -124,16 +164,67 @@ export default function CheckoutPage() {
     );
   }
 
+  // Cart empty — don't redirect during SSR, show message instead
+  const cartEmpty = !cartLoading && items.length === 0;
+
+  if (cartEmpty) {
+    return (
+      <div className="container mx-auto px-4 py-20 text-center max-w-md">
+        <p className="text-muted-foreground mb-4">
+          Your cart is empty. Add some items first.
+        </p>
+        <Link
+          href={`/${locale}/shop`}
+          className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-medium hover:bg-primary/90 transition-colors"
+        >
+          Browse Products
+        </Link>
+      </div>
+    );
+  }
+
+  const onSubmit = (formData: FormData) => {
+    if (items.length === 0) {
+      toast.error("Your cart is empty");
+      return;
+    }
+    mutation.mutate(formData);
+  };
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-5xl">
       <h1 className="text-2xl font-bold mb-8">{t("title")}</h1>
-      <form onSubmit={handleSubmit((d) => mutation.mutate(d))}>
+
+      {/* Server-side validation errors */}
+      {serverErrors.length > 0 && (
+        <div className="mb-6 bg-destructive/10 border border-destructive/30 rounded-2xl p-4">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
+            <div>
+              <p className="font-semibold text-destructive text-sm mb-1">
+                Please fix the following errors:
+              </p>
+              <ul className="space-y-0.5">
+                {serverErrors.map((e, i) => (
+                  <li key={i} className="text-sm text-destructive/90">
+                    • {e}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className="grid lg:grid-cols-3 gap-8">
+          {/* Left: Form */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Delivery */}
+            {/* Delivery Information */}
             <div className="bg-card border border-border rounded-2xl p-6">
               <h2 className="font-semibold text-lg mb-5 flex items-center gap-2">
-                <Package className="h-5 w-5 text-primary" /> {t("delivery")}
+                <Package className="h-5 w-5 text-primary" />
+                {t("delivery")}
               </h2>
               <div className="grid sm:grid-cols-2 gap-4">
                 <FormField
@@ -145,10 +236,11 @@ export default function CheckoutPage() {
                   <FormInput
                     registration={register("fullName")}
                     error={!!errors.fullName}
-                    placeholder="Enter your name"
+                    placeholder="Jean Uwimana"
                     autoComplete="name"
                   />
                 </FormField>
+
                 <FormField
                   label={t("phone")}
                   error={errors.phone?.message}
@@ -158,9 +250,11 @@ export default function CheckoutPage() {
                     registration={register("phone")}
                     error={!!errors.phone}
                     type="tel"
-                    placeholder="Enter your phone number"
+                    placeholder="+250 788 000 000"
+                    autoComplete="tel"
                   />
                 </FormField>
+
                 <FormField
                   label={t("street")}
                   error={errors.street?.message}
@@ -169,9 +263,11 @@ export default function CheckoutPage() {
                   <FormInput
                     registration={register("street")}
                     error={!!errors.street}
-                    placeholder="Enter your address e.g. KK 123 St, Kicukiro"
+                    placeholder="KK 123 St, Kicukiro"
+                    autoComplete="street-address"
                   />
                 </FormField>
+
                 <FormField
                   label={t("district")}
                   error={errors.district?.message}
@@ -180,9 +276,10 @@ export default function CheckoutPage() {
                   <FormInput
                     registration={register("district")}
                     error={!!errors.district}
-                    placeholder="Enter district e.g. Kicukiro"
+                    placeholder="Kicukiro"
                   />
                 </FormField>
+
                 <FormField
                   label={t("sector")}
                   error={errors.sector?.message}
@@ -190,10 +287,10 @@ export default function CheckoutPage() {
                 >
                   <FormInput
                     registration={register("sector")}
-                    error={!!errors.sector}
-                    placeholder="Enter your sector e.g. Niboye"
+                    placeholder="Niboye"
                   />
                 </FormField>
+
                 <FormField
                   label={t("notes")}
                   error={errors.notes?.message}
@@ -209,10 +306,11 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            {/* Payment */}
+            {/* Payment Method */}
             <div className="bg-card border border-border rounded-2xl p-6">
               <h2 className="font-semibold text-lg mb-5 flex items-center gap-2">
-                <CreditCard className="h-5 w-5 text-primary" /> {t("payment")}
+                <CreditCard className="h-5 w-5 text-primary" />
+                {t("payment")}
               </h2>
               <div className="grid sm:grid-cols-2 gap-3">
                 {(
@@ -235,7 +333,11 @@ export default function CheckoutPage() {
                     key={value}
                     type="button"
                     onClick={() => setPaymentMethod(value)}
-                    className={`flex items-start gap-3 p-4 rounded-xl border-2 text-left transition-all ${paymentMethod === value ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"}`}
+                    className={`flex items-start gap-3 p-4 rounded-xl border-2 text-left transition-all ${
+                      paymentMethod === value
+                        ? "border-primary bg-primary/5"
+                        : "border-border hover:border-primary/40"
+                    }`}
                   >
                     <Icon
                       className={`h-5 w-5 mt-0.5 shrink-0 ${paymentMethod === value ? "text-primary" : "text-muted-foreground"}`}
@@ -252,13 +354,14 @@ export default function CheckoutPage() {
             </div>
           </div>
 
-          {/* Summary */}
+          {/* Right: Order Summary */}
           <div>
             <div className="bg-card border border-border rounded-2xl p-6 sticky top-24">
               <h2 className="font-bold text-lg mb-4">{t("review")}</h2>
+
               <div className="space-y-3 max-h-60 overflow-y-auto pr-1">
                 {items.map((item) => (
-                  <div key={item.id} className="flex gap-3">
+                  <div key={item.id} className="flex gap-3 items-center">
                     <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-muted shrink-0">
                       <Image
                         src={getImageUrl(item.product.images[0])}
@@ -282,6 +385,7 @@ export default function CheckoutPage() {
                   </div>
                 ))}
               </div>
+
               <div className="border-t border-border mt-4 pt-4 space-y-2 text-sm">
                 <div className="flex justify-between text-muted-foreground">
                   <span>Subtotal</span>
@@ -298,17 +402,33 @@ export default function CheckoutPage() {
                   </span>
                 </div>
               </div>
+
               <button
                 type="submit"
-                disabled={mutation.isPending}
-                className="w-full mt-5 bg-primary hover:bg-primary/90 disabled:opacity-60 text-primary-foreground font-semibold py-3.5 rounded-xl transition-colors"
+                disabled={mutation.isPending || isSubmitting}
+                className="w-full mt-5 bg-primary hover:bg-primary/90 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed text-primary-foreground font-semibold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2"
               >
-                {mutation.isPending
-                  ? t("processing")
-                  : paymentMethod === "dpo"
-                    ? t("payNow")
-                    : t("placeOrder")}
+                {mutation.isPending || isSubmitting ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
+                    {t("processing")}
+                  </>
+                ) : paymentMethod === "dpo" ? (
+                  t("payNow")
+                ) : (
+                  t("placeOrder")
+                )}
               </button>
+
+              <p className="text-xs text-muted-foreground text-center mt-3">
+                By placing your order you agree to our{" "}
+                <Link
+                  href={`/${locale}/terms`}
+                  className="hover:text-primary underline underline-offset-2"
+                >
+                  Terms
+                </Link>
+              </p>
             </div>
           </div>
         </div>

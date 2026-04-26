@@ -162,6 +162,7 @@ export function Footer() {
                 { label: t("faq"), href: `/${locale}/faq` },
                 { label: t("returns"), href: `/${locale}/returns-policy` },
                 { label: t("privacy"), href: `/${locale}/privacy-policy` },
+                { label: t("terms"), href: `/${locale}/terms-of-service` },
                 { label: t("delivery"), href: `/${locale}/delivery-info` },
               ].map((item) => (
                 <li key={item.label}>

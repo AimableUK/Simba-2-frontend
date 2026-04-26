@@ -887,5 +887,83 @@
       "body": "Itsinda ryacu ry'ubufasha riraboneka iminsi 7 mu cyumweru.",
       "cta": "Wavugana natwe"
     }
+  },
+
+  "terms": {
+    "hero": {
+      "eyebrow": "Amategeko",
+      "title": "Amabwiriza y'Imikoreshereze",
+      "subtitle": "Nyamuneka soma amabwiriza haya neza mbere yo gukoresha urubuga rwacu, porogaramu y'igikoresho, cyangwa serivisi yose ya Simba Supermarket.",
+      "effective": "Atangira gukurikizwa: Mutarama 1, 2025",
+      "jurisdiction": "Agenga amategeko y'u Rwanda"
+    },
+    "banner": "Mu kugera ku cyangwa gukoresha serivisi yose ya Simba Supermarket, wemereza ko wasomye, wasobanukirwe, kandi ukubaliye kugengwa n'Amabwiriza haya y'Imikoreshereze. Niba utabikubaliye, nyamuneka udakoreshe serivisi zacu.",
+    "toc": "Urutonde",
+    "sections": {
+      "acceptance": {
+        "nav": "Kwemera",
+        "heading": "Kwemera Amabwiriza",
+        "body": "Amabwiriza haya y'Imikoreshereze agenga gukoresha urubuga rwa Simba Supermarket, porogaramu y'igikoresho, na serivisi zose zijyanye. Mu gushinga konti, gushyira ilagizo, cyangwa gusa kuvinjari urubuga rwacu, wemereza ko wasomye kandi ukubaliye amabwiriza haya. Amabwiriza haya akurikizwa ku bakoreshaji bose harimo inzira, abakiriya biyandikishije, n'abakiriya bo gukorana. Simba Supermarket ibika uburenganzira bwo guhindura amabwiriza haya igihe icyo aricyo cyose. Gukomeza gukoresha serivisi zacu nyuma y'impinduka bivuze kwemera amabwiriza yavuguruwe."
+      },
+      "purchases": {
+        "nav": "Kugura",
+        "heading": "Kugura no Gushyira Amalagizo",
+        "body": "Igihe ushyira ilagizo kuri Simba Supermarket, uri gukora itera ryo kugura ibicuruzwa munsi y'amabwiriza haya. Amalagizo yose ateganye n'ubonekezi no kwemezwa.",
+        "points": {
+          "0": "Amalagizo yemezwa gusa nyuma yo kwishyura cyangwa gutunga uburenganzira bwo kwishyura",
+          "1": "Ibiciro bigaragazwa mu Francs z'u Rwanda (RWF) kandi birimo imisoro ikurikizwa",
+          "2": "Tubika uburenganzira bwo guhagarika amalagizo kubera ibicuruzwa byo hafi cyangwa amakosa y'ibiciro",
+          "3": "Amalagizo menshi cyangwa y'ubucuruzi ashobora gusaba guterana mbere kandi agenga amabwiriza ahiwe"
+        }
+      },
+      "payments": {
+        "nav": "Kwishyura",
+        "heading": "Amabwiriza y'Kwishyura",
+        "body": "Simba Supermarket ikiramo MTN Mobile Money, Airtel Money, Visa, Mastercard, no kwishyura iyo mugurishijwe ku malagizo asumba. Kwishyura kwa kuri interineti kwose gusindikwa binyuze muri lango likingiritswe. Mu gutanga amakuru y'kwishyura, wemereza ko uri uremezwa gukoresha uburyo bwo kwishyura. Mu gihe kwishyura byanze, ilagizo ryawe rizahagarikwa kandi uzabibwiwa. Impaka zose zijyanye n'amafaranga zigomba kuzarizwa ku tsinda ryacu ry'ubufasha bw'abakiriya mu minsi 14 y'igikorwa."
+      },
+      "liability": {
+        "nav": "Inshingano",
+        "heading": "Kugabanya Inshingano",
+        "body": "Mu rugero rwose rw'amategeko, Simba Supermarket ntizarenganurwa na bimwe mu byangirika by'indirecte, by'impanuka, cyangwa bisohoye bivuye mu gukoresha serivisi zacu.",
+        "points": {
+          "0": "Ntidufite inshingano kubera gutagira igihe bisabwa n'impamvu zirenze ubushobozi bwacu",
+          "1": "Inshingano zacu ku itakwa iriyeri zigabanyirizwa agaciro k'ilagizo ryanzaniwe",
+          "2": "Ntidutanga ingwate y'imikoreshereze itigize cyangwa idafite amakosa y'urubuga rwacu rwa dijital",
+          "3": "Amafoto y'ibicuruzwa ni ay'igaragaza gusa; ibicuruzwa nyabyo bishobora guhinduka buke"
+        }
+      },
+      "prohibited": {
+        "nav": "Biburiwe",
+        "heading": "Ibikorwa Biburiwe",
+        "body": "Wemereza kutakoresha nabi serivisi zacu cyangwa gufasha abandi kubikora. Ibikorwa bikurikira biburiwe cyane:",
+        "points": {
+          "0": "Gukoresha urubuga rwacu ku mpamvu zose z'ubuswa, inzibucike, cyangwa zaangiza",
+          "1": "Kugerageza kubona uburenganzira bwatavugwa ku sisitemi zacu cyangwa amakuru",
+          "2": "Gutanga ibitekerezo cyangwa ibikubiyemo by'ibinyoma, by'uburiganya, cyangwa by'agahato",
+          "3": "Gucuruza ibicuruzwa byaguriwe muri Simba utabanje kubona uruhushya rwanditse"
+        }
+      },
+      "disputes": {
+        "nav": "Impaka",
+        "heading": "Gukemura Impaka",
+        "body": "Mu gihe cy'impaka zivuye muri amabwiriza haya cyangwa mu gukoresha serivisi zacu, dukushishikariza mbere wasiliane na tsinda ryacu ry'ubufasha bw'abakiriya gushaka ibisubizo by'amahoro. Niba impaka zidashobora gukemurwa mu buryo busanzwe, zizaroherezwa ku nkiko zisumba za Rwanda hakurikijwe amategeko y'u Rwanda akurikizwa. Simba Supermarket yiyemeje kugatura no kugaragaza ibisubizo bya buri kijyana na abakiriya."
+      },
+      "changes": {
+        "nav": "Impinduka",
+        "heading": "Impinduka kuri Amabwiriza Haya",
+        "body": "Simba Supermarket ibika uburenganzira bwo guhindura Amabwiriza haya y'Imikoreshereze igihe icyo aricyo cyose. Igihe dukora impinduka nini, tuzabibwira abakoreshaji biyandikishije binyuze ku imeyili cyangwa menyesha rya porogaramu nibura iminsi 14 mbere y'impinduka gutangira gukurikizwa. Itariki itangira gukurikizwa hejuru y'iyi paji izahoraho igaragaza ivugururo rya vuba cyane. Gukomeza gukoresha serivisi zacu nyuma y'itariki itangira gukurikizwa bivuze kwemera amabwiriza yavuguruwe."
+      },
+      "contact": {
+        "nav": "Mawasiliano",
+        "heading": "Wasiliana Natwe",
+        "body": "Niba ufite ibibazo, ibibabishe, cyangwa ibisabwa bijyanye n'Amabwiriza haya y'Imikoreshereze, nyamuneka ntugire ubwoba wo kuwasiliana natwe. Amatsinda yacu y'amategeko n'ubufasha bw'abakiriya ariboneka kukufasha. Ushobora kuwasiliana natwe binyuze ku rupapuro rwa Wasiliana Natwe kurubuga rwacu, mu kohereza imeyili kuri legal@simbasupermarket.rw, cyangwa mu gusura imwe mu mashami yacu 11 mu Rwanda."
+      }
+    },
+    "agreement": {
+      "heading": "Urinzwe",
+      "body": "Amabwiriza haya arahabwa kurinda wewe na Simba Supermarket. Yiyemeje kugaragaza, uburinganire, n'ubufasha budasanzwe ku mukiriya wese.",
+      "ctaContact": "Wasiliana Natwe",
+      "ctaPrivacy": "Politiki y'Ibanga"
+    }
   }
 }
