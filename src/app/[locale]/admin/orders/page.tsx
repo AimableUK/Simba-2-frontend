@@ -17,16 +17,15 @@ const STATUSES = [
   "accepted",
   "preparing",
   "ready",
-  "delivered",
-  "cancelled",
   "picked_up",
+  "cancelled",
 ];
 const STATUS_COLORS: Record<string, string> = {
   pending: "text-yellow-600 bg-yellow-100 dark:bg-yellow-900/30",
   accepted: "text-blue-600 bg-blue-100 dark:bg-blue-900/30",
   preparing: "text-purple-600 bg-purple-100 dark:bg-purple-900/30",
   ready: "text-orange-600 bg-orange-100 dark:bg-orange-900/30",
-  delivered: "text-green-600 bg-green-100 dark:bg-green-900/30",
+  picked_up: "text-green-600 bg-green-100 dark:bg-green-900/30",
   cancelled: "text-red-600 bg-red-100 dark:bg-red-900/30",
 };
 
