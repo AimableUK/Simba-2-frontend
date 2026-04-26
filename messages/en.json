@@ -392,13 +392,13 @@
       "eyebrow": "Company Profile",
       "title_line1": "About Simba",
       "title_line2": "Supermarket",
-      "subtitle": "Rwanda's most admired supermarket — a testament to the country's economic resurgence, proudly meeting the daily needs of Kigali and beyond since 2008."
+      "subtitle": "Rwanda's most admired supermarket - a testament to the country's economic resurgence, proudly meeting the daily needs of Kigali and beyond since 2008."
     },
     "origin": {
       "eyebrow": "Origin History",
       "heading": "Where It All Began",
       "paragraph1": "SIMBA SUPERMARKET LTD was established on <strong>December 3, 2007</strong>, as a Limited Liability Company with a clear ambition: to become the region's largest retail outlet. Founded by <strong>Mr. Teklay Teame</strong> and his partners, the company imports products from Europe, Egypt, Dubai, China, Turkey, and beyond to ensure a truly diverse product range.",
-      "paragraph2": "The official launch on <strong>August 8, 2008</strong> created over <strong>450 jobs</strong> for Rwandese citizens. With 11 branches across Rwanda, Simba provides a one-stop shopping experience — butchery, bakery, coffee shop, and more — serving international organisations, local NGOs, private companies, and government ministries."
+      "paragraph2": "The official launch on <strong>August 8, 2008</strong> created over <strong>450 jobs</strong> for Rwandese citizens. With 11 branches across Rwanda, Simba provides a one-stop shopping experience - butchery, bakery, coffee shop, and more - serving international organisations, local NGOs, private companies, and government ministries."
     },
     "values": {
       "eyebrow": "Beliefs & Values",
@@ -406,7 +406,7 @@
       "items": {
         "respect": {
           "title": "Respect for the Individual",
-          "body": "We're hardworking, ordinary people who've teamed up to accomplish extraordinary things. We treat each other with dignity and encourage everyone to express their thoughts — this is how we show respect."
+          "body": "We're hardworking, ordinary people who've teamed up to accomplish extraordinary things. We treat each other with dignity and encourage everyone to express their thoughts - this is how we show respect."
         },
         "service": {
           "title": "Service to Customers",
@@ -414,7 +414,7 @@
         },
         "excellence": {
           "title": "Striving for Excellence",
-          "body": "We're proud of our accomplishments but never satisfied. We constantly reach further to bring new ideas and goals to life — Is this the best I can do? That question drives everything."
+          "body": "We're proud of our accomplishments but never satisfied. We constantly reach further to bring new ideas and goals to life - Is this the best I can do? That question drives everything."
         }
       }
     },
@@ -428,15 +428,15 @@
         },
         "2008": {
           "label": "1st Branch",
-          "desc": "Official launch on August 8th — Simba Centenary opens, creating over 450 jobs for Rwandese citizens."
+          "desc": "Official launch on August 8th - Simba Centenary opens, creating over 450 jobs for Rwandese citizens."
         },
         "2013": {
           "label": "1st Award",
-          "desc": "1st Best Exhibitor — Retail and Distribution."
+          "desc": "1st Best Exhibitor - Retail and Distribution."
         },
         "2014": {
           "label": "Expanding",
-          "desc": "Simba Gishushu branch opens. Awarded Best Exhibitor Retail & Distribution — EBM Best Award."
+          "desc": "Simba Gishushu branch opens. Awarded Best Exhibitor Retail & Distribution - EBM Best Award."
         },
         "2015": {
           "label": "Growing",
@@ -444,7 +444,7 @@
         },
         "2016": {
           "label": "Scaling Up",
-          "desc": "Two new branches open — Simba Kicukiro and Simba Kigali Height."
+          "desc": "Two new branches open - Simba Kicukiro and Simba Kigali Height."
         },
         "2019": {
           "label": "City Centre",
@@ -456,11 +456,11 @@
         },
         "2023": {
           "label": "Major Expansion",
-          "desc": "Five new branches launch simultaneously — Simba Gacuriro, Simba Gikondo, Simba Sonatube, Simba Kisimenti, and Simba Rebero."
+          "desc": "Five new branches launch simultaneously - Simba Gacuriro, Simba Gikondo, Simba Sonatube, Simba Kisimenti, and Simba Rebero."
         },
         "2024": {
           "label": "Going Digital",
-          "desc": "Simba Online Sales launches — bringing the supermarket experience directly to customers' doors."
+          "desc": "Simba Online Sales launches - bringing the supermarket experience directly to customers' doors."
         }
       }
     },
@@ -500,7 +500,7 @@
         },
         "online": {
           "title": "Online Sales",
-          "desc": "Extending our reach to your door — Simba Supermarket is everywhere."
+          "desc": "Extending our reach to your door - Simba Supermarket is everywhere."
         },
         "bakery": {
           "title": "Bakery Factory",
@@ -521,11 +521,345 @@
       "eyebrow": "Achievements",
       "heading": "Award-Winning Excellence",
       "items": {
-        "2013": "1st Best Exhibitor — Retail & Distribution",
-        "2014": "Best Exhibitor Retail & Distribution — EBM",
+        "2013": "1st Best Exhibitor - Retail & Distribution",
+        "2014": "Best Exhibitor Retail & Distribution - EBM",
         "2015": "RRA Compliant Taxpayer Award",
-        "2020": "1st Merchant of the Year — Rwanda"
+        "2020": "1st Merchant of the Year - Rwanda"
       }
+    }
+  },
+
+  "faq": {
+    "hero": {
+      "eyebrow": "Help Centre",
+      "title": "Frequently Asked Questions",
+      "subtitle": "Find quick answers to the most common questions about shopping at Simba Supermarket."
+    },
+    "categories": {
+      "orders": "Orders",
+      "shipping": "Shipping",
+      "returns": "Returns",
+      "products": "Products",
+      "account": "Account"
+    },
+    "questions": {
+      "orders": {
+        "0": {
+          "q": "How do I place an order online?",
+          "a": "Visit our website, browse products, add items to your cart, and proceed to checkout. You will need to create an account or sign in to complete your purchase."
+        },
+        "1": {
+          "q": "Can I modify or cancel my order after placing it?",
+          "a": "Orders can be modified or cancelled within 30 minutes of placing them. After that window, the order enters fulfilment and changes are no longer possible. Please contact us immediately if you need to make changes."
+        },
+        "2": {
+          "q": "How will I know my order has been confirmed?",
+          "a": "You will receive a confirmation email with your order number and summary immediately after checkout. You can also track your order status in your account dashboard."
+        },
+        "3": {
+          "q": "What payment methods do you accept?",
+          "a": "We accept MTN Mobile Money, Airtel Money, Visa, Mastercard, and cash on delivery for eligible orders. All online transactions are secured with industry-standard encryption."
+        }
+      },
+      "shipping": {
+        "0": {
+          "q": "Which areas do you deliver to?",
+          "a": "We currently deliver to all major neighbourhoods within Kigali city, including Nyamirambo, Kimironko, Kicukiro, Gasabo, and surrounding areas. Expand to more districts is ongoing."
+        },
+        "1": {
+          "q": "How long does delivery take?",
+          "a": "Standard delivery takes 2–4 hours for in-stock items ordered before 3 PM. Express delivery is available within 1 hour for an additional fee. Same-day delivery is guaranteed for orders placed before noon."
+        },
+        "2": {
+          "q": "Is there a minimum order for delivery?",
+          "a": "Yes, the minimum order for delivery is 5,000 RWF. Orders below this amount are eligible for in-store pickup only."
+        },
+        "3": {
+          "q": "How much does delivery cost?",
+          "a": "Standard delivery costs 1,000 RWF. Express delivery costs 2,500 RWF. Orders above 50,000 RWF qualify for free standard delivery."
+        }
+      },
+      "returns": {
+        "0": {
+          "q": "What is your return policy?",
+          "a": "We accept returns within 7 days of purchase for most non-perishable items, provided they are unopened and in their original packaging with proof of purchase."
+        },
+        "1": {
+          "q": "How do I initiate a return?",
+          "a": "Contact our customer support team via the Contact Us page or call our helpline. Our team will guide you through the return process and arrange collection or drop-off."
+        },
+        "2": {
+          "q": "When will I receive my refund?",
+          "a": "Refunds are processed within 3–5 business days once the return is received and inspected. Mobile money refunds are typically faster than card refunds."
+        }
+      },
+      "products": {
+        "0": {
+          "q": "Are your products fresh and quality-assured?",
+          "a": "Absolutely. All fresh produce, meats, and bakery items are sourced daily and quality-checked before being placed on shelves. We adhere strictly to food safety standards."
+        },
+        "1": {
+          "q": "Do you stock international brands?",
+          "a": "Yes, Simba imports products from Europe, Dubai, China, Egypt, Turkey, and other countries. You will find both international brands and quality local products across all categories."
+        },
+        "2": {
+          "q": "Can I check product availability before visiting?",
+          "a": "Yes, you can browse our full catalogue on the website or app and filter by branch location to see real-time stock availability."
+        }
+      },
+      "account": {
+        "0": {
+          "q": "How do I create an account?",
+          "a": "Click Sign Up on the top navigation, enter your name, phone number or email address, and create a password. You can also sign up quickly using your Google account."
+        },
+        "1": {
+          "q": "I forgot my password. What should I do?",
+          "a": "Click Forgot Password on the login page and enter your registered email address. You will receive a reset link within a few minutes. Check your spam folder if you do not see it."
+        },
+        "2": {
+          "q": "How do I update my delivery address?",
+          "a": "Log in to your account, go to Settings, and select Addresses. You can add, edit, or remove delivery addresses from there. Changes take effect on your next order."
+        }
+      }
+    },
+    "contact": {
+      "heading": "Still have questions?",
+      "body": "Our team is available 7 days a week to help you with anything you need.",
+      "cta": "Contact Us"
+    }
+  },
+
+  "returns": {
+    "hero": {
+      "eyebrow": "Customer Care",
+      "title": "Returns Policy",
+      "subtitle": "We want you to be completely satisfied with every purchase. If something is not right, we will make it right."
+    },
+    "stats": {
+      "window": "7-day return window",
+      "refundTime": "Refunds in 3–5 business days",
+      "condition": "Original packaging required"
+    },
+    "eligibility": {
+      "heading": "What can be returned?",
+      "eligible": {
+        "heading": "Eligible for return",
+        "items": {
+          "unopened": "Unopened items in original packaging",
+          "damaged": "Damaged or defective products on arrival",
+          "wrong": "Wrong item delivered",
+          "quality": "Quality does not match description"
+        }
+      },
+      "ineligible": {
+        "heading": "Not eligible for return",
+        "items": {
+          "perishable": "Fresh produce, meats, and perishable goods",
+          "used": "Opened or used personal care and cosmetics",
+          "noReceipt": "Items without proof of purchase"
+        }
+      }
+    },
+    "process": {
+      "heading": "How to return an item",
+      "subtitle": "Follow these simple steps and our team will handle the rest.",
+      "steps": {
+        "contact": {
+          "title": "Contact our team",
+          "desc": "Reach out via the Contact Us page, call our helpline, or visit any Simba branch within 7 days of purchase."
+        },
+        "pack": {
+          "title": "Pack the item",
+          "desc": "Ensure the item is in its original packaging with all accessories, tags, and your receipt or order confirmation."
+        },
+        "drop": {
+          "title": "Drop off or arrange collection",
+          "desc": "Drop the item at any Simba branch or request a collection from your address for a small fee."
+        },
+        "refund": {
+          "title": "Receive your refund",
+          "desc": "Once inspected and approved, your refund will be issued within 3–5 business days via your original payment method."
+        }
+      }
+    },
+    "refunds": {
+      "heading": "Refund options",
+      "methods": {
+        "original": {
+          "title": "Original payment method",
+          "desc": "Refunded to the card or mobile money account used for the original purchase."
+        },
+        "storeCredit": {
+          "title": "Store credit",
+          "desc": "Receive the full amount as store credit, valid for 12 months across all Simba branches."
+        },
+        "exchange": {
+          "title": "Exchange",
+          "desc": "Swap for the same item or an item of equal value at any Simba branch."
+        }
+      }
+    },
+    "note": {
+      "heading": "Important note",
+      "body": "Simba Supermarket reserves the right to refuse returns that do not meet our policy conditions. In-store purchases must be returned to a physical branch; online orders may be returned in-store or via our collection service."
+    }
+  },
+
+  "privacy": {
+    "hero": {
+      "eyebrow": "Legal",
+      "title": "Privacy Policy",
+      "lastUpdated": "Last updated: January 2025"
+    },
+    "intro": "At Simba Supermarket, your privacy matters deeply to us. This policy explains how we collect, use, and protect your personal information when you shop with us online or in-store.",
+    "sections": {
+      "collection": {
+        "nav": "Data We Collect",
+        "heading": "Information We Collect",
+        "body": "We collect information you provide directly and information generated when you use our services.",
+        "points": {
+          "0": "Name, email address, and phone number when you register",
+          "1": "Delivery address and payment method details",
+          "2": "Order history and product browsing behaviour",
+          "3": "Device type, IP address, and browser information"
+        }
+      },
+      "use": {
+        "nav": "How We Use It",
+        "heading": "How We Use Your Information",
+        "body": "Your data is used solely to improve your shopping experience and fulfil our service commitments.",
+        "points": {
+          "0": "Processing and fulfilling your orders",
+          "1": "Sending order confirmations and delivery updates",
+          "2": "Personalising product recommendations",
+          "3": "Improving our website and service quality"
+        }
+      },
+      "sharing": {
+        "nav": "Data Sharing",
+        "heading": "Sharing Your Information",
+        "body": "We do not sell your personal data. We may share it only with trusted service partners.",
+        "points": {
+          "0": "Delivery partners to fulfil your orders",
+          "1": "Payment processors to handle transactions securely",
+          "2": "Analytics providers to improve our services",
+          "3": "Regulatory authorities when required by law"
+        }
+      },
+      "security": {
+        "nav": "Security",
+        "heading": "How We Protect Your Data",
+        "body": "We use industry-standard security practices including SSL encryption, secure servers, and regular security audits to protect your personal information from unauthorised access or disclosure."
+      },
+      "cookies": {
+        "nav": "Cookies",
+        "heading": "Cookies & Tracking",
+        "body": "We use cookies to remember your preferences, keep you logged in, and understand how you use our site. You can disable cookies in your browser settings, though some features may not work as expected."
+      },
+      "contact": {
+        "nav": "Contact",
+        "heading": "Questions About Your Privacy",
+        "body": "If you have any questions about this policy or wish to exercise your data rights, please contact our Data Protection Officer at privacy@simbasupermarket.rw or visit any of our branches in person."
+      }
+    },
+    "rights": {
+      "heading": "Your Rights",
+      "body": "Under applicable data protection law, you have the following rights regarding your personal information.",
+      "items": {
+        "access": "Right to Access",
+        "correct": "Right to Correct",
+        "delete": "Right to Delete",
+        "portability": "Data Portability"
+      }
+    }
+  },
+
+  "delivery": {
+    "hero": {
+      "eyebrow": "Delivery",
+      "title": "Delivery Information",
+      "subtitle": "Fast, reliable delivery from our branches directly to your door across Kigali and beyond."
+    },
+    "stats": {
+      "branches": { "value": "11", "label": "Branches" },
+      "minOrder": { "value": "5K RWF", "label": "Min. Order" },
+      "coverage": { "value": "Kigali", "label": "Coverage" }
+    },
+    "options": {
+      "eyebrow": "Delivery Options",
+      "heading": "Choose your delivery speed",
+      "items": {
+        "standard": {
+          "title": "Standard",
+          "time": "2–4 hours",
+          "price": "1,000 RWF",
+          "note": "Best for planned shopping. Order before 3 PM for same-day standard delivery."
+        },
+        "express": {
+          "title": "Express",
+          "time": "Within 1 hour",
+          "price": "2,500 RWF",
+          "note": "Need it fast? Express delivery brings your order in under an hour from your nearest branch."
+        },
+        "sameDay": {
+          "title": "Free Delivery",
+          "time": "2–4 hours",
+          "price": "Free",
+          "note": "Orders above 50,000 RWF qualify for complimentary standard delivery."
+        }
+      }
+    },
+    "zones": {
+      "eyebrow": "Coverage",
+      "heading": "Delivery Zones",
+      "subtitle": "We currently deliver to all major areas within Kigali. More districts coming soon."
+    },
+    "howItWorks": {
+      "heading": "How delivery works",
+      "steps": {
+        "order": {
+          "title": "Place your order",
+          "desc": "Add items to your cart and select delivery at checkout."
+        },
+        "confirm": {
+          "title": "Order confirmed",
+          "desc": "You receive an SMS and email confirmation instantly."
+        },
+        "dispatch": {
+          "title": "Dispatched",
+          "desc": "Our team packs your order at the nearest branch."
+        },
+        "deliver": {
+          "title": "Delivered to you",
+          "desc": "Your rider delivers to your door within the promised window."
+        }
+      }
+    },
+    "important": {
+      "heading": "Good to know",
+      "items": {
+        "cutoff": {
+          "title": "Order cut-off times",
+          "desc": "Orders placed after 7 PM will be delivered the next morning from 8 AM."
+        },
+        "packaging": {
+          "title": "Packaging",
+          "desc": "All orders are packed hygienically and securely to preserve quality."
+        },
+        "tracking": {
+          "title": "Order tracking",
+          "desc": "Track your delivery in real-time via the app or your SMS confirmation link."
+        },
+        "failed": {
+          "title": "Failed delivery",
+          "desc": "If we cannot reach you, we will hold your order for 2 hours before returning it. A re-delivery fee may apply."
+        }
+      }
+    },
+    "contact": {
+      "heading": "Delivery questions?",
+      "body": "Our support team is available 7 days a week.",
+      "cta": "Get in touch"
     }
   }
 }

@@ -277,11 +277,11 @@
     "language": "Ururimi",
     "allProducts": "Ibicuruzwa Byose",
     "sortOptions": {
-      "newestFirst": "Bishya Mbere",
-      "mostPopular": "Bikunzwe Cyane",
+      "newestFirst": "Habanze ibishya",
+      "mostPopular": "Ibyamamaye",
       "priceLowToHigh": "Igiciro: Hasi kugeza Hejuru",
       "priceHighToLow": "Igiciro: Hejuru kugeza Hasi",
-      "highestRated": "Byahawe Amanota Menshi"
+      "highestRated": "Ibifite Amanota Menshi"
     }
   },
   "footer": {
@@ -390,15 +390,15 @@
   "about": {
     "hero": {
       "eyebrow": "Umwirondoro w'Ikigo",
-      "title_line1": "Itumaini rya Simba",
+      "title_line1": "Ibyerekeye Simba",
       "title_line2": "Supermarket",
-      "subtitle": "Supermarket ikunzwe cyane mu Rwanda — ikigaragaza iterambere ry'ubukungu bw'igihugu, ihuza buri munsi ibikenye by'abaturage ba Kigali n'ahandi kuva 2008."
+      "subtitle": "Supermarket ikunzwe cyane mu Rwanda - ikigaragaza iterambere ry'ubukungu bw'igihugu, ihuza buri munsi ibikenye by'abaturage ba Kigali n'ahandi kuva 2008."
     },
     "origin": {
       "eyebrow": "Amateka y'Inkomoko",
       "heading": "Aho Byatangiriye",
       "paragraph1": "SIMBA SUPERMARKET LTD yashinzwe ku wa <strong>3 Ukuboza 2007</strong> nk'Isosiyete y'Inshingano Nkeya ifite intego igaragara: kuba iduka rinini cyane ry'ubucuruzi mu karere. Yashinzwe na <strong>Bwana Teklay Teame</strong> n'inshuti ze, sosiyete itera mu mahanga ibicuruzwa biva mu Burayi, Misiri, Dubayı, Ubushinwa, Ubuturukiya no handi kugira ngo igwize urutonde rw'ibicuruzwa.",
-      "paragraph2": "Ugufungurwa gusesuye ku wa <strong>8 Kanama 2008</strong> kwatumye habaho akazi ka <strong>abantu barenga 450</strong> b'abanyarwanda. Ifite amashami 11 mu Rwanda hose, Simba itanga serivisi zuzuye z'ubukiranyi — inyama, imigati, kafeteriya n'ibindi byinshi — ikorera imiryango mpuzamahanga, amashyirahamwe y'abaturage, sosiyete za leta n'abikorera."
+      "paragraph2": "Ugufungurwa gusesuye ku wa <strong>8 Kanama 2008</strong> kwatumye habaho akazi ka <strong>abantu barenga 450</strong> b'abanyarwanda. Ifite amashami 11 mu Rwanda hose, Simba itanga serivisi zuzuye z'ubukiranyi - inyama, imigati, kafeteriya n'ibindi byinshi - ikorera imiryango mpuzamahanga, amashyirahamwe y'abaturage, sosiyete za leta n'abikorera."
     },
     "values": {
       "eyebrow": "Imyemerere & Indangagaciro",
@@ -406,7 +406,7 @@
       "items": {
         "respect": {
           "title": "Gukunda Umuntu ku Giti Cye",
-          "body": "Turi abantu basanzwe bakora cyane bifatanije kugira ngo barangize ibintu bidasanzwe. Twita ku bandi isoni kandi twashishikariza buri wese kuvuga ibitekerezo bye — uko ni ko tugaragaza icyubahiro."
+          "body": "Turi abantu basanzwe bakora cyane bifatanije kugira ngo barangize ibintu bidasanzwe. Twita ku bandi isoni kandi twashishikariza buri wese kuvuga ibitekerezo bye - uko ni ko tugaragaza icyubahiro."
         },
         "service": {
           "title": "Serivisi ku Bakiriya",
@@ -414,7 +414,7 @@
         },
         "excellence": {
           "title": "Gushaka Ubuziranenge",
-          "body": "Turishimira ibyo turangije ariko ntitugera ku mahoro. Dukomeza gushaka byinshi kugira ngo dutekeleze ibitekerezo n'intego nshya — Ese iyi ni iyo nziza bishoboka? Icyo kibazo niwo mukorere wacu."
+          "body": "Turishimira ibyo turangije ariko ntitugera ku mahoro. Dukomeza gushaka byinshi kugira ngo dutekeleze ibitekerezo n'intego nshya - Ese iyi ni iyo nziza bishoboka? Icyo kibazo niwo mukorere wacu."
         }
       }
     },
@@ -428,7 +428,7 @@
         },
         "2008": {
           "label": "Ishami rya 1",
-          "desc": "Ugufungurwa gusesuye ku wa 8 Kanama — Simba Centenary ifunguwe, itera akazi abanyarwanda barenga 450."
+          "desc": "Ugufungurwa gusesuye ku wa 8 Kanama - Simba Centenary ifunguwe, itera akazi abanyarwanda barenga 450."
         },
         "2013": {
           "label": "Igihembo cya 1",
@@ -436,7 +436,7 @@
         },
         "2014": {
           "label": "Kwaguka",
-          "desc": "Ishami rya Simba Gishushu rifunguwe. Igihembo cya Best Exhibitor mu bucuruzi & gutangaza — EBM."
+          "desc": "Ishami rya Simba Gishushu rifunguwe. Igihembo cya Best Exhibitor mu bucuruzi & gutangaza - EBM."
         },
         "2015": {
           "label": "Gukura",
@@ -444,7 +444,7 @@
         },
         "2016": {
           "label": "Gukomeza Kwaguka",
-          "desc": "Amashami mabiri mashya afunguwe — Simba Kicukiro na Simba Kigali Height."
+          "desc": "Amashami mabiri mashya afunguwe - Simba Kicukiro na Simba Kigali Height."
         },
         "2019": {
           "label": "Hagati y'Umujyi",
@@ -456,11 +456,11 @@
         },
         "2023": {
           "label": "Kwaguka Gukomeye",
-          "desc": "Amashami atanu mashya afungurwa icyarimwe — Simba Gacuriro, Simba Gikondo, Simba Sonatube, Simba Kisimenti, na Simba Rebero."
+          "desc": "Amashami atanu mashya afungurwa icyarimwe - Simba Gacuriro, Simba Gikondo, Simba Sonatube, Simba Kisimenti, na Simba Rebero."
         },
         "2024": {
           "label": "Guturika mu Ikoranabuhanga",
-          "desc": "Simba Online Sales itangwa — iteye serivisi za supermarket mu muryango w'abakiriya."
+          "desc": "Simba Online Sales itangwa - iteye serivisi za supermarket mu muryango w'abakiriya."
         }
       }
     },
@@ -500,7 +500,7 @@
         },
         "online": {
           "title": "Kugura kuri Interineti",
-          "desc": "Tugambira abaturage ku muryango wabo — Simba Supermarket ihari hose."
+          "desc": "Tugambira abaturage ku muryango wabo - Simba Supermarket ihari hose."
         },
         "bakery": {
           "title": "Fabrika y'Imigati",
@@ -521,11 +521,345 @@
       "eyebrow": "Ibikorwa Biheruye",
       "heading": "Ibihembo by'Ubuziranenge",
       "items": {
-        "2013": "1 Ugaragaje Neza — Ubucuruzi & Gutangaza",
-        "2014": "Ugaragaje Neza mu Bucuruzi & Gutangaza — EBM",
+        "2013": "1 Ugaragaje Neza - Ubucuruzi & Gutangaza",
+        "2014": "Ugaragaje Neza mu Bucuruzi & Gutangaza - EBM",
         "2015": "Igihembo cy'Ubwishyu Neza cya RRA",
-        "2020": "1 Umucuruzi w'Umwaka — Rwanda"
+        "2020": "1 Umucuruzi w'Umwaka - Rwanda"
       }
+    }
+  },
+
+  "faq": {
+    "hero": {
+      "eyebrow": "Ikigo cy'Ubufasha",
+      "title": "Ibibazo Bikunzwe Gusubirwamo",
+      "subtitle": "Shaka ibisubizo by'amakuru ku bibazo bisanzwe bijyanye n'ugutura mu Simba Supermarket."
+    },
+    "categories": {
+      "orders": "Amalagizo",
+      "shipping": "Kohereza",
+      "returns": "Gusubiza",
+      "products": "Ibicuruzwa",
+      "account": "Konti"
+    },
+    "questions": {
+      "orders": {
+        "0": {
+          "q": "Nzalagiza gute kuri interineti?",
+          "a": "Sura urubuga rwacu, shakisha ibicuruzwa, ongeraho ibintu mu gitebo cyawe hanyuma ukomeze kwishyura. Uzakenera gushinga konti cyangwa kwinjira kugira ngo urangize kugura."
+        },
+        "1": {
+          "q": "Nshobora guhindura cyangwa guhagarika ilagizo ryanjye nyuma yo kuritya?",
+          "a": "Amalagizo ashobora guhindurwa cyangwa guhagarikwa mu minota 30 nyuma yo kuritya. Nyuma y'igihe cy'amaminota 30, ilagizo rinjira mu gusindika kandi impinduka ntizishoboka."
+        },
+        "2": {
+          "q": "Nzamenya nate ko ilagizo ryanjye ryakiranijwe?",
+          "a": "Uzakira imeyili y'inyemeza n'inomero yawe y'ilagizo na incamake bihita nyuma yo kwishyura. Ushobora nanone gukurikirana uko ilagizo ryawe rikora mu dashibodi yawe."
+        },
+        "3": {
+          "q": "Mukiramo uburyo ubuhe bwo kwishyura?",
+          "a": "Tukiramo MTN Mobile Money, Airtel Money, Visa, Mastercard, no kwishyura iyo mugurishijwe ku malagizo asumba. Ibikorwa byose by'amafaranga kuri interineti birindwa n'uburyo bw'iperereza rya sosiyete."
+        }
+      },
+      "shipping": {
+        "0": {
+          "q": "Mukohereza mu turere tuhe?",
+          "a": "Ubu tukohereza mu turere twose tw'ingenzi mu murwa mukuru wa Kigali, harimo Nyamirambo, Kimironko, Kicukiro, Gasabo n'ibidukikije."
+        },
+        "1": {
+          "q": "Kohereza bitwara igihe kingana gute?",
+          "a": "Kohereza bisanzwe bitwara amasaha 2-4 ku bintu biri mu bubiko byalagijwe mbere ya saa 9 z'ijoro. Kohereza by'ihutirwa bigaragara mu kanya k'isaha 1 ku musanzu wo hejuru."
+        },
+        "2": {
+          "q": "Hari ingano nke y'ilagizo yo kohereza?",
+          "a": "Yego, ingano nke y'ilagizo yo kohereza ni RWF 5,000. Amalagizo munsi y'umubare uri hasi asumba kujyana dukani gusa."
+        },
+        "3": {
+          "q": "Kohereza bitwara amafaranga angana gute?",
+          "a": "Kohereza bisanzwe bitwara RWF 1,000. Kohereza by'ihutirwa bitwara RWF 2,500. Amalagizo asumba RWF 50,000 asumba kohereza bisanzwe ku buntu."
+        }
+      },
+      "returns": {
+        "0": {
+          "q": "Ni iyihe nzira yanyu yo gusubiza?",
+          "a": "Tukiramo gusubiza mu minsi 7 y'ugura ku bintu byinshi bitatezuka, bitegetswe ko bitafunguye kandi biri mu kifurushi cyabo cya mbere hamwe n'icyemezo cy'ugura."
+        },
+        "1": {
+          "q": "Nzatangira gute gusubiza?",
+          "a": "Wasiliana na timu yacu y'ubufasha bw'abakiriya binyuze ku rupapuro rwa Wasiliana Natwe cyangwa hamagara imfashanyigisho yacu. Itsinda ryacu rizagutoza inzira yo gusubiza."
+        },
+        "2": {
+          "q": "Nzakira ryari amafaranga yanjye yo gusubizwa?",
+          "a": "Amafaranga yo gusubizwa asindikwa mu minsi 3-5 y'akazi gusubiza kupokelwa no kugenzurwa. Gusubizwa kwa Mobile Money bisanzwe bitera vuba kuruta gusubizwa kwa karito."
+        }
+      },
+      "products": {
+        "0": {
+          "q": "Ibicuruzwa byanyu ni bishya kandi birinzwe ubuziranenge?",
+          "a": "Rwose. Imyaka yose mishya, inyama n'ibicuruzwa bya bulateri bigazwa buri munsi kandi bigenzurwa ubuziranenge mbere yo gushyirwa ku makumba. Dukurikira neza amahame y'umutekano w'ibiribwa."
+        },
+        "1": {
+          "q": "Mufite ibicuruzwa by'amahanga?",
+          "a": "Yego, Simba ikura ibicuruzwa biva mu Burayi, Dubai, Ubushinwa, Misiri, Ubuturukiya n'ibindi bihugu. Uzabona ibicuruzwa by'amahanga n'ibicuruzwa by'aho byo hose mu bice byose."
+        },
+        "2": {
+          "q": "Nshobora kugenzura ubonekezi bw'ibicuruzwa mbere yo kuza?",
+          "a": "Yego, ushobora kuvinjari katalogi yacu yuzuye kuri urubuga cyangwa porogaramu no gutunga ahantu h'ishami kugira ngo ubone ubonekezi bw'ububiko mu gihe nyacyo."
+        }
+      },
+      "account": {
+        "0": {
+          "q": "Nshinga gute konti?",
+          "a": "Kanda Iyandikishe ku rugendo rw'hejuru, injiza izina ryawe, numero ya telefone cyangwa aderesi ya imeyili, hanyuma ushinge ijambo ry'ibanga. Ushobora kandi kwiyandikisha vuba usimbuye konti yawe ya Google."
+        },
+        "1": {
+          "q": "Nibagiwe ijambo ryanjye ry'ibanga. Ngomba gukora iki?",
+          "a": "Kanda Nibagiwe Ijambo ry'ibanga ku rupapuro rwo kwinjira hanyuma ushyireho aderesi ya imeyili yawe yanditswe. Uzakira uhuza wo gushaka vuba mu minota mike."
+        },
+        "2": {
+          "q": "Nzahindura gute aderesi yanjye yo kohereza?",
+          "a": "Injira muri konti yawe, jya kuri Igenamiterere, hanyuma uhitemo Aderesi. Ushobora kongeraho, guhindura cyangwa gukuraho aderesi zo kohereza uturutse aho."
+        }
+      }
+    },
+    "contact": {
+      "heading": "Uracyafite ibibazo?",
+      "body": "Itsinda ryacu riraboneka iminsi 7 mu cyumweru kukufasha na byose ukeneye.",
+      "cta": "Wasiliana Natwe"
+    }
+  },
+
+  "returns": {
+    "hero": {
+      "eyebrow": "Serivisi ku Bakiriya",
+      "title": "Inzira yo Gusubiza",
+      "subtitle": "Turifuza ko wizera neza ku kugura kwose. Niba hari ikibazo, tuzakigira neza."
+    },
+    "stats": {
+      "window": "Igihe cy'iminsi 7 cyo gusubiza",
+      "refundTime": "Gusubizwa mu minsi 3–5 y'akazi",
+      "condition": "Kifurushi cya mbere gisabwa"
+    },
+    "eligibility": {
+      "heading": "Ni iki gishobora gusubizwa?",
+      "eligible": {
+        "heading": "Gishobora gusubizwa",
+        "items": {
+          "unopened": "Ibintu bitafunguye mu kifurushi cyabo cya mbere",
+          "damaged": "Ibicuruzwa byangiritse cyangwa bifite inenge ku gutangwa",
+          "wrong": "Igicuruzwa kitari cyo cyatanzwe",
+          "quality": "Ubuziranenge ntibuhura n'ibisobanuro"
+        }
+      },
+      "ineligible": {
+        "heading": "Ntishobora gusubizwa",
+        "items": {
+          "perishable": "Imyaka mishya, inyama n'ibicuruzwa bitateza vuba",
+          "used": "Ubwiteganyirize bw'umuntu ku giti cye n'ibiturire byafunguwe cyangwa byakoreshejwe",
+          "noReceipt": "Ibintu bidafite icyemezo cy'ugura"
+        }
+      }
+    },
+    "process": {
+      "heading": "Uburyo bwo gusubiza igicuruzwa",
+      "subtitle": "Kurikira iyi nzira yoroshye kandi itsinda ryacu rizashughulikira ibisigaye.",
+      "steps": {
+        "contact": {
+          "title": "Wasiliana na itsinda ryacu",
+          "desc": "Fika binyuze ku rupapuro rwa Wasiliana Natwe, hamagara imfashanyigisho yacu, cyangwa sura ishami iriyeri rya Simba mu minsi 7 y'ugura."
+        },
+        "pack": {
+          "title": "Pakira igicuruzwa",
+          "desc": "Menya neza ko igicuruzwa kiri mu kifurushi cyacyo cya mbere hamwe n'ibikoresho byose, ibirangantego n'inyemeza yawe."
+        },
+        "drop": {
+          "title": "Kura cyangwa hanga gukorwa",
+          "desc": "Jyana igicuruzwa mu ishami iriyeri rya Simba cyangwa saba gukorwa uturuka ku aderesi yawe ku musanzu muto."
+        },
+        "refund": {
+          "title": "Akira gusubizwa kwawe",
+          "desc": "Nyuma yo kugenzurwa no kwemezwa, gusubizwa kwawe kuzatangwa mu minsi 3-5 y'akazi."
+        }
+      }
+    },
+    "refunds": {
+      "heading": "Uburyo bwo gusubizwa",
+      "methods": {
+        "original": {
+          "title": "Uburyo bwo kwishyura bwa mbere",
+          "desc": "Gusubizwa ku karito cyangwa konti ya Mobile Money yakoreshejwe mu kugura kwa mbere."
+        },
+        "storeCredit": {
+          "title": "Inguzanyo ya dukani",
+          "desc": "Akira umubare wose nk'inguzanyo ya dukani, ifite agaciro k'amezi 12 mu mashami yose ya Simba."
+        },
+        "exchange": {
+          "title": "Guhindura",
+          "desc": "Hindura n'igicuruzwa kimwe cya kimwe cyangwa igicuruzwa cy'agaciro kingana mu ishami iriyeri rya Simba."
+        }
+      }
+    },
+    "note": {
+      "heading": "Icyitonderwa cy'ingenzi",
+      "body": "Simba Supermarket ibika uburenganzira bwo kwanga gusubiza bitatujuje amabwiriza ya politiki yacu. Ibintu byaguriwe mu dukani bigomba gusubizwa mu ishami rya fiziki; amalagizo ya interineti ashobora gusubizwa mu dukani cyangwa binyuze muri serivisi yacu yo gukorwa."
+    }
+  },
+
+  "privacy": {
+    "hero": {
+      "eyebrow": "Amategeko",
+      "title": "Politiki y'Ibanga",
+      "lastUpdated": "Byavuguruwe bwa nyuma: Mutarama 2025"
+    },
+    "intro": "Muri Simba Supermarket, ibanga ryawe ribabwiye cyane. Iyi politiki isobanura uburyo tukusanya, dukoreshamo no kurinda amakuru yawe bwite iyo ugurira natwe kuri interineti cyangwa mu dukani.",
+    "sections": {
+      "collection": {
+        "nav": "Data Dukusanya",
+        "heading": "Amakuru Dukusanya",
+        "body": "Dukusanya amakuru utanga mubanze no amakuru avutse iyo ukoresha serivisi zacu.",
+        "points": {
+          "0": "Izina, aderesi ya imeyili na numero ya telefone iyo wiyandikisha",
+          "1": "Aderesi yo kohereza n'amakuru y'uburyo bwo kwishyura",
+          "2": "Amateka y'amalagizo no imyitwarire yo guvinjari ibicuruzwa",
+          "3": "Ubwoko bw'igikoresho, aderesi ya IP n'amakuru ya murandasi"
+        }
+      },
+      "use": {
+        "nav": "Uburyo Tubikoreshamo",
+        "heading": "Uburyo Tukoreshamo Amakuru Yawe",
+        "body": "Data yawe ikoreshwa gusa guteza imbere uburambe bwawe bwo kugura no gukora inshingano zacu z'ubufasha.",
+        "points": {
+          "0": "Gusindika no gusohoza amalagizo yawe",
+          "1": "Kohereza inyemeza z'amalagizo n'amakuru y'uko bikoherezwa",
+          "2": "Guhuza amatangwa y'ibicuruzwa",
+          "3": "Kunoza urubuga rwacu n'ubuziranenge bw'ubufasha"
+        }
+      },
+      "sharing": {
+        "nav": "Gusangira Data",
+        "heading": "Gusangira Amakuru Yawe",
+        "body": "Ntidukuruza data yawe bwite. Dushobora kuyisangira gusa n'abafatanyabikorwa b'ubufasha bemewe.",
+        "points": {
+          "0": "Abafatanyabikorwa bo kohereza gusohoza amalagizo yawe",
+          "1": "Abasindikantumwa b'amafaranga gukora ibikorwa by'amafaranga mu mutekano",
+          "2": "Abatanga isesengura kunoza serivisi zacu",
+          "3": "Inzego z'ubutegetsi igihe bisabwa n'amategeko"
+        }
+      },
+      "security": {
+        "nav": "Umutekano",
+        "heading": "Uburyo Turinda Data Yawe",
+        "body": "Dukoresha imyitozo y'umutekano ya standard y'inganda harimo ndetse no SSL encryption, seriveri zifite umutekano n'ubusuzumwe bw'umutekano buhoraho kurinda amakuru yawe bwite yinjirwa n'ubitavugwa."
+      },
+      "cookies": {
+        "nav": "Cookies",
+        "heading": "Cookies n'Gukurikirana",
+        "body": "Dukoresha cookies kugira ngo tubutse impamvu zawe, tukugumane wanditse kandi tusobanukirwe uburyo ukoresha urubuga rwacu. Ushobora kuzikuraho mu igenamiterere rya murandasi wawe, nubwo bimwe mu bikorwa bishobora gukorana neza."
+      },
+      "contact": {
+        "nav": "Mawasiliano",
+        "heading": "Ibibazo Bijyanye n'Ibanga Ryawe",
+        "body": "Niba ufite ibibazo bijyanye na iyi politiki cyangwa ugomba gukoresha uburenganzira bwawe bwa data, wasiliana na Perezida w'Uburinzi bw'Amakuru wacu ku privacy@simbasupermarket.rw cyangwa sura imwe mu mashami yacu."
+      }
+    },
+    "rights": {
+      "heading": "Uburenganzira Bwawe",
+      "body": "Hakurikijwe amategeko agenga uburinzi bw'amakuru ashobora gukurikizwa, ufite uburenganzira bukurikira ku makuru yawe bwite.",
+      "items": {
+        "access": "Uburenganzira bwo Kubona",
+        "correct": "Uburenganzira bwo Gutunga",
+        "delete": "Uburenganzira bwo Gusiba",
+        "portability": "Gutwara Data"
+      }
+    }
+  },
+
+  "delivery": {
+    "hero": {
+      "eyebrow": "Kohereza",
+      "title": "Amakuru y'Ukohereza",
+      "subtitle": "Kohereza vuba no kwizerana biva ku mashami yacu mubanze kugera ku muryango wawe i Kigali no hanze."
+    },
+    "stats": {
+      "branches": { "value": "11", "label": "Amashami" },
+      "minOrder": { "value": "5K RWF", "label": "Ilagizo Ryo hasi" },
+      "coverage": { "value": "Kigali", "label": "Akarere" }
+    },
+    "options": {
+      "eyebrow": "Uburyo bwo Kohereza",
+      "heading": "Hitamo intera y'ukohereza",
+      "items": {
+        "standard": {
+          "title": "Bisanzwe",
+          "time": "Amasaha 2–4",
+          "price": "RWF 1,000",
+          "note": "Beza ku kugura byateganyijwe. Lagiza mbere ya saa 9 z'ijoro kwa kohereza bisanzwe uwo munsi."
+        },
+        "express": {
+          "title": "By'ihutirwa",
+          "time": "Mu kanya k'isaha 1",
+          "price": "RWF 2,500",
+          "note": "Ukeneye vuba? Kohereza by'ihutirwa bitura ilagizo ryawe mu kanya gito cy'isaha imwe."
+        },
+        "sameDay": {
+          "title": "Kohereza Bure",
+          "time": "Amasaha 2–4",
+          "price": "Bure",
+          "note": "Amalagizo asumba RWF 50,000 asumba kohereza bisanzwe ku buntu."
+        }
+      }
+    },
+    "zones": {
+      "eyebrow": "Akarere",
+      "heading": "Inzego zo Kohereza",
+      "subtitle": "Ubu tukohereza mu turere twose tw'ingenzi mu Kigali. Akarere kenshi karaza vuba."
+    },
+    "howItWorks": {
+      "heading": "Uburyo kohereza bikorwa",
+      "steps": {
+        "order": {
+          "title": "Shyira ilagizo ryawe",
+          "desc": "Ongeraho ibintu mu gitebo cyawe hanyuma uhitemo kohereza igihe cy'kwishyura."
+        },
+        "confirm": {
+          "title": "Ilagizo ryemejwe",
+          "desc": "Ukira inyemeza ya SMS n'imeyili bihita."
+        },
+        "dispatch": {
+          "title": "Ryatumwe",
+          "desc": "Itsinda ryacu ripakira ilagizo ryawe mu ishami riri hafi."
+        },
+        "deliver": {
+          "title": "Ryatanzwe kuri we",
+          "desc": "Umushoferi wacu atanza ku muryango wawe mu gihe cyashinganiwe."
+        }
+      }
+    },
+    "important": {
+      "heading": "Biza kumenya",
+      "items": {
+        "cutoff": {
+          "title": "Amasaha y'imperuka y'amalagizo",
+          "desc": "Amalagizo yashyizwe nyuma ya saa 1 za joro azatangwa bukeye bwaho uhereye saa 2 za mu gitondo."
+        },
+        "packaging": {
+          "title": "Gupakira",
+          "desc": "Amalagizo yose apakiwa mu mwakagari no mu mutekano kugira ngo ubuziranenge bubungabungwe."
+        },
+        "tracking": {
+          "title": "Gukurikirana ilagizo",
+          "desc": "Kurikirana ukohereza kwawe mu gihe nyacyo binyuze muri porogaramu cyangwa uhuza gw'ikurikirana cya SMS."
+        },
+        "failed": {
+          "title": "Kohereza byanze",
+          "desc": "Niba tutashobora kukugera, tuzabika ilagizo ryawe amasaha 2 mbere yo kugishyira inyuma. Umusanzu wo kohereza bishya ushobora gukurikira."
+        }
+      }
+    },
+    "contact": {
+      "heading": "Ibibazo bijyanye no kohereza?",
+      "body": "Itsinda ryacu ry'ubufasha riraboneka iminsi 7 mu cyumweru.",
+      "cta": "Wasiliana natwe"
     }
   }
 }

@@ -327,7 +327,7 @@ export default function ShopPage() {
                   <button
                     onClick={() => setPage((p) => Math.max(1, p - 1))}
                     disabled={page === 1}
-                    className="flex flex-row whitespace-nowrap px-4 py-2 border border-border rounded-full text-sm disabled:opacity-40 hover:border-primary transition-colors"
+                    className="flex flex-row whitespace-nowrap p-2 border border-border rounded-full text-sm disabled:opacity-40 hover:border-primary transition-colors"
                   >
                     <ChevronLeft className="h-4 w-4" />
                   </button>
@@ -370,7 +370,7 @@ export default function ShopPage() {
                       )
                     }
                     disabled={page === data.pagination.totalPages}
-                    className="flex flex-row whitespace-nowrap px-4 py-2 border border-border rounded-full text-sm disabled:opacity-40 hover:border-primary transition-colors"
+                    className="flex flex-row whitespace-nowrap p-2 border border-border rounded-full text-sm disabled:opacity-40 hover:border-primary transition-colors"
                   >
                     <ChevronRight className="h-4 w-4" />
                   </button>

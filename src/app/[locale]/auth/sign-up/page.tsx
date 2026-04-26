@@ -189,7 +189,7 @@ export default function SignUpPage() {
         </p>
       </div>
 
-      {/* ── Right panel: form ────────────────────────────────────────────── */}
+      {/*  Right panel: form  */}
       <div className="flex items-center justify-center px-6 py-10 bg-background overflow-y-auto">
         <motion.div
           initial={{ opacity: 0, y: 16 }}

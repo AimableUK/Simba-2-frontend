@@ -392,13 +392,13 @@
       "eyebrow": "Profil de l'entreprise",
       "title_line1": "À propos de Simba",
       "title_line2": "Supermarché",
-      "subtitle": "Le supermarché le plus admiré du Rwanda — un témoignage de la reprise économique du pays, répondant fièrement aux besoins quotidiens de Kigali et au-delà depuis 2008."
+      "subtitle": "Le supermarché le plus admiré du Rwanda - un témoignage de la reprise économique du pays, répondant fièrement aux besoins quotidiens de Kigali et au-delà depuis 2008."
     },
     "origin": {
       "eyebrow": "Histoire des origines",
       "heading": "Là où tout a commencé",
       "paragraph1": "SIMBA SUPERMARKET LTD a été fondée le <strong>3 décembre 2007</strong> en tant que société à responsabilité limitée avec une ambition claire : devenir le plus grand point de vente de la région. Fondée par <strong>M. Teklay Teame</strong> et ses associés, l'entreprise importe des produits d'Europe, d'Égypte, de Dubaï, de Chine, de Turquie et d'ailleurs pour garantir une gamme de produits vraiment diversifiée.",
-      "paragraph2": "Le lancement officiel le <strong>8 août 2008</strong> a créé plus de <strong>450 emplois</strong> pour les citoyens rwandais. Avec 11 succursales à travers le Rwanda, Simba offre une expérience de shopping tout-en-un — boucherie, boulangerie, café et plus encore — au service des organisations internationales, des ONG locales, des entreprises privées et des ministères gouvernementaux."
+      "paragraph2": "Le lancement officiel le <strong>8 août 2008</strong> a créé plus de <strong>450 emplois</strong> pour les citoyens rwandais. Avec 11 succursales à travers le Rwanda, Simba offre une expérience de shopping tout-en-un - boucherie, boulangerie, café et plus encore - au service des organisations internationales, des ONG locales, des entreprises privées et des ministères gouvernementaux."
     },
     "values": {
       "eyebrow": "Croyances & Valeurs",
@@ -406,7 +406,7 @@
       "items": {
         "respect": {
           "title": "Respect de l'individu",
-          "body": "Nous sommes des gens ordinaires et travailleurs qui se sont associés pour accomplir des choses extraordinaires. Nous nous traitons mutuellement avec dignité et encourageons chacun à exprimer ses pensées — c'est ainsi que nous montrons notre respect."
+          "body": "Nous sommes des gens ordinaires et travailleurs qui se sont associés pour accomplir des choses extraordinaires. Nous nous traitons mutuellement avec dignité et encourageons chacun à exprimer ses pensées - c'est ainsi que nous montrons notre respect."
         },
         "service": {
           "title": "Service aux clients",
@@ -414,7 +414,7 @@
         },
         "excellence": {
           "title": "Recherche de l'excellence",
-          "body": "Nous sommes fiers de nos réalisations mais jamais satisfaits. Nous cherchons constamment à aller plus loin pour donner vie à de nouvelles idées et objectifs — Est-ce le mieux que je puisse faire ? Cette question guide tout."
+          "body": "Nous sommes fiers de nos réalisations mais jamais satisfaits. Nous cherchons constamment à aller plus loin pour donner vie à de nouvelles idées et objectifs - Est-ce le mieux que je puisse faire ? Cette question guide tout."
         }
       }
     },
@@ -428,15 +428,15 @@
         },
         "2008": {
           "label": "1ère Succursale",
-          "desc": "Lancement officiel le 8 août — ouverture de Simba Centenary, créant plus de 450 emplois pour les citoyens rwandais."
+          "desc": "Lancement officiel le 8 août - ouverture de Simba Centenary, créant plus de 450 emplois pour les citoyens rwandais."
         },
         "2013": {
           "label": "1er Prix",
-          "desc": "1er meilleur exposant — Commerce de détail et distribution."
+          "desc": "1er meilleur exposant - Commerce de détail et distribution."
         },
         "2014": {
           "label": "Expansion",
-          "desc": "Ouverture de la succursale Simba Gishushu. Prix du meilleur exposant Commerce de détail & Distribution — EBM."
+          "desc": "Ouverture de la succursale Simba Gishushu. Prix du meilleur exposant Commerce de détail & Distribution - EBM."
         },
         "2015": {
           "label": "Croissance",
@@ -444,7 +444,7 @@
         },
         "2016": {
           "label": "Montée en puissance",
-          "desc": "Deux nouvelles succursales ouvrent — Simba Kicukiro et Simba Kigali Height."
+          "desc": "Deux nouvelles succursales ouvrent - Simba Kicukiro et Simba Kigali Height."
         },
         "2019": {
           "label": "Centre-ville",
@@ -456,11 +456,11 @@
         },
         "2023": {
           "label": "Expansion majeure",
-          "desc": "Cinq nouvelles succursales ouvrent simultanément — Simba Gacuriro, Simba Gikondo, Simba Sonatube, Simba Kisimenti et Simba Rebero."
+          "desc": "Cinq nouvelles succursales ouvrent simultanément - Simba Gacuriro, Simba Gikondo, Simba Sonatube, Simba Kisimenti et Simba Rebero."
         },
         "2024": {
           "label": "Transition numérique",
-          "desc": "Simba Online Sales est lancé — apportant l'expérience du supermarché directement à la porte des clients."
+          "desc": "Simba Online Sales est lancé - apportant l'expérience du supermarché directement à la porte des clients."
         }
       }
     },
@@ -500,7 +500,7 @@
         },
         "online": {
           "title": "Ventes en ligne",
-          "desc": "Étendre notre portée jusqu'à votre porte — Simba Supermarché est partout."
+          "desc": "Étendre notre portée jusqu'à votre porte - Simba Supermarché est partout."
         },
         "bakery": {
           "title": "Usine de boulangerie",
@@ -521,11 +521,345 @@
       "eyebrow": "Réalisations",
       "heading": "Excellence primée",
       "items": {
-        "2013": "1er meilleur exposant — Commerce de détail & Distribution",
-        "2014": "Meilleur exposant Commerce de détail & Distribution — EBM",
+        "2013": "1er meilleur exposant - Commerce de détail & Distribution",
+        "2014": "Meilleur exposant Commerce de détail & Distribution - EBM",
         "2015": "Prix du contribuable conforme RRA",
-        "2020": "1er Commerçant de l'Année — Rwanda"
+        "2020": "1er Commerçant de l'Année - Rwanda"
       }
+    }
+  },
+
+  "faq": {
+    "hero": {
+      "eyebrow": "Centre d'aide",
+      "title": "Questions fréquemment posées",
+      "subtitle": "Trouvez des réponses rapides aux questions les plus courantes sur vos achats chez Simba Supermarché."
+    },
+    "categories": {
+      "orders": "Commandes",
+      "shipping": "Livraison",
+      "returns": "Retours",
+      "products": "Produits",
+      "account": "Compte"
+    },
+    "questions": {
+      "orders": {
+        "0": {
+          "q": "Comment passer une commande en ligne ?",
+          "a": "Visitez notre site, parcourez les produits, ajoutez des articles à votre panier et procédez au paiement. Vous devrez créer un compte ou vous connecter pour finaliser votre achat."
+        },
+        "1": {
+          "q": "Puis-je modifier ou annuler ma commande après l'avoir passée ?",
+          "a": "Les commandes peuvent être modifiées ou annulées dans les 30 minutes suivant leur passage. Après ce délai, la commande entre en traitement et les modifications ne sont plus possibles."
+        },
+        "2": {
+          "q": "Comment saurai-je que ma commande a été confirmée ?",
+          "a": "Vous recevrez immédiatement un e-mail de confirmation avec votre numéro de commande et un récapitulatif. Vous pouvez également suivre le statut de votre commande dans votre tableau de bord."
+        },
+        "3": {
+          "q": "Quels modes de paiement acceptez-vous ?",
+          "a": "Nous acceptons MTN Mobile Money, Airtel Money, Visa, Mastercard et le paiement à la livraison pour les commandes éligibles. Toutes les transactions en ligne sont sécurisées."
+        }
+      },
+      "shipping": {
+        "0": {
+          "q": "Dans quelles zones livrez-vous ?",
+          "a": "Nous livrons actuellement dans tous les quartiers principaux de Kigali, notamment Nyamirambo, Kimironko, Kicukiro, Gasabo et les zones environnantes."
+        },
+        "1": {
+          "q": "Combien de temps prend la livraison ?",
+          "a": "La livraison standard prend 2 à 4 heures pour les articles en stock commandés avant 15h. La livraison express est disponible en moins d'une heure moyennant des frais supplémentaires."
+        },
+        "2": {
+          "q": "Y a-t-il un montant minimum de commande pour la livraison ?",
+          "a": "Oui, la commande minimum pour la livraison est de 5 000 RWF. Les commandes inférieures à ce montant sont éligibles uniquement au retrait en magasin."
+        },
+        "3": {
+          "q": "Combien coûte la livraison ?",
+          "a": "La livraison standard coûte 1 000 RWF. La livraison express coûte 2 500 RWF. Les commandes supérieures à 50 000 RWF bénéficient de la livraison standard gratuite."
+        }
+      },
+      "returns": {
+        "0": {
+          "q": "Quelle est votre politique de retour ?",
+          "a": "Nous acceptons les retours dans les 7 jours suivant l'achat pour la plupart des articles non périssables, à condition qu'ils soient non ouverts dans leur emballage d'origine avec preuve d'achat."
+        },
+        "1": {
+          "q": "Comment initier un retour ?",
+          "a": "Contactez notre équipe d'assistance via la page Nous contacter ou appelez notre ligne d'assistance. Notre équipe vous guidera tout au long du processus de retour."
+        },
+        "2": {
+          "q": "Quand recevrai-je mon remboursement ?",
+          "a": "Les remboursements sont traités dans les 3 à 5 jours ouvrables une fois le retour reçu et inspecté. Les remboursements Mobile Money sont généralement plus rapides."
+        }
+      },
+      "products": {
+        "0": {
+          "q": "Vos produits sont-ils frais et certifiés qualité ?",
+          "a": "Absolument. Tous les produits frais, viandes et articles de boulangerie sont approvisionnés quotidiennement et contrôlés avant mise en rayon. Nous respectons strictement les normes de sécurité alimentaire."
+        },
+        "1": {
+          "q": "Proposez-vous des marques internationales ?",
+          "a": "Oui, Simba importe des produits d'Europe, de Dubaï, de Chine, d'Égypte, de Turquie et d'autres pays. Vous trouverez des marques internationales et des produits locaux de qualité dans toutes les catégories."
+        },
+        "2": {
+          "q": "Puis-je vérifier la disponibilité des produits avant de visiter ?",
+          "a": "Oui, vous pouvez parcourir notre catalogue complet sur le site ou l'application et filtrer par emplacement de succursale pour voir la disponibilité des stocks en temps réel."
+        }
+      },
+      "account": {
+        "0": {
+          "q": "Comment créer un compte ?",
+          "a": "Cliquez sur S'inscrire dans la navigation supérieure, entrez votre nom, numéro de téléphone ou adresse e-mail, et créez un mot de passe. Vous pouvez également vous inscrire rapidement avec votre compte Google."
+        },
+        "1": {
+          "q": "J'ai oublié mon mot de passe. Que dois-je faire ?",
+          "a": "Cliquez sur Mot de passe oublié sur la page de connexion et entrez votre adresse e-mail enregistrée. Vous recevrez un lien de réinitialisation en quelques minutes."
+        },
+        "2": {
+          "q": "Comment mettre à jour mon adresse de livraison ?",
+          "a": "Connectez-vous à votre compte, accédez aux Paramètres et sélectionnez Adresses. Vous pouvez ajouter, modifier ou supprimer des adresses de livraison depuis cet espace."
+        }
+      }
+    },
+    "contact": {
+      "heading": "Vous avez encore des questions ?",
+      "body": "Notre équipe est disponible 7 jours sur 7 pour vous aider avec tout ce dont vous avez besoin.",
+      "cta": "Nous contacter"
+    }
+  },
+
+  "returns": {
+    "hero": {
+      "eyebrow": "Service client",
+      "title": "Politique de retour",
+      "subtitle": "Nous voulons que vous soyez entièrement satisfait de chaque achat. Si quelque chose ne va pas, nous arrangerons les choses."
+    },
+    "stats": {
+      "window": "Délai de retour de 7 jours",
+      "refundTime": "Remboursements en 3–5 jours ouvrables",
+      "condition": "Emballage d'origine requis"
+    },
+    "eligibility": {
+      "heading": "Qu'est-ce qui peut être retourné ?",
+      "eligible": {
+        "heading": "Éligible au retour",
+        "items": {
+          "unopened": "Articles non ouverts dans leur emballage d'origine",
+          "damaged": "Produits endommagés ou défectueux à la réception",
+          "wrong": "Mauvais article livré",
+          "quality": "La qualité ne correspond pas à la description"
+        }
+      },
+      "ineligible": {
+        "heading": "Non éligible au retour",
+        "items": {
+          "perishable": "Produits frais, viandes et denrées périssables",
+          "used": "Soins personnels et cosmétiques ouverts ou utilisés",
+          "noReceipt": "Articles sans preuve d'achat"
+        }
+      }
+    },
+    "process": {
+      "heading": "Comment retourner un article",
+      "subtitle": "Suivez ces étapes simples et notre équipe s'occupera du reste.",
+      "steps": {
+        "contact": {
+          "title": "Contacter notre équipe",
+          "desc": "Contactez-nous via la page Nous contacter, appelez notre assistance ou visitez une succursale Simba dans les 7 jours suivant l'achat."
+        },
+        "pack": {
+          "title": "Emballer l'article",
+          "desc": "Assurez-vous que l'article est dans son emballage d'origine avec tous les accessoires, étiquettes et votre reçu."
+        },
+        "drop": {
+          "title": "Déposer ou organiser un retrait",
+          "desc": "Déposez l'article dans une succursale Simba ou demandez une collecte à votre adresse moyennant une petite somme."
+        },
+        "refund": {
+          "title": "Recevoir votre remboursement",
+          "desc": "Une fois inspecté et approuvé, votre remboursement sera émis dans les 3 à 5 jours ouvrables."
+        }
+      }
+    },
+    "refunds": {
+      "heading": "Options de remboursement",
+      "methods": {
+        "original": {
+          "title": "Méthode de paiement originale",
+          "desc": "Remboursé sur la carte ou le compte Mobile Money utilisé pour l'achat initial."
+        },
+        "storeCredit": {
+          "title": "Crédit en magasin",
+          "desc": "Recevez le montant total en crédit valable 12 mois dans toutes les succursales Simba."
+        },
+        "exchange": {
+          "title": "Échange",
+          "desc": "Échangez contre le même article ou un article de valeur égale dans n'importe quelle succursale Simba."
+        }
+      }
+    },
+    "note": {
+      "heading": "Note importante",
+      "body": "Simba Supermarché se réserve le droit de refuser les retours qui ne satisfont pas aux conditions de notre politique. Les achats en magasin doivent être retournés dans une succursale physique ; les commandes en ligne peuvent être retournées en magasin ou via notre service de collecte."
+    }
+  },
+
+  "privacy": {
+    "hero": {
+      "eyebrow": "Juridique",
+      "title": "Politique de confidentialité",
+      "lastUpdated": "Dernière mise à jour : janvier 2025"
+    },
+    "intro": "Chez Simba Supermarché, votre confidentialité nous tient profondément à cœur. Cette politique explique comment nous collectons, utilisons et protégeons vos informations personnelles lorsque vous faites vos courses chez nous en ligne ou en magasin.",
+    "sections": {
+      "collection": {
+        "nav": "Données collectées",
+        "heading": "Informations que nous collectons",
+        "body": "Nous collectons les informations que vous fournissez directement et celles générées lors de l'utilisation de nos services.",
+        "points": {
+          "0": "Nom, adresse e-mail et numéro de téléphone lors de votre inscription",
+          "1": "Adresse de livraison et coordonnées de paiement",
+          "2": "Historique des commandes et comportement de navigation",
+          "3": "Type d'appareil, adresse IP et informations sur le navigateur"
+        }
+      },
+      "use": {
+        "nav": "Utilisation",
+        "heading": "Comment nous utilisons vos informations",
+        "body": "Vos données sont utilisées uniquement pour améliorer votre expérience d'achat et tenir nos engagements de service.",
+        "points": {
+          "0": "Traitement et exécution de vos commandes",
+          "1": "Envoi des confirmations de commande et mises à jour de livraison",
+          "2": "Personnalisation des recommandations de produits",
+          "3": "Amélioration de notre site web et de la qualité du service"
+        }
+      },
+      "sharing": {
+        "nav": "Partage des données",
+        "heading": "Partage de vos informations",
+        "body": "Nous ne vendons pas vos données personnelles. Nous pouvons les partager uniquement avec des partenaires de service de confiance.",
+        "points": {
+          "0": "Partenaires de livraison pour exécuter vos commandes",
+          "1": "Processeurs de paiement pour sécuriser les transactions",
+          "2": "Fournisseurs d'analyses pour améliorer nos services",
+          "3": "Autorités réglementaires lorsque la loi l'exige"
+        }
+      },
+      "security": {
+        "nav": "Sécurité",
+        "heading": "Comment nous protégeons vos données",
+        "body": "Nous utilisons des pratiques de sécurité standard du secteur, notamment le chiffrement SSL, des serveurs sécurisés et des audits de sécurité réguliers pour protéger vos informations personnelles contre tout accès non autorisé."
+      },
+      "cookies": {
+        "nav": "Cookies",
+        "heading": "Cookies et suivi",
+        "body": "Nous utilisons des cookies pour mémoriser vos préférences, vous maintenir connecté et comprendre comment vous utilisez notre site. Vous pouvez les désactiver dans les paramètres de votre navigateur, mais certaines fonctionnalités pourraient ne pas fonctionner correctement."
+      },
+      "contact": {
+        "nav": "Contact",
+        "heading": "Questions sur votre confidentialité",
+        "body": "Pour toute question sur cette politique ou pour exercer vos droits sur vos données, contactez notre Délégué à la protection des données à privacy@simbasupermarket.rw ou visitez l'une de nos succursales."
+      }
+    },
+    "rights": {
+      "heading": "Vos droits",
+      "body": "En vertu de la loi applicable sur la protection des données, vous disposez des droits suivants concernant vos informations personnelles.",
+      "items": {
+        "access": "Droit d'accès",
+        "correct": "Droit de rectification",
+        "delete": "Droit à l'effacement",
+        "portability": "Portabilité des données"
+      }
+    }
+  },
+
+  "delivery": {
+    "hero": {
+      "eyebrow": "Livraison",
+      "title": "Informations de livraison",
+      "subtitle": "Livraison rapide et fiable depuis nos succursales directement à votre porte à Kigali et au-delà."
+    },
+    "stats": {
+      "branches": { "value": "11", "label": "Succursales" },
+      "minOrder": { "value": "5K RWF", "label": "Commande min." },
+      "coverage": { "value": "Kigali", "label": "Couverture" }
+    },
+    "options": {
+      "eyebrow": "Options de livraison",
+      "heading": "Choisissez votre vitesse de livraison",
+      "items": {
+        "standard": {
+          "title": "Standard",
+          "time": "2–4 heures",
+          "price": "1 000 RWF",
+          "note": "Idéal pour les courses planifiées. Commandez avant 15h pour une livraison standard le jour même."
+        },
+        "express": {
+          "title": "Express",
+          "time": "Moins d'une heure",
+          "price": "2 500 RWF",
+          "note": "Besoin de rapidité ? La livraison express vous apporte votre commande en moins d'une heure."
+        },
+        "sameDay": {
+          "title": "Livraison offerte",
+          "time": "2–4 heures",
+          "price": "Gratuit",
+          "note": "Les commandes supérieures à 50 000 RWF bénéficient de la livraison standard gratuite."
+        }
+      }
+    },
+    "zones": {
+      "eyebrow": "Couverture",
+      "heading": "Zones de livraison",
+      "subtitle": "Nous livrons actuellement dans toutes les grandes zones de Kigali. D'autres districts arrivent bientôt."
+    },
+    "howItWorks": {
+      "heading": "Comment fonctionne la livraison",
+      "steps": {
+        "order": {
+          "title": "Passez votre commande",
+          "desc": "Ajoutez des articles à votre panier et sélectionnez la livraison au paiement."
+        },
+        "confirm": {
+          "title": "Commande confirmée",
+          "desc": "Vous recevez immédiatement une confirmation par SMS et e-mail."
+        },
+        "dispatch": {
+          "title": "Expédié",
+          "desc": "Notre équipe prépare votre commande dans la succursale la plus proche."
+        },
+        "deliver": {
+          "title": "Livré chez vous",
+          "desc": "Notre livreur livre à votre porte dans le délai promis."
+        }
+      }
+    },
+    "important": {
+      "heading": "Bon à savoir",
+      "items": {
+        "cutoff": {
+          "title": "Heures limites de commande",
+          "desc": "Les commandes passées après 19h seront livrées le lendemain matin à partir de 8h."
+        },
+        "packaging": {
+          "title": "Emballage",
+          "desc": "Toutes les commandes sont emballées de manière hygiénique et sécurisée pour préserver la qualité."
+        },
+        "tracking": {
+          "title": "Suivi de commande",
+          "desc": "Suivez votre livraison en temps réel via l'application ou le lien de suivi par SMS."
+        },
+        "failed": {
+          "title": "Livraison échouée",
+          "desc": "Si nous ne pouvons pas vous joindre, nous conserverons votre commande 2 heures avant de la retourner. Des frais de nouvelle livraison peuvent s'appliquer."
+        }
+      }
+    },
+    "contact": {
+      "heading": "Des questions sur la livraison ?",
+      "body": "Notre équipe d'assistance est disponible 7 jours sur 7.",
+      "cta": "Nous contacter"
     }
   }
 }
