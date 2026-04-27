@@ -269,9 +269,49 @@
     "continueWithGoogle": "Komeza ukoresheje Google"
   },
   "admin": {
+    "orders": {
+      "title": "Amatumba",
+      "searchPlaceholder": "Shakisha itumba, umukiriya...",
+      "allStatuses": "Imiterere Yose",
+      "itemsCount": "ibintu",
+      "manage": "Gucunga",
+      "statusUpdated": "Imiterere y'itumba yaravuguruwe",
+      "statusError": "Ntibishoboye kuvugurura imiterere",
+      "status": {
+        "pending": "Birategerejwe",
+        "accepted": "Byemerewe",
+        "preparing": "Birategurwa",
+        "ready": "Biteguye",
+        "picked_up": "Bifashwe",
+        "cancelled": "Byahagaritswe"
+      },
+      "cols": {
+        "order": "Itumba #",
+        "customer": "Umukiriya",
+        "items": "Ibintu",
+        "total": "Igiteranyo",
+        "status": "Imiterere",
+        "payment": "Kwishyura",
+        "date": "Itariki",
+        "actions": "Ibikorwa"
+      },
+      "modal": {
+        "title": "Vugurura Imiterere y'Itumba",
+        "customer": "Umukiriya",
+        "email": "Imeyili",
+        "phone": "Telefoni",
+        "total": "Igiteranyo",
+        "currentStatus": "Imiterere ya None",
+        "newStatus": "Imiterere Nshya",
+        "note": "Icyitonderwa (si ngombwa)",
+        "notePlaceholder": "urugero: Biteguye kuri kaunta ya 2",
+        "update": "Vugurura Imiterere",
+        "updating": "Biravugururwa...",
+        "cancel": "Hagarika"
+      }
+    },
     "dashboard": "Ikibaho",
     "products": "Ibicuruzwa",
-    "orders": "Amatumiza",
     "users": "Abakoresha",
     "blogs": "Inkuru z'Amakuru",
     "contacts": "Ubutumwa bw'Ababoneka",

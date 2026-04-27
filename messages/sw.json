@@ -269,9 +269,49 @@
     "continueWithGoogle": "Endelea na Google"
   },
   "admin": {
+    "orders": {
+      "title": "Maagizo",
+      "searchPlaceholder": "Tafuta agizo, mteja...",
+      "allStatuses": "Hali Zote",
+      "itemsCount": "bidhaa",
+      "manage": "Simamia",
+      "statusUpdated": "Hali ya agizo imesasishwa",
+      "statusError": "Imeshindwa kusasisha hali",
+      "status": {
+        "pending": "Inasubiri",
+        "accepted": "Imekubaliwa",
+        "preparing": "Inaandaliwa",
+        "ready": "Iko Tayari",
+        "picked_up": "Imechukuliwa",
+        "cancelled": "Imefutwa"
+      },
+      "cols": {
+        "order": "Agizo #",
+        "customer": "Mteja",
+        "items": "Bidhaa",
+        "total": "Jumla",
+        "status": "Hali",
+        "payment": "Malipo",
+        "date": "Tarehe",
+        "actions": "Vitendo"
+      },
+      "modal": {
+        "title": "Sasisha Hali ya Agizo",
+        "customer": "Mteja",
+        "email": "Barua pepe",
+        "phone": "Simu",
+        "total": "Jumla",
+        "currentStatus": "Hali ya Sasa",
+        "newStatus": "Hali Mpya",
+        "note": "Maelezo (si lazima)",
+        "notePlaceholder": "mfano. Tayari kwenye kaunta 2",
+        "update": "Sasisha Hali",
+        "updating": "Inasasisha...",
+        "cancel": "Ghairi"
+      }
+    },
     "dashboard": "Dashibodi",
     "products": "Bidhaa",
-    "orders": "Maagizo",
     "users": "Watumiaji",
     "blogs": "Machapisho ya Blogu",
     "contacts": "Ujumbe wa Mawasiliano",

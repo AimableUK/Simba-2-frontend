@@ -1,8 +1,8 @@
 "use client";
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useLocale } from "next-intl";
-import { Search, Filter, ChevronDown, Eye } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { Search, Eye } from "lucide-react";
 import { toast } from "sonner";
 import { orderApi } from "@/lib/api";
 import { formatPrice, formatDateTime } from "@/lib/utils";
@@ -12,7 +12,6 @@ import { useAdminSocket } from "@/hooks/useSocket";
 import type { Order } from "@/types";
 
 const STATUSES = [
-  "",
   "pending",
   "accepted",
   "preparing",
@@ -20,6 +19,7 @@ const STATUSES = [
   "picked_up",
   "cancelled",
 ];
+
 const STATUS_COLORS: Record<string, string> = {
   pending: "text-yellow-600 bg-yellow-100 dark:bg-yellow-900/30",
   accepted: "text-blue-600 bg-blue-100 dark:bg-blue-900/30",
@@ -31,7 +31,9 @@ const STATUS_COLORS: Record<string, string> = {
 
 export default function AdminOrdersPage() {
   const locale = useLocale();
+  const t = useTranslations("admin.orders");
   const qc = useQueryClient();
+
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
@@ -39,6 +41,7 @@ export default function AdminOrdersPage() {
   const [newStatus, setNewStatus] = useState("");
   const [note, setNote] = useState("");
 
+  // ── Socket: best-effort only, refetch on event but don't depend on it ──────
   useAdminSocket({
     onNewOrder: () => qc.invalidateQueries({ queryKey: ["admin-orders"] }),
     onOrderUpdated: () => qc.invalidateQueries({ queryKey: ["admin-orders"] }),
@@ -50,6 +53,8 @@ export default function AdminOrdersPage() {
       orderApi
         .adminList({ page, limit: 20, search, status: statusFilter })
         .then((r) => r.data),
+    refetchInterval: 30_000, // poll every 30s regardless of socket
+    refetchOnWindowFocus: true, // refetch when tab regains focus
   });
 
   const statusMutation = useMutation({
@@ -62,19 +67,63 @@ export default function AdminOrdersPage() {
       status: string;
       note?: string;
     }) => orderApi.updateStatus(id, { status, note }),
-    onSuccess: () => {
-      toast.success("Order status updated");
+
+    // Optimistically update the list immediately — don't wait for socket
+    onMutate: async ({ id, status }) => {
+      await qc.cancelQueries({
+        queryKey: ["admin-orders", page, search, statusFilter],
+      });
+      const previous = qc.getQueryData([
+        "admin-orders",
+        page,
+        search,
+        statusFilter,
+      ]);
+
+      qc.setQueryData(
+        ["admin-orders", page, search, statusFilter],
+        (old: any) => {
+          if (!old?.data) return old;
+          return {
+            ...old,
+            data: old.data.map((o: Order) =>
+              o.id === id ? { ...o, status } : o,
+            ),
+          };
+        },
+      );
+
+      return { previous };
+    },
+
+    onSuccess: (_data, { id, status, note }) => {
+      toast.success(t("statusUpdated"));
       setSelectedOrder(null);
       setNote("");
+      // Hard refetch to confirm DB state
       qc.invalidateQueries({ queryKey: ["admin-orders"] });
     },
-    onError: (err: any) =>
-      toast.error(err?.response?.data?.message || "Failed to update status"),
+
+    onError: (err: any, _vars, context: any) => {
+      // Roll back optimistic update on error
+      if (context?.previous) {
+        qc.setQueryData(
+          ["admin-orders", page, search, statusFilter],
+          context.previous,
+        );
+      }
+      toast.error(err?.response?.data?.message || t("statusError"));
+    },
   });
+
+  const handleUpdate = () => {
+    if (!selectedOrder || newStatus === selectedOrder.status) return;
+    statusMutation.mutate({ id: selectedOrder.id, status: newStatus, note });
+  };
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Orders</h1>
+      <h1 className="text-2xl font-bold">{t("title")}</h1>
 
       {/* Filters */}
       <div className="flex flex-wrap gap-3">
@@ -86,7 +135,7 @@ export default function AdminOrdersPage() {
               setSearch(e.target.value);
               setPage(1);
             }}
-            placeholder="Search order, customer..."
+            placeholder={t("searchPlaceholder")}
             className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
           />
         </div>
@@ -98,10 +147,10 @@ export default function AdminOrdersPage() {
           }}
           className="px-4 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
         >
-          <option value="">All Statuses</option>
-          {STATUSES.filter(Boolean).map((s) => (
+          <option value="">{t("allStatuses")}</option>
+          {STATUSES.map((s) => (
             <option key={s} value={s}>
-              {s.replace("_", " ").replace(/^\w/, (c) => c.toUpperCase())}
+              {t(`status.${s}`)}
             </option>
           ))}
         </select>
@@ -114,14 +163,14 @@ export default function AdminOrdersPage() {
             <thead>
               <tr className="border-b border-border bg-muted/50">
                 {[
-                  "Order #",
-                  "Customer",
-                  "Items",
-                  "Total",
-                  "Status",
-                  "Payment",
-                  "Date",
-                  "Actions",
+                  t("cols.order"),
+                  t("cols.customer"),
+                  t("cols.items"),
+                  t("cols.total"),
+                  t("cols.status"),
+                  t("cols.payment"),
+                  t("cols.date"),
+                  t("cols.actions"),
                 ].map((h) => (
                   <th
                     key={h}
@@ -152,16 +201,16 @@ export default function AdminOrdersPage() {
                         </p>
                       </td>
                       <td className="px-4 py-3 text-muted-foreground">
-                        {order.items?.length} items
+                        {order.items?.length} {t("itemsCount")}
                       </td>
                       <td className="px-4 py-3 font-semibold text-primary">
                         {formatPrice(order.total)}
                       </td>
                       <td className="px-4 py-3">
                         <span
-                          className={`text-xs font-medium px-2.5 py-1.5 rounded-full ${STATUS_COLORS[order.status]}`}
+                          className={`text-xs font-medium px-2.5 py-1.5 rounded-full ${STATUS_COLORS[order.status] || ""}`}
                         >
-                          {order.status.replace("_", " ")}
+                          {t(`status.${order.status}`)}
                         </span>
                       </td>
                       <td className="px-4 py-3">
@@ -189,7 +238,7 @@ export default function AdminOrdersPage() {
                           className="flex items-center gap-1.5 text-xs text-primary hover:underline font-medium"
                         >
                           <Eye className="h-3.5 w-3.5" />
-                          Manage
+                          {t("manage")}
                         </button>
                       </td>
                     </tr>
@@ -215,7 +264,7 @@ export default function AdminOrdersPage() {
             className="bg-card border border-border rounded-2xl p-6 w-full max-w-md shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <h2 className="font-bold text-lg mb-1">Update Order Status</h2>
+            <h2 className="font-bold text-lg mb-1">{t("modal.title")}</h2>
             <p className="text-sm text-muted-foreground mb-6">
               {selectedOrder.orderNumber}
             </p>
@@ -224,81 +273,96 @@ export default function AdminOrdersPage() {
               {/* Customer info */}
               <div className="bg-muted/50 rounded-xl p-4 text-sm space-y-1">
                 <p>
-                  <span className="text-muted-foreground">Customer:</span>{" "}
+                  <span className="text-muted-foreground">
+                    {t("modal.customer")}:
+                  </span>{" "}
                   <span className="font-medium">
                     {selectedOrder.user?.name}
                   </span>
                 </p>
                 <p>
-                  <span className="text-muted-foreground">Email:</span>{" "}
+                  <span className="text-muted-foreground">
+                    {t("modal.email")}:
+                  </span>{" "}
                   {selectedOrder.user?.email}
                 </p>
                 <p>
-                  <span className="text-muted-foreground">Phone:</span>{" "}
+                  <span className="text-muted-foreground">
+                    {t("modal.phone")}:
+                  </span>{" "}
                   {selectedOrder.user?.phone ||
-                    (selectedOrder.deliveryAddress as any)?.phone}
+                    (selectedOrder as any).deliveryAddress?.phone ||
+                    "—"}
                 </p>
                 <p>
-                  <span className="text-muted-foreground">Total:</span>{" "}
+                  <span className="text-muted-foreground">
+                    {t("modal.total")}:
+                  </span>{" "}
                   <span className="font-bold text-primary">
                     {formatPrice(selectedOrder.total)}
                   </span>
                 </p>
+                <p>
+                  <span className="text-muted-foreground">
+                    {t("modal.currentStatus")}:
+                  </span>{" "}
+                  <span
+                    className={`text-xs font-medium px-2 py-0.5 rounded-full ${STATUS_COLORS[selectedOrder.status] || ""}`}
+                  >
+                    {t(`status.${selectedOrder.status}`)}
+                  </span>
+                </p>
               </div>
 
+              {/* New status select */}
               <div>
                 <label className="block text-sm font-medium mb-1.5">
-                  New Status
+                  {t("modal.newStatus")}
                 </label>
                 <select
                   value={newStatus}
                   onChange={(e) => setNewStatus(e.target.value)}
-                  className="flex whitespace-nowrap w-full px-4 py-3 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                  className="w-full px-4 py-3 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
                 >
-                  {STATUSES.filter(Boolean).map((s) => (
+                  {STATUSES.map((s) => (
                     <option key={s} value={s}>
-                      {s
-                        .replace("_", " ")
-                        .replace(/^\w/, (c) => c.toUpperCase())}
+                      {t(`status.${s}`)}
                     </option>
                   ))}
                 </select>
               </div>
 
+              {/* Note */}
               <div>
                 <label className="block text-sm font-medium mb-1.5">
-                  Note (optional)
+                  {t("modal.note")}
                 </label>
                 <input
                   value={note}
                   onChange={(e) => setNote(e.target.value)}
-                  placeholder="e.g. Out for delivery, driver: Jean"
+                  placeholder={t("modal.notePlaceholder")}
                   className="w-full px-4 py-3 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
                 />
               </div>
 
               <div className="flex gap-3 pt-2">
                 <button
-                  onClick={() =>
-                    statusMutation.mutate({
-                      id: selectedOrder.id,
-                      status: newStatus,
-                      note,
-                    })
-                  }
+                  onClick={handleUpdate}
                   disabled={
                     statusMutation.isPending ||
                     newStatus === selectedOrder.status
                   }
                   className="flex-1 bg-primary text-primary-foreground font-semibold py-3 rounded-xl hover:bg-primary/90 disabled:opacity-50 transition-colors"
                 >
-                  {statusMutation.isPending ? "Updating..." : "Update Status"}
+                  {statusMutation.isPending
+                    ? t("modal.updating")
+                    : t("modal.update")}
                 </button>
                 <button
                   onClick={() => setSelectedOrder(null)}
                   className="px-5 py-3 border border-border rounded-xl hover:bg-muted transition-colors font-medium"
                 >
-                  Cancel
+                  {t("modal.cancel")}
                 </button>
               </div>
             </div>

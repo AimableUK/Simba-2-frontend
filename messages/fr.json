@@ -269,9 +269,49 @@
     "continueWithGoogle": "Continuer avec Google"
   },
   "admin": {
+    "orders": {
+      "title": "Commandes",
+      "searchPlaceholder": "Rechercher commande, client...",
+      "allStatuses": "Tous les statuts",
+      "itemsCount": "articles",
+      "manage": "Gérer",
+      "statusUpdated": "Statut de la commande mis à jour",
+      "statusError": "Échec de la mise à jour du statut",
+      "status": {
+        "pending": "En attente",
+        "accepted": "Acceptée",
+        "preparing": "En préparation",
+        "ready": "Prête",
+        "picked_up": "Récupérée",
+        "cancelled": "Annulée"
+      },
+      "cols": {
+        "order": "Commande #",
+        "customer": "Client",
+        "items": "Articles",
+        "total": "Total",
+        "status": "Statut",
+        "payment": "Paiement",
+        "date": "Date",
+        "actions": "Actions"
+      },
+      "modal": {
+        "title": "Mettre à jour le statut",
+        "customer": "Client",
+        "email": "Email",
+        "phone": "Téléphone",
+        "total": "Total",
+        "currentStatus": "Statut actuel",
+        "newStatus": "Nouveau statut",
+        "note": "Note (optionnelle)",
+        "notePlaceholder": "ex. Prêt au comptoir 2",
+        "update": "Mettre à jour",
+        "updating": "Mise à jour...",
+        "cancel": "Annuler"
+      }
+    },
     "dashboard": "Tableau de Bord",
     "products": "Produits",
-    "orders": "Commandes",
     "users": "Utilisateurs",
     "blogs": "Articles de Blog",
     "contacts": "Messages de Contact",

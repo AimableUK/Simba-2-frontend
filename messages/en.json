@@ -269,9 +269,49 @@
     "continueWithGoogle": "Continue with Google"
   },
   "admin": {
+    "orders": {
+      "title": "Orders",
+      "searchPlaceholder": "Search order, customer...",
+      "allStatuses": "All Statuses",
+      "itemsCount": "items",
+      "manage": "Manage",
+      "statusUpdated": "Order status updated",
+      "statusError": "Failed to update status",
+      "status": {
+        "pending": "Pending",
+        "accepted": "Accepted",
+        "preparing": "Preparing",
+        "ready": "Ready",
+        "picked_up": "Picked Up",
+        "cancelled": "Cancelled"
+      },
+      "cols": {
+        "order": "Order #",
+        "customer": "Customer",
+        "items": "Items",
+        "total": "Total",
+        "status": "Status",
+        "payment": "Payment",
+        "date": "Date",
+        "actions": "Actions"
+      },
+      "modal": {
+        "title": "Update Order Status",
+        "customer": "Customer",
+        "email": "Email",
+        "phone": "Phone",
+        "total": "Total",
+        "currentStatus": "Current Status",
+        "newStatus": "New Status",
+        "note": "Note (optional)",
+        "notePlaceholder": "e.g. Ready at counter 2",
+        "update": "Update Status",
+        "updating": "Updating...",
+        "cancel": "Cancel"
+      }
+    },
     "dashboard": "Dashboard",
     "products": "Products",
-    "orders": "Orders",
     "users": "Users",
     "blogs": "Blog Posts",
     "contacts": "Contact Messages",
