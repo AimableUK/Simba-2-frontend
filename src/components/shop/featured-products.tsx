@@ -129,153 +129,82 @@ export function RecommendedProducts() {
   );
 }
 
-const CATEGORY_IMAGE_MAP: { keywords: string[]; photoId: string }[] = [
-  {
-    keywords: ["fruit", "veg", "produce", "fresh", "salad", "green"],
-    photoId: "1542838132-92c53300491e", // colorful fresh market vegetables
-  },
-  {
-    keywords: [
-      "meat",
-      "butch",
-      "beef",
-      "chicken",
-      "pork",
-      "lamb",
-      "fish",
-      "seafood",
-    ],
-    photoId: "1529692076929-c3d9b6e47c06", // raw steak on dark background
-  },
-  {
-    keywords: ["frozen", "ice", "freeze"],
-    photoId: "1608686207856-001b71d4eb0e", // frozen food / ice crystals
-  },
-  {
-    keywords: [
-      "wine",
-      "spirit",
-      "alcohol",
-      "beer",
-      "beverage",
-      "drink",
-      "liquor",
-      "whisky",
-      "champagne",
-    ],
-    photoId: "1510812431401-41d2bd2722f3", // wine bottles on shelf
-  },
-  {
-    keywords: [
-      "furniture",
-      "sofa",
-      "couch",
-      "chair",
-      "table",
-      "bed",
-      "living",
-      "bedroom",
-      "decor",
-    ],
-    photoId: "1555041469-a586c61ea9bc", // modern living room sofa
-  },
-  {
-    keywords: [
-      "electron",
-      "gadget",
-      "tech",
-      "phone",
-      "laptop",
-      "computer",
-      "tv",
-      "camera",
-      "device",
-    ],
-    photoId: "1498049794561-7780e7231661", // electronics / tech devices
-  },
-  {
-    keywords: [
-      "utensil",
-      "ornament",
-      "kitchen",
-      "cookware",
-      "tool",
-      "pot",
-      "pan",
-      "cutlery",
-      "crockery",
-    ],
-    photoId: "1556909114-f6e7ad7d3136", // kitchen utensils
-  },
-  {
-    keywords: [
-      "homecare",
-      "home care",
-      "clean",
-      "detergent",
-      "laundry",
-      "hygiene",
-      "household",
-    ],
-    photoId: "1585771724684-38269d6639fd", // cleaning products
-  },
-  {
-    keywords: [
-      "baby",
-      "infant",
-      "toddler",
-      "child",
-      "kid",
-      "diaper",
-      "toy",
-      "nappy",
-    ],
-    photoId: "1515488042361-ee00e41557a4", // baby products / cute baby
-  },
-  {
-    keywords: [
-      "gym",
-      "sport",
-      "fitness",
-      "workout",
-      "exercise",
-      "weight",
-      "yoga",
-      "running",
-      "athletic",
-    ],
-    photoId: "1534438327276-14e5300c3a48", // gym equipment
-  },
-  {
-    keywords: [
-      "health",
-      "beauty",
-      "cosmetic",
-      "skin",
-      "makeup",
-      "perfume",
-      "hair",
-      "lotion",
-      "cream",
-    ],
-    photoId: "1596462502278-27bfdc403348", // beauty / makeup cosmetics
-  },
-  {
-    keywords: [
-      "baker",
-      "bread",
-      "pastry",
-      "cake",
-      "biscuit",
-      "cookie",
-      "muffin",
-      "flour",
-    ],
-    photoId: "1509440159596-0249088772ff", // fresh bread in bakery
-  },
-];
+const CATEGORY_IMAGES: Record<string, string> = {
+  // "Food & Groceries" — brown paper bag with vegetables
+  food: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&q=80&fit=crop",
+  groceries:
+    "https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&q=80&fit=crop",
 
-// Fallback gradient colors (index-based, used when no keyword matches)
+  // "Beverages" — two glasses with red liquid
+  beverage:
+    "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400&q=80&fit=crop",
+  drink:
+    "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400&q=80&fit=crop",
+  juice:
+    "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400&q=80&fit=crop",
+
+  // "Alcoholic Drinks" — bottles of liquor
+  alcohol:
+    "https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=400&q=80&fit=crop",
+  wine: "https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=400&q=80&fit=crop",
+  beer: "https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=400&q=80&fit=crop",
+  spirit:
+    "https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=400&q=80&fit=crop",
+  liquor:
+    "https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=400&q=80&fit=crop",
+
+  // "Household" — dining room
+  household:
+    "https://images.unsplash.com/photo-1617806118233-18e1de247200?w=400&q=80&fit=crop",
+  house:
+    "https://images.unsplash.com/photo-1617806118233-18e1de247200?w=400&q=80&fit=crop",
+  home: "https://images.unsplash.com/photo-1617806118233-18e1de247200?w=400&q=80&fit=crop",
+  cleaning:
+    "https://images.unsplash.com/photo-1617806118233-18e1de247200?w=400&q=80&fit=crop",
+
+  // "Personal Care" — hand brushes
+  personal:
+    "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80&fit=crop",
+  care: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80&fit=crop",
+  hygiene:
+    "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80&fit=crop",
+  beauty:
+    "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80&fit=crop",
+
+  // "Toys & Games" — small toy with red hat
+  toy: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80&fit=crop",
+  game: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80&fit=crop",
+  kid: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80&fit=crop",
+  children:
+    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80&fit=crop",
+
+  // "Electronics" — Sony headphones
+  electronic:
+    "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80&fit=crop",
+  tech: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80&fit=crop",
+  gadget:
+    "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80&fit=crop",
+  phone:
+    "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80&fit=crop",
+
+  // "Fresh Produce" — colourful chili peppers
+  fresh:
+    "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&q=80&fit=crop",
+  produce:
+    "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&q=80&fit=crop",
+  vegetable:
+    "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&q=80&fit=crop",
+  fruit:
+    "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&q=80&fit=crop",
+};
+
+function getCategoryImage(name: string): string | null {
+  const lower = name.toLowerCase();
+  const match = Object.keys(CATEGORY_IMAGES).find((kw) => lower.includes(kw));
+  return match ? CATEGORY_IMAGES[match] : null;
+}
+
+// Fallback gradients when no keyword matches
 const FALLBACK_GRADIENTS = [
   "from-orange-500 to-amber-400",
   "from-blue-500 to-cyan-400",
@@ -287,16 +216,6 @@ const FALLBACK_GRADIENTS = [
   "from-teal-500 to-cyan-400",
 ];
 
-function getCategoryImage(name: string): string | null {
-  const lower = name.toLowerCase();
-  const match = CATEGORY_IMAGE_MAP.find((entry) =>
-    entry.keywords.some((kw) => lower.includes(kw)),
-  );
-  if (!match) return null;
-  return `https://images.unsplash.com/photo-${match.photoId}?w=400&q=80&fit=crop&crop=center`;
-}
-
-//  Category Grid
 export function CategoryGrid() {
   const t = useTranslations("home");
   const locale = useLocale();
@@ -320,22 +239,25 @@ export function CategoryGrid() {
               <div key={i} className="aspect-square skeleton rounded-2xl" />
             ))
           : categories?.slice(0, 8).map((cat: any, i: number) => {
-              const unsplashUrl = getCategoryImage(cat.name);
+              // Priority: DB image → keyword match → gradient fallback
+              const imageUrl = cat.image
+                ? getImageUrl(cat.image)
+                : getCategoryImage(cat.name);
+
               return (
                 <Link
                   key={cat.id}
                   href={`/${locale}/shop?category=${cat.slug}`}
                   className="group relative aspect-square rounded-2xl overflow-hidden border border-border hover:border-primary/50 transition-all hover:shadow-lg hover:shadow-primary/10"
                 >
-                  {/* Background: Unsplash image OR gradient fallback */}
-                  {unsplashUrl ? (
+                  {imageUrl ? (
                     <Image
-                      src={unsplashUrl}
+                      src={imageUrl}
                       alt={cat.name}
                       fill
                       sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, 12.5vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
-                      unoptimized // Unsplash already optimises via their CDN params
+                      unoptimized
                     />
                   ) : (
                     <div
