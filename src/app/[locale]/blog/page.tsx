@@ -58,7 +58,7 @@ export default function BlogPage() {
           </div>
         ) : (
           <>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 h-full">
               {data?.data?.map((blog: Blog) => (
                 <Link key={blog.id} href={`/${locale}/blog/${blog.slug}`} className="group block">
                   <article className="bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 hover:shadow-lg transition-all duration-300">
