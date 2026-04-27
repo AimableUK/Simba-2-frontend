@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -7,8 +8,8 @@ import { X, ShoppingBag, Plus, Minus, Trash2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { cartApi } from "@/lib/api";
-import { useCartStore } from "@/store";
-import { cn, formatPrice, getImageUrl } from "@/lib/utils";
+import { useCartStore, useGuestCartStore } from "@/store";
+import { formatPrice, getImageUrl } from "@/lib/utils";
 import { useSession } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { usePathname } from "next/navigation";
@@ -19,22 +20,48 @@ export function CartDrawer() {
   const { data: session } = useSession();
   const { isOpen, closeCart, setCart, items, total, deliveryFee } =
     useCartStore();
+  const guestCart = useGuestCartStore();
   const qc = useQueryClient();
-
   const pathname = usePathname();
+
+  const isLoggedIn = !!session?.user;
   const isAdminRoute = pathname.includes("/admin");
 
-  const { data } = useQuery({
+  //  Fetch API cart when authenticated
+  const { data: apiCart } = useQuery({
     queryKey: ["cart"],
     queryFn: () => cartApi.get().then((r) => r.data),
-    enabled: !!session?.user && isOpen,
+    enabled: isLoggedIn, // fetch on mount if logged in, not just when drawer opens
   });
 
+  // Sync API cart -> store
   useEffect(() => {
-    if (data)
-      setCart(data.items || [], data.total || 0, data.deliveryFee || 1000);
-  }, [data]);
+    if (isLoggedIn && apiCart) {
+      setCart(
+        apiCart.items || [],
+        apiCart.total || 0,
+        apiCart.deliveryFee || 1000,
+      );
+    }
+  }, [apiCart, isLoggedIn]);
 
+  // Sync guest cart -> store whenever drawer opens or guest items change
+  useEffect(() => {
+    if (!isLoggedIn) {
+      const guestTotal = guestCart.items.reduce(
+        (sum, i) => sum + i.product.price * i.quantity,
+        0,
+      );
+      // Map GuestCartItem -> CartItem by adding a fake `id` (productId works fine)
+      const mapped = guestCart.items.map((i) => ({
+        id: i.productId,
+        ...i,
+      }));
+      setCart(mapped, guestTotal, 1000);
+    }
+  }, [isLoggedIn, guestCart.items]);
+
+  //  Auth mutations
   const removeMutation = useMutation({
     mutationFn: (productId: string) => cartApi.remove(productId),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["cart"] }),
@@ -52,6 +79,21 @@ export function CartDrawer() {
     onError: (err: any) =>
       toast.error(err?.response?.data?.message || "Error updating cart"),
   });
+
+  //  Unified handlers
+  const handleRemove = (productId: string) => {
+    if (isLoggedIn) removeMutation.mutate(productId);
+    else guestCart.remove(productId);
+  };
+
+  const handleUpdate = (productId: string, quantity: number) => {
+    if (quantity <= 0) {
+      handleRemove(productId);
+      return;
+    }
+    if (isLoggedIn) updateMutation.mutate({ productId, quantity });
+    else guestCart.update(productId, quantity);
+  };
 
   const grandTotal = total + deliveryFee;
 
@@ -95,6 +137,20 @@ export function CartDrawer() {
                 <X className="w-5 h-5" />
               </button>
             </div>
+
+            {/* Guest notice */}
+            {!isLoggedIn && items.length > 0 && (
+              <div className="mx-4 mt-3 px-3 py-2 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl text-xs text-amber-700 dark:text-amber-400">
+                {t("guestCartNotice")}{" "}
+                <Link
+                  href={`/${locale}/auth/sign-in`}
+                  onClick={closeCart}
+                  className="font-semibold underline underline-offset-2"
+                >
+                  {t("signIn")}
+                </Link>
+              </div>
+            )}
 
             {/* Items */}
             <div className="flex-1 overflow-y-auto py-2">
@@ -143,15 +199,9 @@ export function CartDrawer() {
                         <div className="flex items-center justify-between mt-2">
                           <div className="flex items-center gap-1.5 bg-muted rounded-full px-1 py-0.5">
                             <button
-                              onClick={() => {
-                                if (item.quantity <= 1)
-                                  removeMutation.mutate(item.productId);
-                                else
-                                  updateMutation.mutate({
-                                    productId: item.productId,
-                                    quantity: item.quantity - 1,
-                                  });
-                              }}
+                              onClick={() =>
+                                handleUpdate(item.productId, item.quantity - 1)
+                              }
                               className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
                             >
                               <Minus className="w-3 h-3" />
@@ -161,10 +211,7 @@ export function CartDrawer() {
                             </span>
                             <button
                               onClick={() =>
-                                updateMutation.mutate({
-                                  productId: item.productId,
-                                  quantity: item.quantity + 1,
-                                })
+                                handleUpdate(item.productId, item.quantity + 1)
                               }
                               disabled={item.quantity >= item.product.stock}
                               className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-colors disabled:opacity-40"
@@ -173,9 +220,7 @@ export function CartDrawer() {
                             </button>
                           </div>
                           <button
-                            onClick={() =>
-                              removeMutation.mutate(item.productId)
-                            }
+                            onClick={() => handleRemove(item.productId)}
                             className="p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -210,13 +255,23 @@ export function CartDrawer() {
                 <p className="text-[11px] text-muted-foreground text-center">
                   {t("deliveryNote")}
                 </p>
-                <Link
-                  href={`/${locale}/checkout`}
-                  onClick={closeCart}
-                  className="block w-full text-center py-3 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-colors"
-                >
-                  {t("checkout")}
-                </Link>
+                {isLoggedIn ? (
+                  <Link
+                    href={`/${locale}/checkout`}
+                    onClick={closeCart}
+                    className="block w-full text-center py-3 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-colors"
+                  >
+                    {t("checkout")}
+                  </Link>
+                ) : (
+                  <Link
+                    href={`/${locale}/auth/sign-in`}
+                    onClick={closeCart}
+                    className="block w-full text-center py-3 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-colors"
+                  >
+                    {t("signInToCheckout")}
+                  </Link>
+                )}
                 <button
                   onClick={closeCart}
                   className="block w-full text-center py-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
