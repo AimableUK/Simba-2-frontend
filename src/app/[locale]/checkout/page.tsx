@@ -528,7 +528,7 @@ export default function CheckoutPage() {
                       desc: t("dpoDesc"),
                     },
                     {
-                      value: "cash_on_delivery",
+                      value: "dpo",
                       label: t("cod"),
                       icon: Banknote,
                       desc: t("codDesc"),
