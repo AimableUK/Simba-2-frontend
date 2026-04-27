@@ -97,7 +97,7 @@
     "district": "District",
     "sector": "Sector",
     "notes": "Delivery Notes",
-    "dpo": "Pay with Card / Mobile Money (DPO)",
+    "dpo": "Pay with Card / Mobile Money",
     "cod": "Cash on Delivery",
     "placeOrder": "Place Order",
     "processing": "Processing...",
