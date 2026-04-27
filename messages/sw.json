@@ -81,7 +81,10 @@
     "items": "vitu {count}",
     "freeDelivery": "Uwasilishaji bure kwa zaidi ya RWF {amount}",
     "deliveryNote": "Uwasilishaji Kigali tu",
-    "continueShopping": "Endelea Kununua"
+    "continueShopping": "Endelea Kununua",
+    "guestCartNotice": "Unatumia kama mgeni. Ingia ili kuhifadhi mkoba wako.",
+    "signIn": "Ingia",
+    "signInToCheckout": "Ingia ili Kulipa"
   },
   "checkout": {
     "title": "Malipo",

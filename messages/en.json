@@ -81,7 +81,10 @@
     "items": "items",
     "freeDelivery": "Free delivery on orders over RWF {amount}",
     "deliveryNote": "Delivery within Kigali only",
-    "continueShopping": "Continue Shopping"
+    "continueShopping": "Continue Shopping",
+    "guestCartNotice": "You're browsing as a guest. Sign in to save your cart.",
+    "signIn": "Sign in",
+    "signInToCheckout": "Sign in to Checkout"
   },
   "checkout": {
     "title": "Checkout",

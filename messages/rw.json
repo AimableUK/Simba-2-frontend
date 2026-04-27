@@ -79,9 +79,12 @@
     "remove": "Kura",
     "update": "Vugurura",
     "items": "ibintu {count}",
-    "freeDelivery": "Gutumiza biridwa ku birenze RWF {amount}",
+    "freeDelivery": "Gutumiza birindwa ku birenze RWF {amount}",
     "deliveryNote": "Gutumiza i Kigali gusa",
-    "continueShopping": "Komeza Kugura"
+    "continueShopping": "Komeza Kugura",
+    "guestCartNotice": "Urimo nk'umushyitsi. Injira kugira ngo uhahe.",
+    "signIn": "Injira",
+    "signInToCheckout": "Injira kugira ngo Ugure"
   },
   "checkout": {
     "title": "Kwishyura",

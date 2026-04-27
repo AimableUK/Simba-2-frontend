@@ -22,7 +22,7 @@ import {
 import { toast } from "sonner";
 import { productApi, reviewApi } from "@/lib/api";
 import { useCart } from "@/hooks/useCart";
-import { useWishlistStore } from "@/store";
+import { useCartStore, useGuestCartStore, useWishlistStore } from "@/store";
 import { useSession } from "@/lib/auth-client";
 import { formatPrice, getImageUrl, getDiscountPercent } from "@/lib/utils";
 import { ProductDetailSkeleton } from "@/components/common/skeletons";
@@ -77,6 +77,8 @@ export default function ProductPage() {
   const [quantity, setQuantity] = useState(1);
   const [reviewRating, setReviewRating] = useState(5);
   const [reviewComment, setReviewComment] = useState("");
+  const guestCart = useGuestCartStore();
+  const { openCart } = useCartStore();
 
   const { data: product, isLoading } = useQuery({
     queryKey: ["product", slug],
@@ -106,14 +108,37 @@ export default function ProductPage() {
 
   const handleAddToCart = useCallback(async () => {
     if (!session?.user) {
-      router.push(`/${locale}/auth/sign-in`);
+      guestCart.add({
+        productId: product!.id,
+        quantity,
+        product: {
+          id: product!.id,
+          name: product!.name,
+          slug: product!.slug,
+          price: product!.price,
+          comparePrice: product!.comparePrice,
+          images: product!.images,
+          stock: product!.stock,
+        },
+      });
+      openCart();
+      toast.success(t("addedToCart"));
       return;
     }
     try {
       await addToCartAsync({ productId: product!.id, quantity });
       toast.success(t("addedToCart"));
     } catch {}
-  }, [product, quantity, session, addToCartAsync, locale, router, t]);
+  }, [
+    product,
+    quantity,
+    session,
+    addToCartAsync,
+    guestCart,
+    openCart,
+    locale,
+    t,
+  ]);
 
   const handleWishlist = useCallback(() => {
     if (!product) return;

@@ -81,7 +81,10 @@
     "items": "articles",
     "freeDelivery": "Livraison gratuite pour les commandes supérieures à RWF {amount}",
     "deliveryNote": "Livraison à Kigali uniquement",
-    "continueShopping": "Continuer les Achats"
+    "continueShopping": "Continuer les Achats",
+    "guestCartNotice": "Vous naviguez en tant qu'invité. Connectez-vous pour sauvegarder votre panier.",
+    "signIn": "Se connecter",
+    "signInToCheckout": "Se connecter pour payer"
   },
   "checkout": {
     "title": "Paiement",
