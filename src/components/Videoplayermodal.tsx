@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, lazy, Suspense } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
@@ -12,20 +12,21 @@ import {
   RotateCcw,
 } from "lucide-react";
 
-//  Types
+//  Types 
 interface VideoPlayerModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-//  Helpers
-function formatTime(seconds: number): string {
-  const m = Math.floor(seconds / 60);
-  const s = Math.floor(seconds % 60);
-  return `${m}:${s.toString().padStart(2, "0")}`;
+//  Helpers 
+function formatTime(s: number): string {
+  if (!s || isNaN(s)) return "0:00";
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return `${m}:${sec.toString().padStart(2, "0")}`;
 }
 
-//  Custom progress bar
+//  Progress bar 
 function ProgressBar({
   current,
   duration,
@@ -36,124 +37,158 @@ function ProgressBar({
   onSeek: (pct: number) => void;
 }) {
   const barRef = useRef<HTMLDivElement>(null);
+  const pct = duration > 0 ? (current / duration) * 100 : 0;
 
-  const handleClick = (e: React.MouseEvent) => {
+  const calc = (clientX: number) => {
     if (!barRef.current) return;
     const rect = barRef.current.getBoundingClientRect();
-    const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-    onSeek(pct);
+    const p = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+    onSeek(p);
   };
-
-  const pct = duration ? (current / duration) * 100 : 0;
 
   return (
     <div
       ref={barRef}
-      onClick={handleClick}
-      className="group relative h-1 w-full cursor-pointer rounded-full bg-white/20 transition-all hover:h-2"
+      onMouseDown={(e) => {
+        e.stopPropagation();
+        calc(e.clientX);
+      }}
+      className="group relative h-1.5 w-full cursor-pointer rounded-full bg-white/25 hover:h-2.5 transition-all duration-150"
     >
-      {/* filled */}
       <div
-        className="absolute inset-y-0 left-0 rounded-full bg-primary transition-all"
+        className="absolute inset-y-0 left-0 rounded-full bg-primary"
         style={{ width: `${pct}%` }}
       />
-      {/* thumb */}
       <div
-        className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 h-3 w-3 rounded-full bg-primary opacity-0 shadow-lg transition-opacity group-hover:opacity-100"
+        className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 h-3.5 w-3.5 rounded-full bg-primary shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
         style={{ left: `${pct}%` }}
       />
     </div>
   );
 }
 
-//  The actual player (loaded lazily)
-function VideoPlayer({ onClose }: { onClose: () => void }) {
+//  Player 
+function VideoPlayer() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
+  const [volume, setVolume] = useState(1);
   const [current, setCurrent] = useState(0);
   const [duration, setDuration] = useState(0);
   const [showControls, setShowControls] = useState(true);
   const [ended, setEnded] = useState(false);
-  const hideTimer = useRef<ReturnType<typeof setTimeout>>(null);
+  const [ready, setReady] = useState(false);
 
-  // Auto-hide controls
-  const resetHideTimer = () => {
-    if (hideTimer.current) clearTimeout(hideTimer.current);
-    setShowControls(true);
-    hideTimer.current = setTimeout(() => {
-      if (playing) setShowControls(false);
-    }, 3000);
-  };
-
+  // Use a ref so the timer callback always reads fresh state
+  const playingRef = useRef(playing);
   useEffect(() => {
-    resetHideTimer();
-    return () => {
-      if (hideTimer.current) clearTimeout(hideTimer.current);
-    };
+    playingRef.current = playing;
   }, [playing]);
 
-  const toggle = () => {
+  const scheduleHide = useCallback(() => {
+    if (hideTimer.current) clearTimeout(hideTimer.current);
+    hideTimer.current = setTimeout(() => {
+      if (playingRef.current) setShowControls(false);
+    }, 3000);
+  }, []);
+
+  const showAndScheduleHide = useCallback(() => {
+    setShowControls(true);
+    scheduleHide();
+  }, [scheduleHide]);
+
+  useEffect(
+    () => () => {
+      if (hideTimer.current) clearTimeout(hideTimer.current);
+    },
+    [],
+  );
+
+  // When playing starts, kick off the hide timer
+  useEffect(() => {
+    if (playing) scheduleHide();
+    else {
+      if (hideTimer.current) clearTimeout(hideTimer.current);
+      setShowControls(true);
+    }
+  }, [playing, scheduleHide]);
+
+  const toggle = useCallback(() => {
     const v = videoRef.current;
     if (!v) return;
     if (ended) {
       v.currentTime = 0;
       setEnded(false);
     }
-    if (v.paused) {
-      v.play();
-      setPlaying(true);
-    } else {
-      v.pause();
-      setPlaying(false);
-    }
-  };
+    if (v.paused) v.play().catch(() => {});
+    else v.pause();
+  }, [ended]);
 
-  const handleSeek = (pct: number) => {
+  const seek = useCallback((pct: number) => {
     const v = videoRef.current;
-    if (!v || !duration) return;
-    v.currentTime = pct * duration;
+    if (!v) return;
+    v.currentTime = pct * v.duration;
     setEnded(false);
-  };
+  }, []);
 
-  const toggleMute = () => {
+  const toggleMute = useCallback(() => {
     const v = videoRef.current;
     if (!v) return;
     v.muted = !v.muted;
     setMuted(v.muted);
-  };
+  }, []);
 
-  const fullscreen = () => {
-    const v = videoRef.current;
-    if (!v) return;
-    if (v.requestFullscreen) v.requestFullscreen();
-  };
+  const goFullscreen = useCallback(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    if (el.requestFullscreen) el.requestFullscreen();
+  }, []);
 
-  const restart = () => {
+  const restart = useCallback(() => {
     const v = videoRef.current;
     if (!v) return;
     v.currentTime = 0;
-    v.play();
-    setPlaying(true);
+    v.play().catch(() => {});
     setEnded(false);
-  };
+  }, []);
+
+  // Click on the video area (not controls) → toggle play
+  const handleVideoAreaClick = useCallback(
+    (e: React.MouseEvent) => {
+      // Only fire if clicking the video surface itself (not a button)
+      if ((e.target as HTMLElement).closest("button,input")) return;
+      toggle();
+    },
+    [toggle],
+  );
 
   return (
     <div
-      className="relative w-full overflow-hidden rounded-2xl bg-black shadow-2xl"
-      style={{ aspectRatio: "16/9" }}
-      onMouseMove={resetHideTimer}
+      ref={containerRef}
+      onMouseMove={showAndScheduleHide}
       onMouseLeave={() => {
-        if (playing) setShowControls(false);
+        if (playingRef.current) setShowControls(false);
       }}
+      className="relative w-full overflow-hidden rounded-2xl bg-black select-none"
+      style={{ aspectRatio: "16/9" }}
     >
-      {/* Video element  no controls, no download */}
+      {/*  Video  */}
       <video
         ref={videoRef}
         src="/simbademo.mp4"
         className="h-full w-full object-contain"
+        playsInline
+        preload="metadata"
+        controlsList="nodownload noremoteplayback nofullscreen"
+        disablePictureInPicture
+        onLoadedMetadata={(e) => {
+          setDuration(e.currentTarget.duration);
+          setReady(true);
+        }}
         onTimeUpdate={(e) => setCurrent(e.currentTarget.currentTime)}
-        onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
         onPlay={() => {
           setPlaying(true);
           setEnded(false);
@@ -164,71 +199,90 @@ function VideoPlayer({ onClose }: { onClose: () => void }) {
           setEnded(true);
           setShowControls(true);
         }}
-        playsInline
-        controlsList="nodownload noremoteplayback"
-        disablePictureInPicture
-        preload="metadata"
       />
 
-      {/* Big centre play button (only when paused / before play) */}
+      {/*  Loading spinner (before metadata loaded)  */}
+      {!ready && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="h-10 w-10 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+        </div>
+      )}
+
+      {/*  Clickable video surface (ignores control layer)  */}
+      {ready && (
+        <div
+          className="absolute inset-0"
+          style={{ bottom: "72px" }} // leave room for controls so they still receive events
+          onClick={handleVideoAreaClick}
+        />
+      )}
+
+      {/*  Big centre play/replay button  */}
       <AnimatePresence>
-        {(!playing || ended) && (
-          <motion.button
+        {ready && (!playing || ended) && (
+          <motion.div
             key="bigplay"
-            initial={{ opacity: 0, scale: 0.7 }}
+            initial={{ opacity: 0, scale: 0.75 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.7 }}
-            transition={{ duration: 0.2 }}
-            onClick={toggle}
-            className="absolute inset-0 flex items-center justify-center"
+            exit={{ opacity: 0, scale: 0.75 }}
+            transition={{ duration: 0.18 }}
+            className="pointer-events-none absolute inset-0 flex items-center justify-center"
+            style={{ bottom: "72px" }}
           >
-            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary shadow-xl ring-4 ring-white/20 transition-transform hover:scale-110">
+            <button
+              className="pointer-events-auto flex h-20 w-20 items-center justify-center rounded-full bg-primary shadow-2xl ring-4 ring-white/20 transition-transform hover:scale-110 active:scale-95"
+              onClick={(e) => {
+                e.stopPropagation();
+                toggle();
+              }}
+            >
               {ended ? (
                 <RotateCcw size={32} className="text-white" />
               ) : (
                 <Play size={32} className="translate-x-0.5 text-white" />
               )}
-            </div>
-          </motion.button>
+            </button>
+          </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Clickable overlay to play/pause */}
-      {playing && (
-        <div className="absolute inset-0 cursor-pointer" onClick={toggle} />
-      )}
-
-      {/* Controls bar */}
+      {/*  Controls bar  */}
       <AnimatePresence>
-        {showControls && (
+        {ready && showControls && (
           <motion.div
             key="controls"
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 8 }}
-            transition={{ duration: 0.2 }}
-            className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-4 pb-4 pt-10"
+            exit={{ opacity: 0, y: 6 }}
+            transition={{ duration: 0.18 }}
+            // stopPropagation so mouse events here don't reach the video area div
+            onMouseDown={(e) => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
+            className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent px-4 pb-4 pt-16"
           >
             {/* Progress */}
-            <div className="mb-3">
+            <div className="mb-3 px-1">
               <ProgressBar
                 current={current}
                 duration={duration}
-                onSeek={handleSeek}
+                onSeek={seek}
               />
             </div>
 
-            {/* Buttons row */}
-            <div className="flex items-center gap-3">
-              {/* Play / Pause */}
+            {/* Buttons */}
+            <div className="flex items-center gap-2">
+              {/* Play / Pause / Replay */}
               <button
-                onClick={toggle}
-                className="flex h-8 w-8 items-center justify-center rounded-full text-white transition-colors hover:text-primary"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggle();
+                }}
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white transition-colors hover:text-primary"
               >
-                {playing ? (
-                  <Pause size={18} />
-                ) : ended ? (
+                {ended ? (
                   <RotateCcw size={18} />
+                ) : playing ? (
+                  <Pause size={18} />
                 ) : (
                   <Play size={18} />
                 )}
@@ -236,34 +290,43 @@ function VideoPlayer({ onClose }: { onClose: () => void }) {
 
               {/* Mute */}
               <button
-                onClick={toggleMute}
-                className="flex h-8 w-8 items-center justify-center rounded-full text-white transition-colors hover:text-primary"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleMute();
+                }}
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white transition-colors hover:text-primary"
               >
                 {muted ? <VolumeX size={18} /> : <Volume2 size={18} />}
               </button>
 
               {/* Restart */}
               <button
-                onClick={restart}
-                className="flex h-8 w-8 items-center justify-center rounded-full text-white/60 transition-colors hover:text-white"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  restart();
+                }}
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white/50 transition-colors hover:text-white"
+                title="Restart"
               >
-                <RotateCcw size={15} />
+                <RotateCcw size={14} />
               </button>
 
               {/* Time */}
-              <span className="ml-1 font-mono text-xs text-white/70">
+              <span className="ml-1 font-mono text-xs tabular-nums text-white/60">
                 {formatTime(current)}
-                <span className="mx-1 text-white/30">/</span>
+                <span className="mx-1 text-white/25">/</span>
                 {formatTime(duration)}
               </span>
 
-              {/* Spacer */}
               <div className="flex-1" />
 
               {/* Fullscreen */}
               <button
-                onClick={fullscreen}
-                className="flex h-8 w-8 items-center justify-center rounded-full text-white/60 transition-colors hover:text-white"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goFullscreen();
+                }}
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white/50 transition-colors hover:text-white"
                 title="Fullscreen"
               >
                 <Maximize2 size={16} />
@@ -276,21 +339,22 @@ function VideoPlayer({ onClose }: { onClose: () => void }) {
   );
 }
 
-//  Modal wrapper
+//  Modal 
 export default function VideoPlayerModal({
   isOpen,
   onClose,
 }: VideoPlayerModalProps) {
-  // Close on Escape
+  // Escape key
   useEffect(() => {
+    if (!isOpen) return;
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
-    if (isOpen) window.addEventListener("keydown", handler);
+    window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [isOpen, onClose]);
 
-  // Prevent body scroll while open
+  // Body scroll lock
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
     return () => {
@@ -301,70 +365,54 @@ export default function VideoPlayerModal({
   return (
     <AnimatePresence>
       {isOpen && (
-        <>
+        // Single wrapper — backdrop click closes, inner click stops propagation
+        <motion.div
+          key="modal-root"
+          className="fixed inset-0 z-[999] flex items-center justify-center p-4 sm:p-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          onClick={onClose} // clicking the dark area closes
+        >
           {/* Backdrop */}
-          <motion.div
-            key="backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            onClick={onClose}
-            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm"
-          />
+          <div className="absolute inset-0 bg-black/85 backdrop-blur-sm" />
 
-          {/* Dialog */}
+          {/* Dialog — clicks here must NOT propagate to the backdrop */}
           <motion.div
-            key="dialog"
-            initial={{ opacity: 0, scale: 0.92, y: 24 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.92, y: 16 }}
+            className="relative z-10 w-full max-w-4xl"
+            initial={{ scale: 0.92, y: 28 }}
+            animate={{ scale: 1, y: 0 }}
+            exit={{ scale: 0.92, y: 20 }}
             transition={{
-              duration: 0.35,
+              duration: 0.3,
               ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
             }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8"
-            // Prevent closing when clicking inside the dialog itself
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative w-full max-w-4xl">
-              {/* Close button */}
-              <div className="mb-3 flex items-center justify-between">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-white/40">
-                    Simba Supermarket
-                  </p>
-                  <p className="text-sm font-medium text-white/80">
-                    Product Demo
-                  </p>
-                </div>
-                <button
-                  onClick={onClose}
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
-                >
-                  <X size={18} />
-                </button>
+            {/* Header row */}
+            <div className="mb-3 flex items-center justify-between">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/35">
+                  Simba Supermarket
+                </p>
+                <p className="text-sm font-semibold text-white/75">
+                  Product Demo
+                </p>
               </div>
-
-              {/* Lazy-loaded player  only mounts when modal is open */}
-              <Suspense
-                fallback={
-                  <div
-                    className="flex w-full items-center justify-center rounded-2xl bg-zinc-900"
-                    style={{ aspectRatio: "16/9" }}
-                  >
-                    <div className="flex flex-col items-center gap-3">
-                      <div className="h-10 w-10 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-                      <p className="text-xs text-white/40">Loading video…</p>
-                    </div>
-                  </div>
-                }
+              <button
+                onClick={onClose}
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
+                aria-label="Close video"
               >
-                <VideoPlayer onClose={onClose} />
-              </Suspense>
+                <X size={18} />
+              </button>
             </div>
+
+            {/* Player mounts only when open */}
+            <VideoPlayer />
           </motion.div>
-        </>
+        </motion.div>
       )}
     </AnimatePresence>
   );
