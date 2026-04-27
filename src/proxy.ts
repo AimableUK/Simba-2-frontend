@@ -80,6 +80,6 @@ export default async function middleware(
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|.*\\.(?:ico|png|svg|jpg|jpeg|webp|gif|woff2?|ttf|otf)$).*)",
+    "/((?!_next/static|_next/image|.*\\.(?:ico|png|svg|jpg|jpeg|webp|gif|woff2?|ttf|otf|mp4|webm|ogg|mp3|wav|pdf)$).*)",
   ],
 };
