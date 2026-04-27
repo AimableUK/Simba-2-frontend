@@ -145,16 +145,16 @@ export const reviewApi = {
 
 export const bannerApi = {
   list: () => api.get("/banners"),
-  create: (data: any) => api.post("/admin/banners", data),
-  update: (id: string, data: any) => api.put(`/admin/banners/${id}`, data),
-  delete: (id: string) => api.delete(`/admin/banners/${id}`),
+  create: (data: any) => api.post("/banners/admin", data),
+  update: (id: string, data: any) => api.put(`/banners/admin/${id}`, data),
+  delete: (id: string) => api.delete(`/banners/admin/${id}`),
 };
 
 //  Settings
 
 export const settingsApi = {
   get: () => api.get("/settings"),
-  update: (data: Record<string, string>) => api.put("/admin/settings", data),
+  update: (data: Record<string, string>) => api.put("/settings/admin", data),
 };
 
 //  Upload
