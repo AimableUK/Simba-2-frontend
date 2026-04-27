@@ -527,12 +527,6 @@ export default function CheckoutPage() {
                       icon: CreditCard,
                       desc: t("dpoDesc"),
                     },
-                    {
-                      value: "dpo",
-                      label: t("cod"),
-                      icon: Banknote,
-                      desc: t("codDesc"),
-                    },
                   ] as const
                 ).map(({ value, label, icon: Icon, desc }) => (
                   <button
