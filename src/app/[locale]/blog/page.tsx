@@ -58,10 +58,10 @@ export default function BlogPage() {
           </div>
         ) : (
           <>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 h-full">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {data?.data?.map((blog: Blog) => (
                 <Link key={blog.id} href={`/${locale}/blog/${blog.slug}`} className="group block">
-                  <article className="bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 hover:shadow-lg transition-all duration-300">
+                  <article className="h-full bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 hover:shadow-lg transition-all duration-300">
                     {blog.image && (
                       <div className="relative h-48 overflow-hidden">
                         <Image src={getImageUrl(blog.image)} alt={blog.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw" />
