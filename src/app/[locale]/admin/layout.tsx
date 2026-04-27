@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
   LayoutDashboard,
   Package,
@@ -15,8 +15,6 @@ import {
   Settings,
   Menu,
   X,
-  ShoppingBag,
-  Bell,
   ChevronRight,
   Clock,
   MapPin,
@@ -29,58 +27,6 @@ import { ThemeSwitcherV1 } from "@/lib/theme-switcher-v1";
 import LanguageSwitcherV1 from "@/components/common/LanguageSwitcherV1";
 import Image from "next/image";
 
-const NAV_ITEMS = [
-  {
-    label: "Dashboard",
-    href: "dashboard",
-    icon: LayoutDashboard,
-    roles: ["admin", "super_admin"],
-  },
-  {
-    label: "Products",
-    href: "products",
-    icon: Package,
-    roles: ["poster", "admin", "super_admin"],
-  },
-  {
-    label: "Orders",
-    href: "orders",
-    icon: ShoppingCart,
-    roles: ["admin", "super_admin"],
-  },
-  {
-    label: "Branches",
-    href: "branches",
-    icon: MapPin,
-    roles: ["admin", "super_admin"],
-  },
-  { label: "Users", href: "users", icon: Users, roles: ["super_admin"] },
-  {
-    label: "Blog Posts",
-    href: "blogs",
-    icon: FileText,
-    roles: ["poster", "admin", "super_admin"],
-  },
-  {
-    label: "Messages",
-    href: "contacts",
-    icon: MessageSquare,
-    roles: ["admin", "super_admin"],
-  },
-  {
-    label: "Banners",
-    href: "banners",
-    icon: ImageIcon,
-    roles: ["admin", "super_admin"],
-  },
-  {
-    label: "Settings",
-    href: "settings",
-    icon: Settings,
-    roles: ["super_admin"],
-  },
-];
-
 export default function AdminLayout({
   children,
 }: {
@@ -89,10 +35,63 @@ export default function AdminLayout({
   const { data: session, isPending } = useSession();
   const router = useRouter();
   const locale = useLocale();
+  const t = useTranslations();
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notifications, setNotifications] = useState(0);
   const [time, setTime] = useState(new Date());
+
+  const NAV_ITEMS = [
+    {
+      label: t("dashboard"),
+      href: "dashboard",
+      icon: LayoutDashboard,
+      roles: ["admin", "super_admin"],
+    },
+    {
+      label: t("products"),
+      href: "products",
+      icon: Package,
+      roles: ["poster", "admin", "super_admin"],
+    },
+    {
+      label: t("orders.title"),
+      href: "orders",
+      icon: ShoppingCart,
+      roles: ["admin", "super_admin"],
+    },
+    {
+      label: t("branches"),
+      href: "branches",
+      icon: MapPin,
+      roles: ["admin", "super_admin"],
+    },
+    { label: t("users"), href: "users", icon: Users, roles: ["super_admin"] },
+    {
+      label: t("blogs"),
+      href: "blogs",
+      icon: FileText,
+      roles: ["poster", "admin", "super_admin"],
+    },
+    {
+      label: t("messages"),
+      href: "contacts",
+      icon: MessageSquare,
+      roles: ["admin", "super_admin"],
+    },
+    {
+      label: t("banners"),
+      href: "banners",
+      icon: ImageIcon,
+      roles: ["admin", "super_admin"],
+    },
+    {
+      label: t("settings"),
+      href: "settings",
+      icon: Settings,
+      roles: ["super_admin"],
+    },
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => setTime(new Date()), 1000);
