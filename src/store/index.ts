@@ -111,3 +111,74 @@ export const useWishlistStore = create<WishlistStore>()(
     { name: "simba-wishlist" },
   ),
 );
+
+// Used when user is not logged in. On login, useCart hook syncs it to the server.
+
+export interface GuestCartItem {
+  productId: string;
+  quantity: number;
+  product: {
+    id: string;
+    name: string;
+    slug: string;
+    price: number;
+    comparePrice?: number;
+    images: string[];
+    stock: number;
+  };
+}
+
+interface GuestCartStore {
+  items: GuestCartItem[];
+  add: (item: GuestCartItem) => void;
+  update: (productId: string, quantity: number) => void;
+  remove: (productId: string) => void;
+  clear: () => void;
+}
+
+export const useGuestCartStore = create<GuestCartStore>()(
+  persist(
+    (set, get) => ({
+      items: [],
+
+      add: (item) =>
+        set((s) => {
+          const existing = s.items.find((i) => i.productId === item.productId);
+          if (existing) {
+            return {
+              items: s.items.map((i) =>
+                i.productId === item.productId
+                  ? {
+                      ...i,
+                      quantity: Math.min(
+                        i.product.stock,
+                        i.quantity + item.quantity,
+                      ),
+                    }
+                  : i,
+              ),
+            };
+          }
+          return { items: [...s.items, item] };
+        }),
+
+      update: (productId, quantity) =>
+        set((s) => ({
+          items:
+            quantity <= 0
+              ? s.items.filter((i) => i.productId !== productId)
+              : s.items.map((i) =>
+                  i.productId === productId ? { ...i, quantity } : i,
+                ),
+        })),
+
+      remove: (productId) =>
+        set((s) => ({
+          items: s.items.filter((i) => i.productId !== productId),
+        })),
+
+      clear: () => set({ items: [] }),
+    }),
+    { name: "simba-guest-cart" },
+  ),
+);

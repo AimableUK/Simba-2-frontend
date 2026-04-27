@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { cartApi, wishlistApi } from "@/lib/api";
-import { useWishlistStore, useCartStore } from "@/store";
+import { useWishlistStore, useCartStore, useGuestCartStore } from "@/store";
 import { cn, formatPrice, getDiscountPercent, getImageUrl } from "@/lib/utils";
 import { useSession } from "@/lib/auth-client";
 
@@ -33,6 +33,7 @@ export function ProductCard({ product }: { product: Product }) {
   const { has: isWishlisted, toggle: toggleLocal } = useWishlistStore();
   const { addItem } = useCartStore();
   const qc = useQueryClient();
+  const { add: addToGuestCart } = useGuestCartStore();
 
   const discount = getDiscountPercent(product.price, product.comparePrice);
   const wishlisted = isWishlisted(product.id);
@@ -57,11 +58,30 @@ export function ProductCard({ product }: { product: Product }) {
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (!session?.user) {
-      toast.error("Please sign in to add to cart");
+    if (product.stock === 0) {
+      toast.error(t("outOfStock"));
       return;
     }
-    if (product.stock === 0) return;
+
+    if (!session?.user) {
+      // Not logged in - persist to localStorage guest cart
+      addToGuestCart({
+        productId: product.id,
+        quantity: 1,
+        product: {
+          id: product.id,
+          name: product.name,
+          slug: product.slug,
+          price: product.price,
+          comparePrice: product.comparePrice,
+          images: product.images,
+          stock: product.stock,
+        },
+      });
+      toast.success(t("addedToCart"));
+      return;
+    }
+
     cartMutation.mutate();
   };
 
@@ -149,7 +169,7 @@ export function ProductCard({ product }: { product: Product }) {
             <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
               <button
                 onClick={handleAddToCart}
-                disabled={product.stock === 0 || cartMutation.isPending}
+                disabled={cartMutation.isPending}
                 className={cn(
                   "w-full py-2.5 text-xs font-semibold flex items-center justify-center gap-2 transition-colors",
                   product.stock === 0
