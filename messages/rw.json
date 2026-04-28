@@ -16,7 +16,14 @@
     "search": "Shakisha ibicuruzwa...",
     "searchPlaceholder": "Shakisha ibicuruzwa, amasoko...",
     "branches": "Amashami",
-    "allProducts": "Ibicuruzwa Byose"
+    "allProducts": "Ibicuruzwa Byose",
+    "notifications": "Imenyesha",
+    "viewMore": "Reba byinshi",
+    "markAllRead": "Fata byose nk'ibyasomwe",
+    "noNotifications": "Nta menyesha rikiriho",
+    "recentNotifications": "Amamenyesha ya vuba",
+    "unread": "ntibisomwe",
+    "accountCenter": "Ahantu ha konti"
   },
   "home": {
     "hero": {
@@ -125,6 +132,14 @@
     "terms": "Amategeko yacu",
     "today": "Uyu munsi",
     "tomorrow": "Ejo",
+    "branchSwitchTitle": "Hindura ishami?",
+    "branchSwitchDescription": "{branch} nta bimwe mu bicuruzwa biri mu gasanduku ifite.",
+    "branchSwitchRequestedAvailable": "Byasabwe {requested}, bihari {available}",
+    "branchSwitchRemove": "Kura",
+    "branchSwitchConfirm": "Hindura kandi ukureho ibintu",
+    "branchSwitchCancel": "Hagarika",
+    "branchSwitched": "Wimukiye kuri {branch}.",
+    "branchSwitchedRemoved": "Wimukiye kuri {branch}. Ibintu bitabonetse byavanyweho.",
     "placeholders": {
       "fullName": "Andika amazina yawe",
       "phone": "Andika nimero ya telefoni yawe",
@@ -386,6 +401,7 @@
     "view": "Reba",
     "close": "Funga",
     "back": "Subira Inyuma",
+    "clear": "Siba",
     "next": "Komeza",
     "previous": "Ibanza",
     "page": "Urupapuro {page} kuri {total}",
@@ -400,6 +416,7 @@
     "lightMode": "Isura Nziza",
     "language": "Ururimi",
     "allProducts": "Ibicuruzwa Byose",
+    "profile": "Umwirondoro",
     "sortOptions": {
       "newestFirst": "Habanze ibishya",
       "mostPopular": "Ibyamamaye",
@@ -432,6 +449,7 @@
   "branches": {
     "title": "Amashami Yacu",
     "subtitle": "Gaba ibicuruzwa byawe mu cyumba kimwe cya Kigali",
+    "shoppingAt": "Gura kuri",
     "selectBranch": "Hitamo Ishami",
     "pickupTime": "Igihe cyo gutwara icyo waguze",
     "pickupTimeNote": "Hitamo igihe hagati y'amasaha y'akazi",

@@ -16,7 +16,14 @@
     "search": "Tafuta bidhaa...",
     "searchPlaceholder": "Tafuta bidhaa, chapa...",
     "branches": "Matawi",
-    "allProducts": "Bidhaa Zote"
+    "allProducts": "Bidhaa Zote",
+    "notifications": "Arifa",
+    "viewMore": "Ona zaidi",
+    "markAllRead": "Weka yote kuwa yamesomwa",
+    "noNotifications": "Bado hakuna arifa",
+    "recentNotifications": "Arifa za hivi karibuni",
+    "unread": "haijasomwa",
+    "accountCenter": "Kituo cha Akaunti"
   },
   "home": {
     "hero": {
@@ -125,6 +132,14 @@
     "terms": "Masharti yetu",
     "today": "Leo",
     "tomorrow": "Kesho",
+    "branchSwitchTitle": "Badilisha tawi?",
+    "branchSwitchDescription": "{branch} haina baadhi ya bidhaa zilizo kwenye kikapu.",
+    "branchSwitchRequestedAvailable": "Zilizoombwa {requested}, zinapatikana {available}",
+    "branchSwitchRemove": "Ondoa",
+    "branchSwitchConfirm": "Badilisha na ondoa bidhaa",
+    "branchSwitchCancel": "Sitisha",
+    "branchSwitched": "Umebadilisha hadi {branch}.",
+    "branchSwitchedRemoved": "Umebadilisha hadi {branch}. Bidhaa zisizopatikana zimeondolewa.",
     "placeholders": {
       "fullName": "Ingiza jina lako",
       "phone": "Ingiza nambari yako ya simu",
@@ -386,6 +401,7 @@
     "view": "Angalia",
     "close": "Funga",
     "back": "Rudi",
+    "clear": "Futa",
     "next": "Mbele",
     "previous": "Nyuma",
     "page": "Ukurasa {page} kati ya {total}",
@@ -400,6 +416,7 @@
     "lightMode": "Hali ya Mwanga",
     "language": "Lugha",
     "allProducts": "Bidhaa Zote",
+    "profile": "Profaili",
     "sortOptions": {
       "newestFirst": "Mpya Kwanza",
       "mostPopular": "Maarufu Zaidi",
@@ -432,6 +449,7 @@
   "branches": {
     "title": "Matawi Yetu",
     "subtitle": "Chukua oda yako katika tawi lolote la Kigali",
+    "shoppingAt": "Ununuzi katika",
     "selectBranch": "Chagua Tawi",
     "pickupTime": "Wakati wa Kuchukua",
     "pickupTimeNote": "Chagua wakati kati ya masaa ya kazi",

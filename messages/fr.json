@@ -16,7 +16,14 @@
     "search": "Rechercher des produits...",
     "searchPlaceholder": "Rechercher des produits, marques...",
     "branches": "Agences",
-    "allProducts": "Tous les Produits"
+    "allProducts": "Tous les Produits",
+    "notifications": "Notifications",
+    "viewMore": "Voir plus",
+    "markAllRead": "Tout marquer comme lu",
+    "noNotifications": "Aucune notification pour le moment",
+    "recentNotifications": "Notifications rÃ©centes",
+    "unread": "non lu",
+    "accountCenter": "Centre de compte"
   },
   "home": {
     "hero": {
@@ -125,6 +132,14 @@
     "terms": "Conditions",
     "today": "Aujourd'hui",
     "tomorrow": "Demain",
+    "branchSwitchTitle": "Changer de succursale ?",
+    "branchSwitchDescription": "{branch} n'a pas certains articles du panier.",
+    "branchSwitchRequestedAvailable": "Demandé {requested}, disponible {available}",
+    "branchSwitchRemove": "Supprimer",
+    "branchSwitchConfirm": "Changer et supprimer les articles",
+    "branchSwitchCancel": "Annuler",
+    "branchSwitched": "Passé à {branch}.",
+    "branchSwitchedRemoved": "Passé à {branch}. Les articles indisponibles ont été supprimés.",
     "placeholders": {
       "fullName": "Entrez votre nom",
       "phone": "Entrez votre numéro de téléphone",
@@ -386,6 +401,7 @@
     "view": "Voir",
     "close": "Fermer",
     "back": "Retour",
+    "clear": "Effacer",
     "next": "Suivant",
     "previous": "Précédent",
     "page": "Page {page} sur {total}",
@@ -400,6 +416,7 @@
     "lightMode": "Mode Clair",
     "language": "Langue",
     "allProducts": "Tous les Produits",
+    "profile": "Profil",
     "sortOptions": {
       "newestFirst": "Les plus récents",
       "mostPopular": "Les plus populaires",
@@ -432,6 +449,7 @@
   "branches": {
     "title": "Nos Agences",
     "subtitle": "Retirez votre commande dans l'une de nos 9 agences à Kigali",
+    "shoppingAt": "Achats chez",
     "selectBranch": "Choisir une Agence",
     "pickupTime": "Heure de Retrait",
     "pickupTimeNote": "Choisissez une heure entre l'ouverture et la fermeture",
