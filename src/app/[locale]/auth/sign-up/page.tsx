@@ -206,6 +206,10 @@ export default function SignUpPage() {
             <span className="font-bold text-lg">Simba Super Market</span>
           </Link>
 
+          <h1 className="mb-3 text-2xl font-bold text-foreground">
+            {t("signUp")}
+          </h1>
+
           {/* Google */}
           {/* <button
             onClick={handleGoogle}
@@ -359,9 +363,6 @@ export default function SignUpPage() {
           </form>
 
           <div className="mb-3">
-            <h1 className="text-2xl font-bold text-foreground">
-              {t("signUp")}
-            </h1>
             <p className="text-muted-foreground mt-1.5 text-sm">
               {t("hasAccount")}{" "}
               <Link

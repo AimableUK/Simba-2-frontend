@@ -151,6 +151,10 @@ export default function SignInPage() {
             <span className="font-bold text-lg">Simba Super Market</span>
           </Link>
 
+          <h1 className=" mt-3 text-2xl font-bold text-foreground">
+            {t("signIn")}
+          </h1>
+
           {/* Google button */}
           {/* <button
             onClick={handleGoogle}
@@ -264,9 +268,6 @@ export default function SignInPage() {
             </button>
           </form>
           <div className="mt-3">
-            <h1 className="text-2xl font-bold text-foreground">
-              {t("signIn")}
-            </h1>
             <p className="text-muted-foreground mt-1.5 text-sm">
               {t("noAccount")}{" "}
               <Link
