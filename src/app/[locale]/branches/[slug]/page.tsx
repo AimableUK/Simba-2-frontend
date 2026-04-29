@@ -16,6 +16,7 @@ import {
   Minus,
   CheckCircle,
   Sparkles,
+  MoveLeft,
 } from "lucide-react";
 import { toast } from "sonner";
 import { branchApi } from "@/lib/api";
@@ -243,7 +244,7 @@ export default function BranchDetailPage() {
           href={`/${locale}/branches`}
           className="mt-4 inline-block text-primary hover:underline"
         >
-          ← All Branches
+          <MoveLeft /> All Branches
         </Link>
       </div>
     );
@@ -275,9 +276,9 @@ export default function BranchDetailPage() {
           </Link>
           <Link
             href={`/${locale}/branches`}
-            className="border border-border px-6 py-3 rounded-xl font-medium hover:bg-muted transition-colors"
+            className="whitespace-nowrap border border-border px-6 py-3 rounded-xl font-medium hover:bg-muted transition-colors"
           >
-            ← {t("title")}
+            <MoveLeft /> {t("title")}
           </Link>
         </div>
       </div>
@@ -290,9 +291,9 @@ export default function BranchDetailPage() {
         <div className="container mx-auto px-4">
           <Link
             href={`/${locale}/branches`}
-            className="text-sm text-muted-foreground hover:text-primary transition-colors mb-4 inline-block"
+            className="whitespace-nowrap text-sm text-muted-foreground hover:text-primary transition-colors mb-4 inline-block"
           >
-            ← {t("title")}
+            <MoveLeft /> {t("title")}
           </Link>
           <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
             <div>

@@ -355,6 +355,21 @@
       "passwordHint": "Make sure your password is strong and easy for you to remember.",
       "submit": "Reset Password",
       "successToast": "Password updated successfully"
+    },
+    "payment": {
+      "success": {
+        "title": "Payment Successful!",
+        "description": "Your payment has been processed successfully.",
+        "order": "Order",
+        "viewOrders": "View My Orders",
+        "continueShopping": "Continue Shopping"
+      },
+      "cancel": {
+        "title": "Payment Cancelled",
+        "description": "Your payment was cancelled. Your order is still saved - you can try again.",
+        "myOrders": "My Orders",
+        "backToCart": "Back to Cart"
+      }
     }
   },
   "admin": {

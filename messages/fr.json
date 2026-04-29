@@ -356,6 +356,21 @@
       "passwordHint": "Assurez-vous que votre mot de passe est solide et facile à retenir.",
       "submit": "Réinitialiser le mot de passe",
       "successToast": "Mot de passe mis à jour avec succès"
+    },
+    "payment": {
+      "success": {
+        "title": "Paiement réussi !",
+        "description": "Votre paiement a été traité avec succès.",
+        "order": "Commande",
+        "viewOrders": "Voir mes commandes",
+        "continueShopping": "Continuer les achats"
+      },
+      "cancel": {
+        "title": "Paiement annulé",
+        "description": "Votre paiement a été annulé. Votre commande est toujours enregistrée - vous pouvez réessayer.",
+        "myOrders": "Mes commandes",
+        "backToCart": "Retour au panier"
+      }
     }
   },
   "admin": {

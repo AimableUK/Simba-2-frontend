@@ -13,6 +13,7 @@ import {
   ShoppingBag,
   ChefHat,
   Bell,
+  MoveLeft,
 } from "lucide-react";
 import { orderApi } from "@/lib/api";
 import { useOrderSocket } from "@/hooks/useSocket";
@@ -140,9 +141,9 @@ export default function OrderDetailPage() {
         <p className="text-muted-foreground">{t("notFound")}</p>
         <Link
           href={`/${locale}/admin/my-orders`}
-          className="mt-4 inline-block text-primary hover:underline"
+          className="whitespace-nowrap mt-4 inline-block text-primary hover:underline"
         >
-          ← {t("title")}
+          <MoveLeft /> {t("title")}
         </Link>
       </div>
     );
@@ -159,9 +160,9 @@ export default function OrderDetailPage() {
       <div className="mb-6">
         <Link
           href={`/${locale}/admin/my-orders`}
-          className="text-muted-foreground hover:text-primary transition-colors text-sm"
+          className="whitespace-nowrap text-muted-foreground hover:text-primary transition-colors text-sm"
         >
-          ← {t("title")}
+          <MoveLeft /> {t("title")}
         </Link>
       </div>
 

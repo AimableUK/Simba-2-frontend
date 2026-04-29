@@ -356,6 +356,21 @@
       "passwordHint": "Menya neza ko ijambo ryibanga ryawe rikomeye kandi ryoroshye kwibuka.",
       "submit": "Hindura ijambo ryibanga",
       "successToast": "Ijambo ryibanga ryahinduwe neza"
+    },
+    "payment": {
+      "success": {
+        "title": "Kwishyura byagenze neza!",
+        "description": "Kwishyura kwawe byakiriwe neza.",
+        "order": "Itumiza",
+        "viewOrders": "Reba amatumiza yanjye",
+        "continueShopping": "Komeza guhaha"
+      },
+      "cancel": {
+        "title": "Kwishyura byahagaritswe",
+        "description": "Kwishyura kwawe byahagaritswe. Itumiza ryawe rikiriho - ushobora kongera kugerageza.",
+        "myOrders": "Amatumiza yanjye",
+        "backToCart": "Subira muri cart"
+      }
     }
   },
   "admin": {

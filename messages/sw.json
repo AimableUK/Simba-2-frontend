@@ -356,6 +356,21 @@
       "passwordHint": "Hakikisha nenosiri lako ni imara na rahisi kukumbuka.",
       "submit": "Weka Upya Nenosiri",
       "successToast": "Nenosiri limesasishwa kwa mafanikio"
+    },
+    "payment": {
+      "success": {
+        "title": "Malipo yamefanikiwa!",
+        "description": "Malipo yako yamechakatawa kwa mafanikio.",
+        "order": "Agizo",
+        "viewOrders": "Angalia maagizo yangu",
+        "continueShopping": "Endelea kununua"
+      },
+      "cancel": {
+        "title": "Malipo yameghairiwa",
+        "description": "Malipo yako yameghairiwa. Agizo lako bado limehifadhiwa - unaweza kujaribu tena.",
+        "myOrders": "Maagizo yangu",
+        "backToCart": "Rudi kwenye cart"
+      }
     }
   },
   "admin": {
