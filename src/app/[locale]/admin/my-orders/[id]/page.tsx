@@ -1,4 +1,5 @@
 "use client";
+
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslations, useLocale } from "next-intl";
 import { useParams } from "next/navigation";
@@ -7,31 +8,80 @@ import Image from "next/image";
 import {
   CheckCircle,
   Circle,
-  Package,
-  Truck,
-  Home,
   Clock,
-  MapPin,
+  XCircle,
+  ShoppingBag,
+  ChefHat,
+  Bell,
 } from "lucide-react";
 import { orderApi } from "@/lib/api";
 import { useOrderSocket } from "@/hooks/useSocket";
-import {
-  formatPrice,
-  formatDateTime,
-  getImageUrl,
-  ORDER_STATUS_STEPS,
-} from "@/lib/utils";
+import { formatPrice, formatDateTime, getImageUrl } from "@/lib/utils";
 import { Skeleton } from "@/components/common/skeletons";
 import { useCallback } from "react";
-import type { Order } from "@/types";
 
-const STATUS_ICONS = {
+//  Match your BranchOrderStatus enum exactly
+
+const ORDER_STATUS_STEPS = [
+  "pending",
+  "accepted",
+  "preparing",
+  "ready",
+  "picked_up",
+] as const;
+
+type OrderStatus = (typeof ORDER_STATUS_STEPS)[number] | "cancelled";
+
+const STATUS_ICONS: Record<string, any> = {
   pending: Clock,
-  confirmed: CheckCircle,
-  packaged: Package,
-  on_the_way: Truck,
-  delivered: Home,
+  accepted: CheckCircle,
+  preparing: ChefHat,
+  ready: Bell,
+  picked_up: ShoppingBag,
+  cancelled: XCircle,
 };
+
+//  Types
+
+interface OrderItem {
+  id: string;
+  name: string;
+  quantity: number;
+  price: number;
+  image?: string;
+}
+
+interface StatusLog {
+  id: string;
+  status: string;
+  note?: string;
+  createdAt: string;
+}
+
+interface Branch {
+  id: string;
+  name: string;
+  address: string;
+  phone?: string;
+}
+
+interface Order {
+  id: string;
+  orderNumber: string;
+  status: OrderStatus;
+  paymentStatus: string;
+  subtotal: number;
+  depositAmount: number;
+  total: number;
+  pickupTime: string;
+  notes?: string;
+  createdAt: string;
+  items: OrderItem[];
+  statusLogs?: StatusLog[];
+  branch?: Branch;
+}
+
+//  Page
 
 export default function OrderDetailPage() {
   const t = useTranslations("orders");
@@ -51,7 +101,12 @@ export default function OrderDetailPage() {
         const nextStatus = data?.status || old.status;
         const nextLog = data?.statusLog;
         const nextLogs = nextLog
-          ? [...(old.statusLogs || []).filter((l: any) => l.status !== nextLog.status), nextLog]
+          ? [
+              ...(old.statusLogs || []).filter(
+                (l: any) => l.status !== nextLog.status,
+              ),
+              nextLog,
+            ]
           : old.statusLogs;
 
         return {
@@ -68,6 +123,7 @@ export default function OrderDetailPage() {
 
   useOrderSocket(id as string, handleOrderUpdate);
 
+  //  Loading
   if (isLoading)
     return (
       <div className="container mx-auto px-4 py-8 max-w-3xl space-y-4">
@@ -77,12 +133,13 @@ export default function OrderDetailPage() {
       </div>
     );
 
+  //  Not found
   if (!order)
     return (
       <div className="container mx-auto px-4 py-20 text-center">
-        <p className="text-muted-foreground">Order not found</p>
+        <p className="text-muted-foreground">{t("notFound")}</p>
         <Link
-          href={`/${locale}/admin/my-orders`}
+          href={`/${locale}/account/orders`}
           className="mt-4 inline-block text-primary hover:underline"
         >
           ← {t("title")}
@@ -90,25 +147,29 @@ export default function OrderDetailPage() {
       </div>
     );
 
-  const currentStep = ORDER_STATUS_STEPS.indexOf(order.status as any);
-  const addr = order.deliveryAddress as any;
+  const isCancelled = order.status === "cancelled";
+  const currentStep = ORDER_STATUS_STEPS.indexOf(
+    order.status as (typeof ORDER_STATUS_STEPS)[number],
+  );
 
+  //  Render
   return (
     <div className="container mx-auto px-4 py-8 max-w-3xl">
-      <div className="flex items-center gap-3 mb-6">
+      {/* Back link */}
+      <div className="mb-6">
         <Link
-          href={`/${locale}/admin/my-orders`}
+          href={`/${locale}/account/orders`}
           className="text-muted-foreground hover:text-primary transition-colors text-sm"
         >
           ← {t("title")}
         </Link>
       </div>
 
+      {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
           <h1 className="text-xl font-bold">
-            {t("orderNumber")}
-            {order.orderNumber}
+            {t("orderNumber")} {order.orderNumber}
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
             {formatDateTime(order.createdAt)}
@@ -118,32 +179,56 @@ export default function OrderDetailPage() {
           <p className="font-bold text-xl text-primary">
             {formatPrice(order.total)}
           </p>
-          <p className="text-xs text-muted-foreground mt-0.5 capitalize">
+          <span
+            className={`text-xs font-medium px-2 py-0.5 rounded-full mt-1 inline-block ${
+              order.paymentStatus === "paid"
+                ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                : order.paymentStatus === "failed"
+                  ? "bg-red-100 text-red-700"
+                  : "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"
+            }`}
+          >
             {order.paymentStatus}
-          </p>
+          </span>
         </div>
       </div>
 
-      {/* Order Timeline */}
-      {order.status !== "cancelled" && (
+      {/* Cancelled banner */}
+      {isCancelled && (
+        <div className="bg-destructive/10 border border-destructive/30 rounded-2xl p-4 mb-4 flex items-center gap-3">
+          <XCircle className="h-5 w-5 text-destructive shrink-0" />
+          <p className="text-sm text-destructive font-medium">
+            {t("cancelledMessage")}
+          </p>
+        </div>
+      )}
+
+      {/* Timeline */}
+      {!isCancelled && (
         <div className="bg-card border border-border rounded-2xl p-6 mb-4">
           <h2 className="font-semibold mb-6">{t("timeline")}</h2>
           <div className="relative">
-            {/* Progress line */}
+            {/* Track line */}
             <div className="absolute left-[18px] top-5 bottom-5 w-0.5 bg-border" />
-            <div
-              className="absolute left-[18px] top-5 w-0.5 bg-primary transition-all duration-700"
-              style={{
-                height: `${Math.min(100, (currentStep / (ORDER_STATUS_STEPS.length - 1)) * 100)}%`,
-              }}
-            />
+            {currentStep >= 0 && (
+              <div
+                className="absolute left-[18px] top-5 w-0.5 bg-primary transition-all duration-700"
+                style={{
+                  height: `${Math.min(
+                    100,
+                    (currentStep / (ORDER_STATUS_STEPS.length - 1)) * 100,
+                  )}%`,
+                }}
+              />
+            )}
 
             <div className="space-y-6">
               {ORDER_STATUS_STEPS.map((step, idx) => {
-                const Icon = STATUS_ICONS[step as keyof typeof STATUS_ICONS];
+                const Icon = STATUS_ICONS[step] || Circle;
                 const done = idx <= currentStep;
                 const active = idx === currentStep;
                 const log = order.statusLogs?.find((l) => l.status === step);
+
                 return (
                   <div key={step} className="flex gap-4 relative">
                     <div
@@ -157,7 +242,9 @@ export default function OrderDetailPage() {
                     </div>
                     <div className="pt-1.5">
                       <p
-                        className={`font-medium text-sm ${done ? "text-foreground" : "text-muted-foreground"}`}
+                        className={`font-medium text-sm ${
+                          done ? "text-foreground" : "text-muted-foreground"
+                        }`}
                       >
                         {t(`status.${step}`)}
                       </p>
@@ -167,7 +254,7 @@ export default function OrderDetailPage() {
                         </p>
                       )}
                       {log?.note && (
-                        <p className="text-xs text-muted-foreground mt-0.5">
+                        <p className="text-xs text-muted-foreground mt-0.5 italic">
                           {log.note}
                         </p>
                       )}
@@ -180,9 +267,60 @@ export default function OrderDetailPage() {
         </div>
       )}
 
+      {/* Pickup info */}
+      <div className="bg-card border border-border rounded-2xl p-6 mb-4">
+        <h2 className="font-semibold mb-4 flex items-center gap-2">
+          <Clock className="h-4 w-4 text-primary" />
+          {t("pickupInfo")}
+        </h2>
+        <div className="text-sm space-y-2">
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">{t("pickupTime")}</span>
+            <span className="font-medium">
+              {formatDateTime(order.pickupTime)}
+            </span>
+          </div>
+          {order.branch && (
+            <>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">{t("branch")}</span>
+                <span className="font-medium">
+                  {order.branch.name?.replace("Simba Supermarket ", "")}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">{t("address")}</span>
+                <span className="font-medium text-right max-w-[60%]">
+                  {order.branch.address}
+                </span>
+              </div>
+              {order.branch.phone && (
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">{t("phone")}</span>
+                  <a
+                    href={`tel:${order.branch.phone}`}
+                    className="font-medium text-primary hover:underline"
+                  >
+                    {order.branch.phone}
+                  </a>
+                </div>
+              )}
+            </>
+          )}
+          {order.notes && (
+            <div className="mt-2 pt-2 border-t border-border">
+              <span className="text-muted-foreground">{t("notes")}: </span>
+              <span className="italic">{order.notes}</span>
+            </div>
+          )}
+        </div>
+      </div>
+
       {/* Items */}
       <div className="bg-card border border-border rounded-2xl p-6 mb-4">
-        <h2 className="font-semibold mb-4">Items ({order.items.length})</h2>
+        <h2 className="font-semibold mb-4">
+          {t("items")} ({order.items.length})
+        </h2>
         <div className="space-y-3">
           {order.items.map((item) => (
             <div key={item.id} className="flex gap-3 items-center">
@@ -196,7 +334,7 @@ export default function OrderDetailPage() {
                     sizes="56px"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs">
+                  <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs font-bold">
                     {item.name[0]}
                   </div>
                 )}
@@ -204,7 +342,7 @@ export default function OrderDetailPage() {
               <div className="flex-1 min-w-0">
                 <p className="font-medium text-sm line-clamp-1">{item.name}</p>
                 <p className="text-xs text-muted-foreground">
-                  x{item.quantity} · {formatPrice(item.price)} each
+                  x{item.quantity} · {formatPrice(item.price)} {t("each")}
                 </p>
               </div>
               <span className="font-semibold text-sm shrink-0">
@@ -213,37 +351,21 @@ export default function OrderDetailPage() {
             </div>
           ))}
         </div>
+
+        {/* Totals */}
         <div className="border-t border-border mt-4 pt-4 space-y-1.5 text-sm">
           <div className="flex justify-between text-muted-foreground">
-            <span>Subtotal</span>
+            <span>{t("subtotal")}</span>
             <span>{formatPrice(order.subtotal)}</span>
           </div>
           <div className="flex justify-between text-muted-foreground">
-            <span>Delivery</span>
-            <span>{formatPrice(order.deliveryFee)}</span>
+            <span>{t("deposit")}</span>
+            <span>{formatPrice(order.depositAmount)}</span>
           </div>
           <div className="flex justify-between font-bold text-base pt-1">
-            <span>Total</span>
+            <span>{t("total")}</span>
             <span className="text-primary">{formatPrice(order.total)}</span>
           </div>
-        </div>
-      </div>
-
-      {/* Delivery Address */}
-      <div className="bg-card border border-border rounded-2xl p-6">
-        <h2 className="font-semibold mb-4 flex items-center gap-2">
-          <MapPin className="h-4 w-4 text-primary" />
-          {t("deliveryAddress")}
-        </h2>
-        <div className="text-sm text-muted-foreground space-y-1">
-          <p className="font-medium text-foreground">{addr?.fullName}</p>
-          <p>{addr?.phone}</p>
-          <p>{addr?.street}</p>
-          <p>
-            {addr?.district}
-            {addr?.sector ? `, ${addr.sector}` : ""}
-          </p>
-          {addr?.notes && <p className="italic">Note: {addr.notes}</p>}
         </div>
       </div>
     </div>
