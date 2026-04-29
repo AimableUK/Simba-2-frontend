@@ -54,7 +54,15 @@ export function useGuestCartSync() {
         toast.success(
           `${snapshot.length} item${snapshot.length > 1 ? "s" : ""} added from your guest cart`,
         );
-      } catch {
+      } catch (err: any) {
+        const status = err?.response?.status;
+        if (status === 401) {
+          // Don't keep retrying a sync that the backend refused.
+          // The guest cart stays intact and will retry after logout/login state changes.
+          console.error("Guest cart sync unauthorized");
+          return;
+        }
+
         // Keep guest cart intact if server sync fails so the user can retry.
         lastSyncedCartKey.current = null;
         console.error("Guest cart sync failed");

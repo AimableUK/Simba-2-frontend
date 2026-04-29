@@ -15,20 +15,6 @@ export const api = axios.create({
 api.interceptors.response.use(
   (res) => res,
   (err) => {
-    if (err.response?.status === 401) {
-      if (typeof window !== "undefined") {
-        if (window.location.pathname.includes("/auth")) {
-          return Promise.reject(err);
-        }
-        const locale = window.location.pathname.split("/")[1];
-        const authPath = ["en", "fr", "rw", "sw"].includes(locale)
-          ? `/${locale}/auth/sign-in`
-          : "/auth/sign-in";
-        if (window.location.pathname !== authPath) {
-          window.location.href = authPath;
-        }
-      }
-    }
     return Promise.reject(err);
   },
 );
