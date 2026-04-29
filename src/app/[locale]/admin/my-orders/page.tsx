@@ -60,7 +60,7 @@ export default function OrdersPage() {
       ) : (
         <div className="space-y-4">
           {data?.data?.map((order: Order) => (
-            <Link key={order.id} href={`/${locale}/account/orders/${order.id}`} className="block">
+            <Link key={order.id} href={`/${locale}/admin/my-orders/${order.id}`} className="block">
               <div className="bg-card border border-border rounded-2xl p-5 hover:border-primary/40 transition-colors">
                 <div className="flex items-start justify-between mb-3">
                   <div>
