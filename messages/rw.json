@@ -8,7 +8,7 @@
     "cart": "Agasanduku",
     "wishlist": "Ibyo Nshaka",
     "account": "Konti Yanjye",
-    "orders": "Amatumiza Yanjye",
+    "orders": "Amatumiza",
     "signIn": "Injira",
     "signUp": "Iyandikishe",
     "signOut": "Sohoka",
@@ -134,7 +134,7 @@
     "items": "Ibibitswe"
   },
   "orders": {
-    "title": "Ibyo Natumije",
+    "title": "Ibyatumijwe",
     "order": "Itumiza",
     "payment": {
       "pending": "Kwishyura Birategerezwa",
@@ -297,6 +297,7 @@
     },
     "signIn": "Injira",
     "signUp": "Fungura Konti",
+    "signOut": "Sohoka",
     "email": "Imeyili",
     "password": "Ijambo Ryibanga",
     "confirmPassword": "Emeza Ijambo Ryibanga",
@@ -314,7 +315,48 @@
     "resetSent": "Uhuza wo gusubiranya ijambo ryibanga yoherejwe ku imeyili yawe",
     "passwordMismatch": "Amagambo y'ibanga ntafanye",
     "loading": "Tegereza...",
-    "continueWithGoogle": "Komeza ukoresheje Google"
+    "continueWithGoogle": "Komeza ukoresheje Google",
+    "backToSignIn": "Subira ku kwinjira",
+    "placeholders": {
+      "email": "Injiza imeyili yawe",
+      "password": "Injiza ijambo ryibanga ryawe",
+      "newPassword": "Injiza ijambo ryibanga rishya",
+      "confirmPassword": "Emeza ijambo ryibanga ryawe"
+    },
+    "errors": {
+      "emailRequired": "Injiza imeyili yawe",
+      "emailInvalid": "Injiza imeyili yemewe",
+      "passwordRequired": "Ijambo ryibanga rirakenewe",
+      "passwordMin": "Ijambo ryibanga rigomba kuba nibura inyuguti 6",
+      "invalidCredentials": "Imeyili cyangwa ijambo ryibanga si byo",
+      "signInFailed": "Kwinjira byanze. Ongera ugerageze.",
+      "googleUnavailable": "Kwinjira ukoresheje Google ntibikora ubu.",
+      "sendResetFailed": "Kohereza imeyili yo gusubiranya byanze. Ongera ugerageze.",
+      "resetTokenInvalid": "Token yo gusubiranya si yo cyangwa irabura",
+      "resetTokenMissing": "Uhuza wo gusubiranya nta token urimo. Saba imeyili nshya.",
+      "resetPasswordFailed": "Gusubiranya ijambo ryibanga byanze",
+      "passwordMismatch": "Amagambo y'ibanga ntafanye",
+      "confirmPasswordRequired": "Emeza ijambo ryibanga ryawe"
+    },
+    "forgotPage": {
+      "description": "Injiza imeyili yawe hanyuma twohereze uhuza wo gusubiranya ijambo ryibanga.",
+      "sentTitle": "Reba mu gasanduku k'ubutumwa",
+      "sentDescription": "Twohereje uhuza wo gusubiranya kuri",
+      "spamHint": "Niba utawubonye, reba muri spam, cyangwa",
+      "tryAgain": "ongera ugerageze",
+      "sendLink": "Ohereza uhuza",
+      "sending": "Kohereza..."
+    },
+    "resetPage": {
+      "title": "Hindura ijambo ryibanga",
+      "description": "Injiza ijambo ryibanga rishya hepfo kugira ngo urangize gusubiranya konti yawe.",
+      "secureHint": "Koresha uhuza wizewe wo muri imeyili yawe kugira ngo ukomeze.",
+      "doneTitle": "Ijambo ryibanga ryahinduwe",
+      "doneDescription": "Ubu ushobora kwinjira ukoresheje ijambo ryibanga ryawe rishya.",
+      "passwordHint": "Menya neza ko ijambo ryibanga ryawe rikomeye kandi ryoroshye kwibuka.",
+      "submit": "Hindura ijambo ryibanga",
+      "successToast": "Ijambo ryibanga ryahinduwe neza"
+    }
   },
   "admin": {
     "layout": {
@@ -450,9 +492,9 @@
     },
     "profile": {
       "title": "Konti Yanjye",
-      "myOrders": "Amatumiza Yanjye",
-      "trackOrders": "Kurikirana amatumiza yawe",
-      "details": "Amakuru y'Umwirondoro",
+      "myOrders": "Ibyo natumije",
+      "trackOrders": "Kurikirana ibyo watumije",
+      "details": "Imyirondoro",
       "fullName": "Amazina Yose",
       "email": "Imeyili",
       "emailLocked": "Imeyili ntishobora guhindurwa",
@@ -668,7 +710,7 @@
       "failed": "Kohereza inzaprezi byanze"
     },
     "orders": {
-      "title": "Amatumiza",
+      "title": "Ibyatumijwe",
       "searchPlaceholder": "Shakisha amatumiza...",
       "allStatuses": "Imiterere Yose",
       "cols": {

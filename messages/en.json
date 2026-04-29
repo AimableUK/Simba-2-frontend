@@ -314,7 +314,48 @@
     "resetSent": "Password reset link sent to your email",
     "passwordMismatch": "Passwords do not match",
     "loading": "Please wait...",
-    "continueWithGoogle": "Continue with Google"
+    "continueWithGoogle": "Continue with Google",
+    "backToSignIn": "Back to sign in",
+    "placeholders": {
+      "email": "Enter your email",
+      "password": "Enter your password",
+      "newPassword": "Enter your new password",
+      "confirmPassword": "Confirm your password"
+    },
+    "errors": {
+      "emailRequired": "Please enter your email",
+      "emailInvalid": "Please enter a valid email",
+      "passwordRequired": "Password is required",
+      "passwordMin": "Password must be at least 6 characters",
+      "invalidCredentials": "Invalid email or password",
+      "signInFailed": "Sign in failed. Please try again.",
+      "googleUnavailable": "Google sign in is currently unavailable.",
+      "sendResetFailed": "Failed to send reset email. Please try again.",
+      "resetTokenInvalid": "Invalid or missing reset token",
+      "resetTokenMissing": "The reset link is missing its token. Please request a new reset email.",
+      "resetPasswordFailed": "Failed to reset password",
+      "passwordMismatch": "Passwords do not match",
+      "confirmPasswordRequired": "Please confirm your password"
+    },
+    "forgotPage": {
+      "description": "Enter your email and we'll send you a link to reset your password.",
+      "sentTitle": "Check your inbox",
+      "sentDescription": "We sent a reset link to",
+      "spamHint": "Didn't receive it? Check your spam folder, or",
+      "tryAgain": "try again",
+      "sendLink": "Send Reset Link",
+      "sending": "Sending..."
+    },
+    "resetPage": {
+      "title": "Reset Password",
+      "description": "Enter your new password below to finish resetting your account.",
+      "secureHint": "Use the secure link from your email to continue.",
+      "doneTitle": "Password updated",
+      "doneDescription": "You can now sign in with your new password.",
+      "passwordHint": "Make sure your password is strong and easy for you to remember.",
+      "submit": "Reset Password",
+      "successToast": "Password updated successfully"
+    }
   },
   "admin": {
     "layout": {

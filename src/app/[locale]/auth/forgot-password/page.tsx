@@ -26,7 +26,7 @@ export default function ForgotPasswordPage() {
       });
       setSent(true);
     } catch {
-      toast.error("Failed to send reset email. Please try again.");
+      toast.error(t("errors.sendResetFailed"));
     } finally {
       setLoading(false);
     }
@@ -58,25 +58,27 @@ export default function ForgotPasswordPage() {
               <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-5">
                 <MailCheck className="h-8 w-8 text-primary" />
               </div>
-              <h1 className="text-2xl font-bold mb-2">Check your inbox</h1>
+              <h1 className="text-2xl font-bold mb-2">
+                {t("forgotPage.sentTitle")}
+              </h1>
               <p className="text-muted-foreground text-sm mb-1">
-                We sent a reset link to
+                {t("forgotPage.sentDescription")}
               </p>
               <p className="font-semibold text-foreground mb-6">{email}</p>
               <p className="text-xs text-muted-foreground mb-8">
-                Didn't receive it? Check your spam folder, or{" "}
+                {t("forgotPage.spamHint")}{" "}
                 <button
                   onClick={() => setSent(false)}
                   className="text-primary hover:underline font-medium"
                 >
-                  try again
+                  {t("forgotPage.tryAgain")}
                 </button>
               </p>
               <Link
                 href={`/${locale}/auth/sign-in`}
                 className="flex items-center justify-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
               >
-                <ArrowLeft className="h-3.5 w-3.5" /> Back to sign in
+                <ArrowLeft className="h-3.5 w-3.5" /> {t("backToSignIn")}
               </Link>
             </motion.div>
           ) : (
@@ -87,8 +89,7 @@ export default function ForgotPasswordPage() {
             >
               <h1 className="text-2xl font-bold mb-2">{t("forgotPassword")}</h1>
               <p className="text-muted-foreground text-sm mb-7">
-                Enter your email and we'll send you a link to reset your
-                password.
+                {t("forgotPage.description")}
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -100,7 +101,7 @@ export default function ForgotPasswordPage() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
+                    placeholder={t("placeholders.email")}
                     required
                     autoFocus
                     className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary text-sm transition-all placeholder:text-muted-foreground/60"
@@ -115,10 +116,10 @@ export default function ForgotPasswordPage() {
                   {loading ? (
                     <>
                       <div className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
-                      Sending...
+                      {t("forgotPage.sending")}
                     </>
                   ) : (
-                    "Send Reset Link"
+                    t("forgotPage.sendLink")
                   )}
                 </button>
               </form>
@@ -127,7 +128,7 @@ export default function ForgotPasswordPage() {
                 href={`/${locale}/auth/sign-in`}
                 className="flex items-center justify-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mt-6"
               >
-                <ArrowLeft className="h-3.5 w-3.5" /> Back to sign in
+                <ArrowLeft className="h-3.5 w-3.5" /> {t("backToSignIn")}
               </Link>
             </motion.div>
           )}

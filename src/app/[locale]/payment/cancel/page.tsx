@@ -14,7 +14,7 @@ export default function PaymentCancelPage() {
         <h1 className="text-2xl font-bold mb-2">Payment Cancelled</h1>
         <p className="text-muted-foreground mb-6">Your payment was cancelled. Your order is still saved - you can try again.</p>
         <div className="flex gap-3 justify-center flex-wrap">
-          <Link href={`/${locale}/account/orders`} className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-medium hover:bg-primary/90 transition-colors">
+          <Link href={`/${locale}/admin/my-orders`} className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-medium hover:bg-primary/90 transition-colors">
             My Orders
           </Link>
           <Link href={`/${locale}/cart`} className="border border-border px-6 py-3 rounded-xl font-medium hover:bg-muted transition-colors">

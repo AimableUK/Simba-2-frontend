@@ -1,4 +1,5 @@
 'use client';
+
 import { useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
@@ -30,7 +31,7 @@ export default function PaymentSuccessPage() {
         </p>
         {ref && <p className="text-sm text-muted-foreground mb-6">Order: <span className="font-mono font-bold">{ref}</span></p>}
         <div className="flex gap-3 justify-center flex-wrap">
-          <Link href={`/${locale}/account/orders`} className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-medium hover:bg-primary/90 transition-colors">
+          <Link href={`/${locale}/admin/my-orders`} className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-medium hover:bg-primary/90 transition-colors">
             View My Orders
           </Link>
           <Link href={`/${locale}/shop`} className="border border-border px-6 py-3 rounded-xl font-medium hover:bg-muted transition-colors">

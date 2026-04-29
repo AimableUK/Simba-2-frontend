@@ -13,17 +13,10 @@ import { resetPassword } from "@/lib/auth-client";
 import { FormField, FormInput } from "@/components/ui/form-field";
 import { toast } from "sonner";
 
-const schema = z
-  .object({
-    password: z.string().min(8, "Password must be at least 8 characters"),
-    confirmPassword: z.string().min(8, "Password must be at least 8 characters"),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  });
-
-type FormData = z.infer<typeof schema>;
+type FormData = {
+  password: string;
+  confirmPassword: string;
+};
 
 export default function ResetPasswordPage() {
   const t = useTranslations("auth");
@@ -31,6 +24,16 @@ export default function ResetPasswordPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get("token") || "";
+
+  const schema = z
+    .object({
+      password: z.string().min(8, t("errors.passwordMin")),
+      confirmPassword: z.string().min(8, t("errors.passwordMin")),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: t("errors.passwordMismatch"),
+      path: ["confirmPassword"],
+    });
 
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
@@ -52,13 +55,13 @@ export default function ResetPasswordPage() {
 
   useEffect(() => {
     if (!token) {
-      toast.error("Invalid or missing reset token");
+      toast.error(t("errors.resetTokenInvalid"));
     }
-  }, [token]);
+  }, [t, token]);
 
   const onSubmit = async (data: FormData) => {
     if (!token) {
-      toast.error("Invalid or missing reset token");
+      toast.error(t("errors.resetTokenInvalid"));
       return;
     }
 
@@ -70,18 +73,18 @@ export default function ResetPasswordPage() {
       });
 
       if (result.error) {
-        toast.error(result.error.message || "Failed to reset password");
+        toast.error(result.error.message || t("errors.resetPasswordFailed"));
         return;
       }
 
       setDone(true);
-      toast.success("Password updated successfully");
+      toast.success(t("resetPage.successToast"));
       setTimeout(() => {
         router.push(`/${locale}/auth/sign-in`);
         router.refresh();
       }, 1200);
     } catch {
-      toast.error("Failed to reset password");
+      toast.error(t("errors.resetPasswordFailed"));
     } finally {
       setLoading(false);
     }
@@ -120,17 +123,17 @@ export default function ResetPasswordPage() {
         <div className="relative z-10 space-y-8">
           <div>
             <h2 className="text-4xl font-bold text-white leading-tight">
-              {t("resetPassword")}
+              {t("resetPage.title")}
             </h2>
             <p className="text-white/80 mt-4 text-lg">
-              Enter a new password and we'll update your account securely.
+              {t("resetPage.description")}
             </p>
           </div>
 
           <div className="w-fit rounded-2xl bg-white/15 px-4 py-3 text-white/90 text-sm backdrop-blur">
             <div className="flex items-center gap-3">
               <Lock className="h-4 w-4" />
-              <span>Use the secure link from your email to continue.</span>
+              <span>{t("resetPage.secureHint")}</span>
             </div>
           </div>
         </div>
@@ -158,10 +161,10 @@ export default function ResetPasswordPage() {
           </Link>
 
           <h1 className="mb-2 text-2xl font-bold text-foreground">
-            {t("resetPassword")}
+            {t("resetPage.title")}
           </h1>
           <p className="text-muted-foreground text-sm mb-7">
-            Enter your new password below to finish resetting your account.
+            {t("resetPage.description")}
           </p>
 
           <AnimatePresence mode="wait">
@@ -176,17 +179,17 @@ export default function ResetPasswordPage() {
                   <CheckCircle className="h-7 w-7 text-primary" />
                 </div>
                 <h2 className="text-lg font-semibold mb-2">
-                  Password updated
+                  {t("resetPage.doneTitle")}
                 </h2>
                 <p className="text-sm text-muted-foreground mb-5">
-                  You can now sign in with your new password.
+                  {t("resetPage.doneDescription")}
                 </p>
                 <Link
                   href={`/${locale}/auth/sign-in`}
                   className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
                 >
                   <ArrowLeft className="h-3.5 w-3.5" />
-                  Back to sign in
+                  {t("backToSignIn")}
                 </Link>
               </motion.div>
             ) : (
@@ -197,8 +200,7 @@ export default function ResetPasswordPage() {
               >
                 {!token && (
                   <div className="mb-5 rounded-2xl border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive">
-                    The reset link is missing its token. Please request a new
-                    reset email.
+                    {t("errors.resetTokenMissing")}
                   </div>
                 )}
 
@@ -211,12 +213,12 @@ export default function ResetPasswordPage() {
                     <div className="relative">
                       <FormInput
                         registration={register("password", {
-                          required: "Password is required",
+                          required: t("errors.passwordRequired"),
                         })}
                         error={!!errors.password}
                         type={showPw ? "text" : "password"}
                         autoComplete="new-password"
-                        placeholder="********"
+                        placeholder={t("placeholders.newPassword")}
                         className="pr-11"
                       />
                       <button
@@ -224,7 +226,7 @@ export default function ResetPasswordPage() {
                         onClick={() => setShowPw(!showPw)}
                         className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors text-xs font-medium"
                       >
-                        {showPw ? "Hide" : "Show"}
+                        {showPw ? t("hide") : t("show")}
                       </button>
                     </div>
                   </FormField>
@@ -237,12 +239,12 @@ export default function ResetPasswordPage() {
                     <div className="relative">
                       <FormInput
                         registration={register("confirmPassword", {
-                          required: "Please confirm your password",
+                          required: t("errors.confirmPasswordRequired"),
                         })}
                         error={!!errors.confirmPassword}
                         type={showConfirm ? "text" : "password"}
                         autoComplete="new-password"
-                        placeholder="********"
+                        placeholder={t("placeholders.confirmPassword")}
                         className="pr-11"
                       />
                       <button
@@ -250,15 +252,14 @@ export default function ResetPasswordPage() {
                         onClick={() => setShowConfirm(!showConfirm)}
                         className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors text-xs font-medium"
                       >
-                        {showConfirm ? "Hide" : "Show"}
+                        {showConfirm ? t("hide") : t("show")}
                       </button>
                     </div>
                   </FormField>
 
                   {password && (
                     <p className="text-xs text-muted-foreground">
-                      Make sure your password is strong and easy for you to
-                      remember.
+                      {t("resetPage.passwordHint")}
                     </p>
                   )}
 
@@ -273,7 +274,7 @@ export default function ResetPasswordPage() {
                         {t("loading")}
                       </>
                     ) : (
-                      t("resetPassword")
+                      t("resetPage.submit")
                     )}
                   </button>
                 </form>
@@ -282,7 +283,7 @@ export default function ResetPasswordPage() {
                   href={`/${locale}/auth/sign-in`}
                   className="flex items-center justify-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mt-6"
                 >
-                  <ArrowLeft className="h-3.5 w-3.5" /> Back to sign in
+                  <ArrowLeft className="h-3.5 w-3.5" /> {t("backToSignIn")}
                 </Link>
               </motion.div>
             )}

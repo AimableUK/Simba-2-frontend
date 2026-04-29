@@ -297,6 +297,7 @@
     },
     "signIn": "Ingia",
     "signUp": "Fungua Akaunti",
+    "signOut": "Toka",
     "email": "Barua Pepe",
     "password": "Nenosiri",
     "confirmPassword": "Thibitisha Nenosiri",
@@ -314,7 +315,48 @@
     "resetSent": "Kiungo cha kuweka upya nenosiri kimetumwa",
     "passwordMismatch": "Manenosiri hayafanani",
     "loading": "Tafadhali subiri...",
-    "continueWithGoogle": "Endelea na Google"
+    "continueWithGoogle": "Endelea na Google",
+    "backToSignIn": "Rudi kwenye kuingia",
+    "placeholders": {
+      "email": "Weka barua pepe yako",
+      "password": "Weka nenosiri lako",
+      "newPassword": "Weka nenosiri jipya",
+      "confirmPassword": "Thibitisha nenosiri lako"
+    },
+    "errors": {
+      "emailRequired": "Tafadhali weka barua pepe yako",
+      "emailInvalid": "Tafadhali weka barua pepe halali",
+      "passwordRequired": "Nenosiri linahitajika",
+      "passwordMin": "Nenosiri lazima liwe na angalau herufi 6",
+      "invalidCredentials": "Barua pepe au nenosiri si sahihi",
+      "signInFailed": "Kuingia kumeshindikana. Tafadhali jaribu tena.",
+      "googleUnavailable": "Kuingia kwa Google hakupatikani kwa sasa.",
+      "sendResetFailed": "Imeshindikana kutuma barua pepe ya kuweka upya. Tafadhali jaribu tena.",
+      "resetTokenInvalid": "Tokeni ya kuweka upya ni batili au haipo",
+      "resetTokenMissing": "Kiungo cha kuweka upya hakina tokeni. Omba barua pepe mpya.",
+      "resetPasswordFailed": "Imeshindikana kuweka upya nenosiri",
+      "passwordMismatch": "Manenosiri hayafanani",
+      "confirmPasswordRequired": "Tafadhali thibitisha nenosiri lako"
+    },
+    "forgotPage": {
+      "description": "Weka barua pepe yako na tutakutumia kiungo cha kuweka upya nenosiri lako.",
+      "sentTitle": "Angalia kikasha chako",
+      "sentDescription": "Tumetuma kiungo cha kuweka upya kwa",
+      "spamHint": "Hukukipata? Angalia spam yako, au",
+      "tryAgain": "jaribu tena",
+      "sendLink": "Tuma kiungo",
+      "sending": "Inatuma..."
+    },
+    "resetPage": {
+      "title": "Weka Upya Nenosiri",
+      "description": "Weka nenosiri lako jipya hapa chini ili kumaliza kuweka upya akaunti yako.",
+      "secureHint": "Tumia kiungo salama kutoka kwenye barua pepe yako ili kuendelea.",
+      "doneTitle": "Nenosiri limesasishwa",
+      "doneDescription": "Sasa unaweza kuingia kwa kutumia nenosiri lako jipya.",
+      "passwordHint": "Hakikisha nenosiri lako ni imara na rahisi kukumbuka.",
+      "submit": "Weka Upya Nenosiri",
+      "successToast": "Nenosiri limesasishwa kwa mafanikio"
+    }
   },
   "admin": {
     "layout": {

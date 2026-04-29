@@ -297,6 +297,7 @@
     },
     "signIn": "Se Connecter",
     "signUp": "Créer un Compte",
+    "signOut": "Se Déconnecter",
     "email": "Adresse E-mail",
     "password": "Mot de Passe",
     "confirmPassword": "Confirmer le Mot de Passe",
@@ -314,7 +315,48 @@
     "resetSent": "Lien de réinitialisation envoyé à votre e-mail",
     "passwordMismatch": "Les mots de passe ne correspondent pas",
     "loading": "Veuillez patienter...",
-    "continueWithGoogle": "Continuer avec Google"
+    "continueWithGoogle": "Continuer avec Google",
+    "backToSignIn": "Retour à la connexion",
+    "placeholders": {
+      "email": "Saisissez votre e-mail",
+      "password": "Saisissez votre mot de passe",
+      "newPassword": "Saisissez votre nouveau mot de passe",
+      "confirmPassword": "Confirmez votre mot de passe"
+    },
+    "errors": {
+      "emailRequired": "Veuillez saisir votre e-mail",
+      "emailInvalid": "Veuillez saisir un e-mail valide",
+      "passwordRequired": "Le mot de passe est requis",
+      "passwordMin": "Le mot de passe doit contenir au moins 6 caractères",
+      "invalidCredentials": "E-mail ou mot de passe invalide",
+      "signInFailed": "Échec de la connexion. Veuillez réessayer.",
+      "googleUnavailable": "La connexion avec Google est actuellement indisponible.",
+      "sendResetFailed": "Impossible d'envoyer l'e-mail de réinitialisation. Veuillez réessayer.",
+      "resetTokenInvalid": "Jeton de réinitialisation invalide ou manquant",
+      "resetTokenMissing": "Le lien de réinitialisation ne contient pas de jeton. Veuillez demander un nouvel e-mail.",
+      "resetPasswordFailed": "Impossible de réinitialiser le mot de passe",
+      "passwordMismatch": "Les mots de passe ne correspondent pas",
+      "confirmPasswordRequired": "Veuillez confirmer votre mot de passe"
+    },
+    "forgotPage": {
+      "description": "Saisissez votre e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+      "sentTitle": "Vérifiez votre boîte de réception",
+      "sentDescription": "Nous avons envoyé un lien de réinitialisation à",
+      "spamHint": "Vous ne l'avez pas reçu ? Vérifiez votre dossier spam, ou",
+      "tryAgain": "réessayez",
+      "sendLink": "Envoyer le lien",
+      "sending": "Envoi..."
+    },
+    "resetPage": {
+      "title": "Réinitialiser le mot de passe",
+      "description": "Saisissez votre nouveau mot de passe ci-dessous pour terminer la réinitialisation de votre compte.",
+      "secureHint": "Utilisez le lien sécurisé de votre e-mail pour continuer.",
+      "doneTitle": "Mot de passe mis à jour",
+      "doneDescription": "Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.",
+      "passwordHint": "Assurez-vous que votre mot de passe est solide et facile à retenir.",
+      "submit": "Réinitialiser le mot de passe",
+      "successToast": "Mot de passe mis à jour avec succès"
+    }
   },
   "admin": {
     "layout": {

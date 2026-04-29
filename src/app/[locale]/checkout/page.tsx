@@ -17,9 +17,9 @@ import {
   ChevronDown,
   Loader2,
 } from "lucide-react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { orderApi, branchApi, cartApi } from "@/lib/api";
+import { orderApi, branchApi, cartApi, userApi } from "@/lib/api";
 import { useCart } from "@/hooks/useCart";
 import { useSession } from "@/lib/auth-client";
 import { formatPrice, getImageUrl } from "@/lib/utils";
@@ -98,6 +98,12 @@ export default function CheckoutPage() {
   const t = useTranslations("checkout");
   const locale = useLocale();
   const { data: session } = useSession();
+  const { data: profile } = useQuery({
+    queryKey: ["profile"],
+    queryFn: () => userApi.me().then((r) => r.data),
+    enabled: !!session?.user,
+    staleTime: 1000 * 60 * 5,
+  });
   const {
     items,
     total,
@@ -157,12 +163,23 @@ export default function CheckoutPage() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting, isValid },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     mode: "onBlur",
     reValidateMode: "onBlur",
   });
+
+  useEffect(() => {
+    if (!session?.user) return;
+
+    reset((current) => ({
+      ...current,
+      fullName: profile?.name || (session.user as any)?.name || "",
+      phone: profile?.phone || (session.user as any)?.phone || "",
+    }));
+  }, [profile, reset, session?.user]);
 
   // Generate slots after mount so locale + translations are available
   useEffect(() => {
@@ -413,7 +430,7 @@ export default function CheckoutPage() {
         </p>
         <div className="flex gap-3 justify-center flex-wrap">
           <Link
-            href={`/${locale}/account/orders/${success.orderId}`}
+            href={`/${locale}/admin/orders/${success.orderId}`}
             className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-medium hover:bg-primary/90 transition-colors"
           >
             {t("trackOrder")}

@@ -6,8 +6,6 @@ const SESSION_COOKIE = "better-auth.session_token";
 const SECURE_SESSION_COOKIE = "__Secure-better-auth.session_token";
 
 const PROTECTED_PREFIXES = ["/dashboard", "/admin", "/orders", "/profile"];
-const AUTH_ONLY_PATHS = ["/auth/sign-in", "/auth/sign-up", "/auth/forgot-password"];
-
 const SKIP_EXTENSIONS =
   /\.(ico|png|svg|jpg|jpeg|webp|gif|woff2?|ttf|otf|css|js|map|xml|txt)$/;
 const SKIP_PREFIXES = ["/_next", "/favicon"];
@@ -67,16 +65,6 @@ export default async function middleware(
     const loginUrl = new URL(`/${locale}/auth/sign-in`, request.url);
     loginUrl.searchParams.set("redirect", pathname);
     return NextResponse.redirect(loginUrl);
-  }
-
-  const isAuthPage = AUTH_ONLY_PATHS.some((p) => strippedPath.startsWith(p));
-  if (isAuthPage && isAuthed) {
-    const redirectTo = request.nextUrl.searchParams.get("redirect");
-    const destination =
-      redirectTo && PROTECTED_PREFIXES.some((p) => redirectTo.startsWith(p))
-        ? redirectTo
-        : `/${locale}`;
-    return NextResponse.redirect(new URL(destination, request.url));
   }
 
   const response = intlMiddleware(request);

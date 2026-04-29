@@ -45,20 +45,20 @@ export default function SignInPage() {
         callbackURL: `/${locale}`,
       });
       if (result.error) {
-        toast.error(result.error.message || "Invalid email or password");
+        toast.error(result.error.message || t("errors.invalidCredentials"));
       } else {
         router.push(`/${locale}`);
         router.refresh();
       }
     } catch {
-      toast.error("Sign in failed. Please try again.");
+      toast.error(t("errors.signInFailed"));
     } finally {
       setLoading(false);
     }
   };
 
   const handleGoogle = async () => {
-    toast.error("Google sign in Currently Unavailable");
+    toast.error(t("errors.googleUnavailable"));
     // setGoogleLoading(true);
     // try {
     //   await signIn.social({
@@ -205,16 +205,16 @@ export default function SignInPage() {
             >
               <FormInput
                 registration={register("email", {
-                  required: "Please enter your email",
+                  required: t("errors.emailRequired"),
                   pattern: {
                     value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: "Please enter a valid email",
+                    message: t("errors.emailInvalid"),
                   },
                 })}
                 error={!!errors.email}
                 type="email"
                 autoComplete="email"
-                placeholder={t("email")}
+                placeholder={t("placeholders.email")}
               />
             </FormField>
 
@@ -226,16 +226,16 @@ export default function SignInPage() {
               <div className="relative">
                 <FormInput
                   registration={register("password", {
-                    required: "Password is required",
+                    required: t("errors.passwordRequired"),
                     minLength: {
                       value: 6,
-                      message: "Password must be at least 6 characters",
+                      message: t("errors.passwordMin"),
                     },
                   })}
                   error={!!errors.password}
                   type={showPw ? "text" : "password"}
                   autoComplete="current-password"
-                  placeholder="••••••••"
+                  placeholder={t("placeholders.password")}
                   className="pr-11"
                 />
                 <button
