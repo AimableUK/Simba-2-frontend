@@ -17,26 +17,16 @@ api.interceptors.response.use(
   (err) => {
     if (err.response?.status === 401) {
       if (typeof window !== "undefined") {
+        if (window.location.pathname.includes("/auth")) {
+          return Promise.reject(err);
+        }
         const locale = window.location.pathname.split("/")[1];
         const authPath = ["en", "fr", "rw", "sw"].includes(locale)
           ? `/${locale}/auth/sign-in`
           : "/auth/sign-in";
-        window.location.href = authPath;
-      }
-    }
-    return Promise.reject(err);
-  },
-);
-
-api.interceptors.response.use(
-  (res) => res,
-  (err) => {
-    if (err.response?.status === 401) {
-      if (
-        typeof window !== "undefined" &&
-        !window.location.pathname.includes("/auth")
-      ) {
-        // Optionally redirect to sign in
+        if (window.location.pathname !== authPath) {
+          window.location.href = authPath;
+        }
       }
     }
     return Promise.reject(err);

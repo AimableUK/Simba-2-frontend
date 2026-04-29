@@ -16,7 +16,6 @@ export const metadata: Metadata = {
   keywords: ["supermarket", "kigali", "rwanda", "groceries", "pickup", "simba"],
   authors: [{ name: "Simba Super Market" }],
   creator: "Simba Super Market",
-  manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
