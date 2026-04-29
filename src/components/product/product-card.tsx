@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
-import { Heart, ShoppingCart, Star, Eye, Minus, Plus } from "lucide-react";
+import { Heart, ShoppingCart, Star, Minus, Plus } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -41,7 +41,12 @@ export function ProductCard({ product }: { product: Product }) {
     removeItem,
     isAdding,
   } = useCart();
-  const { items: guestCartItems, add: addToGuestCart, update: updateGuestCart, remove: removeGuestCart } = useGuestCartStore();
+  const {
+    items: guestCartItems,
+    add: addToGuestCart,
+    update: updateGuestCart,
+    remove: removeGuestCart,
+  } = useGuestCartStore();
   const qc = useQueryClient();
 
   const discount = getDiscountPercent(product.price, product.comparePrice);
@@ -73,7 +78,10 @@ export function ProductCard({ product }: { product: Product }) {
 
     if (!session?.user) {
       if (guestCartItem) {
-        updateGuestCart(product.id, Math.min(product.stock, guestCartItem.quantity + 1));
+        updateGuestCart(
+          product.id,
+          Math.min(product.stock, guestCartItem.quantity + 1),
+        );
       } else {
         addToGuestCart({
           productId: product.id,
@@ -107,7 +115,10 @@ export function ProductCard({ product }: { product: Product }) {
       if (!serverCartItem) return;
       const nextQuantity = serverCartItem.quantity - 1;
       if (nextQuantity <= 0)
-        removeItem({ productId: product.id, branchId: selectedBranchId || undefined });
+        removeItem({
+          productId: product.id,
+          branchId: selectedBranchId || undefined,
+        });
       else
         updateQuantity({
           productId: product.id,
@@ -224,7 +235,7 @@ export function ProductCard({ product }: { product: Product }) {
             </div>
 
             {/* Actions overlay */}
-            <div className="absolute top-2 right-2 flex flex-col gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="absolute top-2 right-2 flex flex-col opacity-0 group-hover:opacity-100 transition-opacity">
               <button
                 onClick={handleWishlist}
                 className={cn(
@@ -238,12 +249,6 @@ export function ProductCard({ product }: { product: Product }) {
                   className={cn("w-4 h-4", wishlisted && "fill-current")}
                 />
               </button>
-              <Link
-                href={`/${locale}/product/${product.slug}`}
-                className="w-8 h-8 bg-card rounded-full flex items-center justify-center shadow-md hover:bg-primary hover:text-white transition-all text-foreground"
-              >
-                <Eye className="w-4 h-4" />
-              </Link>
             </div>
 
             {/* Add to cart hover bar */}
@@ -307,10 +312,7 @@ export function ProductCard({ product }: { product: Product }) {
             {/* Rating */}
             {product.reviewCount > 0 && (
               <div className="flex items-center gap-1 mb-2">
-                <RatingStars
-                  rating={product.rating}
-                  starClassName="h-3 w-3"
-                />
+                <RatingStars rating={product.rating} starClassName="h-3 w-3" />
                 <span className="text-[10px] text-muted-foreground">
                   ({product.reviewCount})
                 </span>
