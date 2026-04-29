@@ -46,6 +46,21 @@ export default function OrderDetailPage() {
 
   const handleOrderUpdate = useCallback(
     (data: any) => {
+      qc.setQueryData(["order", id], (old: any) => {
+        if (!old) return old;
+        const nextStatus = data?.status || old.status;
+        const nextLog = data?.statusLog;
+        const nextLogs = nextLog
+          ? [...(old.statusLogs || []).filter((l: any) => l.status !== nextLog.status), nextLog]
+          : old.statusLogs;
+
+        return {
+          ...old,
+          status: nextStatus,
+          statusLogs: nextLogs,
+          paymentStatus: data?.paymentStatus || old.paymentStatus,
+        };
+      });
       qc.invalidateQueries({ queryKey: ["order", id] });
     },
     [id, qc],

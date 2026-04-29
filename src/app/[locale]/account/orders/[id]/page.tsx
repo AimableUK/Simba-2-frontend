@@ -94,9 +94,27 @@ export default function OrderDetailPage() {
     queryFn: () => orderApi.myOrder(id as string).then((r) => r.data),
   });
 
-  const handleOrderUpdate = useCallback(() => {
-    qc.invalidateQueries({ queryKey: ["order", id] });
-  }, [id, qc]);
+  const handleOrderUpdate = useCallback(
+    (data: any) => {
+      qc.setQueryData(["order", id], (old: any) => {
+        if (!old) return old;
+        const nextStatus = data?.status || old.status;
+        const nextLog = data?.statusLog;
+        const nextLogs = nextLog
+          ? [...(old.statusLogs || []).filter((l: any) => l.status !== nextLog.status), nextLog]
+          : old.statusLogs;
+
+        return {
+          ...old,
+          status: nextStatus,
+          statusLogs: nextLogs,
+          paymentStatus: data?.paymentStatus || old.paymentStatus,
+        };
+      });
+      qc.invalidateQueries({ queryKey: ["order", id] });
+    },
+    [id, qc],
+  );
 
   useOrderSocket(id as string, handleOrderUpdate);
 

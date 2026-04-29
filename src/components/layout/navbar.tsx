@@ -44,11 +44,7 @@ export function Navbar() {
   const { data: session } = useSession();
   const { openCart } = useCartStore();
   const itemCount = useCartStore((s) => s.getItemCount());
-  const {
-    selectedBranchId,
-    selectedBranchName,
-    setBranch,
-  } = useBranchStore();
+  const { selectedBranchId, selectedBranchName, setBranch } = useBranchStore();
   const {
     searchOpen,
     mobileMenuOpen,
@@ -160,7 +156,7 @@ export function Navbar() {
                         }}
                         className={cn(
                           "w-full text-left px-4 py-2.5 text-sm hover:bg-accent transition-colors flex flex-col gap-0.5",
-                          selectedBranchId === b.id && "bg-accent text-primary"
+                          selectedBranchId === b.id && "bg-accent text-primary",
                         )}
                       >
                         <span className="font-medium">
@@ -310,16 +306,7 @@ export function Navbar() {
                 <Search className="w-5 h-5" />
               </button>
 
-              {/* Theme */}
-              {/* <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="p-2 rounded-lg hover:bg-accent text-foreground/70 hover:text-primary transition-colors"
-                aria-label={
-                  theme === "dark" ? tCommon("lightMode") : tCommon("darkMode")
-                }
-              > */}
-                <ThemeSwitcherV1 />
-              {/* </button> */}
+              <ThemeSwitcherV1 />
 
               {/* Language */}
               <LanguageSwitcherV1
@@ -480,14 +467,14 @@ export function Navbar() {
                             <User className="w-4 h-4 text-muted-foreground" />{" "}
                             {t("account")}
                           </Link>
-                          <Link
+                          {/* <Link
                             href={`/${locale}/account/orders`}
                             onClick={() => setUserOpen(false)}
                             className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-accent transition-colors"
                           >
                             <Package className="w-4 h-4 text-muted-foreground" />{" "}
                             {t("orders")}
-                          </Link>
+                          </Link> */}
                           <Link
                             href={
                               userRole === "branch_staff"
@@ -498,7 +485,9 @@ export function Navbar() {
                             className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-accent transition-colors text-primary font-medium"
                           >
                             <Settings className="w-4 h-4" />
-                            {userRole === "branch_staff" ? "Branch panel" : t("admin")}
+                            {userRole === "branch_staff"
+                              ? "Branch panel"
+                              : t("admin")}
                           </Link>
                         </div>
                         <div className="py-1 border-t border-border">
