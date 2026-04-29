@@ -158,7 +158,13 @@ export interface User {
   name: string;
   email: string;
   phone?: string;
-  role: "user" | "poster" | "admin" | "super_admin";
+  role:
+    | "user"
+    | "poster"
+    | "admin"
+    | "super_admin"
+    | "branch_manager"
+    | "branch_staff";
   image?: string;
   emailVerified: boolean;
   createdAt: string;
@@ -173,6 +179,25 @@ export interface Banner {
   link?: string;
   isActive: boolean;
   sortOrder: number;
+}
+
+export interface BranchStaffInvite {
+  id: string;
+  branchId: string;
+  inviterId: string;
+  inviteeId?: string | null;
+  inviteeEmail: string;
+  role: "branch_manager" | "branch_staff";
+  token: string;
+  status: "pending" | "accepted" | "declined" | "expired";
+  message?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  expiresAt: string;
+  respondedAt?: string | null;
+  branch?: { id: string; name: string; slug: string };
+  inviter?: { id: string; name: string; email: string };
+  invitee?: { id: string; name: string; email: string; role: string };
 }
 
 export interface PaginatedResponse<T> {
@@ -199,4 +224,7 @@ export interface DashboardStats {
   topProducts: Partial<Product>[];
   recentOrders: Order[];
   revenueByDay: { date: string; revenue: number; orders: number }[];
+  period?: string;
+  from?: string;
+  to?: string;
 }

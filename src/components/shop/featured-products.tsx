@@ -11,6 +11,7 @@ import {
 } from "@/components/product/product-card";
 import { cn, getImageUrl } from "@/lib/utils";
 import Image from "next/image";
+import { useBranchStore } from "@/store";
 
 function SectionHeader({
   title,
@@ -45,10 +46,14 @@ function SectionHeader({
 export function FeaturedProducts() {
   const t = useTranslations("home");
   const locale = useLocale();
+  const { selectedBranchId } = useBranchStore();
 
   const { data: products, isLoading } = useQuery({
-    queryKey: ["featured-products"],
-    queryFn: () => productApi.featured().then((r) => r.data),
+    queryKey: ["featured-products", selectedBranchId],
+    queryFn: () =>
+      productApi
+        .featured({ branchId: selectedBranchId || undefined })
+        .then((r) => r.data),
   });
 
   return (
@@ -74,10 +79,14 @@ export function FeaturedProducts() {
 export function TopProducts() {
   const t = useTranslations("home");
   const locale = useLocale();
+  const { selectedBranchId } = useBranchStore();
 
   const { data: products, isLoading } = useQuery({
-    queryKey: ["top-products"],
-    queryFn: () => productApi.top().then((r) => r.data),
+    queryKey: ["top-products", selectedBranchId],
+    queryFn: () =>
+      productApi
+        .top({ branchId: selectedBranchId || undefined })
+        .then((r) => r.data),
   });
 
   return (
@@ -105,10 +114,14 @@ export function TopProducts() {
 export function RecommendedProducts() {
   const t = useTranslations("home");
   const locale = useLocale();
+  const { selectedBranchId } = useBranchStore();
 
   const { data: products, isLoading } = useQuery({
-    queryKey: ["recommended-products"],
-    queryFn: () => productApi.recommendations().then((r) => r.data),
+    queryKey: ["recommended-products", selectedBranchId],
+    queryFn: () =>
+      productApi
+        .recommendations({ branchId: selectedBranchId || undefined })
+        .then((r) => r.data),
   });
 
   return (
@@ -221,8 +234,9 @@ export function CategoryGrid() {
   const locale = useLocale();
 
   const { data: categories, isLoading } = useQuery({
-    queryKey: ["categories"],
-    queryFn: () => categoryApi.list().then((r) => r.data),
+    queryKey: ["categories", { withProductsOnly: true }],
+    queryFn: () =>
+      categoryApi.list({ withProductsOnly: true }).then((r) => r.data),
     staleTime: 1000 * 60 * 10,
   });
 

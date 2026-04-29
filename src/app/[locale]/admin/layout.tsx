@@ -18,11 +18,12 @@ import {
   ChevronRight,
   Clock,
   MapPin,
+  Bell,
+  User,
 } from "lucide-react";
 import { useSession } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
-import { useAdminSocket } from "@/hooks/useSocket";
-import { toast } from "sonner";
+import { useNotificationStore } from "@/store";
 import { ThemeSwitcherV1 } from "@/lib/theme-switcher-v1";
 import LanguageSwitcherV1 from "@/components/common/LanguageSwitcherV1";
 import Image from "next/image";
@@ -35,61 +36,88 @@ export default function AdminLayout({
   const { data: session, isPending } = useSession();
   const router = useRouter();
   const locale = useLocale();
-  const t = useTranslations();
   const pathname = usePathname();
+  const tLayout = useTranslations("admin.layout");
+  const tMenu = useTranslations("admin.menu");
+  const tNav = useTranslations("nav");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [notifications, setNotifications] = useState(0);
   const [time, setTime] = useState(new Date());
+  const unreadCount = useNotificationStore((s) => s.unreadCount);
+  const resolvedLocale = locale || pathname.split("/")[1] || "en";
+  const adminPath = pathname.replace(/^\/(en|fr|rw|sw)(?=\/|$)/, "") || "/";
 
   const NAV_ITEMS = [
     {
-      label: t("dashboard"),
+      label: tMenu("dashboard"),
       href: "dashboard",
       icon: LayoutDashboard,
       roles: ["admin", "super_admin"],
     },
     {
-      label: t("products"),
+      label: tMenu("products"),
       href: "products",
       icon: Package,
-      roles: ["poster", "admin", "super_admin"],
+      roles: ["admin", "super_admin"],
     },
     {
-      label: t("orders.title"),
+      label: tMenu("orders"),
       href: "orders",
       icon: ShoppingCart,
       roles: ["admin", "super_admin"],
     },
     {
-      label: t("branches"),
+      label: tMenu("branches"),
       href: "branches",
       icon: MapPin,
-      roles: ["admin", "super_admin"],
+      roles: ["admin", "super_admin", "branch_manager"],
     },
-    { label: t("users"), href: "users", icon: Users, roles: ["super_admin"] },
     {
-      label: t("blogs"),
+      label: tMenu("users"),
+      href: "users",
+      icon: Users,
+      roles: ["admin", "super_admin", "branch_manager"],
+    },
+    {
+      label: tMenu("blogs"),
       href: "blogs",
       icon: FileText,
       roles: ["poster", "admin", "super_admin"],
     },
     {
-      label: t("messages"),
+      label: tMenu("messages"),
       href: "contacts",
       icon: MessageSquare,
       roles: ["admin", "super_admin"],
     },
     {
-      label: t("banners"),
+      label: tMenu("banners"),
       href: "banners",
       icon: ImageIcon,
       roles: ["admin", "super_admin"],
     },
     {
-      label: t("settings"),
+      label: tMenu("settings"),
       href: "settings",
       icon: Settings,
-      roles: ["super_admin"],
+      roles: ["admin", "super_admin", "branch_manager"],
+    },
+    {
+      label: tNav("account"),
+      href: "account",
+      icon: User,
+      roles: ["user", "poster", "admin", "super_admin", "branch_manager", "branch_staff"],
+    },
+    {
+      label: tNav("orders"),
+      href: "my-orders",
+      icon: ShoppingCart,
+      roles: ["user", "poster", "admin", "super_admin", "branch_manager", "branch_staff"],
+    },
+    {
+      label: tNav("notifications"),
+      href: "notifications",
+      icon: Bell,
+      roles: ["user", "poster", "admin", "super_admin", "branch_manager", "branch_staff"],
     },
   ];
 
@@ -98,33 +126,94 @@ export default function AdminLayout({
     return () => clearInterval(interval);
   }, []);
 
-  useAdminSocket({
-    onNewOrder: (data) => {
-      setNotifications((n) => n + 1);
-      toast(`🛒 New order: ${data.orderNumber}`, {
-        description: `RWF ${data.total?.toLocaleString()}`,
-      });
-    },
-    onNewContact: (data) => {
-      setNotifications((n) => n + 1);
-      toast(`📩 New message from ${data.name}`, { description: data.subject });
-    },
-  });
-
   useEffect(() => {
     if (!isPending && !session?.user) {
-      router.replace(`/${locale}/auth/sign-in`);
+      router.replace(`/${resolvedLocale}/auth/sign-in`);
       return;
     }
-    const role = (session?.user as any)?.role;
-    if (
-      !isPending &&
-      session?.user &&
-      !["admin", "super_admin", "poster"].includes(role)
-    ) {
-      router.replace(`/${locale}`);
+  }, [session, isPending, router, resolvedLocale]);
+
+  const role = (session?.user as any)?.role || "user";
+  const routeKey =
+    adminPath === "/admin"
+      ? ""
+      : adminPath.replace(/^\/admin\//, "").split("/")[0];
+  const allowedRoutes =
+    role === "super_admin"
+      ? null
+      : role === "admin"
+        ? new Set([
+            "",
+            "dashboard",
+            "products",
+            "orders",
+            "branches",
+            "users",
+            "blogs",
+            "contacts",
+            "banners",
+            "account",
+            "my-orders",
+            "notifications",
+            "profile",
+            "settings",
+            "branch-invites",
+          ])
+        : role === "branch_manager"
+          ? new Set([
+              "",
+              "branches",
+              "users",
+              "settings",
+              "account",
+              "my-orders",
+              "notifications",
+              "profile",
+              "branch-invites",
+            ])
+          : role === "poster"
+            ? new Set([
+                "",
+                "blogs",
+                "account",
+                "my-orders",
+                "notifications",
+                "profile",
+                "branch-invites",
+              ])
+          : new Set([
+              "",
+              "account",
+              "my-orders",
+              "notifications",
+              "profile",
+              "branch-invites",
+            ]);
+
+  const roleFallback =
+    role === "admin" || role === "super_admin"
+      ? "/dashboard"
+      : role === "branch_manager"
+        ? "/branches"
+      : role === "poster"
+        ? "/blogs"
+      : role === "branch_staff"
+          ? "/branch-dashboard"
+          : "/account";
+  const unauthorized =
+    !!session?.user &&
+    allowedRoutes !== null &&
+    !allowedRoutes.has(routeKey);
+
+  useEffect(() => {
+    if (unauthorized && resolvedLocale) {
+      router.replace(
+        role === "branch_staff"
+          ? `/${resolvedLocale}/branch-dashboard`
+          : `/${resolvedLocale}/admin${roleFallback}`,
+      );
     }
-  }, [session, isPending, router, locale]);
+  }, [unauthorized, resolvedLocale, role, roleFallback, router]);
 
   if (isPending || !session?.user)
     return (
@@ -133,11 +222,16 @@ export default function AdminLayout({
       </div>
     );
 
-  const role = (session.user as any)?.role;
+  if (unauthorized) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background flex">
-      {/* Sidebar overlay mobile */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
@@ -145,30 +239,28 @@ export default function AdminLayout({
         />
       )}
 
-      {/* Sidebar */}
       <aside
         className={cn(
           "fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border flex flex-col transition-transform duration-300 lg:translate-x-0",
           sidebarOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
-        {/* Logo */}
         <div className="flex items-center justify-between p-5 border-b border-border">
           <Link href={`/${locale}`} className="flex items-center gap-2.5">
             <div className="flex items-center justify-center">
-              <Image
-                src="/simbalogo.png"
-                alt="Simba Super Market logo"
-                width={35}
-                height={35}
-              />
-            </div>
-            <div>
-              <p className="font-bold text-sm leading-none">Simba Market</p>
-              <p className="text-xs text-muted-foreground mt-0.5">
-                Admin Panel
-              </p>
-            </div>
+            <Image
+              src="/simbalogo.png"
+              alt="Simba Super Market logo"
+              width={35}
+              height={35}
+            />
+          </div>
+          <div>
+            <p className="font-bold text-sm leading-none">{tLayout("appName")}</p>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              {tLayout("panel")}
+            </p>
+          </div>
           </Link>
           <button
             onClick={() => setSidebarOpen(false)}
@@ -178,7 +270,6 @@ export default function AdminLayout({
           </button>
         </div>
 
-        {/* Nav */}
         <nav className="flex-1 py-4 overflow-y-auto">
           {NAV_ITEMS.filter((item) => item.roles.includes(role)).map(
             ({ label, href, icon: Icon }) => {
@@ -205,7 +296,6 @@ export default function AdminLayout({
           )}
         </nav>
 
-        {/* User */}
         <div className="p-4 border-t border-border">
           <Link href={`/${locale}/admin/profile`}>
             <div className="flex items-center gap-3 mb-3">
@@ -225,9 +315,7 @@ export default function AdminLayout({
         </div>
       </aside>
 
-      {/* Main */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden lg:pl-64">
-        {/* Topbar */}
         <header className="sticky top-0 z-30 bg-background/80 backdrop-blur border-b border-border flex items-center justify-between px-4 h-14">
           <button
             onClick={() => setSidebarOpen(true)}
@@ -248,19 +336,21 @@ export default function AdminLayout({
           <div className="flex-1" />
           <div className="flex items-center gap-2">
             <LanguageSwitcherV1 />
-            {/* <button className="relative p-2 hover:bg-muted rounded-lg transition-colors">
+            <Link
+              href={`/${locale}/admin/notifications`}
+              className="relative p-2 hover:bg-muted rounded-lg transition-colors"
+            >
               <Bell className="h-5 w-5" />
-              {notifications > 0 && (
+              {unreadCount > 0 && (
                 <span className="absolute top-1 right-1 w-4 h-4 bg-primary text-primary-foreground text-[10px] font-bold rounded-full flex items-center justify-center">
-                  {notifications > 9 ? "9+" : notifications}
+                  {unreadCount > 9 ? "9+" : unreadCount}
                 </span>
               )}
-            </button> */}
+            </Link>
             <ThemeSwitcherV1 />
           </div>
         </header>
 
-        {/* Content */}
         <main className="flex-1 p-4 sm:p-6 overflow-auto">{children}</main>
       </div>
     </div>

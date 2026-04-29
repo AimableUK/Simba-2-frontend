@@ -82,7 +82,15 @@ export default function CartPage() {
                       <Plus className="h-3.5 w-3.5" />
                     </button>
                   </div>
-                  <button onClick={() => removeItem(item.productId)} className="text-muted-foreground hover:text-destructive transition-colors">
+                  <button
+                    onClick={() =>
+                      removeItem({
+                        productId: item.productId,
+                        branchId: undefined,
+                      })
+                    }
+                    className="text-muted-foreground hover:text-destructive transition-colors"
+                  >
                     <Trash2 className="h-4 w-4" />
                   </button>
                 </div>

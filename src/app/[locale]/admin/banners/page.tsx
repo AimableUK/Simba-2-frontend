@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { Plus, Edit, Trash2, X, Image as ImageIcon } from "lucide-react";
 import { toast } from "sonner";
 import { bannerApi } from "@/lib/api";
@@ -10,6 +11,7 @@ import type { Banner } from "@/types";
 
 export default function AdminBannersPage() {
   const qc = useQueryClient();
+  const t = useTranslations("admin.banners");
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState<Banner | null>(null);
   const [form, setForm] = useState({
@@ -29,7 +31,7 @@ export default function AdminBannersPage() {
   const createMutation = useMutation({
     mutationFn: (data: any) => bannerApi.create(data),
     onSuccess: () => {
-      toast.success("Banner created!");
+      toast.success(t("created"));
       closeForm();
       qc.invalidateQueries({ queryKey: ["admin-banners"] });
     },
@@ -41,7 +43,7 @@ export default function AdminBannersPage() {
     mutationFn: ({ id, data }: { id: string; data: any }) =>
       bannerApi.update(id, data),
     onSuccess: () => {
-      toast.success("Banner updated!");
+      toast.success(t("updated"));
       closeForm();
       qc.invalidateQueries({ queryKey: ["admin-banners"] });
     },
@@ -52,7 +54,7 @@ export default function AdminBannersPage() {
   const deleteMutation = useMutation({
     mutationFn: (id: string) => bannerApi.delete(id),
     onSuccess: () => {
-      toast.success("Banner deleted");
+      toast.success(t("deleted"));
       qc.invalidateQueries({ queryKey: ["admin-banners"] });
     },
   });
@@ -93,12 +95,12 @@ export default function AdminBannersPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-3">
-        <h1 className="text-2xl font-bold">Banners</h1>
+        <h1 className="text-2xl font-bold">{t("title")}</h1>
         <button
           onClick={() => setShowForm(true)}
           className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2.5 rounded-xl font-medium hover:bg-primary/90 transition-colors text-sm"
         >
-          <Plus className="h-4 w-4" /> Add Banner
+          <Plus className="h-4 w-4" /> {t("add")}
         </button>
       </div>
 
@@ -111,9 +113,7 @@ export default function AdminBannersPage() {
       ) : banners?.length === 0 ? (
         <div className="text-center py-16 border-2 border-dashed border-border rounded-2xl">
           <ImageIcon className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
-          <p className="text-muted-foreground">
-            No banners yet. Add your first banner.
-          </p>
+          <p className="text-muted-foreground">{t("empty")}</p>
         </div>
       ) : (
         <div className="grid gap-4">
@@ -138,7 +138,7 @@ export default function AdminBannersPage() {
                     <span
                       className={`text-xs font-medium px-2.5 py-1 rounded-full shrink-0 ${banner.isActive ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" : "bg-muted text-muted-foreground"}`}
                     >
-                      {banner.isActive ? "Active" : "Inactive"}
+                      {banner.isActive ? t("active") : t("inactive")}
                     </span>
                   </div>
                   {banner.subtitle && (
@@ -151,22 +151,22 @@ export default function AdminBannersPage() {
                       {banner.link}
                     </p>
                   )}
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Sort order: {banner.sortOrder}
-                  </p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {t("sortOrder")}: {banner.sortOrder}
+                    </p>
                 </div>
                 <div className="flex gap-2 mt-4">
                   <button
                     onClick={() => openEdit(banner)}
                     className="flex items-center gap-1.5 text-sm text-primary border border-primary/30 px-3 py-1.5 rounded-lg hover:bg-primary/5 transition-colors"
                   >
-                    <Edit className="h-3.5 w-3.5" /> Edit
+                    <Edit className="h-3.5 w-3.5" /> {t("edit")}
                   </button>
                   <button
                     onClick={() => deleteMutation.mutate(banner.id)}
                     className="flex items-center gap-1.5 text-sm text-destructive border border-destructive/30 px-3 py-1.5 rounded-lg hover:bg-destructive/5 transition-colors"
                   >
-                    <Trash2 className="h-3.5 w-3.5" /> Delete
+                    <Trash2 className="h-3.5 w-3.5" /> {t("delete")}
                   </button>
                 </div>
               </div>
@@ -186,7 +186,7 @@ export default function AdminBannersPage() {
           >
             <div className="flex items-center justify-between mb-6">
               <h2 className="font-bold text-lg">
-                {editing ? "Edit Banner" : "Add Banner"}
+                {editing ? t("editBanner") : t("addBanner")}
               </h2>
               <button
                 onClick={closeForm}
@@ -199,25 +199,25 @@ export default function AdminBannersPage() {
               {[
                 {
                   key: "title",
-                  label: "Title *",
+                  label: t("fields.title"),
                   placeholder: "Fresh Groceries...",
                   required: true,
                 },
                 {
                   key: "subtitle",
-                  label: "Subtitle",
+                  label: t("fields.subtitle"),
                   placeholder: "Shop the freshest...",
                   required: false,
                 },
                 {
                   key: "image",
-                  label: "Image URL *",
+                  label: t("fields.imageUrl"),
                   placeholder: "https://...",
                   required: true,
                 },
                 {
                   key: "link",
-                  label: "Link URL",
+                  label: t("fields.linkUrl"),
                   placeholder: "/shop",
                   required: false,
                 },
@@ -240,7 +240,7 @@ export default function AdminBannersPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-1.5">
-                    Sort Order
+                    {t("sortOrder")}
                   </label>
                   <input
                     type="number"
@@ -264,7 +264,7 @@ export default function AdminBannersPage() {
                       }
                       className="w-4 h-4 accent-primary"
                     />
-                    <span className="text-sm font-medium">Active</span>
+                    <span className="text-sm font-medium">{t("fields.active")}</span>
                   </label>
                 </div>
               </div>
@@ -272,22 +272,25 @@ export default function AdminBannersPage() {
                 <button
                   type="submit"
                   disabled={
-                    createMutation.isPending || updateMutation.isPending
+                    createMutation.isPending ||
+                    updateMutation.isPending ||
+                    !form.title.trim() ||
+                    !form.image.trim()
                   }
                   className="flex-1 bg-primary text-primary-foreground font-semibold py-3 rounded-xl hover:bg-primary/90 disabled:opacity-50 transition-colors"
                 >
                   {createMutation.isPending || updateMutation.isPending
-                    ? "Saving..."
+                    ? t("saving")
                     : editing
-                      ? "Update"
-                      : "Create"}
+                      ? t("update")
+                      : t("create")}
                 </button>
                 <button
                   type="button"
                   onClick={closeForm}
                   className="px-5 py-3 border border-border rounded-xl hover:bg-muted transition-colors font-medium"
                 >
-                  Cancel
+                  {t("cancel")}
                 </button>
               </div>
             </form>

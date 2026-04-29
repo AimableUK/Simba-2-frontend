@@ -5,62 +5,64 @@ import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useSession } from "@/lib/auth-client";
 import { cartApi } from "@/lib/api";
-import { useGuestCartStore, useCartStore } from "@/store";
+import { useGuestCartStore, useCartStore, useBranchStore } from "@/store";
 
 export function useGuestCartSync() {
   const { data: session } = useSession();
   const { items, clear } = useGuestCartStore();
   const { setCart } = useCartStore();
+  const { selectedBranchId } = useBranchStore();
   const qc = useQueryClient();
 
-  // Track previous auth state so we only sync on the login transition
-  const wasLoggedIn = useRef<boolean | null>(null);
+  // Prevent duplicate syncs while the login/session state is settling.
+  const syncingRef = useRef(false);
+  const lastSyncedCartKey = useRef<string | null>(null);
 
   useEffect(() => {
     const isLoggedIn = !!session?.user;
+    const cartKey = items
+      .map((item) => `${item.productId}:${item.quantity}`)
+      .sort()
+      .join("|");
 
-    // First render — just record state, don't sync yet
-    if (wasLoggedIn.current === null) {
-      wasLoggedIn.current = isLoggedIn;
+    if (!isLoggedIn) {
+      syncingRef.current = false;
+      lastSyncedCartKey.current = null;
       return;
     }
 
-    // Transition: logged-out → logged-in
-    if (!wasLoggedIn.current && isLoggedIn) {
-      wasLoggedIn.current = true;
+    if (items.length === 0) return;
+    if (syncingRef.current) return;
+    if (lastSyncedCartKey.current === cartKey) return;
 
-      if (items.length === 0) return;
+    syncingRef.current = true;
+    lastSyncedCartKey.current = cartKey;
+    const snapshot = items.map((item) => ({ ...item }));
 
-      const sync = async () => {
-        try {
-          // Add each guest item to the server cart sequentially
-          // (avoids race conditions on quantity merging)
-          for (const item of items) {
-            await cartApi.add({
-              productId: item.productId,
-              quantity: item.quantity,
-            });
-          }
-
-          // Refresh the server cart in TanStack Query
-          await qc.invalidateQueries({ queryKey: ["cart"] });
-
-          // Clear guest cart from localStorage
-          clear();
-
-          toast.success(
-            `${items.length} item${items.length > 1 ? "s" : ""} added from your guest cart`,
-          );
-        } catch {
-          // Silent — server cart still works, guest items remain
-          // until next login attempt
-          console.error("Guest cart sync failed");
+    const sync = async () => {
+      try {
+        for (const item of snapshot) {
+          await cartApi.add({
+            productId: item.productId,
+            quantity: item.quantity,
+            branchId: selectedBranchId || undefined,
+          });
         }
-      };
 
-      sync();
-    }
+        await qc.invalidateQueries({ queryKey: ["cart"] });
+        clear();
+        toast.success(
+          `${snapshot.length} item${snapshot.length > 1 ? "s" : ""} added from your guest cart`,
+        );
+      } catch {
+        // Keep guest cart intact if server sync fails so the user can retry.
+        lastSyncedCartKey.current = null;
+        console.error("Guest cart sync failed");
+      } finally {
+        syncingRef.current = false;
+      }
+    };
 
-    if (!isLoggedIn) wasLoggedIn.current = false;
-  }, [session?.user]);
+    void sync();
+  }, [session?.user, items, clear, qc]);
 }

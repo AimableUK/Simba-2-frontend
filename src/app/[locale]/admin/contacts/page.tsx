@@ -2,6 +2,7 @@
 'use client';
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
 import { MailOpen, Mail, Search } from 'lucide-react';
 import { toast } from 'sonner';
 import { contactApi } from '@/lib/api';
@@ -12,6 +13,7 @@ import { useAdminSocket } from '@/hooks/useSocket';
 
 export default function AdminContactsPage() {
   const qc = useQueryClient();
+  const t = useTranslations("admin.contacts");
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState('');
   const [selected, setSelected] = useState<any>(null);
@@ -33,14 +35,14 @@ export default function AdminContactsPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <h1 className="text-2xl font-bold">Messages</h1>
+        <h1 className="text-2xl font-bold">{t("title")}</h1>
         {unread > 0 && (
-          <span className="bg-primary text-primary-foreground text-xs font-bold px-2.5 py-1 rounded-full">{unread} new</span>
+          <span className="bg-primary text-primary-foreground text-xs font-bold px-2.5 py-1 rounded-full">{unread} {t("new")}</span>
         )}
       </div>
 
       <div className="flex gap-2">
-        {[{ label: 'All', value: '' }, { label: 'Unread', value: 'false' }, { label: 'Read', value: 'true' }].map(({ label, value }) => (
+        {[{ label: t("filters.all"), value: '' }, { label: t("filters.unread"), value: 'false' }, { label: t("filters.read"), value: 'true' }].map(({ label, value }) => (
           <button key={value} onClick={() => { setFilter(value); setPage(1); }}
             className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors border ${filter === value ? 'bg-primary text-primary-foreground border-primary' : 'border-border hover:bg-muted'}`}>
             {label}
@@ -53,7 +55,7 @@ export default function AdminContactsPage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-border bg-muted/50">
-                {['', 'Name', 'Email', 'Subject', 'Date', 'Actions'].map(h => (
+                {["", t("cols.name"), t("cols.email"), t("cols.subject"), t("cols.date"), t("cols.actions")].map((h) => (
                   <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wide">{h}</th>
                 ))}
               </tr>
@@ -74,7 +76,7 @@ export default function AdminContactsPage() {
                     <td className="px-4 py-3 text-xs text-muted-foreground whitespace-nowrap">{formatDateTime(contact.createdAt)}</td>
                     <td className="px-4 py-3">
                       <button onClick={(e) => { e.stopPropagation(); setSelected(contact); }}
-                        className="text-xs text-primary hover:underline font-medium">View</button>
+                        className="text-xs text-primary hover:underline font-medium">{t("view")}</button>
                     </td>
                   </tr>
                 ))}
@@ -89,7 +91,7 @@ export default function AdminContactsPage() {
       {selected && (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4" onClick={() => setSelected(null)}>
           <div className="bg-card border border-border rounded-2xl p-6 max-w-lg w-full shadow-2xl" onClick={(e) => e.stopPropagation()}>
-            <div className="flex justify-between items-start mb-4">
+              <div className="flex justify-between items-start mb-4">
               <div>
                 <h2 className="font-bold text-lg">{selected.subject}</h2>
                 <p className="text-sm text-muted-foreground mt-0.5">{selected.name} · {selected.email}</p>
@@ -101,9 +103,9 @@ export default function AdminContactsPage() {
             <div className="flex gap-3 mt-5">
               <a href={`mailto:${selected.email}?subject=Re: ${encodeURIComponent(selected.subject)}`}
                 className="flex-1 bg-primary text-primary-foreground font-semibold py-3 rounded-xl hover:bg-primary/90 transition-colors text-center text-sm">
-                Reply via Email
+                {t("replyViaEmail")}
               </a>
-              <button onClick={() => setSelected(null)} className="px-5 py-3 border border-border rounded-xl hover:bg-muted transition-colors font-medium text-sm">Close</button>
+              <button onClick={() => setSelected(null)} className="px-5 py-3 border border-border rounded-xl hover:bg-muted transition-colors font-medium text-sm">{t("close")}</button>
             </div>
           </div>
         </div>

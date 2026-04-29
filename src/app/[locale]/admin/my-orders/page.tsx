@@ -36,8 +36,8 @@ export default function OrdersPage() {
   if (!session?.user) {
     return (
       <div className="container mx-auto px-4 py-20 text-center">
-        <p className="text-muted-foreground mb-4">Please sign in to view your orders</p>
-        <Link href={`/${locale}/auth/sign-in`} className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-medium">Sign In</Link>
+        <p className="text-muted-foreground mb-4">{t('signInPrompt')}</p>
+        <Link href={`/${locale}/auth/sign-in`} className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-medium">{t('signIn')}</Link>
       </div>
     );
   }
@@ -54,7 +54,7 @@ export default function OrdersPage() {
           <h2 className="text-xl font-bold mb-2">{t('noOrders')}</h2>
           <p className="text-muted-foreground mb-6">{t('noOrdersDesc')}</p>
           <Link href={`/${locale}/shop`} className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-medium hover:bg-primary/90 transition-colors">
-            Start Shopping
+            {t('startShopping')}
           </Link>
         </div>
       ) : (
@@ -96,7 +96,7 @@ export default function OrdersPage() {
                 </div>
 
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">{order.items.length} items</span>
+                  <span className="text-sm text-muted-foreground">{order.items.length} {t('items')}</span>
                   <span className="font-bold text-primary">{formatPrice(order.total)}</span>
                 </div>
               </div>

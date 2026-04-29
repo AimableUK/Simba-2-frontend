@@ -1,9 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-
-const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 export const viewport: Viewport = {
   themeColor: "#fc7d00",
@@ -66,7 +63,7 @@ export default function RootLayout({
       </head>
       <body
         suppressHydrationWarning
-        className={`${geist.variable} font-sans antialiased`}
+        className="font-sans antialiased"
       >
         {children}
         <Script

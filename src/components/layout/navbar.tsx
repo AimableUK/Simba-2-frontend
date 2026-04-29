@@ -18,13 +18,17 @@ import {
   Package,
   ChevronDown,
   ArrowRight,
+  MapPin,
+  Bell,
+  CheckCheck,
 } from "lucide-react";
-import { useCartStore, useUIStore } from "@/store";
+import { useCartStore, useUIStore, useBranchStore } from "@/store";
 import { useSession, signOut } from "@/lib/auth-client";
 import { useQuery } from "@tanstack/react-query";
-import { categoryApi } from "@/lib/api";
+import { categoryApi, branchApi } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { useNotifications } from "@/hooks/useSocket";
+import { useNotificationStore } from "@/store";
 import { ThemeSwitcherV1 } from "@/lib/theme-switcher-v1";
 import LanguageSwitcherV1 from "../common/LanguageSwitcherV1";
 import Image from "next/image";
@@ -32,6 +36,7 @@ import Image from "next/image";
 export function Navbar() {
   const t = useTranslations("nav");
   const tCommon = useTranslations("common");
+  const tBranch = useTranslations("branches");
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
@@ -39,6 +44,11 @@ export function Navbar() {
   const { data: session } = useSession();
   const { openCart } = useCartStore();
   const itemCount = useCartStore((s) => s.getItemCount());
+  const {
+    selectedBranchId,
+    selectedBranchName,
+    setBranch,
+  } = useBranchStore();
   const {
     searchOpen,
     mobileMenuOpen,
@@ -51,17 +61,40 @@ export function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
   const [userOpen, setUserOpen] = useState(false);
   const [catOpen, setCatOpen] = useState(false);
+  const [branchOpen, setBranchOpen] = useState(false);
+  const [notifOpen, setNotifOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
 
   const user = session?.user as any;
+  const userRole = user?.role as string | undefined;
   useNotifications(user?.id);
+  const notifications = useNotificationStore((s) => s.items);
+  const unreadCount = useNotificationStore((s) => s.unreadCount);
+  const markRead = useNotificationStore((s) => s.markRead);
+  const markAllRead = useNotificationStore((s) => s.markAllRead);
 
   const { data: categories } = useQuery({
-    queryKey: ["categories", 6],
-    queryFn: () => categoryApi.list({ limit: 6 }).then((r) => r.data),
+    queryKey: ["categories", { withProductsOnly: true, limit: 6 }],
+    queryFn: () =>
+      categoryApi
+        .list({ limit: 6, withProductsOnly: true })
+        .then((r) => r.data),
     staleTime: 1000 * 60 * 10,
   });
+
+  const { data: branches } = useQuery({
+    queryKey: ["branches"],
+    queryFn: () => branchApi.list().then((r) => r.data),
+    staleTime: 1000 * 60 * 30,
+  });
+
+  useEffect(() => {
+    if (branches && !selectedBranchId && branches.length > 0) {
+      const b = branches[0];
+      setBranch(b.id, b.slug, b.name);
+    }
+  }, [branches, selectedBranchId, setBranch]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -84,16 +117,66 @@ export function Navbar() {
     }
   };
 
-  const isAdmin =
-    user?.role && ["admin", "super_admin", "poster"].includes(user.role);
-
   if (isAdminRoute) return null;
 
   return (
     <>
-      {/* Top bar */}
-      <div className="bg-primary text-primary-foreground text-xs py-1.5 px-4 text-center hidden md:block">
-        🛒 Free delivery on orders over RWF 50,000 - Kigali only
+      {/* Top bar with Branch Selector */}
+      <div className="bg-primary text-primary-foreground text-xs py-1.5 px-4 flex items-center justify-start">
+        <div className="flex items-center gap-2">
+          <MapPin className="w-3.5 h-3.5" />
+          <span className="hidden sm:inline">{tBranch("shoppingAt")}:</span>
+          <div className="relative">
+            <button
+              onClick={() => setBranchOpen(!branchOpen)}
+              className="inline-flex items-center gap-1 rounded-full border border-white/20 bg-white/10 px-3 py-1 font-semibold hover:bg-white/20 transition-colors"
+            >
+              {selectedBranchName?.replace("Simba Supermarket ", "") ||
+                tBranch("selectBranch")}
+              <ChevronDown className="w-3 h-3" />
+            </button>
+
+            <AnimatePresence>
+              {branchOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 5 }}
+                  className="absolute top-full left-0 mt-2 w-64 bg-card text-foreground border border-border rounded-xl shadow-2xl z-[60] overflow-hidden"
+                >
+                  <div className="px-4 py-2 border-b border-border bg-muted/50">
+                    <p className="font-semibold text-[10px] uppercase tracking-wider text-muted-foreground">
+                      {tBranch("selectBranch")}
+                    </p>
+                  </div>
+                  <div className="max-h-60 overflow-y-auto">
+                    {branches?.map((b: any) => (
+                      <button
+                        key={b.id}
+                        onClick={() => {
+                          setBranch(b.id, b.slug, b.name);
+                          setBranchOpen(false);
+                          router.refresh();
+                        }}
+                        className={cn(
+                          "w-full text-left px-4 py-2.5 text-sm hover:bg-accent transition-colors flex flex-col gap-0.5",
+                          selectedBranchId === b.id && "bg-accent text-primary"
+                        )}
+                      >
+                        <span className="font-medium">
+                          {b.name.replace("Simba Supermarket ", "")}
+                        </span>
+                        <span className="text-[10px] text-muted-foreground line-clamp-1">
+                          {b.address}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
       </div>
 
       <header
@@ -228,15 +311,15 @@ export function Navbar() {
               </button>
 
               {/* Theme */}
-              <button
+              {/* <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 className="p-2 rounded-lg hover:bg-accent text-foreground/70 hover:text-primary transition-colors"
                 aria-label={
                   theme === "dark" ? tCommon("lightMode") : tCommon("darkMode")
                 }
-              >
+              > */}
                 <ThemeSwitcherV1 />
-              </button>
+              {/* </button> */}
 
               {/* Language */}
               <LanguageSwitcherV1
@@ -266,6 +349,96 @@ export function Navbar() {
                   </span>
                 )}
               </button>
+
+              {/* Notifications */}
+              {user && (
+                <div className="relative">
+                  <button
+                    onClick={() => setNotifOpen((v) => !v)}
+                    className="relative p-2 rounded-lg hover:bg-accent text-foreground/70 hover:text-primary transition-colors"
+                    aria-label={t("notifications")}
+                  >
+                    <Bell className="w-5 h-5" />
+                    {unreadCount > 0 && (
+                      <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-primary text-primary-foreground text-[10px] font-bold rounded-full flex items-center justify-center">
+                        {unreadCount > 9 ? "9+" : unreadCount}
+                      </span>
+                    )}
+                  </button>
+                  <AnimatePresence>
+                    {notifOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.98, y: 6 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.98, y: 6 }}
+                        className="absolute right-0 top-full mt-2 w-80 bg-card border border-border rounded-xl shadow-xl overflow-hidden z-50"
+                      >
+                        <div className="flex items-center justify-between px-4 py-3 border-b border-border">
+                          <p className="text-sm font-semibold">
+                            {t("notifications")}
+                          </p>
+                          <button
+                            type="button"
+                            onClick={() => markAllRead()}
+                            className="text-xs text-primary hover:underline"
+                          >
+                            {t("markAllRead")}
+                          </button>
+                        </div>
+                        <div className="max-h-80 overflow-y-auto">
+                          {notifications.length === 0 ? (
+                            <div className="px-4 py-8 text-center text-sm text-muted-foreground">
+                              {t("noNotifications")}
+                            </div>
+                          ) : (
+                            notifications.slice(0, 5).map((n) => (
+                              <button
+                                key={n.id}
+                                type="button"
+                                onClick={() => {
+                                  markRead(n.id);
+                                  setNotifOpen(false);
+                                  if (n.link) router.push(n.link);
+                                }}
+                                className={cn(
+                                  "w-full text-left px-4 py-3 border-b border-border/60 last:border-0 hover:bg-accent transition-colors",
+                                  !n.read && "bg-primary/5",
+                                )}
+                              >
+                                <div className="flex items-start gap-3">
+                                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                                    <CheckCheck className="w-4 h-4 text-primary" />
+                                  </div>
+                                  <div className="min-w-0">
+                                    <p className="text-sm font-medium truncate">
+                                      {n.title}
+                                    </p>
+                                    <p className="text-xs text-muted-foreground line-clamp-2">
+                                      {n.message}
+                                    </p>
+                                  </div>
+                                </div>
+                              </button>
+                            ))
+                          )}
+                        </div>
+                        <div className="px-4 py-3 border-t border-border bg-muted/40">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setNotifOpen(false);
+                              router.push(`/${locale}/admin/notifications`);
+                            }}
+                            className="text-sm font-medium text-primary hover:underline"
+                          >
+                            {t("viewMore")}
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              )}
 
               {/* User */}
               {user ? (
@@ -315,15 +488,18 @@ export function Navbar() {
                             <Package className="w-4 h-4 text-muted-foreground" />{" "}
                             {t("orders")}
                           </Link>
-                          {isAdmin && (
-                            <Link
-                              href={`/${locale}/admin/dashboard`}
-                              onClick={() => setUserOpen(false)}
-                              className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-accent transition-colors text-primary font-medium"
-                            >
-                              <Settings className="w-4 h-4" /> {t("admin")}
-                            </Link>
-                          )}
+                          <Link
+                            href={
+                              userRole === "branch_staff"
+                                ? `/${locale}/branch-dashboard`
+                                : `/${locale}/admin`
+                            }
+                            onClick={() => setUserOpen(false)}
+                            className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-accent transition-colors text-primary font-medium"
+                          >
+                            <Settings className="w-4 h-4" />
+                            {userRole === "branch_staff" ? "Branch panel" : t("admin")}
+                          </Link>
                         </div>
                         <div className="py-1 border-t border-border">
                           <button

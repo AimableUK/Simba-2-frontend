@@ -5,6 +5,8 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useRouter } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
 import {
   Plus,
   Edit,
@@ -22,6 +24,7 @@ import { toast } from "sonner";
 import { branchApi } from "@/lib/api";
 import { FormField, FormInput } from "@/components/ui/form-field";
 import { Skeleton } from "@/components/common/skeletons";
+import { useSession } from "@/lib/auth-client";
 
 const schema = z.object({
   name: z.string().min(2, "Branch name is required"),
@@ -129,24 +132,32 @@ const DISTRICT_COLORS: Record<string, string> = {
 
 export default function AdminBranchesPage() {
   const qc = useQueryClient();
+  const router = useRouter();
+  const locale = useLocale();
+  const t = useTranslations("admin.branches");
+  const { data: session } = useSession();
+  const role = (session?.user as any)?.role as string;
+  const canEditBranch = role === "admin" || role === "super_admin";
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState<any>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<any>(null);
 
-  const { data: branches, isLoading } = useQuery({
+  const { data: branchesResponse, isLoading } = useQuery({
     queryKey: ["admin-branches"],
-    queryFn: () => branchApi.list().then((r: any) => r.data),
+    queryFn: () => branchApi.adminList({ page: 1, limit: 100 }).then((r: any) => r.data),
   });
+  const branches = branchesResponse?.data || [];
 
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     mode: "onBlur",
-    defaultValues: { openTime: "08:00", closeTime: "20:00", sortOrder: 0 },
+    reValidateMode: "onBlur",
+    defaultValues: { openTime: "08:00", closeTime: "23:00", sortOrder: 0 },
   });
 
   const createMutation = useMutation({
@@ -156,7 +167,7 @@ export default function AdminBranchesPage() {
         body: JSON.stringify(data),
       }),
     onSuccess: () => {
-      toast.success("Branch created!");
+      toast.success(t("created"));
       closeForm();
       qc.invalidateQueries({ queryKey: ["admin-branches", "branches"] });
     },
@@ -171,7 +182,7 @@ export default function AdminBranchesPage() {
         body: JSON.stringify(data),
       }),
     onSuccess: () => {
-      toast.success("Branch updated!");
+      toast.success(t("updated"));
       closeForm();
       qc.invalidateQueries({ queryKey: ["admin-branches", "branches"] });
     },
@@ -183,7 +194,7 @@ export default function AdminBranchesPage() {
     mutationFn: (id: string) =>
       fetch(`/api/branches/admin/${id}`, { method: "DELETE" }),
     onSuccess: () => {
-      toast.success("Branch deactivated");
+      toast.success(t("deactivated"));
       setDeleteConfirm(null);
       qc.invalidateQueries({ queryKey: ["admin-branches", "branches"] });
     },
@@ -213,6 +224,10 @@ export default function AdminBranchesPage() {
     reset();
   };
 
+  const openBranch = (branch: any) => {
+    router.push(`/${locale}/admin/branches/${branch.slug}`);
+  };
+
   const onSubmit = (data: FormData) => {
     const payload = {
       ...data,
@@ -227,9 +242,9 @@ export default function AdminBranchesPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <h1 className="text-2xl font-bold">Branches</h1>
+          <h1 className="text-2xl font-bold">{t("title")}</h1>
           <p className="text-sm text-muted-foreground mt-0.5">
-            Manage all Simba Supermarket locations in Kigali
+            {t("subtitle")}
           </p>
         </div>
         <button
@@ -242,28 +257,29 @@ export default function AdminBranchesPage() {
             setEditing(null);
             setShowForm(true);
           }}
+          disabled={!canEditBranch}
           className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2.5 rounded-xl font-medium hover:bg-primary/90 transition-colors text-sm"
         >
-          <Plus className="h-4 w-4" /> Add Branch
+          <Plus className="h-4 w-4" /> {t("add")}
         </button>
       </div>
 
       {/* Stats bar */}
-      {!isLoading && branches && (
+      {!isLoading && branchesResponse && (
         <div className="grid grid-cols-3 gap-4">
           {[
             {
-              label: "Total Branches",
-              value: branches.length,
+              label: t("stats.totalBranches"),
+              value: branchesResponse.pagination?.total || branches.length,
               color: "text-primary",
             },
             {
-              label: "Active",
+              label: t("stats.active"),
               value: branches.filter((b: any) => b.isActive).length,
               color: "text-green-600",
             },
             {
-              label: "Districts",
+              label: t("stats.districts"),
               value: new Set(branches.map((b: any) => b.district)).size,
               color: "text-blue-600",
             },
@@ -291,7 +307,8 @@ export default function AdminBranchesPage() {
           {branches?.map((branch: any) => (
             <div
               key={branch.id}
-              className={`bg-card border rounded-2xl p-5 transition-all ${branch.isActive ? "border-border" : "border-border opacity-60"}`}
+              onClick={() => openBranch(branch)}
+              className={`group cursor-pointer bg-card border rounded-2xl p-5 transition-all hover:border-primary/40 hover:shadow-md ${branch.isActive ? "border-border" : "border-border opacity-60"}`}
             >
               <div className="flex items-start justify-between mb-3">
                 <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
@@ -305,7 +322,7 @@ export default function AdminBranchesPage() {
                   </span>
                   {!branch.isActive && (
                     <span className="text-xs bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 px-2 py-1 rounded-full font-medium">
-                      Inactive
+                      {t("inactive")}
                     </span>
                   )}
                 </div>
@@ -323,7 +340,7 @@ export default function AdminBranchesPage() {
                 </span>
                 <span className="flex items-center gap-1">
                   <Star className="h-3 w-3 fill-primary text-primary" />
-                  {branch.rating > 0 ? branch.rating.toFixed(1) : "New"} (
+                  {branch.rating > 0 ? branch.rating.toFixed(1) : t("new")} (
                   {branch.reviewCount})
                 </span>
                 {branch.phone && (
@@ -336,13 +353,29 @@ export default function AdminBranchesPage() {
                   <>
                     <span className="flex items-center gap-1">
                       <ShoppingCart className="h-3 w-3" />
-                      {branch._count.orders} orders
+                      {branch._count.orders} {t("orders")}
                     </span>
                     <span className="flex items-center gap-1">
                       <Users className="h-3 w-3" />
-                      {branch._count.staff} staff
+                      {branch._count.staff} {t("staff")}
                     </span>
                   </>
+                )}
+              </div>
+
+              <div className="flex flex-wrap gap-1.5 mb-3">
+                {(branch.staff || []).slice(0, 3).map((member: any) => (
+                  <span
+                    key={member.id}
+                    className={`text-[10px] font-medium px-2 py-1 rounded-full ${member.role === "branch_manager" ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400" : "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-400"}`}
+                  >
+                    {member.user?.name} · {member.role.replace("_", " ")}
+                  </span>
+                ))}
+                {branch.staff?.length > 3 && (
+                  <span className="text-[10px] font-medium px-2 py-1 rounded-full bg-muted text-muted-foreground">
+                    +{branch.staff.length - 3} {t("more")}
+                  </span>
                 )}
               </div>
 
@@ -352,26 +385,35 @@ export default function AdminBranchesPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1 text-xs text-primary hover:underline mb-3"
+                  onClick={(e) => e.stopPropagation()}
                 >
-                  <ExternalLink className="h-3 w-3" /> View on Maps
+                  <ExternalLink className="h-3 w-3" /> {t("viewOnMaps")}
                 </a>
               )}
 
-              <div className="flex gap-2 pt-3 border-t border-border">
-                <button
-                  onClick={() => openEdit(branch)}
-                  className="flex-1 flex items-center justify-center gap-1.5 text-xs font-medium border border-border py-2 rounded-xl hover:bg-muted transition-colors"
-                >
-                  <Edit className="h-3.5 w-3.5" /> Edit
-                </button>
-                <button
-                  onClick={() => setDeleteConfirm(branch)}
-                  className="flex-1 flex items-center justify-center gap-1.5 text-xs font-medium border border-destructive/30 text-destructive py-2 rounded-xl hover:bg-destructive/5 transition-colors"
-                >
-                  <Trash2 className="h-3.5 w-3.5" />{" "}
-                  {branch.isActive ? "Deactivate" : "Deleted"}
-                </button>
-              </div>
+              {canEditBranch && (
+                <div className="flex gap-2 pt-3 border-t border-border" onClick={(e) => e.stopPropagation()}>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openEdit(branch);
+                    }}
+                    className="flex-1 flex items-center justify-center gap-1.5 text-xs font-medium border border-border py-2 rounded-xl hover:bg-muted transition-colors"
+                  >
+                    <Edit className="h-3.5 w-3.5" /> {t("edit")}
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setDeleteConfirm(branch);
+                    }}
+                    className="flex-1 flex items-center justify-center gap-1.5 text-xs font-medium border border-destructive/30 text-destructive py-2 rounded-xl hover:bg-destructive/5 transition-colors"
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />{" "}
+                    {branch.isActive ? t("deactivate") : t("deleted")}
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -389,7 +431,7 @@ export default function AdminBranchesPage() {
           >
             <div className="flex items-center justify-between mb-6">
               <h2 className="font-bold text-lg">
-                {editing ? "Edit Branch" : "Add New Branch"}
+                {editing ? t("editBranch") : t("addNewBranch")}
               </h2>
               <button
                 onClick={closeForm}
@@ -403,7 +445,7 @@ export default function AdminBranchesPage() {
             {!editing && (
               <div className="mb-5">
                 <p className="text-xs font-medium text-muted-foreground mb-2">
-                  Quick fill from known branches:
+                  {t("quickFill")}
                 </p>
                 <div className="flex flex-wrap gap-1.5">
                   {SEED_BRANCHES.map((b) => (
@@ -433,31 +475,31 @@ export default function AdminBranchesPage() {
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <FormField
-                label="Branch Name"
+                label={t("fields.name")}
                 error={errors.name?.message}
                 required
               >
                 <FormInput
                   registration={register("name")}
                   error={!!errors.name}
-                  placeholder="Enter branch name"
+                  placeholder={t("placeholders.name")}
                 />
               </FormField>
 
               <FormField
-                label="Address"
+                label={t("fields.address")}
                 error={errors.address?.message}
                 required
               >
                 <FormInput
                   registration={register("address")}
                   error={!!errors.address}
-                  placeholder="Enter branch location"
+                  placeholder={t("placeholders.address")}
                 />
               </FormField>
 
               <FormField
-                label="District"
+                label={t("fields.district")}
                 error={errors.district?.message}
                 required
               >
@@ -465,7 +507,7 @@ export default function AdminBranchesPage() {
                   {...register("district")}
                   className={`w-full px-4 py-3 rounded-xl border bg-background text-sm focus:outline-none focus:ring-2 transition-all ${errors.district ? "border-destructive focus:ring-destructive/20 bg-destructive/5" : "border-border focus:border-primary focus:ring-primary/20"}`}
                 >
-                  <option value="">Select district</option>
+                  <option value="">{t("placeholders.district")}</option>
                   <option value="Gasabo">Gasabo</option>
                   <option value="Kicukiro">Kicukiro</option>
                   <option value="Nyarugenge">Nyarugenge</option>
@@ -474,10 +516,10 @@ export default function AdminBranchesPage() {
 
               <div className="grid grid-cols-2 gap-4">
                 <FormField
-                  label="Latitude"
+                  label={t("fields.latitude")}
                   error={errors.lat?.message}
                   optional
-                  hint="e.g. -1.9441"
+                  hint={t("placeholders.latitude")}
                 >
                   <FormInput
                     registration={register("lat")}
@@ -488,10 +530,10 @@ export default function AdminBranchesPage() {
                   />
                 </FormField>
                 <FormField
-                  label="Longitude"
+                  label={t("fields.longitude")}
                   error={errors.lng?.message}
                   optional
-                  hint="e.g. 30.1178"
+                  hint={t("placeholders.longitude")}
                 >
                   <FormInput
                     registration={register("lng")}
@@ -503,17 +545,17 @@ export default function AdminBranchesPage() {
                 </FormField>
               </div>
 
-              <FormField label="Phone" error={errors.phone?.message} optional>
+              <FormField label={t("fields.phone")} error={errors.phone?.message} optional>
                 <FormInput
                   registration={register("phone")}
-                  placeholder="+250 788 000 000"
+                  placeholder={t("placeholders.phone")}
                   type="tel"
                 />
               </FormField>
 
               <div className="grid grid-cols-2 gap-4">
                 <FormField
-                  label="Opens At"
+                  label={t("fields.openTime")}
                   error={errors.openTime?.message}
                   required
                 >
@@ -524,7 +566,7 @@ export default function AdminBranchesPage() {
                   />
                 </FormField>
                 <FormField
-                  label="Closes At"
+                  label={t("fields.closeTime")}
                   error={errors.closeTime?.message}
                   required
                 >
@@ -537,9 +579,9 @@ export default function AdminBranchesPage() {
               </div>
 
               <FormField
-                label="Sort Order"
+                label={t("fields.sortOrder")}
                 error={errors.sortOrder?.message}
-                hint="Lower = appears first"
+                hint={t("sortOrderHint")}
               >
                 <FormInput
                   registration={register("sortOrder")}
@@ -552,22 +594,24 @@ export default function AdminBranchesPage() {
                 <button
                   type="submit"
                   disabled={
-                    createMutation.isPending || updateMutation.isPending
+                    createMutation.isPending ||
+                    updateMutation.isPending ||
+                    !isValid
                   }
                   className="flex-1 bg-primary text-primary-foreground font-semibold py-3 rounded-xl hover:bg-primary/90 disabled:opacity-50 transition-colors"
                 >
                   {createMutation.isPending || updateMutation.isPending
-                    ? "Saving..."
+                    ? t("saving")
                     : editing
-                      ? "Update Branch"
-                      : "Create Branch"}
+                      ? t("updateBranch")
+                      : t("createBranch")}
                 </button>
                 <button
                   type="button"
                   onClick={closeForm}
                   className="px-5 py-3 border border-border rounded-xl hover:bg-muted transition-colors font-medium"
                 >
-                  Cancel
+                  {t("cancel")}
                 </button>
               </div>
             </form>
@@ -585,15 +629,14 @@ export default function AdminBranchesPage() {
             className="bg-card border border-border rounded-2xl p-6 max-w-sm w-full shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <h2 className="font-bold text-lg mb-2">Deactivate Branch?</h2>
+            <h2 className="font-bold text-lg mb-2">{t("deactivateTitle")}</h2>
             <p className="text-sm text-muted-foreground mb-1">
               <span className="font-medium text-foreground">
                 {deleteConfirm.name}
               </span>
             </p>
             <p className="text-sm text-muted-foreground mb-6">
-              This will hide the branch from the public store. Existing orders
-              won't be affected.
+              {t("deactivateDesc")}
             </p>
             <div className="flex gap-3">
               <button
@@ -601,13 +644,13 @@ export default function AdminBranchesPage() {
                 disabled={deleteMutation.isPending}
                 className="flex-1 bg-destructive text-destructive-foreground font-semibold py-2.5 rounded-xl hover:bg-destructive/90 disabled:opacity-50"
               >
-                {deleteMutation.isPending ? "Processing..." : "Deactivate"}
+                {deleteMutation.isPending ? t("processing") : t("deactivate")}
               </button>
               <button
                 onClick={() => setDeleteConfirm(null)}
                 className="flex-1 border border-border rounded-xl font-medium hover:bg-muted transition-colors"
               >
-                Cancel
+                {t("cancel")}
               </button>
             </div>
           </div>

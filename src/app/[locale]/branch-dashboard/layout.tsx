@@ -28,6 +28,7 @@ export default function BranchDashboardLayout({
   const locale = useLocale();
   const pathname = usePathname();
   const qc = useQueryClient();
+  const resolvedLocale = locale || pathname.split("/")[1] || "en";
 
   const role = (session?.user as any)?.role as string;
 
@@ -41,15 +42,15 @@ export default function BranchDashboardLayout({
   useEffect(() => {
     if (isPending) return;
     if (!session?.user) {
-      router.replace(`/${locale}/auth/sign-in`);
+      router.replace(`/${resolvedLocale}/auth/sign-in`);
       return;
     }
     if (
       !["branch_staff", "branch_manager", "admin", "super_admin"].includes(role)
     ) {
-      router.replace(`/${locale}`);
+      router.replace(`/${resolvedLocale}`);
     }
-  }, [session, isPending, role, router, locale]);
+  }, [session, isPending, role, router, resolvedLocale]);
 
   if (isPending || !session?.user) {
     return (
@@ -61,18 +62,18 @@ export default function BranchDashboardLayout({
 
   const NAV = [
     {
-      href: `/${locale}/branch-dashboard`,
+      href: `/${resolvedLocale}/branch-dashboard`,
       icon: BarChart2,
       label: "Dashboard",
       exact: true,
     },
     {
-      href: `/${locale}/branch-dashboard/orders`,
+      href: `/${resolvedLocale}/branch-dashboard/orders`,
       icon: ClipboardList,
       label: "Orders",
     },
     {
-      href: `/${locale}/branch-dashboard/stock`,
+      href: `/${resolvedLocale}/branch-dashboard/stock`,
       icon: Package,
       label: "Stock",
     },
@@ -83,7 +84,7 @@ export default function BranchDashboardLayout({
       {/* Sidebar */}
       <aside className="w-56 bg-card border-r border-border flex-col shrink-0 hidden lg:flex">
         <div className="p-5 border-b border-border">
-          <Link href={`/${locale}`} className="flex items-center gap-2">
+          <Link href={`/${resolvedLocale}`} className="flex items-center gap-2">
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <ShoppingBag className="h-4 w-4 text-white" />
             </div>
@@ -130,7 +131,7 @@ export default function BranchDashboardLayout({
             </div>
           </div>
           <Link
-            href={`/${locale}`}
+            href={`/${resolvedLocale}`}
             className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors mb-2"
           >
             <Home className="h-3.5 w-3.5" /> Back to Store
@@ -138,7 +139,7 @@ export default function BranchDashboardLayout({
           <button
             onClick={() =>
               signOut({
-                fetchOptions: { onSuccess: () => router.push(`/${locale}`) },
+                fetchOptions: { onSuccess: () => router.push(`/${resolvedLocale}`) },
               })
             }
             className="flex items-center gap-2 text-xs text-muted-foreground hover:text-destructive transition-colors w-full"
@@ -151,7 +152,7 @@ export default function BranchDashboardLayout({
       {/* Mobile header */}
       <div className="flex-1 flex flex-col min-w-0">
         <header className="lg:hidden sticky top-0 z-30 bg-background border-b border-border px-4 py-3 flex items-center justify-between">
-          <Link href={`/${locale}`} className="flex items-center gap-2">
+          <Link href={`/${resolvedLocale}`} className="flex items-center gap-2">
             <ShoppingBag className="h-5 w-5 text-primary" />
             <span className="font-bold text-sm">Branch Panel</span>
           </Link>

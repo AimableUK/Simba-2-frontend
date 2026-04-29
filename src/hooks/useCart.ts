@@ -2,7 +2,7 @@
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { cartApi } from "@/lib/api";
-import { useCartStore } from "@/store";
+import { useCartStore, useBranchStore } from "@/store";
 import { useSession } from "@/lib/auth-client";
 import { useEffect } from "react";
 import { toast } from "sonner";
@@ -10,11 +10,12 @@ import { toast } from "sonner";
 export function useCart() {
   const { data: session } = useSession();
   const { setCart, items, total, deliveryFee } = useCartStore();
+  const { selectedBranchId } = useBranchStore();
   const qc = useQueryClient();
 
   const { data, isLoading } = useQuery({
-    queryKey: ["cart"],
-    queryFn: () => cartApi.get().then((r) => r.data),
+    queryKey: ["cart", selectedBranchId],
+    queryFn: () => cartApi.get(selectedBranchId || undefined).then((r) => r.data),
     enabled: !!session?.user,
     staleTime: 30_000,
   });
@@ -28,10 +29,12 @@ export function useCart() {
     mutationFn: ({
       productId,
       quantity,
+      branchId,
     }: {
       productId: string;
       quantity: number;
-    }) => cartApi.add({ productId, quantity }),
+      branchId?: string;
+    }) => cartApi.add({ productId, quantity, branchId: branchId || selectedBranchId || undefined }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["cart"] }),
     onError: (err: any) =>
       toast.error(err?.response?.data?.message || "Failed to add to cart"),
@@ -41,20 +44,28 @@ export function useCart() {
     mutationFn: ({
       productId,
       quantity,
+      branchId,
     }: {
       productId: string;
       quantity: number;
-    }) => cartApi.update(productId, quantity),
+      branchId?: string;
+    }) => cartApi.update(productId, quantity, branchId || selectedBranchId || undefined),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["cart"] }),
   });
 
   const removeMutation = useMutation({
-    mutationFn: (productId: string) => cartApi.remove(productId),
+    mutationFn: ({
+      productId,
+      branchId,
+    }: {
+      productId: string;
+      branchId?: string;
+    }) => cartApi.remove(productId, branchId || selectedBranchId || undefined),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["cart"] }),
   });
 
   const clearMutation = useMutation({
-    mutationFn: () => cartApi.clear(),
+    mutationFn: () => cartApi.clear(selectedBranchId || undefined),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["cart"] }),
   });
 

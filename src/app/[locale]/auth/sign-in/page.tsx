@@ -5,18 +5,16 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { Eye, EyeOff, ShoppingCart, Truck, Shield, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { signIn } from "@/lib/auth-client";
+import { FormField, FormInput } from "@/components/ui/form-field";
 import { toast } from "sonner";
 
-const schema = z.object({
-  email: z.email("Please enter a valid email"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-});
-type FormData = z.infer<typeof schema>;
+type FormData = {
+  email: string;
+  password: string;
+};
 
 export default function SignInPage() {
   const t = useTranslations("auth");
@@ -35,11 +33,8 @@ export default function SignInPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
-    resolver: zodResolver(schema),
-    mode: "onBlur",
-  });
+    formState: { errors, isValid },
+  } = useForm<FormData>({ mode: "onBlur", reValidateMode: "onBlur" });
 
   const onSubmit = async (data: FormData) => {
     setLoading(true);
@@ -214,44 +209,41 @@ export default function SignInPage() {
 
           {/* Email form */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium mb-1.5 text-foreground">
-                {t("email")}
-              </label>
-              <input
-                {...register("email")}
+            <FormField label={t("email")} error={errors.email?.message} required>
+              <FormInput
+                registration={register("email", {
+                  required: "Please enter your email",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Please enter a valid email",
+                  },
+                })}
+                error={!!errors.email}
                 type="email"
                 autoComplete="email"
                 placeholder={t("email")}
-                className={`w-full px-4 py-3 rounded-xl border bg-background focus:outline-none focus:ring-2 text-sm transition-all placeholder:text-muted-foreground/60 ${errors.email ? "border-destructive focus:ring-destructive/20 bg-destructive/5" : "border-border focus:ring-primary/40 focus:border-primary"}`}
               />
-              {errors.email && (
-                <p className="text-destructive text-xs mt-1.5 flex items-center gap-1">
-                  <span className="w-1 h-1 bg-destructive rounded-full" />
-                  {errors.email.message}
-                </p>
-              )}
-            </div>
+            </FormField>
 
-            <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label className="block text-sm font-medium text-foreground">
-                  {t("password")}
-                </label>
-                <Link
-                  href={`/${locale}/auth/forgot-password`}
-                  className="text-xs text-primary hover:underline font-medium"
-                >
-                  {t("forgotPassword")}
-                </Link>
-              </div>
+            <FormField
+              label={t("password")}
+              error={errors.password?.message}
+              required
+            >
               <div className="relative">
-                <input
-                  {...register("password")}
+                <FormInput
+                  registration={register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters",
+                    },
+                  })}
+                  error={!!errors.password}
                   type={showPw ? "text" : "password"}
                   autoComplete="current-password"
                   placeholder="••••••••"
-                  className={`w-full px-4 py-3 rounded-xl border bg-background focus:outline-none focus:ring-2 text-sm pr-11 transition-all ${errors.password ? "border-destructive focus:ring-destructive/20 bg-destructive/5" : "border-border focus:ring-primary/40 focus:border-primary"}`}
+                  className="pr-11"
                 />
                 <button
                   type="button"
@@ -265,18 +257,12 @@ export default function SignInPage() {
                   )}
                 </button>
               </div>
-              {errors.password && (
-                <p className="text-destructive text-xs mt-1.5 flex items-center gap-1">
-                  <span className="w-1 h-1 bg-destructive rounded-full" />
-                  {errors.password.message}
-                </p>
-              )}
-            </div>
+            </FormField>
 
             <button
               type="submit"
-              disabled={loading}
-              className="w-full bg-primary hover:bg-primary/90 active:scale-[0.98] disabled:opacity-60 text-primary-foreground font-semibold py-3.5 rounded-xl transition-all mt-1 flex items-center justify-center gap-2"
+              disabled={loading || !isValid}
+              className="w-full bg-primary hover:bg-primary/90 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed text-primary-foreground font-semibold py-3.5 rounded-xl transition-all mt-1 flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>

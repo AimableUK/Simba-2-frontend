@@ -8,7 +8,7 @@ import { X, ShoppingBag, Plus, Minus, Trash2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { cartApi } from "@/lib/api";
-import { useCartStore, useGuestCartStore } from "@/store";
+import { useCartStore, useGuestCartStore, useBranchStore } from "@/store";
 import { formatPrice, getImageUrl } from "@/lib/utils";
 import { useSession } from "@/lib/auth-client";
 import { toast } from "sonner";
@@ -21,6 +21,7 @@ export function CartDrawer() {
   const { isOpen, closeCart, setCart, items, total, deliveryFee } =
     useCartStore();
   const guestCart = useGuestCartStore();
+  const { selectedBranchId } = useBranchStore();
   const qc = useQueryClient();
   const pathname = usePathname();
 
@@ -29,8 +30,8 @@ export function CartDrawer() {
 
   //  Fetch API cart when authenticated
   const { data: apiCart } = useQuery({
-    queryKey: ["cart"],
-    queryFn: () => cartApi.get().then((r) => r.data),
+    queryKey: ["cart", selectedBranchId],
+    queryFn: () => cartApi.get(selectedBranchId || undefined).then((r) => r.data),
     enabled: isLoggedIn, // fetch on mount if logged in, not just when drawer opens
   });
 
@@ -63,7 +64,13 @@ export function CartDrawer() {
 
   //  Auth mutations
   const removeMutation = useMutation({
-    mutationFn: (productId: string) => cartApi.remove(productId),
+    mutationFn: ({
+      productId,
+      branchId,
+    }: {
+      productId: string;
+      branchId?: string;
+    }) => cartApi.remove(productId, branchId),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["cart"] }),
   });
 
@@ -74,7 +81,7 @@ export function CartDrawer() {
     }: {
       productId: string;
       quantity: number;
-    }) => cartApi.update(productId, quantity),
+    }) => cartApi.update(productId, quantity, selectedBranchId || undefined),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["cart"] }),
     onError: (err: any) =>
       toast.error(err?.response?.data?.message || "Error updating cart"),
@@ -82,7 +89,11 @@ export function CartDrawer() {
 
   //  Unified handlers
   const handleRemove = (productId: string) => {
-    if (isLoggedIn) removeMutation.mutate(productId);
+    if (isLoggedIn)
+      removeMutation.mutate({
+        productId,
+        branchId: selectedBranchId || undefined,
+      });
     else guestCart.remove(productId);
   };
 

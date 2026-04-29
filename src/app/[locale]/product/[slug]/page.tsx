@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { useState, useCallback } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
@@ -10,7 +10,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   ShoppingCart,
   Heart,
-  Star,
   Minus,
   Plus,
   ChevronRight,
@@ -22,44 +21,18 @@ import {
 import { toast } from "sonner";
 import { productApi, reviewApi } from "@/lib/api";
 import { useCart } from "@/hooks/useCart";
-import { useCartStore, useGuestCartStore, useWishlistStore } from "@/store";
+import {
+  useCartStore,
+  useGuestCartStore,
+  useWishlistStore,
+  useBranchStore,
+} from "@/store";
 import { useSession } from "@/lib/auth-client";
 import { formatPrice, getImageUrl, getDiscountPercent } from "@/lib/utils";
 import { ProductDetailSkeleton } from "@/components/common/skeletons";
+import { RatingStars } from "@/components/common/rating-stars";
 import type { Review } from "@/types";
 import { ProductCard } from "@/components/product/product-card";
-
-function StarRating({
-  rating,
-  onChange,
-}: {
-  rating: number;
-  onChange?: (r: number) => void;
-}) {
-  const [hover, setHover] = useState(0);
-  return (
-    <div className="flex gap-0.5">
-      {[1, 2, 3, 4, 5].map((star) => (
-        <button
-          key={star}
-          type="button"
-          onClick={() => onChange?.(star)}
-          onMouseEnter={() => onChange && setHover(star)}
-          onMouseLeave={() => onChange && setHover(0)}
-          className={onChange ? "cursor-pointer" : "cursor-default"}
-        >
-          <Star
-            className={`h-5 w-5 transition-colors ${
-              star <= (hover || rating)
-                ? "fill-primary text-primary"
-                : "fill-muted text-muted-foreground"
-            }`}
-          />
-        </button>
-      ))}
-    </div>
-  );
-}
 
 export default function ProductPage() {
   const params = useParams();
@@ -71,6 +44,7 @@ export default function ProductPage() {
   const { addToCartAsync, isAdding } = useCart();
   const qc = useQueryClient();
   const { toggle, has } = useWishlistStore();
+  const { selectedBranchId } = useBranchStore();
 
   const slug = params.slug as string;
   const [activeImage, setActiveImage] = useState(0);
@@ -126,7 +100,11 @@ export default function ProductPage() {
       return;
     }
     try {
-      await addToCartAsync({ productId: product!.id, quantity });
+      await addToCartAsync({
+        productId: product!.id,
+        quantity,
+        branchId: selectedBranchId || undefined,
+      });
       toast.success(t("addedToCart"));
     } catch {}
   }, [
@@ -136,6 +114,7 @@ export default function ProductPage() {
     addToCartAsync,
     guestCart,
     openCart,
+    selectedBranchId,
     locale,
     t,
   ]);
@@ -285,7 +264,7 @@ export default function ProductPage() {
 
             {/* Rating */}
             <div className="flex items-center gap-3">
-              <StarRating rating={Math.round(product.rating)} />
+              <RatingStars rating={product.rating} starClassName="h-5 w-5" />
               <span className="text-sm text-muted-foreground">
                 {product.rating.toFixed(1)} ({product.reviewCount}{" "}
                 {t("reviews")})
@@ -484,9 +463,11 @@ export default function ProductPage() {
                   <label className="text-sm font-medium mb-2 block">
                     {t("rating")}
                   </label>
-                  <StarRating
+                  <RatingStars
                     rating={reviewRating}
                     onChange={setReviewRating}
+                    allowHalf
+                    starClassName="h-5 w-5"
                   />
                 </div>
                 <textarea
@@ -535,7 +516,7 @@ export default function ProductPage() {
                         </p>
                       </div>
                     </div>
-                    <StarRating rating={review.rating} />
+                    <RatingStars rating={review.rating} starClassName="h-5 w-5" />
                   </div>
                   {review.comment && (
                     <p className="text-sm text-muted-foreground mt-2">

@@ -45,6 +45,135 @@
     "newArrivals": "Ziingia Mpya",
     "deals": "Ofa za Leo"
   },
+  "shop": {
+    "resultsFor": "Matokeo ya \"{query}\"",
+    "categories": "Makundi",
+    "allCategories": "Makundi yote",
+    "priceRange": "Kiwango cha bei",
+    "minPrice": "Chini (RWF)",
+    "maxPrice": "Juu (RWF)",
+    "quickFilters": "Vichujio vya haraka",
+    "ratings": "Ukadiriaji",
+    "anyRating": "Ukadiriaji wowote",
+    "ratingPlus": "Nyota {rating}+",
+    "featured": "Zilizochaguliwa",
+    "inStock": "Zipo stokini",
+    "filters": "Vichujio",
+    "apply": "Tumia",
+    "clearFilters": "Futa vichujio",
+    "clearAll": "Futa yote",
+    "tryDifferent": "Jaribu maneno au vichujio vingine"
+  },
+  "blog": {
+    "title": "Blogu Yetu",
+    "subtitle": "Habari, mapishi, na vidokezo kutoka Simba Super Market",
+    "readMore": "Soma Zaidi",
+    "views": "Maoni {count}",
+    "likes": "Vipendwa {count}",
+    "comments": "Maoni {count}",
+    "comment": "Acha Maoni",
+    "commentPlaceholder": "Shiriki mawazo yako...",
+    "submitComment": "Tuma Maoni",
+    "loginToComment": "Ingia kutoa maoni",
+    "noBlogs": "Hakuna machapisho ya blogu bado",
+    "tags": "Vitambulisho",
+    "share": "Shiriki chapisho hili",
+    "relatedPosts": "Machapisho Yanayohusiana"
+  },
+  "contact": {
+    "title": "Wasiliana Nasi",
+    "subtitle": "Tuko hapa kukusaidia. Tutumie ujumbe na tutajibu ndani ya masaa 24.",
+    "sendOtherMessage": "Tuma ujumbe mwingine",
+    "messageSent": "Ujumbe umetumwa!",
+    "touch": "Wasiliana nasi",
+    "name": "Jina Lako",
+    "email": "Barua Pepe",
+    "phone": "Nambari ya Simu (Si Lazima)",
+    "subject": "Mada",
+    "message": "Ujumbe",
+    "messagePlaceholder": "Tuambie jinsi tunavyoweza kukusaidia...",
+    "send": "Tuma Ujumbe",
+    "sending": "Inatumwa...",
+    "success": "Ujumbe umetumwa! Tutajibu hivi karibuni.",
+    "address": "Anwani",
+    "addressValue": "Kigali, Rwanda",
+    "emailLabel": "Barua Pepe",
+    "phoneLabel": "Simu",
+    "hours": "Masaa ya Kazi",
+    "hoursValue": "Jte–Jmosi: 8asubuhi–8jioni",
+    "hoursValueSun": "Jmapumziko: 9asubuhi–5jioni"
+  },
+  "cart": {
+    "title": "Kikapu Chako",
+    "empty": "Kikapu chako kiko wazi",
+    "emptyDesc": "Anza kununua na ongeza vitu kwenye kikapu chako",
+    "shopNow": "Anza Kununua",
+    "subtotal": "Jumla Ndogo",
+    "delivery": "Ada ya Uwasilishaji",
+    "total": "Jumla Yote",
+    "checkout": "Endelea Kulipa",
+    "remove": "Ondoa",
+    "update": "Sasisha",
+    "items": "vitu {count}",
+    "freeDelivery": "Uwasilishaji bure kwa zaidi ya RWF {amount}",
+    "deliveryNote": "Uwasilishaji Kigali tu",
+    "continueShopping": "Endelea Kununua",
+    "guestCartNotice": "Unatumia kama mgeni. Ingia ili kuhifadhi mkoba wako.",
+    "signIn": "Ingia",
+    "signInToCheckout": "Ingia ili Kulipa"
+  },
+  "wishlist": {
+    "title": "Orodha ya Matakwa",
+    "empty": "Orodha yako ya matakwa iko wazi",
+    "emptyDesc": "Hifadhi vitu unavyovipenda upate hapa",
+    "browseProducts": "Vinjari Bidhaa",
+    "addToCart": "Ongeza kwenye Kikapu",
+    "remove": "Ondoa",
+    "inStock": "Ipo stokini",
+    "outOfStock": "Haipo stokini",
+    "items": "Vitu vilivyohifadhiwa"
+  },
+  "orders": {
+    "title": "Maagizo Yangu",
+    "order": "Agizo",
+    "payment": {
+      "pending": "Malipo Yanasubiri",
+      "paid": "Imelipwa",
+      "failed": "Malipo Yameshindwa",
+      "refunded": "Imerudishwa"
+    },
+    "date": "Tarehe ya Agizo",
+    "track": "Fuatilia Agizo",
+    "noOrders": "Hakuna maagizo bado",
+    "noOrdersDesc": "Weka agizo lako la kwanza kuona hapa",
+    "signInPrompt": "Please sign in to view your orders",
+    "signIn": "Sign In",
+    "startShopping": "Start Shopping",
+    "notFound": "Agizo halipatikani",
+    "orderNumber": "Agizo #",
+    "timeline": "Mwendo wa Agizo",
+    "pickupInfo": "Maelezo ya Kuchukua",
+    "pickupTime": "Wakati wa Kuchukua",
+    "branch": "Tawi",
+    "address": "Anwani",
+    "phone": "Simu",
+    "notes": "Maelezo",
+    "items": "Bidhaa",
+    "each": "kila moja",
+    "subtotal": "Jumla ndogo",
+    "deposit": "Amana",
+    "total": "Jumla",
+    "cancelledMessage": "Agizo hili limefutwa.",
+    "deliveryAddress": "Anwani ya Utoaji",
+    "status": {
+      "pending": "Agizo Limewekwa",
+      "accepted": "Agizo Limekubaliwa",
+      "preparing": "Inaandaliwa",
+      "ready": "Iko Tayari Kuchukuliwa",
+      "picked_up": "Imechukuliwa",
+      "cancelled": "Imefutwa"
+    }
+  },
   "product": {
     "addToCart": "Ongeza kwenye Kikapu",
     "addedToCart": "Imeongezwa kwenye kikapu!",
@@ -73,25 +202,6 @@
     "reviewError": "Unaweza tu kutoa maoni kwa bidhaa ulizonunua na kupokea.",
     "quantity": "Kiasi",
     "images": "Picha za Bidhaa"
-  },
-  "cart": {
-    "title": "Kikapu Chako",
-    "empty": "Kikapu chako kiko wazi",
-    "emptyDesc": "Anza kununua na ongeza vitu kwenye kikapu chako",
-    "shopNow": "Anza Kununua",
-    "subtotal": "Jumla Ndogo",
-    "delivery": "Ada ya Uwasilishaji",
-    "total": "Jumla Yote",
-    "checkout": "Endelea Kulipa",
-    "remove": "Ondoa",
-    "update": "Sasisha",
-    "items": "vitu {count}",
-    "freeDelivery": "Uwasilishaji bure kwa zaidi ya RWF {amount}",
-    "deliveryNote": "Uwasilishaji Kigali tu",
-    "continueShopping": "Endelea Kununua",
-    "guestCartNotice": "Unatumia kama mgeni. Ingia ili kuhifadhi mkoba wako.",
-    "signIn": "Ingia",
-    "signInToCheckout": "Ingia ili Kulipa"
   },
   "checkout": {
     "title": "Malipo",
@@ -163,83 +273,6 @@
       "field": "Sehemu"
     }
   },
-  "orders": {
-    "title": "Maagizo Yangu",
-    "order": "Agizo",
-    "payment": {
-      "pending": "Malipo Yanasubiri",
-      "paid": "Imelipwa",
-      "failed": "Malipo Yameshindwa",
-      "refunded": "Imerudishwa"
-    },
-    "date": "Tarehe ya Agizo",
-    "track": "Fuatilia Agizo",
-    "noOrders": "Hakuna maagizo bado",
-    "noOrdersDesc": "Weka agizo lako la kwanza kuona hapa",
-    "notFound": "Agizo halipatikani",
-    "orderNumber": "Agizo #",
-    "timeline": "Mwendo wa Agizo",
-    "pickupInfo": "Maelezo ya Kuchukua",
-    "pickupTime": "Wakati wa Kuchukua",
-    "branch": "Tawi",
-    "address": "Anwani",
-    "phone": "Simu",
-    "notes": "Maelezo",
-    "items": "Bidhaa",
-    "each": "kila moja",
-    "subtotal": "Jumla ndogo",
-    "deposit": "Amana",
-    "total": "Jumla",
-    "cancelledMessage": "Agizo hili limefutwa.",
-    "deliveryAddress": "Anwani ya Utoaji",
-    "status": {
-      "pending": "Agizo Limewekwa",
-      "accepted": "Agizo Limekubaliwa",
-      "preparing": "Inaandaliwa",
-      "ready": "Iko Tayari Kuchukuliwa",
-      "picked_up": "Imechukuliwa",
-      "cancelled": "Imefutwa"
-    }
-  },
-  "blog": {
-    "title": "Blogu Yetu",
-    "subtitle": "Habari, mapishi, na vidokezo kutoka Simba Super Market",
-    "readMore": "Soma Zaidi",
-    "views": "Maoni {count}",
-    "likes": "Vipendwa {count}",
-    "comments": "Maoni {count}",
-    "comment": "Acha Maoni",
-    "commentPlaceholder": "Shiriki mawazo yako...",
-    "submitComment": "Tuma Maoni",
-    "loginToComment": "Ingia kutoa maoni",
-    "noBlogs": "Hakuna machapisho ya blogu bado",
-    "tags": "Vitambulisho",
-    "share": "Shiriki chapisho hili",
-    "relatedPosts": "Machapisho Yanayohusiana"
-  },
-  "contact": {
-    "title": "Wasiliana Nasi",
-    "subtitle": "Tuko hapa kukusaidia. Tutumie ujumbe na tutajibu ndani ya masaa 24.",
-    "sendOtherMessage": "Tuma ujumbe mwingine",
-    "messageSent": "Ujumbe umetumwa!",
-    "touch": "Wasiliana nasi",
-    "name": "Jina Lako",
-    "email": "Barua Pepe",
-    "phone": "Nambari ya Simu (Si Lazima)",
-    "subject": "Mada",
-    "message": "Ujumbe",
-    "messagePlaceholder": "Tuambie jinsi tunavyoweza kukusaidia...",
-    "send": "Tuma Ujumbe",
-    "sending": "Inatumwa...",
-    "success": "Ujumbe umetumwa! Tutajibu hivi karibuni.",
-    "address": "Anwani",
-    "addressValue": "Kigali, Rwanda",
-    "emailLabel": "Barua Pepe",
-    "phoneLabel": "Simu",
-    "hours": "Masaa ya Kazi",
-    "hoursValue": "Jte–Jmosi: 8asubuhi–8jioni",
-    "hoursValueSun": "Jmapumziko: 9asubuhi–5jioni"
-  },
   "auth": {
     "signin": {
       "title": "Duka kuu pendwa la Rwanda, mtandaoni.",
@@ -284,22 +317,96 @@
     "continueWithGoogle": "Endelea na Google"
   },
   "admin": {
+    "layout": {
+      "appName": "Simba Market",
+      "panel": "Jopo la Msimamizi",
+      "branchPanel": "Jopo la Tawi"
+    },
+    "menu": {
+      "dashboard": "Dashibodi",
+      "products": "Bidhaa",
+      "orders": "Maagizo",
+      "branches": "Matawi",
+      "users": "Watumiaji",
+      "blogs": "Blogu",
+      "messages": "Ujumbe",
+      "banners": "Bango",
+      "settings": "Mipangilio",
+      "account": "Akaunti",
+      "myOrders": "Maagizo Yangu",
+      "notifications": "Arifa",
+      "signOut": "Toka"
+    },
+    "dashboard": "Dashibodi",
+    "users": "Watumiaji",
+    "banners": "Mabango",
+    "settings": "Mipangilio",
+    "profile": {
+      "title": "Akaunti Yangu",
+      "myOrders": "Maagizo Yangu",
+      "trackOrders": "Fuatilia maagizo yako",
+      "details": "Maelezo ya wasifu",
+      "fullName": "Jina kamili",
+      "email": "Email",
+      "emailLocked": "Barua pepe haiwezi kubadilishwa",
+      "phoneNumber": "Nambari ya simu",
+      "phonePlaceholder": "Nambari yako ya simu",
+      "role": "Jukumu",
+      "saving": "Saving...",
+      "save": "Hifadhi mabadiliko",
+      "signInPrompt": "Tafadhali ingia ili kuona wasifu wako",
+      "signIn": "Ingia"
+    },
+    "contacts": "Ujumbe wa Mawasiliano",
+    "blogs": "Machapisho ya Blogu",
+    "products": "Bidhaa",
+    "branches": "Matawi",
+    "branchDetail": {
+      "backToBranches": "Back to branches",
+      "staff": "staff",
+      "products": "products",
+      "inactive": "Inactive",
+      "team": "Team",
+      "searchPlaceholder": "Search products...",
+      "cols": {
+        "product": "Product",
+        "category": "Category",
+        "price": "Price",
+        "stock": "Stock",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "save": "Save",
+      "cancel": "Cancel",
+      "active": "Active",
+      "hidden": "Hidden",
+      "update": "Update",
+      "hide": "Hide",
+      "show": "Show",
+      "stockUpdated": "Stock updated"
+    },
+    "branchTeam": {
+      "backToBranch": "Back to branch",
+      "teamTitle": "Team",
+      "inviteDescription": "Invite people with an account to join this branch.",
+      "inviteTeamMember": "Invite team member",
+      "searchPlaceholder": "Search users by name or email",
+      "role": "Role",
+      "branchStaff": "Branch staff",
+      "branchManager": "Branch manager",
+      "optionalNote": "Optional note",
+      "shortMessage": "Short message",
+      "sent": "Invite sent",
+      "sendInvite": "Send invite",
+      "sending": "Sending...",
+      "pendingInvites": "Pending invites",
+      "noPendingInvites": "No pending invites.",
+      "failed": "Failed to send invite"
+    },
     "orders": {
       "title": "Maagizo",
       "searchPlaceholder": "Tafuta agizo, mteja...",
       "allStatuses": "Hali Zote",
-      "itemsCount": "bidhaa",
-      "manage": "Simamia",
-      "statusUpdated": "Hali ya agizo imesasishwa",
-      "statusError": "Imeshindwa kusasisha hali",
-      "status": {
-        "pending": "Inasubiri",
-        "accepted": "Imekubaliwa",
-        "preparing": "Inaandaliwa",
-        "ready": "Iko Tayari",
-        "picked_up": "Imechukuliwa",
-        "cancelled": "Imefutwa"
-      },
       "cols": {
         "order": "Agizo #",
         "customer": "Mteja",
@@ -310,6 +417,10 @@
         "date": "Tarehe",
         "actions": "Vitendo"
       },
+      "itemsCount": "bidhaa",
+      "manage": "Simamia",
+      "statusUpdated": "Hali ya agizo imesasishwa",
+      "statusError": "Imeshindwa kusasisha hali",
       "modal": {
         "title": "Sasisha Hali ya Agizo",
         "customer": "Mteja",
@@ -320,20 +431,20 @@
         "newStatus": "Hali Mpya",
         "note": "Maelezo (si lazima)",
         "notePlaceholder": "mfano. Tayari kwenye kaunta 2",
-        "update": "Sasisha Hali",
         "updating": "Inasasisha...",
+        "update": "Sasisha Hali",
         "cancel": "Ghairi"
+      },
+      "status": {
+        "pending": "Inasubiri",
+        "accepted": "Imekubaliwa",
+        "preparing": "Inaandaliwa",
+        "ready": "Iko Tayari",
+        "picked_up": "Imechukuliwa",
+        "cancelled": "Imefutwa"
       }
     },
-    "dashboard": "Dashibodi",
-    "products": "Bidhaa",
-    "users": "Watumiaji",
-    "blogs": "Machapisho ya Blogu",
-    "branches": "Matawi",
     "messages": "Ujumbe",
-    "contacts": "Ujumbe wa Mawasiliano",
-    "banners": "Mabango",
-    "settings": "Mipangilio",
     "totalRevenue": "Jumla ya Mapato",
     "totalOrders": "Jumla ya Maagizo",
     "totalUsers": "Jumla ya Watumiaji",
@@ -517,18 +628,6 @@
     "currentStock": "Hisa ya Sasa",
     "markOutOfStock": "Weka kama Imeisha"
   },
-  "wishlist": {
-    "title": "Orodha ya Matakwa",
-    "empty": "Orodha yako ya matakwa iko wazi",
-    "emptyDesc": "Hifadhi vitu unavyovipenda upate hapa",
-    "browseProducts": "Vinjari Bidhaa",
-    "addToCart": "Ongeza kwenye Kikapu",
-    "remove": "Ondoa",
-    "inStock": "Ipo stokini",
-    "outOfStock": "Haipo stokini",
-    "items": "Vitu vilivyohifadhiwa"
-  },
-
   "about": {
     "hero": {
       "eyebrow": "Wasifu wa Kampuni",
@@ -670,7 +769,6 @@
       }
     }
   },
-
   "faq": {
     "hero": {
       "eyebrow": "Kituo cha Msaada",
@@ -770,7 +868,6 @@
       "cta": "Wasiliana Nasi"
     }
   },
-
   "returns": {
     "hero": {
       "eyebrow": "Huduma kwa Wateja",
@@ -846,7 +943,6 @@
       "body": "Simba Supermarket inashikilia haki ya kukataa kurudisha ambayo haifikii masharti ya sera yetu. Manunuzi ya dukani lazima yarudishwe katika tawi halisi; maagizo ya mtandaoni yanaweza kurudishwa dukani au kupitia huduma yetu ya ukusanyaji."
     }
   },
-
   "privacy": {
     "hero": {
       "eyebrow": "Kisheria",
@@ -915,7 +1011,6 @@
       }
     }
   },
-
   "delivery": {
     "hero": {
       "eyebrow": "Uwasilishaji",
@@ -923,9 +1018,18 @@
       "subtitle": "Uwasilishaji wa haraka na wa kuaminika kutoka matawini mwetu moja kwa moja hadi mlangoni kwako Kigali na zaidi."
     },
     "stats": {
-      "branches": { "value": "11", "label": "Matawi" },
-      "minOrder": { "value": "5K RWF", "label": "Agizo la Chini" },
-      "coverage": { "value": "Kigali", "label": "Eneo" }
+      "branches": {
+        "value": "11",
+        "label": "Matawi"
+      },
+      "minOrder": {
+        "value": "5K RWF",
+        "label": "Agizo la Chini"
+      },
+      "coverage": {
+        "value": "Kigali",
+        "label": "Eneo"
+      }
     },
     "options": {
       "eyebrow": "Chaguo za Uwasilishaji",
@@ -1004,7 +1108,6 @@
       "cta": "Wasiliana nasi"
     }
   },
-
   "terms": {
     "hero": {
       "eyebrow": "Kisheria",

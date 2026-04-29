@@ -2,8 +2,6 @@
 
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react";
@@ -11,14 +9,13 @@ import { contactApi } from "@/lib/api";
 import { useState } from "react";
 import { FormField, FormInput, FormTextarea } from "@/components/ui/form-field";
 
-const schema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.email("Please enter a valid email address"),
-  phone: z.string().optional(),
-  subject: z.string().min(3, "Subject must be at least 3 characters"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-});
-type FormData = z.infer<typeof schema>;
+type FormData = {
+  name: string;
+  email: string;
+  phone?: string;
+  subject: string;
+  message: string;
+};
 
 export default function ContactPage() {
   const t = useTranslations("contact");
@@ -27,11 +24,18 @@ export default function ContactPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     reset,
   } = useForm<FormData>({
-    resolver: zodResolver(schema),
     mode: "onBlur",
+    reValidateMode: "onBlur",
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
+    },
   });
 
   const mutation = useMutation({
@@ -151,8 +155,14 @@ export default function ContactPage() {
                     error={errors.name?.message}
                     required
                   >
-                    <FormInput
-                      registration={register("name")}
+                  <FormInput
+                      registration={register("name", {
+                        required: "Name is required",
+                        minLength: {
+                          value: 2,
+                          message: "Name must be at least 2 characters",
+                        },
+                      })}
                       error={!!errors.name}
                       placeholder={t("name")}
                     />
@@ -162,8 +172,14 @@ export default function ContactPage() {
                     error={errors.email?.message}
                     required
                   >
-                    <FormInput
-                      registration={register("email")}
+                  <FormInput
+                      registration={register("email", {
+                        required: "Email is required",
+                        pattern: {
+                          value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                          message: "Please enter a valid email address",
+                        },
+                      })}
                       error={!!errors.email}
                       type="email"
                       placeholder={t("email")}
@@ -177,7 +193,13 @@ export default function ContactPage() {
                   optional
                 >
                   <FormInput
-                    registration={register("phone")}
+                    registration={register("phone", {
+                      pattern: {
+                        value: /^[0-9+()\-\s]{7,20}$/,
+                        message: "Please enter a valid phone number",
+                      },
+                    })}
+                    error={!!errors.phone}
                     type="tel"
                     placeholder={t("phone")}
                   />
@@ -189,7 +211,13 @@ export default function ContactPage() {
                   required
                 >
                   <FormInput
-                    registration={register("subject")}
+                    registration={register("subject", {
+                      required: "Subject is required",
+                      minLength: {
+                        value: 3,
+                        message: "Subject must be at least 3 characters",
+                      },
+                    })}
                     error={!!errors.subject}
                     placeholder={t("subject")}
                   />
@@ -201,7 +229,13 @@ export default function ContactPage() {
                   required
                 >
                   <FormTextarea
-                    registration={register("message")}
+                    registration={register("message", {
+                      required: "Message is required",
+                      minLength: {
+                        value: 10,
+                        message: "Message must be at least 10 characters",
+                      },
+                    })}
                     error={!!errors.message}
                     rows={4}
                     placeholder={t("messagePlaceholder")}
@@ -210,7 +244,7 @@ export default function ContactPage() {
 
                 <button
                   type="submit"
-                  disabled={mutation.isPending}
+                  disabled={mutation.isPending || !isValid}
                   className="w-full bg-primary hover:bg-primary/90 disabled:opacity-60 text-primary-foreground font-semibold py-3.5 rounded-xl transition-colors flex items-center justify-center gap-2"
                 >
                   <Send className="h-4 w-4" />

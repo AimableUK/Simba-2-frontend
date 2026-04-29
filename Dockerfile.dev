@@ -1,15 +1,17 @@
 FROM node:20-alpine
-WORKDIR /app
 
 RUN apk add --no-cache libc6-compat dumb-init
-RUN corepack enable && corepack prepare pnpm@10.30.3 --activate
+
+WORKDIR /app
+
+# Enable pnpm
+RUN corepack enable && corepack prepare pnpm@10.33.0 --activate
 
 COPY package.json pnpm-lock.yaml ./
 
-# Install all deps
-RUN pnpm install --frozen-lockfile
+# Install dependencies
+RUN pnpm install
 
-# Copy source
 COPY . .
 
 ENV NODE_ENV=development

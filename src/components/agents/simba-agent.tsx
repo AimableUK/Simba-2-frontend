@@ -92,50 +92,83 @@ function ProductGrid({
 }
 
 function BranchMap({ branches }: { branches: any[] }) {
+  const [activeIdx, setActiveIdx] = useState(0);
   if (!branches?.length) return null;
+
+  const active = branches[activeIdx];
+  const hasCoords = Number.isFinite(active?.lat) && Number.isFinite(active?.lng);
+  const mapSrc = hasCoords
+    ? `https://www.openstreetmap.org/export/embed.html?bbox=${active.lng - 0.005},${active.lat - 0.005},${active.lng + 0.005},${active.lat + 0.005}&layer=mapnik&marker=${active.lat},${active.lng}`
+    : "";
+
   return (
-    <div className="mt-3 space-y-2">
-      {branches.map((b) => (
-        <div
-          key={b.slug}
-          className="bg-background border border-border rounded-xl p-3 flex items-start gap-3"
-        >
-          <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center shrink-0 mt-0.5">
-            <MapPin className="h-4 w-4 text-primary" />
-          </div>
-          <div className="min-w-0 flex-1">
-            <p className="font-semibold text-xs">
+    <div className="mt-3 space-y-3">
+      <div className="grid grid-cols-2 gap-1.5">
+        {branches.map((b, i) => (
+          <button
+            key={b.slug}
+            onClick={() => setActiveIdx(i)}
+            className={`text-left p-2.5 rounded-xl border text-xs transition-all ${
+              activeIdx === i
+                ? "border-primary bg-primary/5 text-primary"
+                : "border-border hover:border-primary/40 text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <p className="font-medium truncate">
               {b.name?.replace("Simba Supermarket ", "")}
             </p>
-            <p className="text-[11px] text-muted-foreground">{b.address}</p>
-            <div className="flex items-center gap-3 mt-1">
-              <span className="text-[10px] text-muted-foreground">
-                {b.hours}
-              </span>
-              {b.rating > 0 && (
-                <span className="flex items-center gap-0.5 text-[10px]">
-                  <Star className="h-2.5 w-2.5 fill-primary text-primary" />
-                  {b.rating.toFixed(1)}
-                </span>
-              )}
-              {b.lat && b.lng && (
-                <a
-                  href={`https://www.google.com/maps?q=${b.lat},${b.lng}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[10px] text-primary hover:underline"
-                >
-                  Open map ↗
-                </a>
-              )}
+            <p className="text-[10px] mt-0.5 opacity-70 truncate">
+              {b.district || b.address}
+            </p>
+          </button>
+        ))}
+      </div>
+
+      <div className="rounded-xl overflow-hidden border border-border bg-background">
+        {hasCoords ? (
+          <iframe
+            key={active?.slug}
+            src={mapSrc}
+            width="100%"
+            height="220"
+            className="block border-0 w-full"
+            title={`Map: ${active?.name}`}
+            loading="lazy"
+            referrerPolicy="no-referrer"
+            allowFullScreen
+          />
+        ) : (
+          <div className="h-[220px] flex items-center justify-center text-center px-4">
+            <div>
+              <MapPin className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+              <p className="text-xs text-muted-foreground">
+                No coordinates available for this branch yet.
+              </p>
             </div>
           </div>
+        )}
+        <div className="p-3 flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <p className="font-semibold text-sm truncate">{active?.name}</p>
+            <p className="text-xs text-muted-foreground truncate">
+              {active?.address}
+            </p>
+          </div>
+          {hasCoords && (
+            <a
+              href={`https://www.google.com/maps?q=${active.lat},${active.lng}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 text-xs bg-primary text-primary-foreground px-3 py-2 rounded-lg hover:bg-primary/90 transition-colors"
+            >
+              Open map
+            </a>
+          )}
         </div>
-      ))}
+      </div>
     </div>
   );
 }
-
 function CartDisplay({ cart }: { cart: any }) {
   if (!cart?.items?.length)
     return (
@@ -357,6 +390,32 @@ export function SimbaAgent() {
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const requestSeq = useRef(0);
+
+  const getBrowserLocation = useCallback(
+    () =>
+      new Promise<{ lat: number; lng: number } | null>((resolve) => {
+        if (
+          typeof navigator === "undefined" ||
+          !navigator.geolocation ||
+          !window.isSecureContext
+        ) {
+          resolve(null);
+          return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+          (pos) =>
+            resolve({
+              lat: pos.coords.latitude,
+              lng: pos.coords.longitude,
+            }),
+          () => resolve(null),
+          { enableHighAccuracy: false, timeout: 5000, maximumAge: 300000 },
+        );
+      }),
+    [],
+  );
 
   useEffect(() => {
     if (open) {
@@ -370,6 +429,7 @@ export function SimbaAgent() {
   const send = useCallback(
     async (text: string) => {
       if (!text.trim() || loading) return;
+      const currentRequest = ++requestSeq.current;
 
       const userMsg: Message = {
         id: Date.now().toString(),
@@ -387,6 +447,10 @@ export function SimbaAgent() {
       setInput("");
       setLoading(true);
 
+      const needsLocation =
+        /branch|branches|location|near me|nearest|nearby|map|address/i.test(text);
+      const location = needsLocation ? await getBrowserLocation() : null;
+
       // Build history for API (exclude loading messages)
       const history = [...messages, userMsg]
         .filter((m) => !m.loading)
@@ -399,10 +463,14 @@ export function SimbaAgent() {
           method: "POST",
           credentials: "include",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ messages: history }),
+          body: JSON.stringify({
+            messages: history,
+            ...(location && { location }),
+          }),
         });
 
         const data = await res.json();
+        if (currentRequest !== requestSeq.current) return;
 
         // If cart was modified, refresh cart query
         const cartModified = data.toolResults?.some((tr: any) =>
@@ -427,6 +495,7 @@ export function SimbaAgent() {
           prev.filter((m) => !m.loading).concat(assistantMsg),
         );
       } catch {
+        if (currentRequest !== requestSeq.current) return;
         setMessages((prev) =>
           prev
             .filter((m) => !m.loading)
@@ -438,12 +507,13 @@ export function SimbaAgent() {
             }),
         );
       } finally {
-        setLoading(false);
+        if (currentRequest === requestSeq.current) {
+          setLoading(false);
+        }
       }
     },
-    [loading, messages, qc],
+    [getBrowserLocation, loading, messages, qc],
   );
-
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -596,3 +666,4 @@ export function SimbaAgent() {
     </>
   );
 }
+

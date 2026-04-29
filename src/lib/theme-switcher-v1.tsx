@@ -23,6 +23,7 @@ export function ThemeSwitcherV1() {
       start="top-right"
       showLabel={false}
       onClick={handleToggle}
+      className="p-1 rounded-lg hover:bg-accent text-foreground/70 hover:text-primary transition-colors"
     />
   );
 }

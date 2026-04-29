@@ -20,7 +20,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export default function ProfilePage() {
-  const t = useTranslations("auth");
+  const t = useTranslations("admin.profile");
+  const tAuth = useTranslations("auth");
   const locale = useLocale();
   const router = useRouter();
   const { data: session } = useSession();
@@ -36,8 +37,12 @@ export default function ProfilePage() {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(schema), mode: "onBlur" });
+    formState: { errors, isValid },
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    mode: "onBlur",
+    reValidateMode: "onBlur",
+  });
 
   useEffect(() => {
     if (profile) reset({ name: profile.name, phone: profile.phone || "" });
@@ -56,13 +61,13 @@ export default function ProfilePage() {
     return (
       <div className="container mx-auto px-4 py-20 text-center">
         <p className="text-muted-foreground mb-4">
-          Please sign in to view your profile
+          {t("signInPrompt")}
         </p>
         <Link
           href={`/${locale}/auth/sign-in`}
           className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-medium"
         >
-          Sign In
+          {t("signIn")}
         </Link>
       </div>
     );
@@ -72,15 +77,15 @@ export default function ProfilePage() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-2xl">
-      <h1 className="text-2xl font-bold mb-8">My Account</h1>
+      <h1 className="text-2xl font-bold mb-8">{t("title")}</h1>
 
       <div className="grid gap-4 mb-8">
         {[
           {
             href: `/${locale}/admin/my-orders`,
             icon: Package,
-            label: "My Orders",
-            desc: "Track your orders",
+            label: t("myOrders"),
+            desc: t("trackOrders"),
           },
         ].map(({ href, icon: Icon, label, desc }) => (
           <Link
@@ -103,7 +108,7 @@ export default function ProfilePage() {
       <div className="bg-card border border-border rounded-2xl p-6">
         <h2 className="font-bold text-lg mb-5 flex items-center gap-2">
           <User className="h-5 w-5 text-primary" />
-          Profile Details
+          {t("details")}
         </h2>
 
         {isLoading ? (
@@ -119,7 +124,7 @@ export default function ProfilePage() {
           >
             <div>
               <label className="block text-sm font-medium mb-1.5">
-                Full Name
+                {t("fullName")}
               </label>
               <input
                 {...register("name")}
@@ -132,28 +137,28 @@ export default function ProfilePage() {
               )}
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1.5">Email</label>
+              <label className="block text-sm font-medium mb-1.5">{t("email")}</label>
               <input
                 value={profile?.email || ""}
                 disabled
                 className="w-full px-4 py-3 rounded-xl border border-border bg-muted text-sm cursor-not-allowed text-muted-foreground"
               />
               <p className="text-xs text-muted-foreground mt-1">
-                Email cannot be changed
+                {t("emailLocked")}
               </p>
             </div>
             <div>
               <label className="block text-sm font-medium mb-1.5">
-                Phone Number
+                {t("phoneNumber")}
               </label>
               <input
                 {...register("phone")}
-                placeholder="Your Phone number"
+                placeholder={t("phonePlaceholder")}
                 className="w-full px-4 py-3 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1.5">Role</label>
+              <label className="block text-sm font-medium mb-1.5">{t("role")}</label>
               <div className="px-4 py-3 rounded-xl border border-border bg-muted text-sm capitalize text-muted-foreground">
                 {role?.replace("_", " ")}
               </div>
@@ -161,10 +166,10 @@ export default function ProfilePage() {
             <div className="flex items-center justify-between pt-2">
               <button
                 type="submit"
-                disabled={mutation.isPending}
+                disabled={mutation.isPending || !isValid}
                 className="bg-primary text-primary-foreground font-semibold px-6 py-3 rounded-xl hover:bg-primary/90 disabled:opacity-50 transition-colors"
               >
-                {mutation.isPending ? "Saving..." : "Save Changes"}
+                {mutation.isPending ? t("saving") : t("save")}
               </button>
               <button
                 type="button"
@@ -178,7 +183,7 @@ export default function ProfilePage() {
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-destructive transition-colors"
               >
                 <LogOut className="h-4 w-4" />
-                Sign Out
+                {tAuth("signOut")}
               </button>
             </div>
           </form>

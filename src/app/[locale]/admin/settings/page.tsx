@@ -1,36 +1,57 @@
 "use client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import { Save, Settings } from "lucide-react";
 import { toast } from "sonner";
 import { settingsApi } from "@/lib/api";
 import { Skeleton } from "@/components/common/skeletons";
+import { useSession } from "@/lib/auth-client";
+import { FormField, FormInput } from "@/components/ui/form-field";
 
 const SETTINGS_FIELDS = [
-  { key: "store_name", label: "Store Name", placeholder: "Simba Super Market" },
+  { key: "store_name", labelKey: "storeName", placeholder: "Simba Super Market" },
   {
     key: "store_email",
-    label: "Store Email",
+    labelKey: "storeEmail",
     placeholder: "info@simbasupermarket.rw",
   },
-  { key: "store_phone", label: "Store Phone", placeholder: "+250 788 000 000" },
+  { key: "store_phone", labelKey: "storePhone", placeholder: "+250 788 000 000" },
   {
     key: "store_address",
-    label: "Store Address",
+    labelKey: "storeAddress",
     placeholder: "Kigali, Rwanda",
   },
-  { key: "delivery_fee", label: "Delivery Fee (RWF)", placeholder: "1000" },
+  { key: "delivery_fee", labelKey: "deliveryFee", placeholder: "1000" },
   {
     key: "free_delivery_threshold",
-    label: "Free Delivery Threshold (RWF)",
+    labelKey: "freeDeliveryThreshold",
     placeholder: "50000",
   },
-  { key: "currency", label: "Currency Code", placeholder: "RWF" },
+  { key: "currency", labelKey: "currencyCode", placeholder: "RWF" },
 ];
 
 export default function AdminSettingsPage() {
   const qc = useQueryClient();
-  const [values, setValues] = useState<Record<string, string>>({});
+  const t = useTranslations("admin.settings");
+  const { data: session } = useSession();
+  const canEdit = ["admin", "super_admin"].includes(
+    ((session?.user as any)?.role || "") as string,
+  );
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isValid },
+  } = useForm<Record<string, string>>({
+    mode: "onBlur",
+    reValidateMode: "onBlur",
+    defaultValues: Object.fromEntries(
+      SETTINGS_FIELDS.map((field) => [field.key, ""]),
+    ),
+  });
 
   const { data, isLoading } = useQuery({
     queryKey: ["settings"],
@@ -38,28 +59,28 @@ export default function AdminSettingsPage() {
   });
 
   useEffect(() => {
-    if (data) setValues(data);
-  }, [data]);
+    if (data) reset(data);
+  }, [data, reset]);
 
   const mutation = useMutation({
     mutationFn: (data: Record<string, string>) => settingsApi.update(data),
     onSuccess: () => {
-      toast.success("Settings saved!");
+      toast.success(t("saved"));
       qc.invalidateQueries({ queryKey: ["settings"] });
     },
-    onError: () => toast.error("Failed to save settings"),
+    onError: () => toast.error(t("failed")),
   });
 
   return (
     <div className="space-y-6 max-w-2xl">
       <div className="flex items-center gap-3">
-        <h1 className="text-2xl font-bold">Settings</h1>
+        <h1 className="text-2xl font-bold">{t("title")}</h1>
       </div>
 
       <div className="bg-card border border-border rounded-2xl p-6">
         <div className="flex items-center gap-2 mb-6">
           <Settings className="h-5 w-5 text-primary" />
-          <h2 className="font-semibold">Store Configuration</h2>
+          <h2 className="font-semibold">{t("storeConfiguration")}</h2>
         </div>
 
         {isLoading ? (
@@ -69,34 +90,41 @@ export default function AdminSettingsPage() {
             ))}
           </div>
         ) : (
-          <div className="space-y-4">
-            {SETTINGS_FIELDS.map(({ key, label, placeholder }) => (
-              <div key={key}>
-                <label className="block text-sm font-medium mb-1.5">
-                  {label}
-                </label>
-                <input
-                  value={values[key] || ""}
-                  onChange={(e) =>
-                    setValues((v) => ({ ...v, [key]: e.target.value }))
-                  }
+          <form
+            onSubmit={handleSubmit((vals) => mutation.mutate(vals))}
+            className="space-y-4"
+          >
+            {SETTINGS_FIELDS.map(({ key, labelKey, placeholder }) => (
+              <FormField
+                key={key}
+                label={t(`fields.${labelKey}`)}
+                error={errors[key]?.message}
+                required
+              >
+                <FormInput
+                  registration={register(key, {
+                    required: `${t(`fields.${labelKey}`)} is required`,
+                  })}
+                  error={!!errors[key]}
+                  disabled={!canEdit}
                   placeholder={placeholder}
-                  className="w-full px-4 py-3 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition-shadow"
                 />
-              </div>
+              </FormField>
             ))}
 
-            <div className="pt-4">
-              <button
-                onClick={() => mutation.mutate(values)}
-                disabled={mutation.isPending}
-                className="flex items-center gap-2 bg-primary text-primary-foreground font-semibold px-6 py-3 rounded-xl hover:bg-primary/90 disabled:opacity-50 transition-colors"
-              >
-                <Save className="h-4 w-4" />
-                {mutation.isPending ? "Saving..." : "Save Settings"}
-              </button>
-            </div>
-          </div>
+            {canEdit && (
+              <div className="pt-4">
+                <button
+                  type="submit"
+                  disabled={mutation.isPending || !isValid}
+                  className="flex items-center gap-2 bg-primary text-primary-foreground font-semibold px-6 py-3 rounded-xl hover:bg-primary/90 disabled:opacity-50 transition-colors"
+                >
+                  <Save className="h-4 w-4" />
+                  {mutation.isPending ? t("saving") : t("save")}
+                </button>
+              </div>
+            )}
+          </form>
         )}
       </div>
     </div>

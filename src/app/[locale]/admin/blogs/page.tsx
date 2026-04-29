@@ -1,6 +1,8 @@
 "use client";
-import { useState, useEffect } from "react";
+
+import { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
@@ -94,6 +96,8 @@ function EditorToolbar({ editor }: { editor: any }) {
 
 export default function AdminBlogsPage() {
   const qc = useQueryClient();
+  const t = useTranslations("admin.blogs");
+  const [isMounted, setIsMounted] = useState(false);
   const [page, setPage] = useState(1);
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState<Blog | null>(null);
@@ -104,13 +108,14 @@ export default function AdminBlogsPage() {
   const [isPublished, setIsPublished] = useState(false);
 
   const editor = useEditor({
-    extensions: [
-      StarterKit,
-      Underline,
-      Link.configure({ openOnClick: false }),
-      Image,
-      Placeholder.configure({ placeholder: "Write your blog post here..." }),
-    ],
+    immediatelyRender: false,
+      extensions: [
+        StarterKit,
+        Underline,
+        Link.configure({ openOnClick: false }),
+        Image,
+        Placeholder.configure({ placeholder: t("placeholder") }),
+      ],
     content: "",
     editorProps: {
       attributes: {
@@ -118,6 +123,10 @@ export default function AdminBlogsPage() {
       },
     },
   });
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const { data, isLoading } = useQuery({
     queryKey: ["admin-blogs", page],
@@ -127,7 +136,7 @@ export default function AdminBlogsPage() {
   const createMutation = useMutation({
     mutationFn: (data: any) => blogApi.create(data),
     onSuccess: () => {
-      toast.success("Blog post created!");
+      toast.success(t("created"));
       closeForm();
       qc.invalidateQueries({ queryKey: ["admin-blogs"] });
     },
@@ -139,7 +148,7 @@ export default function AdminBlogsPage() {
     mutationFn: ({ id, data }: { id: string; data: any }) =>
       blogApi.update(id, data),
     onSuccess: () => {
-      toast.success("Blog post updated!");
+      toast.success(t("updated"));
       closeForm();
       qc.invalidateQueries({ queryKey: ["admin-blogs"] });
     },
@@ -150,7 +159,7 @@ export default function AdminBlogsPage() {
   const deleteMutation = useMutation({
     mutationFn: (id: string) => blogApi.delete(id),
     onSuccess: () => {
-      toast.success("Blog post deleted");
+      toast.success(t("deleted"));
       qc.invalidateQueries({ queryKey: ["admin-blogs"] });
     },
   });
@@ -198,12 +207,12 @@ export default function AdminBlogsPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-3">
-        <h1 className="text-2xl font-bold">Blog Posts</h1>
+        <h1 className="text-2xl font-bold">{t("title")}</h1>
         <button
           onClick={() => setShowForm(true)}
           className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2.5 rounded-xl font-medium hover:bg-primary/90 transition-colors text-sm"
         >
-          <Plus className="h-4 w-4" /> New Post
+          <Plus className="h-4 w-4" /> {t("newPost")}
         </button>
       </div>
 
@@ -212,15 +221,7 @@ export default function AdminBlogsPage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-border bg-muted/50">
-                {[
-                  "Title",
-                  "Author",
-                  "Tags",
-                  "Views",
-                  "Status",
-                  "Date",
-                  "Actions",
-                ].map((h) => (
+                {[t("cols.title"), t("cols.author"), t("cols.tags"), t("cols.views"), t("cols.status"), t("cols.date"), t("cols.actions")].map((h) => (
                   <th
                     key={h}
                     className="text-left px-4 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wide"
@@ -265,7 +266,7 @@ export default function AdminBlogsPage() {
                         <span
                           className={`text-xs font-medium px-2.5 py-1 rounded-full ${blog.isPublished ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" : "bg-muted text-muted-foreground"}`}
                         >
-                          {blog.isPublished ? "Published" : "Draft"}
+                          {blog.isPublished ? t("published") : t("draft")}
                         </span>
                       </td>
                       <td className="px-4 py-3 text-xs text-muted-foreground">
@@ -312,7 +313,7 @@ export default function AdminBlogsPage() {
           >
             <div className="flex items-center justify-between mb-6">
               <h2 className="font-bold text-lg">
-                {editing ? "Edit Blog Post" : "New Blog Post"}
+                {editing ? t("editPost") : t("newPost")}
               </h2>
               <button
                 onClick={closeForm}
@@ -325,7 +326,7 @@ export default function AdminBlogsPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium mb-1.5">
-                  Title *
+                  {t("fields.title")}
                 </label>
                 <input
                   value={title}
@@ -336,7 +337,7 @@ export default function AdminBlogsPage() {
               </div>
               <div>
                 <label className="block text-sm font-medium mb-1.5">
-                  Excerpt
+                  {t("fields.excerpt")}
                 </label>
                 <textarea
                   value={excerpt}
@@ -348,7 +349,7 @@ export default function AdminBlogsPage() {
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-1.5">
-                    Cover Image URL
+                    {t("fields.imageUrl")}
                   </label>
                   <input
                     value={image}
@@ -359,7 +360,7 @@ export default function AdminBlogsPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-1.5">
-                    Tags (comma separated)
+                    {t("fields.tags")}
                   </label>
                   <input
                     value={tags}
@@ -373,11 +374,19 @@ export default function AdminBlogsPage() {
               {/* TipTap editor */}
               <div>
                 <label className="block text-sm font-medium mb-1.5">
-                  Content *
+                  {t("fields.content")}
                 </label>
                 <div className="border border-border rounded-xl overflow-hidden bg-background">
-                  <EditorToolbar editor={editor} />
-                  <EditorContent editor={editor} />
+                  {!isMounted ? (
+                    <div className="min-h-[200px] p-4 text-sm text-muted-foreground flex items-center">
+                      {t("loadingEditor")}
+                    </div>
+                  ) : (
+                    <>
+                      <EditorToolbar editor={editor} />
+                      <EditorContent editor={editor} />
+                    </>
+                  )}
                 </div>
               </div>
 
@@ -389,7 +398,7 @@ export default function AdminBlogsPage() {
                   className="w-4 h-4 accent-primary rounded"
                 />
                 <span className="text-sm font-medium">
-                  Publish immediately (visible to public)
+                  {t("fields.publishImmediately")}
                 </span>
               </label>
 
@@ -397,22 +406,25 @@ export default function AdminBlogsPage() {
                 <button
                   type="submit"
                   disabled={
-                    createMutation.isPending || updateMutation.isPending
+                    createMutation.isPending ||
+                    updateMutation.isPending ||
+                    !title.trim() ||
+                    !editor?.getText()?.trim()
                   }
                   className="flex-1 bg-primary text-primary-foreground font-semibold py-3 rounded-xl hover:bg-primary/90 disabled:opacity-50 transition-colors"
                 >
                   {createMutation.isPending || updateMutation.isPending
-                    ? "Saving..."
+                    ? t("saving")
                     : editing
-                      ? "Update Post"
-                      : "Create Post"}
+                      ? t("updatePost")
+                      : t("createPost")}
                 </button>
                 <button
                   type="button"
                   onClick={closeForm}
                   className="px-5 py-3 border border-border rounded-xl hover:bg-muted transition-colors font-medium"
                 >
-                  Cancel
+                  {t("cancel")}
                 </button>
               </div>
             </form>

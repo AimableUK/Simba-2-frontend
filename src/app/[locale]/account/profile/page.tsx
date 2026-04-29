@@ -1,4 +1,5 @@
 "use client";
+
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations, useLocale } from "next-intl";
 import { useSession, signOut } from "@/lib/auth-client";
@@ -35,8 +36,12 @@ export default function ProfilePage() {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+    formState: { errors, isValid },
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    mode: "onBlur",
+    reValidateMode: "onBlur",
+  });
 
   useEffect(() => {
     if (profile) reset({ name: profile.name, phone: profile.phone || "" });
@@ -82,9 +87,11 @@ export default function ProfilePage() {
             desc: "Track your orders",
           },
           ...(role === "admin" || role === "super_admin" || role === "poster"
+            || role === "branch_manager"
+            || role === "branch_staff"
             ? [
                 {
-                  href: `/${locale}/admin/dashboard`,
+                  href: `/${locale}/admin`,
                   icon: ShieldCheck,
                   label: "Admin Panel",
                   desc: "Manage the store",
@@ -170,7 +177,7 @@ export default function ProfilePage() {
             <div className="flex items-center justify-between pt-2">
               <button
                 type="submit"
-                disabled={mutation.isPending}
+                disabled={mutation.isPending || !isValid}
                 className="bg-primary text-primary-foreground font-semibold px-6 py-3 rounded-xl hover:bg-primary/90 disabled:opacity-50 transition-colors"
               >
                 {mutation.isPending ? "Saving..." : "Save Changes"}

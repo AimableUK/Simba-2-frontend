@@ -73,10 +73,11 @@ export default function SignUpPage() {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     mode: "onBlur",
+    reValidateMode: "onBlur",
   });
 
   const password = watch("password") || "";
@@ -358,7 +359,7 @@ export default function SignUpPage() {
 
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || !isValid}
               className="w-full bg-primary hover:bg-primary/90 active:scale-[0.98] disabled:opacity-60 text-primary-foreground font-semibold py-3.5 rounded-xl transition-all mt-1 flex items-center justify-center gap-2"
             >
               {loading ? (

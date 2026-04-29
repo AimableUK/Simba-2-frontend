@@ -182,3 +182,97 @@ export const useGuestCartStore = create<GuestCartStore>()(
     { name: "simba-guest-cart" },
   ),
 );
+
+//  Branch Store (persisted)
+
+interface BranchStore {
+  selectedBranchId: string | null;
+  selectedBranchSlug: string | null;
+  selectedBranchName: string | null;
+  setBranch: (id: string, slug: string, name: string) => void;
+  clearBranch: () => void;
+}
+
+export const useBranchStore = create<BranchStore>()(
+  persist(
+    (set) => ({
+      selectedBranchId: null,
+      selectedBranchSlug: null,
+      selectedBranchName: null,
+      setBranch: (id, slug, name) =>
+        set({
+          selectedBranchId: id,
+          selectedBranchSlug: slug,
+          selectedBranchName: name,
+        }),
+      clearBranch: () =>
+        set({
+          selectedBranchId: null,
+          selectedBranchSlug: null,
+          selectedBranchName: null,
+        }),
+    }),
+    { name: "simba-branch" },
+  ),
+);
+
+//  Notification Store (persisted)
+
+export interface AppNotification {
+  id: string;
+  type: string;
+  title: string;
+  message: string;
+  link?: string;
+  createdAt: string;
+  read: boolean;
+}
+
+interface NotificationStore {
+  items: AppNotification[];
+  unreadCount: number;
+  push: (notification: Omit<AppNotification, "id" | "createdAt" | "read"> & { createdAt?: string }) => void;
+  markRead: (id: string) => void;
+  markAllRead: () => void;
+  clear: () => void;
+}
+
+export const useNotificationStore = create<NotificationStore>()(
+  persist(
+    (set, get) => ({
+      items: [],
+      unreadCount: 0,
+      push: (notification) =>
+        set((state) => {
+          const next: AppNotification = {
+            id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+            createdAt: notification.createdAt || new Date().toISOString(),
+            read: false,
+            ...notification,
+          };
+          const items = [next, ...state.items].slice(0, 100);
+          return {
+            items,
+            unreadCount: items.filter((i) => !i.read).length,
+          };
+        }),
+      markRead: (id) =>
+        set((state) => {
+          const items = state.items.map((item) =>
+            item.id === id ? { ...item, read: true } : item,
+          );
+          return {
+            items,
+            unreadCount: items.filter((i) => !i.read).length,
+          };
+        }),
+      markAllRead: () =>
+        set((state) => ({
+          items: state.items.map((item) => ({ ...item, read: true })),
+          unreadCount: 0,
+        })),
+      clear: () => set({ items: [], unreadCount: 0 }),
+    }),
+    { name: "simba-notifications" },
+  ),
+);

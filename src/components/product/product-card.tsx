@@ -2,14 +2,16 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
-import { Heart, ShoppingCart, Star, Eye } from "lucide-react";
+import { Heart, ShoppingCart, Star, Eye, Minus, Plus } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { cartApi, wishlistApi } from "@/lib/api";
-import { useWishlistStore, useCartStore, useGuestCartStore } from "@/store";
+import { wishlistApi } from "@/lib/api";
+import { useWishlistStore, useGuestCartStore, useBranchStore } from "@/store";
 import { cn, formatPrice, getDiscountPercent, getImageUrl } from "@/lib/utils";
 import { useSession } from "@/lib/auth-client";
+import { RatingStars } from "@/components/common/rating-stars";
+import { useCart } from "@/hooks/useCart";
 
 interface Product {
   id: string;
@@ -31,22 +33,28 @@ export function ProductCard({ product }: { product: Product }) {
   const locale = useLocale();
   const { data: session } = useSession();
   const { has: isWishlisted, toggle: toggleLocal } = useWishlistStore();
-  const { addItem } = useCartStore();
+  const { selectedBranchId } = useBranchStore();
+  const {
+    items: serverCartItems,
+    addToCartAsync,
+    updateQuantity,
+    removeItem,
+    isAdding,
+  } = useCart();
+  const { items: guestCartItems, add: addToGuestCart, update: updateGuestCart, remove: removeGuestCart } = useGuestCartStore();
   const qc = useQueryClient();
-  const { add: addToGuestCart } = useGuestCartStore();
 
   const discount = getDiscountPercent(product.price, product.comparePrice);
   const wishlisted = isWishlisted(product.id);
-
-  const cartMutation = useMutation({
-    mutationFn: () => cartApi.add({ productId: product.id, quantity: 1 }),
-    onSuccess: (res) => {
-      addItem(res.data);
-      qc.invalidateQueries({ queryKey: ["cart"] });
-      toast.success(t("addedToCart"));
-    },
-    onError: () => toast.error("Failed to add to cart"),
-  });
+  const serverCartItem = serverCartItems.find(
+    (item) => item.product.id === product.id,
+  );
+  const guestCartItem = guestCartItems.find(
+    (item) => item.productId === product.id,
+  );
+  const cartQuantity = session?.user
+    ? serverCartItem?.quantity || 0
+    : guestCartItem?.quantity || 0;
 
   const wishlistMutation = useMutation({
     mutationFn: () => wishlistApi.toggle(product.id),
@@ -56,7 +64,7 @@ export function ProductCard({ product }: { product: Product }) {
     },
   });
 
-  const handleAddToCart = (e: React.MouseEvent) => {
+  const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault();
     if (product.stock === 0) {
       toast.error(t("outOfStock"));
@@ -64,25 +72,98 @@ export function ProductCard({ product }: { product: Product }) {
     }
 
     if (!session?.user) {
-      // Not logged in - persist to localStorage guest cart
-      addToGuestCart({
-        productId: product.id,
-        quantity: 1,
-        product: {
-          id: product.id,
-          name: product.name,
-          slug: product.slug,
-          price: product.price,
-          comparePrice: product.comparePrice,
-          images: product.images,
-          stock: product.stock,
-        },
-      });
+      if (guestCartItem) {
+        updateGuestCart(product.id, Math.min(product.stock, guestCartItem.quantity + 1));
+      } else {
+        addToGuestCart({
+          productId: product.id,
+          quantity: 1,
+          product: {
+            id: product.id,
+            name: product.name,
+            slug: product.slug,
+            price: product.price,
+            comparePrice: product.comparePrice,
+            images: product.images,
+            stock: product.stock,
+          },
+        });
+      }
       toast.success(t("addedToCart"));
       return;
     }
 
-    cartMutation.mutate();
+    await addToCartAsync({
+      productId: product.id,
+      quantity: 1,
+      branchId: selectedBranchId || undefined,
+    });
+    toast.success(t("addedToCart"));
+  };
+
+  const handleDecrease = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (session?.user) {
+      if (!serverCartItem) return;
+      const nextQuantity = serverCartItem.quantity - 1;
+      if (nextQuantity <= 0)
+        removeItem({ productId: product.id, branchId: selectedBranchId || undefined });
+      else
+        updateQuantity({
+          productId: product.id,
+          quantity: nextQuantity,
+          branchId: selectedBranchId || undefined,
+        });
+      return;
+    }
+
+    if (!guestCartItem) return;
+    const nextQuantity = guestCartItem.quantity - 1;
+    if (nextQuantity <= 0) removeGuestCart(product.id);
+    else updateGuestCart(product.id, nextQuantity);
+  };
+
+  const handleIncrease = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (product.stock === 0) return;
+
+    if (session?.user) {
+      const nextQuantity = (serverCartItem?.quantity || 0) + 1;
+      if (nextQuantity <= product.stock) {
+        if (serverCartItem)
+          updateQuantity({
+            productId: product.id,
+            quantity: nextQuantity,
+            branchId: selectedBranchId || undefined,
+          });
+        else
+          await addToCartAsync({
+            productId: product.id,
+            quantity: 1,
+            branchId: selectedBranchId || undefined,
+          });
+      }
+      return;
+    }
+
+    const nextQuantity = (guestCartItem?.quantity || 0) + 1;
+    if (nextQuantity <= product.stock) {
+      if (guestCartItem) updateGuestCart(product.id, nextQuantity);
+      else
+        addToGuestCart({
+          productId: product.id,
+          quantity: 1,
+          product: {
+            id: product.id,
+            name: product.name,
+            slug: product.slug,
+            price: product.price,
+            comparePrice: product.comparePrice,
+            images: product.images,
+            stock: product.stock,
+          },
+        });
+    }
   };
 
   const handleWishlist = (e: React.MouseEvent) => {
@@ -166,20 +247,49 @@ export function ProductCard({ product }: { product: Product }) {
             </div>
 
             {/* Add to cart hover bar */}
-            <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-              <button
-                onClick={handleAddToCart}
-                disabled={cartMutation.isPending}
-                className={cn(
-                  "w-full py-2.5 text-xs font-semibold flex items-center justify-center gap-2 transition-colors",
-                  product.stock === 0
-                    ? "bg-muted text-muted-foreground cursor-not-allowed"
-                    : "bg-primary text-white hover:bg-primary/90",
-                )}
-              >
-                <ShoppingCart className="w-3.5 h-3.5" />
-                {product.stock === 0 ? t("outOfStock") : t("addToCart")}
-              </button>
+            <div className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 translate-y-[140%] opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-hover:pointer-events-auto">
+              {product.stock === 0 ? (
+                <button
+                  disabled
+                  className="min-w-[9rem] px-4 py-2 text-xs font-semibold rounded-full flex items-center justify-center gap-2 bg-muted text-muted-foreground cursor-not-allowed shadow-md"
+                >
+                  <ShoppingCart className="w-3.5 h-3.5" />
+                  {t("outOfStock")}
+                </button>
+              ) : cartQuantity > 0 ? (
+                <div className="min-w-[9rem] px-3 py-2 bg-primary text-white flex items-center justify-between gap-2 rounded-full shadow-md">
+                  <button
+                    onClick={handleDecrease}
+                    className="w-7 h-7 rounded-full border border-white/30 flex items-center justify-center hover:bg-white/10 transition-colors shrink-0"
+                    aria-label="Decrease quantity"
+                  >
+                    <Minus className="w-3.5 h-3.5" />
+                  </button>
+                  <span className="min-w-6 text-center text-sm font-semibold tabular-nums">
+                    {cartQuantity}
+                  </span>
+                  <button
+                    onClick={handleIncrease}
+                    disabled={cartQuantity >= product.stock}
+                    className="w-7 h-7 rounded-full border border-white/30 flex items-center justify-center hover:bg-white/10 transition-colors disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
+                    aria-label="Increase quantity"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={handleAddToCart}
+                  disabled={isAdding}
+                  className={cn(
+                    "min-w-[9rem] px-4 py-2 text-xs font-semibold rounded-full flex items-center justify-center gap-2 transition-colors shadow-md",
+                    "bg-primary text-white hover:bg-primary/90",
+                  )}
+                >
+                  <ShoppingCart className="w-3.5 h-3.5" />
+                  {t("addToCart")}
+                </button>
+              )}
             </div>
           </div>
 
@@ -197,19 +307,10 @@ export function ProductCard({ product }: { product: Product }) {
             {/* Rating */}
             {product.reviewCount > 0 && (
               <div className="flex items-center gap-1 mb-2">
-                <div className="flex">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <Star
-                      key={s}
-                      className={cn(
-                        "w-3 h-3",
-                        s <= Math.round(product.rating)
-                          ? "fill-amber-400 text-amber-400"
-                          : "text-muted-foreground",
-                      )}
-                    />
-                  ))}
-                </div>
+                <RatingStars
+                  rating={product.rating}
+                  starClassName="h-3 w-3"
+                />
                 <span className="text-[10px] text-muted-foreground">
                   ({product.reviewCount})
                 </span>

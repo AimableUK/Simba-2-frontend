@@ -2,7 +2,7 @@
   "nav": {
     "home": "Accueil",
     "shop": "Boutique",
-    "categories": "Catégories",
+    "categories": "Cat?gories",
     "blog": "Blog",
     "contact": "Contact",
     "cart": "Panier",
@@ -11,7 +11,7 @@
     "orders": "Mes Commandes",
     "signIn": "Se Connecter",
     "signUp": "S'inscrire",
-    "signOut": "Se Déconnecter",
+    "signOut": "Se D?connecter",
     "admin": "Panneau Admin",
     "search": "Rechercher des produits...",
     "searchPlaceholder": "Rechercher des produits, marques...",
@@ -21,7 +21,7 @@
     "viewMore": "Voir plus",
     "markAllRead": "Tout marquer comme lu",
     "noNotifications": "Aucune notification pour le moment",
-    "recentNotifications": "Notifications rÃ©centes",
+    "recentNotifications": "Notifications r?centes",
     "unread": "non lu",
     "accountCenter": "Centre de compte"
   },
@@ -44,6 +44,135 @@
     "viewAll": "Voir Tout",
     "newArrivals": "Nouvelles Arrivées",
     "deals": "Offres du Jour"
+  },
+  "shop": {
+    "resultsFor": "Résultats pour \"{query}\"",
+    "categories": "Catégories",
+    "allCategories": "Toutes les catégories",
+    "priceRange": "Fourchette de prix",
+    "minPrice": "Min (RWF)",
+    "maxPrice": "Max (RWF)",
+    "quickFilters": "Filtres rapides",
+    "ratings": "Évaluations",
+    "anyRating": "N'importe quelle note",
+    "ratingPlus": "{rating}+ étoiles",
+    "featured": "En vedette",
+    "inStock": "En stock",
+    "filters": "Filtres",
+    "apply": "Appliquer",
+    "clearFilters": "Effacer les filtres",
+    "clearAll": "Tout effacer",
+    "tryDifferent": "Essayez d'autres termes ou filtres"
+  },
+  "blog": {
+    "title": "Notre Blog",
+    "subtitle": "Nouvelles, recettes et conseils de Simba Super Market",
+    "readMore": "Lire la Suite",
+    "views": "{count} vues",
+    "likes": "{count} j'aime",
+    "comments": "{count} commentaires",
+    "comment": "Laisser un Commentaire",
+    "commentPlaceholder": "Partagez vos pensées...",
+    "submitComment": "Publier le Commentaire",
+    "loginToComment": "Connectez-vous pour commenter",
+    "noBlogs": "Aucun article de blog pour l'instant",
+    "tags": "Étiquettes",
+    "share": "Partager cet article",
+    "relatedPosts": "Articles Connexes"
+  },
+  "contact": {
+    "title": "Nous Contacter",
+    "subtitle": "Nous sommes là pour vous aider. Envoyez-nous un message et nous vous répondrons dans les 24 heures.",
+    "sendOtherMessage": "Envoyer un autre message",
+    "messageSent": "Message envoyé !",
+    "touch": "Entrer en contact",
+    "name": "Votre Nom",
+    "email": "Adresse E-mail",
+    "phone": "Numéro de Téléphone (Facultatif)",
+    "subject": "Sujet",
+    "message": "Message",
+    "messagePlaceholder": "Dites-nous comment nous pouvons vous aider...",
+    "send": "Envoyer le Message",
+    "sending": "Envoi en cours...",
+    "success": "Message envoyé ! Nous vous répondrons bientôt.",
+    "address": "Adresse",
+    "addressValue": "Kigali, Rwanda",
+    "emailLabel": "E-mail",
+    "phoneLabel": "Téléphone",
+    "hours": "Heures d'Ouverture",
+    "hoursValue": "Lun–Sam : 8h–20h",
+    "hoursValueSun": "Dim : 9h–17h"
+  },
+  "cart": {
+    "title": "Votre Panier",
+    "empty": "Votre panier est vide",
+    "emptyDesc": "Commencez à acheter et ajoutez des articles à votre panier",
+    "shopNow": "Commencer les Achats",
+    "subtotal": "Sous-total",
+    "delivery": "Frais de Livraison",
+    "total": "Total",
+    "checkout": "Procéder au Paiement",
+    "remove": "Supprimer",
+    "update": "Mettre à Jour",
+    "items": "articles",
+    "freeDelivery": "Livraison gratuite pour les commandes supérieures à RWF {amount}",
+    "deliveryNote": "Livraison à Kigali uniquement",
+    "continueShopping": "Continuer les Achats",
+    "guestCartNotice": "Vous naviguez en tant qu'invité. Connectez-vous pour sauvegarder votre panier.",
+    "signIn": "Se connecter",
+    "signInToCheckout": "Se connecter pour payer"
+  },
+  "wishlist": {
+    "title": "Ma Liste de Souhaits",
+    "empty": "Votre liste de souhaits est vide",
+    "emptyDesc": "Sauvegardez les articles que vous aimez",
+    "browseProducts": "Parcourir les Produits",
+    "addToCart": "Ajouter au Panier",
+    "remove": "Supprimer",
+    "inStock": "En stock",
+    "outOfStock": "Rupture de stock",
+    "items": "articles sauvegardés"
+  },
+  "orders": {
+    "title": "Mes Commandes",
+    "order": "Commande",
+    "payment": {
+      "pending": "Paiement en Attente",
+      "paid": "Payée",
+      "failed": "Paiement Échoué",
+      "refunded": "Remboursée"
+    },
+    "date": "Date de Commande",
+    "track": "Suivre la Commande",
+    "noOrders": "Aucune commande pour l'instant",
+    "noOrdersDesc": "Passez votre première commande pour la voir ici",
+    "signInPrompt": "Please sign in to view your orders",
+    "signIn": "Sign In",
+    "startShopping": "Start Shopping",
+    "notFound": "Commande introuvable",
+    "orderNumber": "Commande #",
+    "timeline": "Suivi de commande",
+    "pickupInfo": "Informations de retrait",
+    "pickupTime": "Heure de retrait",
+    "branch": "Succursale",
+    "address": "Adresse",
+    "phone": "Téléphone",
+    "notes": "Notes",
+    "items": "Articles",
+    "each": "chacun",
+    "subtotal": "Sous-total",
+    "deposit": "Dépôt",
+    "total": "Total",
+    "cancelledMessage": "Cette commande a été annulée.",
+    "deliveryAddress": "Adresse de livraison",
+    "status": {
+      "pending": "Commande passée",
+      "accepted": "Commande acceptée",
+      "preparing": "En préparation",
+      "ready": "Prête pour le retrait",
+      "picked_up": "Récupérée",
+      "cancelled": "Annulée"
+    }
   },
   "product": {
     "addToCart": "Ajouter au Panier",
@@ -73,25 +202,6 @@
     "reviewError": "Vous pouvez seulement évaluer les produits que vous avez achetés et reçus.",
     "quantity": "Quantité",
     "images": "Images du Produit"
-  },
-  "cart": {
-    "title": "Votre Panier",
-    "empty": "Votre panier est vide",
-    "emptyDesc": "Commencez à acheter et ajoutez des articles à votre panier",
-    "shopNow": "Commencer les Achats",
-    "subtotal": "Sous-total",
-    "delivery": "Frais de Livraison",
-    "total": "Total",
-    "checkout": "Procéder au Paiement",
-    "remove": "Supprimer",
-    "update": "Mettre à Jour",
-    "items": "articles",
-    "freeDelivery": "Livraison gratuite pour les commandes supérieures à RWF {amount}",
-    "deliveryNote": "Livraison à Kigali uniquement",
-    "continueShopping": "Continuer les Achats",
-    "guestCartNotice": "Vous naviguez en tant qu'invité. Connectez-vous pour sauvegarder votre panier.",
-    "signIn": "Se connecter",
-    "signInToCheckout": "Se connecter pour payer"
   },
   "checkout": {
     "title": "Paiement",
@@ -163,83 +273,6 @@
       "field": "Champ"
     }
   },
-  "orders": {
-    "title": "Mes Commandes",
-    "order": "Commande",
-    "payment": {
-      "pending": "Paiement en Attente",
-      "paid": "Payée",
-      "failed": "Paiement Échoué",
-      "refunded": "Remboursée"
-    },
-    "date": "Date de Commande",
-    "track": "Suivre la Commande",
-    "noOrders": "Aucune commande pour l'instant",
-    "noOrdersDesc": "Passez votre première commande pour la voir ici",
-    "notFound": "Commande introuvable",
-    "orderNumber": "Commande #",
-    "timeline": "Suivi de commande",
-    "pickupInfo": "Informations de retrait",
-    "pickupTime": "Heure de retrait",
-    "branch": "Succursale",
-    "address": "Adresse",
-    "phone": "Téléphone",
-    "notes": "Notes",
-    "items": "Articles",
-    "each": "chacun",
-    "subtotal": "Sous-total",
-    "deposit": "Dépôt",
-    "total": "Total",
-    "cancelledMessage": "Cette commande a été annulée.",
-    "deliveryAddress": "Adresse de livraison",
-    "status": {
-      "pending": "Commande passée",
-      "accepted": "Commande acceptée",
-      "preparing": "En préparation",
-      "ready": "Prête pour le retrait",
-      "picked_up": "Récupérée",
-      "cancelled": "Annulée"
-    }
-  },
-  "blog": {
-    "title": "Notre Blog",
-    "subtitle": "Nouvelles, recettes et conseils de Simba Super Market",
-    "readMore": "Lire la Suite",
-    "views": "{count} vues",
-    "likes": "{count} j'aime",
-    "comments": "{count} commentaires",
-    "comment": "Laisser un Commentaire",
-    "commentPlaceholder": "Partagez vos pensées...",
-    "submitComment": "Publier le Commentaire",
-    "loginToComment": "Connectez-vous pour commenter",
-    "noBlogs": "Aucun article de blog pour l'instant",
-    "tags": "Étiquettes",
-    "share": "Partager cet article",
-    "relatedPosts": "Articles Connexes"
-  },
-  "contact": {
-    "title": "Nous Contacter",
-    "subtitle": "Nous sommes là pour vous aider. Envoyez-nous un message et nous vous répondrons dans les 24 heures.",
-    "sendOtherMessage": "Envoyer un autre message",
-    "messageSent": "Message envoyé !",
-    "touch": "Entrer en contact",
-    "name": "Votre Nom",
-    "email": "Adresse E-mail",
-    "phone": "Numéro de Téléphone (Facultatif)",
-    "subject": "Sujet",
-    "message": "Message",
-    "messagePlaceholder": "Dites-nous comment nous pouvons vous aider...",
-    "send": "Envoyer le Message",
-    "sending": "Envoi en cours...",
-    "success": "Message envoyé ! Nous vous répondrons bientôt.",
-    "address": "Adresse",
-    "addressValue": "Kigali, Rwanda",
-    "emailLabel": "E-mail",
-    "phoneLabel": "Téléphone",
-    "hours": "Heures d'Ouverture",
-    "hoursValue": "Lun–Sam : 8h–20h",
-    "hoursValueSun": "Dim : 9h–17h"
-  },
   "auth": {
     "signin": {
       "title": "Le supermarché préféré du Rwanda, en ligne.",
@@ -284,22 +317,96 @@
     "continueWithGoogle": "Continuer avec Google"
   },
   "admin": {
+    "layout": {
+      "appName": "Simba Market",
+      "panel": "Panneau d'administration",
+      "branchPanel": "Panneau d'agence"
+    },
+    "menu": {
+      "dashboard": "Tableau de bord",
+      "products": "Produits",
+      "orders": "Commandes",
+      "branches": "Agences",
+      "users": "Utilisateurs",
+      "blogs": "Articles",
+      "messages": "Messages",
+      "banners": "Bannières",
+      "settings": "Paramètres",
+      "account": "Compte",
+      "myOrders": "Mes commandes",
+      "notifications": "Notifications",
+      "signOut": "Déconnexion"
+    },
+    "dashboard": "Tableau de Bord",
+    "users": "Utilisateurs",
+    "banners": "Bannières",
+    "settings": "Paramètres",
+    "profile": {
+      "title": "Mon compte",
+      "myOrders": "Mes commandes",
+      "trackOrders": "Suivre vos commandes",
+      "details": "Détails du profil",
+      "fullName": "Nom complet",
+      "email": "Email",
+      "emailLocked": "L'e-mail ne peut pas être modifié",
+      "phoneNumber": "Numéro de téléphone",
+      "phonePlaceholder": "Votre numéro de téléphone",
+      "role": "Rôle",
+      "saving": "Saving...",
+      "save": "Enregistrer les modifications",
+      "signInPrompt": "Veuillez vous connecter pour voir votre profil",
+      "signIn": "Se connecter"
+    },
+    "contacts": "Messages de Contact",
+    "blogs": "Articles de Blog",
+    "products": "Produits",
+    "branches": "Succursales",
+    "branchDetail": {
+      "backToBranches": "Back to branches",
+      "staff": "staff",
+      "products": "products",
+      "inactive": "Inactive",
+      "team": "Team",
+      "searchPlaceholder": "Search products...",
+      "cols": {
+        "product": "Product",
+        "category": "Category",
+        "price": "Price",
+        "stock": "Stock",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "save": "Save",
+      "cancel": "Cancel",
+      "active": "Active",
+      "hidden": "Hidden",
+      "update": "Update",
+      "hide": "Hide",
+      "show": "Show",
+      "stockUpdated": "Stock updated"
+    },
+    "branchTeam": {
+      "backToBranch": "Back to branch",
+      "teamTitle": "Team",
+      "inviteDescription": "Invite people with an account to join this branch.",
+      "inviteTeamMember": "Invite team member",
+      "searchPlaceholder": "Search users by name or email",
+      "role": "Role",
+      "branchStaff": "Branch staff",
+      "branchManager": "Branch manager",
+      "optionalNote": "Optional note",
+      "shortMessage": "Short message",
+      "sent": "Invite sent",
+      "sendInvite": "Send invite",
+      "sending": "Sending...",
+      "pendingInvites": "Pending invites",
+      "noPendingInvites": "No pending invites.",
+      "failed": "Failed to send invite"
+    },
     "orders": {
       "title": "Commandes",
       "searchPlaceholder": "Rechercher commande, client...",
       "allStatuses": "Tous les statuts",
-      "itemsCount": "articles",
-      "manage": "Gérer",
-      "statusUpdated": "Statut de la commande mis à jour",
-      "statusError": "Échec de la mise à jour du statut",
-      "status": {
-        "pending": "En attente",
-        "accepted": "Acceptée",
-        "preparing": "En préparation",
-        "ready": "Prête",
-        "picked_up": "Récupérée",
-        "cancelled": "Annulée"
-      },
       "cols": {
         "order": "Commande #",
         "customer": "Client",
@@ -310,6 +417,10 @@
         "date": "Date",
         "actions": "Actions"
       },
+      "itemsCount": "articles",
+      "manage": "Gérer",
+      "statusUpdated": "Statut de la commande mis à jour",
+      "statusError": "Échec de la mise à jour du statut",
       "modal": {
         "title": "Mettre à jour le statut",
         "customer": "Client",
@@ -320,20 +431,20 @@
         "newStatus": "Nouveau statut",
         "note": "Note (optionnelle)",
         "notePlaceholder": "ex. Prêt au comptoir 2",
-        "update": "Mettre à jour",
         "updating": "Mise à jour...",
+        "update": "Mettre à jour",
         "cancel": "Annuler"
+      },
+      "status": {
+        "pending": "En attente",
+        "accepted": "Acceptée",
+        "preparing": "En préparation",
+        "ready": "Prête",
+        "picked_up": "Récupérée",
+        "cancelled": "Annulée"
       }
     },
-    "dashboard": "Tableau de Bord",
-    "products": "Produits",
-    "users": "Utilisateurs",
-    "blogs": "Articles de Blog",
-    "branches": "Succursales",
     "messages": "Messages",
-    "contacts": "Messages de Contact",
-    "banners": "Bannières",
-    "settings": "Paramètres",
     "totalRevenue": "Revenus Totaux",
     "totalOrders": "Total Commandes",
     "totalUsers": "Total Utilisateurs",
@@ -517,18 +628,6 @@
     "currentStock": "Stock actuel",
     "markOutOfStock": "Marquer Indisponible"
   },
-  "wishlist": {
-    "title": "Ma Liste de Souhaits",
-    "empty": "Votre liste de souhaits est vide",
-    "emptyDesc": "Sauvegardez les articles que vous aimez",
-    "browseProducts": "Parcourir les Produits",
-    "addToCart": "Ajouter au Panier",
-    "remove": "Supprimer",
-    "inStock": "En stock",
-    "outOfStock": "Rupture de stock",
-    "items": "articles sauvegardés"
-  },
-
   "about": {
     "hero": {
       "eyebrow": "Profil de l'entreprise",
@@ -670,7 +769,6 @@
       }
     }
   },
-
   "faq": {
     "hero": {
       "eyebrow": "Centre d'aide",
@@ -770,7 +868,6 @@
       "cta": "Nous contacter"
     }
   },
-
   "returns": {
     "hero": {
       "eyebrow": "Service client",
@@ -846,7 +943,6 @@
       "body": "Simba Supermarché se réserve le droit de refuser les retours qui ne satisfont pas aux conditions de notre politique. Les achats en magasin doivent être retournés dans une succursale physique ; les commandes en ligne peuvent être retournées en magasin ou via notre service de collecte."
     }
   },
-
   "privacy": {
     "hero": {
       "eyebrow": "Juridique",
@@ -915,7 +1011,6 @@
       }
     }
   },
-
   "delivery": {
     "hero": {
       "eyebrow": "Livraison",
@@ -923,9 +1018,18 @@
       "subtitle": "Livraison rapide et fiable depuis nos succursales directement à votre porte à Kigali et au-delà."
     },
     "stats": {
-      "branches": { "value": "11", "label": "Succursales" },
-      "minOrder": { "value": "5K RWF", "label": "Commande min." },
-      "coverage": { "value": "Kigali", "label": "Couverture" }
+      "branches": {
+        "value": "11",
+        "label": "Succursales"
+      },
+      "minOrder": {
+        "value": "5K RWF",
+        "label": "Commande min."
+      },
+      "coverage": {
+        "value": "Kigali",
+        "label": "Couverture"
+      }
     },
     "options": {
       "eyebrow": "Options de livraison",
@@ -1004,7 +1108,6 @@
       "cta": "Nous contacter"
     }
   },
-
   "terms": {
     "hero": {
       "eyebrow": "Juridique",

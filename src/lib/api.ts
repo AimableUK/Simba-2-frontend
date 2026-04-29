@@ -2,8 +2,10 @@ import axios from "axios";
 
 const API_URL =
   typeof window !== "undefined"
-    ? "/api"
-    : process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+    ? process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"
+    : process.env.INTERNAL_API_URL ||
+      process.env.NEXT_PUBLIC_API_URL ||
+      "http://backend:5000/api";
 export const api = axios.create({
   baseURL: API_URL,
   withCredentials: true,
@@ -15,7 +17,11 @@ api.interceptors.response.use(
   (err) => {
     if (err.response?.status === 401) {
       if (typeof window !== "undefined") {
-        window.location.href = "/auth/sign-in";
+        const locale = window.location.pathname.split("/")[1];
+        const authPath = ["en", "fr", "rw", "sw"].includes(locale)
+          ? `/${locale}/auth/sign-in`
+          : "/auth/sign-in";
+        window.location.href = authPath;
       }
     }
     return Promise.reject(err);
@@ -43,9 +49,11 @@ export const productApi = {
   list: (params?: Record<string, any>) => api.get("/products", { params }),
   get: (slug: string) => api.get(`/products/${slug}`),
   similar: (slug: string) => api.get(`/products/${slug}/similar`),
-  featured: () => api.get("/products/featured"),
-  top: () => api.get("/products/top"),
-  recommendations: () => api.get("/products/recommendations"),
+  featured: (params?: Record<string, any>) =>
+    api.get("/products/featured", { params }),
+  top: (params?: Record<string, any>) => api.get("/products/top", { params }),
+  recommendations: (params?: Record<string, any>) =>
+    api.get("/products/recommendations", { params }),
   adminList: (params?: Record<string, any>) =>
     api.get("/products/admin/all", { params }),
   create: (data: any) => api.post("/products/admin", data),
@@ -68,13 +76,21 @@ export const categoryApi = {
 //  Cart
 
 export const cartApi = {
-  get: () => api.get("/cart"),
-  add: (data: { productId: string; quantity: number }) =>
+  get: (branchId?: string) =>
+    api.get("/cart", { params: branchId ? { branchId } : undefined }),
+  add: (data: { productId: string; quantity: number; branchId?: string }) =>
     api.post("/cart", data),
-  update: (productId: string, quantity: number) =>
-    api.put(`/cart/${productId}`, { quantity }),
-  remove: (productId: string) => api.delete(`/cart/${productId}`),
-  clear: () => api.delete("/cart"),
+  update: (
+    productId: string,
+    quantity: number,
+    branchId?: string,
+  ) => api.put(`/cart/${productId}`, { quantity, branchId }),
+  remove: (productId: string, branchId?: string) =>
+    api.delete(`/cart/${productId}`, {
+      params: branchId ? { branchId } : undefined,
+    }),
+  clear: (branchId?: string) =>
+    api.delete("/cart", { params: branchId ? { branchId } : undefined }),
 };
 
 //  Wishlist
@@ -94,7 +110,8 @@ export const orderApi = {
     api.get("/orders/admin/all", { params }),
   updateStatus: (id: string, data: { status: string; note?: string }) =>
     api.put(`/orders/admin/${id}/status`, data),
-  dashboard: () => api.get("/orders/admin/dashboard"),
+  dashboard: (params?: Record<string, any>) =>
+    api.get("/orders/admin/dashboard", { params }),
 };
 
 //  Blogs
@@ -109,6 +126,8 @@ export const blogApi = {
     api.delete(`/blogs/${id}/comments/${commentId}`),
   adminList: (params?: Record<string, any>) =>
     api.get("/blogs/admin/all", { params }),
+  adminStats: (params?: Record<string, any>) =>
+    api.get("/blogs/admin/stats", { params }),
   create: (data: any) => api.post("/blogs/admin", data),
   update: (id: string, data: any) => api.put(`/blogs/admin/${id}`, data),
   delete: (id: string) => api.delete(`/blogs/admin/${id}`),
@@ -191,6 +210,16 @@ export const branchApi = {
   updateStock: (data: any) => api.put("/branches/dashboard/stock", data),
   adminList: (params?: Record<string, any>) =>
     api.get("/branches/admin/all", { params }),
+  adminInvites: (branchId: string) =>
+    api.get(`/branches/admin/${branchId}/invites`),
+  createInvite: (data: {
+    branchId: string;
+    userId: string;
+    role: string;
+    message?: string;
+  }) => api.post("/branches/admin/invites", data),
+  respondInvite: (token: string, action: "accept" | "decline") =>
+    api.post(`/branches/admin/invites/${token}/respond`, { action }),
   createBranch: (data: any) => api.post("/branches/admin", data),
   updateBranch: (id: string, data: any) =>
     api.put(`/branches/admin/${id}`, data),
@@ -202,6 +231,16 @@ export const branchApi = {
 // Search
 
 export const searchApi = {
-  search: (q: string, branchId?: string) =>
-    api.get("/search", { params: { q, ...(branchId && { branchId }) } }),
+  search: (
+    q: string,
+    params?: { branchId?: string; lat?: number; lng?: number },
+  ) =>
+    api.get("/search", {
+      params: {
+        q,
+        ...(params?.branchId && { branchId: params.branchId }),
+        ...(typeof params?.lat === "number" && { lat: params.lat }),
+        ...(typeof params?.lng === "number" && { lng: params.lng }),
+      },
+    }),
 };

@@ -45,6 +45,135 @@
     "newArrivals": "Ibya Vuba",
     "deals": "Amangazo y'Uyu Munsi"
   },
+  "shop": {
+    "resultsFor": "Ibisubizo bya \"{query}\"",
+    "categories": "Ibyiciro",
+    "allCategories": "Ibyiciro byose",
+    "priceRange": "Urwego rw'ibiciro",
+    "minPrice": "Hasi (RWF)",
+    "maxPrice": "Hejuru (RWF)",
+    "quickFilters": "Ayungurura yihuse",
+    "ratings": "Amanota",
+    "anyRating": "Amanota ayo ari yo yose",
+    "ratingPlus": "Amanota {rating}+",
+    "featured": "Byihariye",
+    "inStock": "Bihari",
+    "filters": "Ayungurura",
+    "apply": "Emeza",
+    "clearFilters": "Siba ayungurura",
+    "clearAll": "Siba byose",
+    "tryDifferent": "Gerageza amagambo cyangwa ayungurura atandukanye"
+  },
+  "blog": {
+    "title": "Ibinyamakuru Byacu",
+    "subtitle": "Amakuru, indangagaciro, n'inama za Simba Super Market",
+    "readMore": "Soma Byinshi",
+    "views": "{count} Barayirebye",
+    "likes": "{count} Barayikunze",
+    "comments": "Ibitekerezo {count}",
+    "comment": "Siga Igitekerezo",
+    "commentPlaceholder": "Sangira ibitekerezo byawe...",
+    "submitComment": "Ohereza Igitekerezo",
+    "loginToComment": "Injira no gutanga igitekerezo",
+    "noBlogs": "Nta nkuru z'amakuru ziragera",
+    "tags": "Amatage",
+    "share": "Sangira iyi nkuru",
+    "relatedPosts": "Inkuru Zisa"
+  },
+  "contact": {
+    "title": "Twandikire",
+    "subtitle": "Turiho kugufasha. Tuboreze ubutumwa ubone igisubizo mu masaha 24.",
+    "sendOtherMessage": "Ohereza ubutumwa bundi",
+    "messageSent": "Ubutumwa bwoherejwe!",
+    "touch": "Twandikire",
+    "name": "Amazina Yawe",
+    "email": "Imeyili",
+    "phone": "Telefoni (Byihitiwe)",
+    "subject": "Inshingano",
+    "message": "Ubutumwa",
+    "messagePlaceholder": "Tubwire uko twagufasha...",
+    "send": "Ohereza Ubutumwa",
+    "sending": "Turi Kohereza...",
+    "success": "Ubutumwa bwoherejwe! Tuzagusubiza vuba.",
+    "address": "Aderesi",
+    "addressValue": "Kigali, Rwanda",
+    "emailLabel": "Imeyili",
+    "phoneLabel": "Telefoni",
+    "hours": "Amasaha y'Akazi",
+    "hoursValue": "Ku wa 1-6: 8h00-20h00",
+    "hoursValueSun": "Ku cyumweru: 9h00-17h00"
+  },
+  "cart": {
+    "title": "Agasanduku Kawe",
+    "empty": "Agasanduku kawe gasa ubusa",
+    "emptyDesc": "Tangira kugura no kongeraho ibintu mu gasanduku",
+    "shopNow": "Tangira Kugura",
+    "subtotal": "Igiteranyo",
+    "delivery": "Amafaranga yo Gutumiza",
+    "total": "Igiteranyo Cyose",
+    "checkout": "Komeza Kwishyura",
+    "remove": "Kura",
+    "update": "Vugurura",
+    "items": "ibintu {count}",
+    "freeDelivery": "Gutumiza birindwa ku birenze RWF {amount}",
+    "deliveryNote": "Gutumiza i Kigali gusa",
+    "continueShopping": "Komeza Kugura",
+    "guestCartNotice": "Urimo nk'umushyitsi. Injira kugira ngo uhahe.",
+    "signIn": "Injira",
+    "signInToCheckout": "Injira kugira ngo Ugure"
+  },
+  "wishlist": {
+    "title": "Ibyo Nshaka",
+    "empty": "Nta gicuruzwa kibitswe",
+    "emptyDesc": "Bika ibicuruzwa ukunda uzibuke hano",
+    "browseProducts": "Reba Ibicuruzwa",
+    "addToCart": "Shyira mu Gasanduku",
+    "remove": "Kura",
+    "inStock": "Gihari",
+    "outOfStock": "Ntigihari",
+    "items": "Ibibitswe"
+  },
+  "orders": {
+    "title": "Amatumiza Yanjye",
+    "order": "Itumiza",
+    "payment": {
+      "pending": "Kwishyura Birategerezwa",
+      "paid": "Byishyuwe",
+      "failed": "Kwishyura Ntibyakunze",
+      "refunded": "Amafaranga Asubijwe"
+    },
+    "date": "Itariki y'Itumiza",
+    "track": "Kurikirana Itumiza",
+    "noOrders": "Nta matumiza buriho",
+    "noOrdersDesc": "Ohereza itumiza rya mbere uribone hano",
+    "orderNumber": "Itumiza #",
+    "timeline": "Inzira y'Itumiza",
+    "signInPrompt": "Please sign in to view your orders",
+    "signIn": "Sign In",
+    "startShopping": "Start Shopping",
+    "notFound": "Itumiza ntiryabonetse",
+    "pickupInfo": "Amakuru yo Gufata",
+    "pickupTime": "Igihe cyo Gufata",
+    "branch": "Ishami",
+    "address": "Aderesi",
+    "phone": "Telefoni",
+    "notes": "Ibisobanuro",
+    "items": "Ibintu",
+    "each": "buri kimwe",
+    "subtotal": "Igiteranyo gito",
+    "deposit": "Inguzanyo",
+    "total": "Igiteranyo",
+    "cancelledMessage": "Iri tumba rahagaritswe.",
+    "deliveryAddress": "Aderesi yo Gutanga",
+    "status": {
+      "pending": "Itumiza Ryoherejwe",
+      "accepted": "Itumiza Ryemerewe",
+      "preparing": "Rirategurwa",
+      "ready": "Riteguye Gufatwa",
+      "picked_up": "Rafashwe",
+      "cancelled": "Rahagaritswe"
+    }
+  },
   "product": {
     "addToCart": "Shyira mu Gasanduku",
     "addedToCart": "Byashyizwe mu gasanduku!",
@@ -73,25 +202,6 @@
     "reviewError": "Ushobora gusa gutanga ibitekerezo ku bicuruzwa waguze kandi wakiriye.",
     "quantity": "Ingano",
     "images": "Amafoto y'Igicuruzwa"
-  },
-  "cart": {
-    "title": "Agasanduku Kawe",
-    "empty": "Agasanduku kawe gasa ubusa",
-    "emptyDesc": "Tangira kugura no kongeraho ibintu mu gasanduku",
-    "shopNow": "Tangira Kugura",
-    "subtotal": "Igiteranyo",
-    "delivery": "Amafaranga yo Gutumiza",
-    "total": "Igiteranyo Cyose",
-    "checkout": "Komeza Kwishyura",
-    "remove": "Kura",
-    "update": "Vugurura",
-    "items": "ibintu {count}",
-    "freeDelivery": "Gutumiza birindwa ku birenze RWF {amount}",
-    "deliveryNote": "Gutumiza i Kigali gusa",
-    "continueShopping": "Komeza Kugura",
-    "guestCartNotice": "Urimo nk'umushyitsi. Injira kugira ngo uhahe.",
-    "signIn": "Injira",
-    "signInToCheckout": "Injira kugira ngo Ugure"
   },
   "checkout": {
     "title": "Kwishyura",
@@ -163,83 +273,6 @@
       "field": "Inzego"
     }
   },
-  "orders": {
-    "title": "Amatumiza Yanjye",
-    "order": "Itumiza",
-    "payment": {
-      "pending": "Kwishyura Birategerezwa",
-      "paid": "Byishyuwe",
-      "failed": "Kwishyura Ntibyakunze",
-      "refunded": "Amafaranga Asubijwe"
-    },
-    "date": "Itariki y'Itumiza",
-    "track": "Kurikirana Itumiza",
-    "noOrders": "Nta matumiza buriho",
-    "noOrdersDesc": "Ohereza itumiza rya mbere uribone hano",
-    "orderNumber": "Itumiza #",
-    "timeline": "Inzira y'Itumiza",
-    "notFound": "Itumiza ntiryabonetse",
-    "pickupInfo": "Amakuru yo Gufata",
-    "pickupTime": "Igihe cyo Gufata",
-    "branch": "Ishami",
-    "address": "Aderesi",
-    "phone": "Telefoni",
-    "notes": "Ibisobanuro",
-    "items": "Ibintu",
-    "each": "buri kimwe",
-    "subtotal": "Igiteranyo gito",
-    "deposit": "Inguzanyo",
-    "total": "Igiteranyo",
-    "cancelledMessage": "Iri tumba rahagaritswe.",
-    "deliveryAddress": "Aderesi yo Gutanga",
-    "status": {
-      "pending": "Itumiza Ryoherejwe",
-      "accepted": "Itumiza Ryemerewe",
-      "preparing": "Rirategurwa",
-      "ready": "Riteguye Gufatwa",
-      "picked_up": "Rafashwe",
-      "cancelled": "Rahagaritswe"
-    }
-  },
-  "blog": {
-    "title": "Ibinyamakuru Byacu",
-    "subtitle": "Amakuru, indangagaciro, n'inama za Simba Super Market",
-    "readMore": "Soma Byinshi",
-    "views": "{count} Barayirebye",
-    "likes": "{count} Barayikunze",
-    "comments": "Ibitekerezo {count}",
-    "comment": "Siga Igitekerezo",
-    "commentPlaceholder": "Sangira ibitekerezo byawe...",
-    "submitComment": "Ohereza Igitekerezo",
-    "loginToComment": "Injira no gutanga igitekerezo",
-    "noBlogs": "Nta nkuru z'amakuru ziragera",
-    "tags": "Amatage",
-    "share": "Sangira iyi nkuru",
-    "relatedPosts": "Inkuru Zisa"
-  },
-  "contact": {
-    "title": "Twandikire",
-    "subtitle": "Turiho kugufasha. Tuboreze ubutumwa ubone igisubizo mu masaha 24.",
-    "sendOtherMessage": "Ohereza ubutumwa bundi",
-    "messageSent": "Ubutumwa bwoherejwe!",
-    "touch": "Twandikire",
-    "name": "Amazina Yawe",
-    "email": "Imeyili",
-    "phone": "Telefoni (Byihitiwe)",
-    "subject": "Inshingano",
-    "message": "Ubutumwa",
-    "messagePlaceholder": "Tubwire uko twagufasha...",
-    "send": "Ohereza Ubutumwa",
-    "sending": "Turi Kohereza...",
-    "success": "Ubutumwa bwoherejwe! Tuzagusubiza vuba.",
-    "address": "Aderesi",
-    "addressValue": "Kigali, Rwanda",
-    "emailLabel": "Imeyili",
-    "phoneLabel": "Telefoni",
-    "hours": "Amasaha y'Akazi",
-    "hoursValue": "Ku wa 1-6: 8h00-20h00",
-    "hoursValueSun": "Ku cyumweru: 9h00-17h00"
-  },
   "auth": {
     "signin": {
       "title": "Isoko rikunzwe cyane mu Rwanda, kuri internet.",
@@ -284,22 +317,96 @@
     "continueWithGoogle": "Komeza ukoresheje Google"
   },
   "admin": {
+    "layout": {
+      "appName": "Simba Market",
+      "panel": "Ikibaho cy'ubuyobozi",
+      "branchPanel": "Ikibaho cy'ishami"
+    },
+    "menu": {
+      "dashboard": "Ahabanza",
+      "products": "Ibicuruzwa",
+      "orders": "Amatumiza",
+      "branches": "Amashami",
+      "users": "Abakoresha",
+      "blogs": "Blog",
+      "messages": "Ubutumwa",
+      "banners": "Ibipapuro by'amamaza",
+      "settings": "Igenamiterere",
+      "account": "Konti",
+      "myOrders": "Amatumiza yanjye",
+      "notifications": "Imenyesha",
+      "signOut": "Sohoka"
+    },
+    "dashboard": "Ikibaho",
+    "users": "Abakoresha",
+    "banners": "Ibendera",
+    "settings": "Igenamigambi",
+    "profile": {
+      "title": "Konti yanjye",
+      "myOrders": "Amatumiza yanjye",
+      "trackOrders": "Kurikirana amatumiza yawe",
+      "details": "Ibisobanuro bya profil",
+      "fullName": "Amazina yuzuye",
+      "email": "Email",
+      "emailLocked": "Imeyili ntishobora guhindurwa",
+      "phoneNumber": "Numero ya telefone",
+      "phonePlaceholder": "Numero yawe ya telefone",
+      "role": "Inshingano",
+      "saving": "Saving...",
+      "save": "Bika impinduka",
+      "signInPrompt": "Nyamuneka injira ngo urebe profil yawe",
+      "signIn": "Injira"
+    },
+    "contacts": "Ubutumwa bw'Ababoneka",
+    "blogs": "Inkuru z'Amakuru",
+    "products": "Ibicuruzwa",
+    "branches": "Amashami",
+    "branchDetail": {
+      "backToBranches": "Back to branches",
+      "staff": "staff",
+      "products": "products",
+      "inactive": "Inactive",
+      "team": "Team",
+      "searchPlaceholder": "Search products...",
+      "cols": {
+        "product": "Product",
+        "category": "Category",
+        "price": "Price",
+        "stock": "Stock",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "save": "Save",
+      "cancel": "Cancel",
+      "active": "Active",
+      "hidden": "Hidden",
+      "update": "Update",
+      "hide": "Hide",
+      "show": "Show",
+      "stockUpdated": "Stock updated"
+    },
+    "branchTeam": {
+      "backToBranch": "Back to branch",
+      "teamTitle": "Team",
+      "inviteDescription": "Invite people with an account to join this branch.",
+      "inviteTeamMember": "Invite team member",
+      "searchPlaceholder": "Search users by name or email",
+      "role": "Role",
+      "branchStaff": "Branch staff",
+      "branchManager": "Branch manager",
+      "optionalNote": "Optional note",
+      "shortMessage": "Short message",
+      "sent": "Invite sent",
+      "sendInvite": "Send invite",
+      "sending": "Sending...",
+      "pendingInvites": "Pending invites",
+      "noPendingInvites": "No pending invites.",
+      "failed": "Failed to send invite"
+    },
     "orders": {
       "title": "Amatumba",
       "searchPlaceholder": "Shakisha itumba, umukiriya...",
       "allStatuses": "Imiterere Yose",
-      "itemsCount": "ibintu",
-      "manage": "Gucunga",
-      "statusUpdated": "Imiterere y'itumba yaravuguruwe",
-      "statusError": "Ntibishoboye kuvugurura imiterere",
-      "status": {
-        "pending": "Birategerejwe",
-        "accepted": "Byemerewe",
-        "preparing": "Birategurwa",
-        "ready": "Biteguye",
-        "picked_up": "Bifashwe",
-        "cancelled": "Byahagaritswe"
-      },
       "cols": {
         "order": "Itumba #",
         "customer": "Umukiriya",
@@ -310,6 +417,10 @@
         "date": "Itariki",
         "actions": "Ibikorwa"
       },
+      "itemsCount": "ibintu",
+      "manage": "Gucunga",
+      "statusUpdated": "Imiterere y'itumba yaravuguruwe",
+      "statusError": "Ntibishoboye kuvugurura imiterere",
       "modal": {
         "title": "Vugurura Imiterere y'Itumba",
         "customer": "Umukiriya",
@@ -320,20 +431,20 @@
         "newStatus": "Imiterere Nshya",
         "note": "Icyitonderwa (si ngombwa)",
         "notePlaceholder": "urugero: Biteguye kuri kaunta ya 2",
-        "update": "Vugurura Imiterere",
         "updating": "Biravugururwa...",
+        "update": "Vugurura Imiterere",
         "cancel": "Hagarika"
+      },
+      "status": {
+        "pending": "Birategerejwe",
+        "accepted": "Byemerewe",
+        "preparing": "Birategurwa",
+        "ready": "Biteguye",
+        "picked_up": "Bifashwe",
+        "cancelled": "Byahagaritswe"
       }
     },
-    "dashboard": "Ikibaho",
-    "products": "Ibicuruzwa",
-    "users": "Abakoresha",
-    "blogs": "Inkuru z'Amakuru",
-    "branches": "Amashami",
     "messages": "Mesaje",
-    "contacts": "Ubutumwa bw'Ababoneka",
-    "banners": "Ibendera",
-    "settings": "Igenamigambi",
     "totalRevenue": "Igiteranyo cy'Amafaranga",
     "totalOrders": "Amatumiza Yose",
     "totalUsers": "Abakoresha Bose",
@@ -517,18 +628,6 @@
     "currentStock": "Ububiko Buriho",
     "markOutOfStock": "Ntigihari"
   },
-  "wishlist": {
-    "title": "Ibyo Nshaka",
-    "empty": "Nta gicuruzwa kibitswe",
-    "emptyDesc": "Bika ibicuruzwa ukunda uzibuke hano",
-    "browseProducts": "Reba Ibicuruzwa",
-    "addToCart": "Shyira mu Gasanduku",
-    "remove": "Kura",
-    "inStock": "Gihari",
-    "outOfStock": "Ntigihari",
-    "items": "Ibibitswe"
-  },
-
   "about": {
     "hero": {
       "eyebrow": "Umwirondoro w'Ikigo",
@@ -670,7 +769,6 @@
       }
     }
   },
-
   "faq": {
     "hero": {
       "eyebrow": "Ikigo cy'Ubufasha",
@@ -770,7 +868,6 @@
       "cta": "Wavugana Natwe"
     }
   },
-
   "returns": {
     "hero": {
       "eyebrow": "Serivisi ku Bakiriya",
@@ -846,7 +943,6 @@
       "body": "Simba Supermarket ibika uburenganzira bwo kwanga gusubiza bitatujuje amabwiriza ya politiki yacu. Ibintu byaguriwe mu dukani bigomba gusubizwa mu ishami rya fiziki; amalagizo ya interineti ashobora gusubizwa mu dukani cyangwa binyuze muri serivisi yacu yo gukorwa."
     }
   },
-
   "privacy": {
     "hero": {
       "eyebrow": "Amategeko",
@@ -915,7 +1011,6 @@
       }
     }
   },
-
   "delivery": {
     "hero": {
       "eyebrow": "Kohereza",
@@ -923,9 +1018,18 @@
       "subtitle": "Kohereza vuba no kwizerana biva ku mashami yacu mubanze kugera ku muryango wawe i Kigali no hanze."
     },
     "stats": {
-      "branches": { "value": "11", "label": "Amashami" },
-      "minOrder": { "value": "5K RWF", "label": "order Ryo hasi" },
-      "coverage": { "value": "Kigali", "label": "Akarere" }
+      "branches": {
+        "value": "11",
+        "label": "Amashami"
+      },
+      "minOrder": {
+        "value": "5K RWF",
+        "label": "order Ryo hasi"
+      },
+      "coverage": {
+        "value": "Kigali",
+        "label": "Akarere"
+      }
     },
     "options": {
       "eyebrow": "Uburyo bwo Kohereza",
@@ -1004,7 +1108,6 @@
       "cta": "Wavugana natwe"
     }
   },
-
   "terms": {
     "hero": {
       "eyebrow": "Amategeko",

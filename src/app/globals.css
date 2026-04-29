@@ -4,6 +4,8 @@
 
 @layer base {
   :root {
+    --font-sans: "Inter", "Avenir Next", "Avenir", "Segoe UI Variable",
+      "Segoe UI", "Helvetica Neue", Arial, sans-serif;
     --background: 0 0% 100%;
     --foreground: 20 14% 10%;
     --card: 0 0% 100%;

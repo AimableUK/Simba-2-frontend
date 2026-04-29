@@ -14,10 +14,12 @@ import {
 import { formatPrice, getImageUrl } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
+import { searchApi } from "@/lib/api";
 
 interface SearchResult {
   reply: string;
   products: any[];
+  branches?: any[];
 }
 
 //  Map embed
@@ -146,9 +148,6 @@ function ProductGrid({
   );
 }
 
-//  Main component
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
-
 export function ConversationalSearch({ branchId }: { branchId?: string }) {
   const t = useTranslations("search");
   const locale = useLocale();
@@ -161,10 +160,33 @@ export function ConversationalSearch({ branchId }: { branchId?: string }) {
   const EXAMPLES = [
     "Fresh milk",
     "Where are your branches?",
+    "Branches near me",
     "Cold drinks",
     "Breakfast items",
     "Vegetables",
   ];
+
+  const getBrowserLocation = () =>
+    new Promise<{ lat: number; lng: number } | null>((resolve) => {
+      if (
+        typeof navigator === "undefined" ||
+        !navigator.geolocation ||
+        !window.isSecureContext
+      ) {
+        resolve(null);
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (pos) =>
+          resolve({
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude,
+          }),
+        () => resolve(null),
+        { enableHighAccuracy: false, timeout: 5000, maximumAge: 300000 },
+      );
+    });
 
   const handleSearch = async (q: string) => {
     if (!q.trim()) return;
@@ -174,57 +196,36 @@ export function ConversationalSearch({ branchId }: { branchId?: string }) {
     setResult(null);
 
     const isBranchQuery =
-      /branch|location|kigali|where|address|map|branches/i.test(q);
+      /branch|branches|location|kigali|where|address|map|near me|nearest|nearby/i.test(
+        q,
+      );
 
     try {
-      if (isBranchQuery) {
-        const res = await fetch(`${API_BASE}/branches`);
-        if (!res.ok) throw new Error(`Branches API error: ${res.status}`);
-        const data = await res.json();
-        const list = Array.isArray(data) ? data : data.data || [];
-        setBranches(list);
-        setResult({
-          reply: `Here are all ${list.length} Simba Supermarket branches in Kigali. Click any branch to see it on the map.`,
-          products: [],
-        });
-      } else {
-        // Search products directly via API
-        const params = new URLSearchParams({ limit: "8" });
-        if (q.trim()) params.set("search", q.trim());
-        if (branchId) {
-          // Branch-scoped: search branch stock
-          const res = await fetch(
-            `${API_BASE}/branches/${branchId}/stock?${params}`,
-          );
-          if (!res.ok) throw new Error(`Stock API error: ${res.status}`);
-          const data = await res.json();
-          const items = data.data || data || [];
-          const products = items.map((i: any) => ({
-            ...i.product,
-            stock: i.stock,
-          }));
-          setResult({
-            reply:
-              products.length > 0
-                ? `Found ${products.length} product${products.length === 1 ? "" : "s"} for "${q}" at this branch.`
-                : `No products found for "${q}" at this branch. Try a different keyword.`,
-            products,
-          });
-        } else {
-          // Global product search
-          const res = await fetch(`${API_BASE}/products?${params}`);
-          if (!res.ok) throw new Error(`Products API error: ${res.status}`);
-          const data = await res.json();
-          const products = data.data || data || [];
-          setResult({
-            reply:
-              products.length > 0
-                ? `Found ${products.length} product${products.length === 1 ? "" : "s"} for "${q}".`
-                : `No products found for "${q}". Try "milk", "rice", or "vegetables".`,
-            products,
-          });
-        }
-      }
+      const location =
+        isBranchQuery &&
+        /near me|nearest|nearby/i.test(q)
+          ? await getBrowserLocation()
+          : null;
+      const response = await searchApi.search(q, {
+        branchId,
+        ...(location || {}),
+      });
+      const data = response.data || {};
+      const list = Array.isArray(data.branches) ? data.branches : [];
+      const products = Array.isArray(data.products) ? data.products : [];
+
+      setBranches(list);
+      setResult({
+        reply:
+          data.reply ||
+          (list.length
+            ? `Here are ${list.length} Simba Supermarket branches.`
+            : products.length
+              ? `Found ${products.length} product${products.length === 1 ? "" : "s"} for "${q}".`
+              : `No results found for "${q}".`),
+        products,
+        branches: list,
+      });
     } catch (err: any) {
       console.error("Search error:", err);
       setResult({
@@ -329,7 +330,9 @@ export function ConversationalSearch({ branchId }: { branchId?: string }) {
                 </div>
 
                 {/* Branches with maps */}
-                {branches.length > 0 && <BranchesPanel branches={branches} />}
+                {(result.branches?.length || branches.length) > 0 && (
+                  <BranchesPanel branches={result.branches || branches} />
+                )}
 
                 {/* Products */}
                 {result.products.length > 0 && (

@@ -45,6 +45,135 @@
     "newArrivals": "New Arrivals",
     "deals": "Today's Deals"
   },
+  "shop": {
+    "resultsFor": "Results for \"{query}\"",
+    "categories": "Categories",
+    "allCategories": "All Categories",
+    "priceRange": "Price Range",
+    "minPrice": "Min (RWF)",
+    "maxPrice": "Max (RWF)",
+    "quickFilters": "Quick Filters",
+    "ratings": "Ratings",
+    "anyRating": "Any rating",
+    "ratingPlus": "{rating}+ stars",
+    "featured": "Featured",
+    "inStock": "In Stock",
+    "filters": "Filters",
+    "apply": "Apply",
+    "clearFilters": "Clear filters",
+    "clearAll": "Clear all filters",
+    "tryDifferent": "Try different search terms or filters"
+  },
+  "blog": {
+    "title": "Our Blog",
+    "subtitle": "News, recipes, and tips from Simba Super Market",
+    "readMore": "Read More",
+    "views": "{count} views",
+    "likes": "{count} likes",
+    "comments": "{count} comments",
+    "comment": "Leave a Comment",
+    "commentPlaceholder": "Share your thoughts...",
+    "submitComment": "Post Comment",
+    "loginToComment": "Sign in to comment",
+    "noBlogs": "No blog posts yet",
+    "tags": "Tags",
+    "share": "Share this post",
+    "relatedPosts": "Related Posts"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We're here to help. Send us a message and we'll get back to you within 24 hours.",
+    "sendOtherMessage": "Send another Message",
+    "messageSent": "Message Sent!",
+    "touch": "Get in Touch",
+    "name": "Your Name",
+    "email": "Email Address",
+    "phone": "Phone Number (Optional)",
+    "subject": "Subject",
+    "message": "Message",
+    "messagePlaceholder": "Tell us how we can help...",
+    "send": "Send Message",
+    "sending": "Sending...",
+    "success": "Message sent! We'll get back to you soon.",
+    "address": "Address",
+    "addressValue": "Kigali, Rwanda",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "hours": "Business Hours",
+    "hoursValue": "Mon–Sat: 8am–8pm",
+    "hoursValueSun": "Sun: 9am–5pm"
+  },
+  "cart": {
+    "title": "Your Cart",
+    "empty": "Your cart is empty",
+    "emptyDesc": "Start shopping and add items to your cart",
+    "shopNow": "Start Shopping",
+    "subtotal": "Subtotal",
+    "delivery": "Delivery Fee",
+    "total": "Total",
+    "checkout": "Proceed to Checkout",
+    "remove": "Remove",
+    "update": "Update",
+    "items": "items",
+    "freeDelivery": "Free delivery on orders over RWF {amount}",
+    "deliveryNote": "Delivery within Kigali only",
+    "continueShopping": "Continue Shopping",
+    "guestCartNotice": "You're browsing as a guest. Sign in to save your cart.",
+    "signIn": "Sign in",
+    "signInToCheckout": "Sign in to Checkout"
+  },
+  "wishlist": {
+    "title": "My Wishlist",
+    "empty": "Your wishlist is empty",
+    "emptyDesc": "Save items you love and find them here",
+    "browseProducts": "Browse Products",
+    "addToCart": "Add to Cart",
+    "remove": "Remove",
+    "inStock": "In stock",
+    "outOfStock": "Out of stock",
+    "items": "saved items"
+  },
+  "orders": {
+    "title": "My Orders",
+    "order": "Order",
+    "payment": {
+      "pending": "Payment Pending",
+      "paid": "Paid",
+      "failed": "Payment Failed",
+      "refunded": "Refunded"
+    },
+    "date": "Order Date",
+    "total": "Total",
+    "items": "Items",
+    "track": "Track Order",
+    "noOrders": "No orders yet",
+    "noOrdersDesc": "Place your first order to see it here",
+    "signInPrompt": "Please sign in to view your orders",
+    "signIn": "Sign In",
+    "startShopping": "Start Shopping",
+    "orderNumber": "Order #",
+    "timeline": "Order Timeline",
+    "deliveryAddress": "Delivery Address",
+    "notFound": "Order not found",
+    "pickupInfo": "Pickup Information",
+    "pickupTime": "Pickup Time",
+    "branch": "Branch",
+    "address": "Address",
+    "phone": "Phone",
+    "notes": "Notes",
+    "each": "each",
+    "subtotal": "Subtotal",
+    "deposit": "Deposit",
+    "cancelledMessage": "This order has been cancelled.",
+    "status": {
+      "pending": "Order Placed",
+      "accepted": "Order Accepted",
+      "preparing": "Being Prepared",
+      "ready": "Ready for Pickup",
+      "picked_up": "Picked Up",
+      "cancelled": "Cancelled"
+    }
+  },
   "product": {
     "addToCart": "Add to Cart",
     "addedToCart": "Added to cart!",
@@ -73,25 +202,6 @@
     "reviewError": "You can only review products you have purchased and received.",
     "quantity": "Quantity",
     "images": "Product Images"
-  },
-  "cart": {
-    "title": "Your Cart",
-    "empty": "Your cart is empty",
-    "emptyDesc": "Start shopping and add items to your cart",
-    "shopNow": "Start Shopping",
-    "subtotal": "Subtotal",
-    "delivery": "Delivery Fee",
-    "total": "Total",
-    "checkout": "Proceed to Checkout",
-    "remove": "Remove",
-    "update": "Update",
-    "items": "items",
-    "freeDelivery": "Free delivery on orders over RWF {amount}",
-    "deliveryNote": "Delivery within Kigali only",
-    "continueShopping": "Continue Shopping",
-    "guestCartNotice": "You're browsing as a guest. Sign in to save your cart.",
-    "signIn": "Sign in",
-    "signInToCheckout": "Sign in to Checkout"
   },
   "checkout": {
     "title": "Checkout",
@@ -163,83 +273,6 @@
       "field": "Field"
     }
   },
-  "orders": {
-    "title": "My Orders",
-    "order": "Order",
-    "payment": {
-      "pending": "Payment Pending",
-      "paid": "Paid",
-      "failed": "Payment Failed",
-      "refunded": "Refunded"
-    },
-    "date": "Order Date",
-    "total": "Total",
-    "items": "Items",
-    "track": "Track Order",
-    "noOrders": "No orders yet",
-    "noOrdersDesc": "Place your first order to see it here",
-    "orderNumber": "Order #",
-    "timeline": "Order Timeline",
-    "deliveryAddress": "Delivery Address",
-    "notFound": "Order not found",
-    "pickupInfo": "Pickup Information",
-    "pickupTime": "Pickup Time",
-    "branch": "Branch",
-    "address": "Address",
-    "phone": "Phone",
-    "notes": "Notes",
-    "each": "each",
-    "subtotal": "Subtotal",
-    "deposit": "Deposit",
-    "cancelledMessage": "This order has been cancelled.",
-    "status": {
-      "pending": "Order Placed",
-      "accepted": "Order Accepted",
-      "preparing": "Being Prepared",
-      "ready": "Ready for Pickup",
-      "picked_up": "Picked Up",
-      "cancelled": "Cancelled"
-    }
-  },
-  "blog": {
-    "title": "Our Blog",
-    "subtitle": "News, recipes, and tips from Simba Super Market",
-    "readMore": "Read More",
-    "views": "{count} views",
-    "likes": "{count} likes",
-    "comments": "{count} comments",
-    "comment": "Leave a Comment",
-    "commentPlaceholder": "Share your thoughts...",
-    "submitComment": "Post Comment",
-    "loginToComment": "Sign in to comment",
-    "noBlogs": "No blog posts yet",
-    "tags": "Tags",
-    "share": "Share this post",
-    "relatedPosts": "Related Posts"
-  },
-  "contact": {
-    "title": "Contact Us",
-    "subtitle": "We're here to help. Send us a message and we'll get back to you within 24 hours.",
-    "sendOtherMessage": "Send another Message",
-    "messageSent": "Message Sent!",
-    "touch": "Get in Touch",
-    "name": "Your Name",
-    "email": "Email Address",
-    "phone": "Phone Number (Optional)",
-    "subject": "Subject",
-    "message": "Message",
-    "messagePlaceholder": "Tell us how we can help...",
-    "send": "Send Message",
-    "sending": "Sending...",
-    "success": "Message sent! We'll get back to you soon.",
-    "address": "Address",
-    "addressValue": "Kigali, Rwanda",
-    "emailLabel": "Email",
-    "phoneLabel": "Phone",
-    "hours": "Business Hours",
-    "hoursValue": "Mon–Sat: 8am–8pm",
-    "hoursValueSun": "Sun: 9am–5pm"
-  },
   "auth": {
     "signin": {
       "title": "Rwanda's favourite \n supermarket, \n online.",
@@ -284,24 +317,362 @@
     "continueWithGoogle": "Continue with Google"
   },
   "admin": {
-    "orders": {
-      "title": "Orders",
-      "searchPlaceholder": "Search order, customer...",
-      "allStatuses": "All Statuses",
-      "itemsCount": "items",
-      "manage": "Manage",
-      "statusUpdated": "Order status updated",
-      "statusError": "Failed to update status",
-      "status": {
-        "pending": "Pending",
-        "accepted": "Accepted",
-        "preparing": "Preparing",
-        "ready": "Ready",
-        "picked_up": "Picked Up",
-        "cancelled": "Cancelled"
+    "layout": {
+      "appName": "Simba Market",
+      "panel": "Admin Panel",
+      "branchPanel": "Branch Panel"
+    },
+    "menu": {
+      "dashboard": "Dashboard",
+      "products": "Products",
+      "orders": "Orders",
+      "branches": "Branches",
+      "users": "Users",
+      "blogs": "Blogs",
+      "messages": "Messages",
+      "banners": "Banners",
+      "settings": "Settings",
+      "account": "Account",
+      "myOrders": "My Orders",
+      "notifications": "Notifications",
+      "signOut": "Sign Out"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "welcome": "Welcome back! Here's what's happening.",
+      "viewOrders": "View Orders",
+      "totalRevenue": "Total Revenue",
+      "monthRevenue": "This Month's Revenue",
+      "totalOrders": "Total Orders",
+      "pendingOrders": "Pending Orders",
+      "totalProducts": "Total Products",
+      "totalUsers": "Total Users",
+      "todayCount": "{count} today",
+      "needsAttention": "Needs attention",
+      "activeListings": "Active listings",
+      "registered": "Registered",
+      "revenue": "Revenue",
+      "revenueTitle": "Revenue - {period}",
+      "revenueCustomTitle": "Revenue - {from} to {to}",
+      "revenueCustomRange": "Revenue - Custom range",
+      "pickBothDates": "Pick both start and end dates",
+      "startBeforeEnd": "Start date must be before end date",
+      "topProducts": "Top Products",
+      "recentOrders": "Recent Orders",
+      "viewAll": "View all",
+      "sold": "{count} sold",
+      "selectPeriod": "Select period",
+      "pickDates": "Pick dates",
+      "from": "From",
+      "to": "To",
+      "cancel": "Cancel",
+      "apply": "Apply",
+      "growth12": "+12%",
+      "growth8": "+8%",
+      "periods": {
+        "today": "Today",
+        "yesterday": "Yesterday",
+        "week": "Last 7 Days",
+        "month": "Last 30 Days",
+        "year": "Last 1 Year",
+        "lifetime": "Lifetime",
+        "custom": "Custom range"
+      }
+    },
+    "users": {
+      "title": "Users",
+      "searchPlaceholder": "Search users...",
+      "allRoles": "All Roles",
+      "cols": {
+        "user": "User",
+        "email": "Email",
+        "phone": "Phone",
+        "role": "Role",
+        "orders": "Orders",
+        "joined": "Joined",
+        "actions": "Actions"
+      },
+      "changeRole": "Change Role",
+      "saving": "Saving...",
+      "updateRole": "Update Role",
+      "cancel": "Cancel",
+      "roles": {
+        "super_admin": "Full access",
+        "admin": "Manage store",
+        "poster": "Post products/blogs",
+        "branch_manager": "Branch control",
+        "branch_staff": "Branch operations",
+        "user": "Shop only"
+      }
+    },
+    "banners": {
+      "title": "Banners",
+      "add": "Add Banner",
+      "empty": "No banners yet. Add your first banner.",
+      "active": "Active",
+      "inactive": "Inactive",
+      "sortOrder": "Sort order",
+      "edit": "Edit",
+      "delete": "Delete",
+      "editBanner": "Edit Banner",
+      "addBanner": "Add Banner",
+      "created": "Banner created!",
+      "updated": "Banner updated!",
+      "deleted": "Banner deleted",
+      "saving": "Saving...",
+      "update": "Update",
+      "create": "Create",
+      "cancel": "Cancel",
+      "fields": {
+        "title": "Title *",
+        "subtitle": "Subtitle",
+        "imageUrl": "Image URL *",
+        "linkUrl": "Link URL",
+        "active": "Active"
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "storeConfiguration": "Store Configuration",
+      "saved": "Settings saved!",
+      "failed": "Failed to save settings",
+      "saving": "Saving...",
+      "save": "Save Settings",
+      "fields": {
+        "storeName": "Store Name",
+        "storeEmail": "Store Email",
+        "storePhone": "Store Phone",
+        "storeAddress": "Store Address",
+        "deliveryFee": "Delivery Fee (RWF)",
+        "freeDeliveryThreshold": "Free Delivery Threshold (RWF)",
+        "currencyCode": "Currency Code"
+      }
+    },
+    "profile": {
+      "title": "My Account",
+      "myOrders": "My Orders",
+      "trackOrders": "Track your orders",
+      "details": "Profile Details",
+      "fullName": "Full Name",
+      "email": "Email",
+      "emailLocked": "Email cannot be changed",
+      "phoneNumber": "Phone Number",
+      "phonePlaceholder": "Your phone number",
+      "role": "Role",
+      "saving": "Saving...",
+      "save": "Save Changes",
+      "signInPrompt": "Please sign in to view your profile",
+      "signIn": "Sign In"
+    },
+    "contacts": {
+      "title": "Messages",
+      "new": "new",
+      "filters": {
+        "all": "All",
+        "unread": "Unread",
+        "read": "Read"
       },
       "cols": {
-        "order": "Order #",
+        "name": "Name",
+        "email": "Email",
+        "subject": "Subject",
+        "date": "Date",
+        "actions": "Actions"
+      },
+      "view": "View",
+      "replyViaEmail": "Reply via Email",
+      "close": "Close"
+    },
+    "blogs": {
+      "title": "Blog Posts",
+      "newPost": "New Post",
+      "cols": {
+        "title": "Title",
+        "author": "Author",
+        "tags": "Tags",
+        "views": "Views",
+        "status": "Status",
+        "date": "Date",
+        "actions": "Actions"
+      },
+      "published": "Published",
+      "draft": "Draft",
+      "editPost": "Edit Blog Post",
+      "placeholder": "Write your blog post here...",
+      "created": "Blog post created!",
+      "updated": "Blog post updated!",
+      "deleted": "Blog post deleted",
+      "saving": "Saving...",
+      "updatePost": "Update Post",
+      "createPost": "Create Post",
+      "cancel": "Cancel",
+      "loadingEditor": "Loading editor...",
+      "fields": {
+        "title": "Title *",
+        "excerpt": "Excerpt",
+        "imageUrl": "Cover Image URL",
+        "tags": "Tags (comma separated)",
+        "content": "Content *",
+        "publishImmediately": "Publish immediately (visible to public)"
+      }
+    },
+    "products": {
+      "title": "Products",
+      "add": "Add Product",
+      "searchPlaceholder": "Search products...",
+      "cols": {
+        "product": "Product",
+        "price": "Price",
+        "stock": "Stock",
+        "category": "Category",
+        "status": "Status",
+        "sales": "Sales",
+        "actions": "Actions"
+      },
+      "featured": "Featured",
+      "active": "Active",
+      "inactive": "Inactive",
+      "editProduct": "Edit Product",
+      "addNewProduct": "Add New Product",
+      "created": "Product created!",
+      "updated": "Product updated!",
+      "deleted": "Product deleted",
+      "saving": "Saving...",
+      "updateProduct": "Update Product",
+      "createProduct": "Create Product",
+      "deleteTitle": "Delete Product?",
+      "deleteDesc": "This will deactivate the product. It won't appear in the store anymore.",
+      "deleting": "Deleting...",
+      "delete": "Delete",
+      "cancel": "Cancel",
+      "fields": {
+        "productName": "Product Name",
+        "price": "Price (RWF)",
+        "comparePrice": "Compare Price (RWF)",
+        "stock": "Stock",
+        "category": "Category",
+        "unit": "Unit",
+        "tags": "Tags (comma separated)",
+        "shortDescription": "Short Description",
+        "description": "Description",
+        "images": "Image URLs (one per line)",
+        "featuredProduct": "Featured Product",
+        "containsAlcohol": "Contains Alcohol (18+)",
+        "activeVisible": "Active (visible in store)"
+      },
+      "placeholders": {
+        "productName": "e.g. Premium Basmati Rice 5kg",
+        "price": "Enter price e.g. 8500",
+        "comparePrice": "Enter compare price e.g. 10000",
+        "stock": "Enter current stock e.g. 100",
+        "category": "Select category",
+        "unit": "enter units e.g. 500ml, 5kg, pack",
+        "tags": "Enter tags e.g. fresh, organic, local",
+        "shortDescription": "enter one line summary",
+        "description": "Enter full product description...",
+        "images": "https://example.com/image.jpg"
+      }
+    },
+    "branches": {
+      "title": "Branches",
+      "subtitle": "Manage all Simba Supermarket locations in Kigali",
+      "add": "Add Branch",
+      "stats": {
+        "totalBranches": "Total Branches",
+        "active": "Active",
+        "districts": "Districts"
+      },
+      "created": "Branch created!",
+      "updated": "Branch updated!",
+      "deactivated": "Branch deactivated",
+      "inactive": "Inactive",
+      "new": "New",
+      "orders": "orders",
+      "staff": "staff",
+      "more": "more",
+      "viewOnMaps": "View on Maps",
+      "edit": "Edit",
+      "deactivate": "Deactivate",
+      "deleted": "Deleted",
+      "editBranch": "Edit Branch",
+      "addNewBranch": "Add New Branch",
+      "quickFill": "Quick fill from known branches:",
+      "fields": {
+        "name": "Branch Name",
+        "address": "Address",
+        "district": "District",
+        "latitude": "Latitude",
+        "longitude": "Longitude",
+        "phone": "Phone",
+        "openTime": "Opens At",
+        "closeTime": "Closes At",
+        "sortOrder": "Sort Order"
+      },
+      "placeholders": {
+        "name": "Enter branch name",
+        "address": "Enter branch location",
+        "district": "Select district",
+        "latitude": "e.g. -1.9441",
+        "longitude": "e.g. 30.1178",
+        "phone": "+250 788 000 000"
+      },
+      "sortOrderHint": "Lower = appears first",
+      "saving": "Saving...",
+      "updateBranch": "Update Branch",
+      "createBranch": "Create Branch",
+      "cancel": "Cancel",
+      "deactivateTitle": "Deactivate Branch?",
+      "deactivateDesc": "This will hide the branch from the public store. Existing orders won't be affected.",
+      "processing": "Processing..."
+    },
+    "branchDetail": {
+      "backToBranches": "Back to branches",
+      "staff": "staff",
+      "products": "products",
+      "inactive": "Inactive",
+      "team": "Team",
+      "searchPlaceholder": "Search products...",
+      "cols": {
+        "product": "Product",
+        "category": "Category",
+        "price": "Price",
+        "stock": "Stock",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "save": "Save",
+      "cancel": "Cancel",
+      "active": "Active",
+      "hidden": "Hidden",
+      "update": "Update",
+      "hide": "Hide",
+      "show": "Show",
+      "stockUpdated": "Stock updated"
+    },
+    "branchTeam": {
+      "backToBranch": "Back to branch",
+      "teamTitle": "Team",
+      "inviteDescription": "Invite people with an account to join this branch.",
+      "inviteTeamMember": "Invite team member",
+      "searchPlaceholder": "Search users by name or email",
+      "role": "Role",
+      "branchStaff": "Branch staff",
+      "branchManager": "Branch manager",
+      "optionalNote": "Optional note",
+      "shortMessage": "Short message",
+      "sent": "Invite sent",
+      "sendInvite": "Send invite",
+      "sending": "Sending...",
+      "pendingInvites": "Pending invites",
+      "noPendingInvites": "No pending invites.",
+      "failed": "Failed to send invite"
+    },
+    "orders": {
+      "title": "Orders",
+      "searchPlaceholder": "Search orders...",
+      "allStatuses": "All Statuses",
+      "cols": {
+        "order": "Order",
         "customer": "Customer",
         "items": "Items",
         "total": "Total",
@@ -310,68 +681,33 @@
         "date": "Date",
         "actions": "Actions"
       },
+      "itemsCount": "items",
+      "manage": "Manage",
+      "statusUpdated": "Order status updated",
+      "statusError": "Failed to update status",
       "modal": {
         "title": "Update Order Status",
         "customer": "Customer",
         "email": "Email",
         "phone": "Phone",
         "total": "Total",
-        "currentStatus": "Current Status",
-        "newStatus": "New Status",
-        "note": "Note (optional)",
-        "notePlaceholder": "e.g. Ready at counter 2",
-        "update": "Update Status",
+        "currentStatus": "Current status",
+        "newStatus": "New status",
+        "note": "Note",
+        "notePlaceholder": "Add a note...",
         "updating": "Updating...",
+        "update": "Update Status",
         "cancel": "Cancel"
+      },
+      "status": {
+        "pending": "Pending",
+        "accepted": "Accepted",
+        "preparing": "Preparing",
+        "ready": "Ready",
+        "picked_up": "Picked Up",
+        "cancelled": "Cancelled"
       }
-    },
-    "dashboard": "Dashboard",
-    "products": "Products",
-    "users": "Users",
-    "blogs": "Blog Posts",
-    "branches": "Branches",
-    "messages": "Messages",
-    "contacts": "Contact Messages",
-    "banners": "Banners",
-    "settings": "Settings",
-    "totalRevenue": "Total Revenue",
-    "totalOrders": "Total Orders",
-    "totalUsers": "Total Users",
-    "totalProducts": "Total Products",
-    "todayOrders": "Today's Orders",
-    "monthRevenue": "This Month's Revenue",
-    "pendingOrders": "Pending Orders",
-    "topProducts": "Top Products",
-    "recentOrders": "Recent Orders",
-    "revenueChart": "Revenue (Last 30 Days)",
-    "addProduct": "Add Product",
-    "editProduct": "Edit Product",
-    "deleteProduct": "Delete Product",
-    "addBlog": "New Blog Post",
-    "publish": "Publish",
-    "unpublish": "Unpublish",
-    "draft": "Draft",
-    "published": "Published",
-    "updateStatus": "Update Status",
-    "role": "Role",
-    "changeRole": "Change Role",
-    "unread": "Unread",
-    "read": "Read",
-    "markRead": "Mark as Read",
-    "reply": "Reply",
-    "noData": "No data available",
-    "search": "Search...",
-    "filter": "Filter",
-    "export": "Export",
-    "save": "Save",
-    "cancel": "Cancel",
-    "delete": "Delete",
-    "edit": "Edit",
-    "view": "View",
-    "confirm": "Are you sure?",
-    "confirmDelete": "This action cannot be undone.",
-    "success": "Saved successfully!",
-    "error": "Something went wrong."
+    }
   },
   "common": {
     "loading": "Loading...",
@@ -518,18 +854,6 @@
     "currentStock": "Current Stock",
     "markOutOfStock": "Mark Out of Stock"
   },
-  "wishlist": {
-    "title": "My Wishlist",
-    "empty": "Your wishlist is empty",
-    "emptyDesc": "Save items you love and find them here",
-    "browseProducts": "Browse Products",
-    "addToCart": "Add to Cart",
-    "remove": "Remove",
-    "inStock": "In stock",
-    "outOfStock": "Out of stock",
-    "items": "saved items"
-  },
-
   "about": {
     "hero": {
       "eyebrow": "Company Profile",
@@ -671,7 +995,6 @@
       }
     }
   },
-
   "faq": {
     "hero": {
       "eyebrow": "Help Centre",
@@ -771,7 +1094,6 @@
       "cta": "Contact Us"
     }
   },
-
   "returns": {
     "hero": {
       "eyebrow": "Customer Care",
@@ -847,7 +1169,6 @@
       "body": "Simba Supermarket reserves the right to refuse returns that do not meet our policy conditions. In-store purchases must be returned to a physical branch; online orders may be returned in-store or via our collection service."
     }
   },
-
   "privacy": {
     "hero": {
       "eyebrow": "Legal",
@@ -916,7 +1237,6 @@
       }
     }
   },
-
   "delivery": {
     "hero": {
       "eyebrow": "Delivery",
@@ -924,9 +1244,18 @@
       "subtitle": "Fast, reliable delivery from our branches directly to your door across Kigali and beyond."
     },
     "stats": {
-      "branches": { "value": "11", "label": "Branches" },
-      "minOrder": { "value": "5K RWF", "label": "Min. Order" },
-      "coverage": { "value": "Kigali", "label": "Coverage" }
+      "branches": {
+        "value": "11",
+        "label": "Branches"
+      },
+      "minOrder": {
+        "value": "5K RWF",
+        "label": "Min. Order"
+      },
+      "coverage": {
+        "value": "Kigali",
+        "label": "Coverage"
+      }
     },
     "options": {
       "eyebrow": "Delivery Options",
@@ -1005,7 +1334,6 @@
       "cta": "Get in touch"
     }
   },
-
   "terms": {
     "hero": {
       "eyebrow": "Legal",

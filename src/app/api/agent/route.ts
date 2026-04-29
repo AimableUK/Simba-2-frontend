@@ -3,9 +3,23 @@ import { NextRequest, NextResponse } from "next/server";
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
 
 const API_BASE =
+  process.env.INTERNAL_API_URL ||
   process.env.API_URL ||
   process.env.NEXT_PUBLIC_API_URL ||
   "http://localhost:5000/api";
+
+function isBranchQuery(query: string) {
+  return /branch|branches|location|map|near me|nearest|nearby|address/i.test(
+    query,
+  );
+}
+
+function getLastUserMessage(messages: any[]) {
+  for (let i = messages.length - 1; i >= 0; i -= 1) {
+    if (messages[i]?.role === "user") return String(messages[i]?.content || "");
+  }
+  return "";
+}
 
 const SYSTEM_PROMPT = `You are Simba, the friendly AI shopping assistant for Simba Super Market - Kigali's favourite supermarket chain with 9 branches across Kigali, Rwanda.
 
@@ -26,6 +40,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { messages } = body;
     const groqKey = process.env.GROQ_API_KEY;
+    const lastUserMessage = getLastUserMessage(messages || []).trim();
 
     if (!groqKey) {
       return NextResponse.json({
@@ -40,6 +55,45 @@ export async function POST(req: NextRequest) {
       "Content-Type": "application/json",
       ...(cookieHeader && { Cookie: cookieHeader }),
     };
+
+    if (lastUserMessage && isBranchQuery(lastUserMessage)) {
+      const lat = Number(body?.location?.lat);
+      const lng = Number(body?.location?.lng);
+      const params = new URLSearchParams({ q: lastUserMessage });
+      if (Number.isFinite(lat)) params.set("lat", String(lat));
+      if (Number.isFinite(lng)) params.set("lng", String(lng));
+
+      const response = await fetch(`${API_BASE}/search?${params}`, {
+        headers: backendHeaders,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const toolResults = data.branches?.length
+          ? [
+              {
+                toolName: "get_branches",
+                args: {
+                  query: lastUserMessage,
+                  ...(Number.isFinite(lat) && { lat }),
+                  ...(Number.isFinite(lng) && { lng }),
+                },
+                result: {
+                  count: data.branches.length,
+                  branches: data.branches,
+                },
+              },
+            ]
+          : [];
+
+        return NextResponse.json({
+          reply:
+            data.reply ||
+            "Here are the branch results I found from the database.",
+          toolResults,
+        });
+      }
+    }
 
     const tools = [
       {
@@ -363,9 +417,12 @@ export async function POST(req: NextRequest) {
           }
 
           case "get_categories": {
-            const r = await fetch(`${API_BASE}/categories`, {
+            const r = await fetch(
+              `${API_BASE}/categories?withProductsOnly=true`,
+              {
               headers: backendHeaders,
-            });
+              },
+            );
             if (!r.ok) return JSON.stringify({ categories: [] });
             const cats = await r.json();
             return JSON.stringify({
@@ -415,6 +472,13 @@ export async function POST(req: NextRequest) {
       if (!response.ok) {
         const errText = await response.text();
         console.error(`Groq error ${response.status}:`, errText);
+        if (allToolResults.length > 0) {
+          return NextResponse.json({
+            reply:
+              "I found data from the database, but the AI response failed to finish. Showing the results I already fetched.",
+            toolResults: allToolResults,
+          });
+        }
         return NextResponse.json({
           reply: `I'm having trouble connecting to my AI (${response.status}). Please try again in a moment.`,
           toolResults: allToolResults,
@@ -425,6 +489,13 @@ export async function POST(req: NextRequest) {
 
       if (data.error) {
         console.error("Groq error response:", data.error);
+        if (allToolResults.length > 0) {
+          return NextResponse.json({
+            reply:
+              "I found data from the database, but the AI response failed to finish. Showing the results I already fetched.",
+            toolResults: allToolResults,
+          });
+        }
         return NextResponse.json({
           reply: `AI error: ${data.error.message || "unknown"}. Please try again.`,
           toolResults: allToolResults,

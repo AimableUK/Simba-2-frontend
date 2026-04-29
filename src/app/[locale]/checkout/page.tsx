@@ -19,12 +19,13 @@ import {
 } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { orderApi } from "@/lib/api";
+import { orderApi, branchApi } from "@/lib/api";
 import { useCart } from "@/hooks/useCart";
 import { useSession } from "@/lib/auth-client";
 import { formatPrice, getImageUrl } from "@/lib/utils";
 import Link from "next/link";
 import { FormField, FormInput, FormTextarea } from "@/components/ui/form-field";
+import { useBranchStore } from "@/store";
 
 //  Pickup time helpers
 
@@ -103,6 +104,7 @@ export default function CheckoutPage() {
     deliveryFee,
     grandTotal,
     isLoading: cartLoading,
+    removeItem,
   } = useCart();
 
   const [paymentMethod, setPaymentMethod] = useState<
@@ -119,6 +121,17 @@ export default function CheckoutPage() {
   const [branchesLoading, setBranchesLoading] = useState(true);
   const [selectedBranchId, setSelectedBranchId] = useState("");
   const [branchError, setBranchError] = useState("");
+  const [branchSwitchPending, setBranchSwitchPending] = useState<{
+    branch: any;
+    unavailable: Array<{
+      productId: string;
+      name: string;
+      requested: number;
+      available: number;
+    }>;
+  } | null>(null);
+  const [branchChecking, setBranchChecking] = useState(false);
+  const { selectedBranchId: storedBranchId, setBranch } = useBranchStore();
 
   // Pickup time state
   const [pickupSlots, setPickupSlots] = useState<
@@ -140,10 +153,11 @@ export default function CheckoutPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isValid },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     mode: "onBlur",
+    reValidateMode: "onBlur",
   });
 
   // Generate slots after mount so locale + translations are available
@@ -152,6 +166,12 @@ export default function CheckoutPage() {
     setPickupSlots(slots);
     if (slots.length > 0) setSelectedPickupTime(slots[0].value);
   }, [locale, t]);
+
+  useEffect(() => {
+    if (storedBranchId) {
+      setSelectedBranchId(storedBranchId);
+    }
+  }, [storedBranchId]);
 
   // Fetch branches
   useEffect(() => {
@@ -163,7 +183,12 @@ export default function CheckoutPage() {
         const data = await res.json();
         const list = Array.isArray(data) ? data : data.branches || [];
         setBranches(list);
-        if (list.length > 0) setSelectedBranchId(list[0].id);
+        if (storedBranchId) {
+          setSelectedBranchId(storedBranchId);
+        } else if (list.length > 0) {
+          setSelectedBranchId(list[0].id);
+          setBranch(list[0].id, list[0].slug, list[0].name);
+        }
       } catch {
         toast.error(t("errors.branchLoadFailed"));
       } finally {
@@ -171,7 +196,7 @@ export default function CheckoutPage() {
       }
     };
     fetchBranches();
-  }, [t]);
+  }, [t, storedBranchId, setBranch]);
 
   const mutation = useMutation({
     mutationFn: async (formData: FormData) => {
@@ -230,6 +255,93 @@ export default function CheckoutPage() {
       setServerErrors([msg]);
     },
   });
+
+  const verifyBranchAvailability = async (branch: any) => {
+    if (!items.length) {
+      setSelectedBranchId(branch.id);
+      setBranch(branch.id, branch.slug, branch.name);
+      setBranchError("");
+      return;
+    }
+
+    setBranchChecking(true);
+    try {
+      const productIds = items.map((item) => item.productId).join(",");
+      const res = await branchApi.stock(branch.id, { productIds });
+      const branchItems = Array.isArray(res.data?.data) ? res.data.data : [];
+      const stockMap = new Map<string, { stock: number }>(
+        branchItems.map((entry: any) => [
+          entry.productId,
+          { stock: Number(entry.stock) || 0 },
+        ]),
+      );
+
+      const unavailable = items
+        .map((item) => {
+          const stockEntry = stockMap.get(item.productId);
+          const available = stockEntry?.stock ?? 0;
+          if (!stockEntry || available < item.quantity) {
+            return {
+              productId: item.productId,
+              name: item.product.name,
+              requested: item.quantity,
+              available,
+            };
+          }
+          return null;
+        })
+        .filter(Boolean) as Array<{
+        productId: string;
+        name: string;
+        requested: number;
+        available: number;
+      }>;
+
+      if (unavailable.length === 0) {
+        setSelectedBranchId(branch.id);
+        setBranch(branch.id, branch.slug, branch.name);
+        setBranchError("");
+        toast.success(
+          t("branchSwitched", {
+            branch: branch.name.replace("Simba Supermarket ", ""),
+          }),
+        );
+        return;
+      }
+
+      setBranchSwitchPending({ branch, unavailable });
+      setBranchError("");
+    } catch {
+      toast.error(t("errors.branchLoadFailed"));
+    } finally {
+      setBranchChecking(false);
+    }
+  };
+
+  const confirmBranchSwitch = () => {
+    if (!branchSwitchPending) return;
+    for (const item of branchSwitchPending.unavailable) {
+      removeItem({
+        productId: item.productId,
+        branchId: selectedBranchId || undefined,
+      });
+    }
+    setSelectedBranchId(branchSwitchPending.branch.id);
+    setBranch(
+      branchSwitchPending.branch.id,
+      branchSwitchPending.branch.slug,
+      branchSwitchPending.branch.name,
+    );
+    setBranchSwitchPending(null);
+    toast.success(
+      t("branchSwitchedRemoved", {
+        branch: branchSwitchPending.branch.name.replace(
+          "Simba Supermarket ",
+          "",
+        ),
+      }),
+    );
+  };
 
   //  Guards
 
@@ -345,10 +457,8 @@ export default function CheckoutPage() {
                     <button
                       key={branch.id}
                       type="button"
-                      onClick={() => {
-                        setSelectedBranchId(branch.id);
-                        setBranchError("");
-                      }}
+                      onClick={() => verifyBranchAvailability(branch)}
+                      disabled={branchChecking}
                       className={`flex items-start gap-3 p-4 rounded-xl border-2 text-left transition-all ${
                         selectedBranchId === branch.id
                           ? "border-primary bg-primary/5"
@@ -634,7 +744,16 @@ export default function CheckoutPage() {
 
               <button
                 type="submit"
-                disabled={mutation.isPending || isSubmitting || branchesLoading}
+                disabled={
+                  mutation.isPending ||
+                  isSubmitting ||
+                  branchesLoading ||
+                  branchChecking ||
+                  !isValid ||
+                  !selectedBranchId ||
+                  !selectedPickupTime ||
+                  items.length === 0
+                }
                 className="w-full mt-5 bg-primary hover:bg-primary/90 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed text-primary-foreground font-semibold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2"
               >
                 {mutation.isPending || isSubmitting ? (
@@ -662,6 +781,69 @@ export default function CheckoutPage() {
           </div>
         </div>
       </form>
+
+      {branchSwitchPending && (
+        <div
+          className="fixed inset-0 z-[70] bg-black/60 flex items-center justify-center p-4"
+          onClick={() => setBranchSwitchPending(null)}
+        >
+          <div
+            className="w-full max-w-lg rounded-2xl border border-border bg-card p-6 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className="text-lg font-bold mb-2">
+              {t("branchSwitchTitle")}
+            </h2>
+            <p className="text-sm text-muted-foreground mb-4">
+              {t("branchSwitchDescription", {
+                branch: branchSwitchPending.branch.name.replace(
+                  "Simba Supermarket ",
+                  "",
+                ),
+              })}
+            </p>
+
+            <div className="space-y-3 mb-5">
+              {branchSwitchPending.unavailable.map((item) => (
+                <div
+                  key={item.productId}
+                  className="flex items-start justify-between gap-3 rounded-xl border border-border p-3"
+                >
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium truncate">{item.name}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {t("branchSwitchRequestedAvailable", {
+                        requested: item.requested,
+                        available: item.available,
+                      })}
+                    </p>
+                  </div>
+                  <span className="text-xs font-medium text-destructive shrink-0">
+                    {t("branchSwitchRemove")}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={confirmBranchSwitch}
+                className="flex-1 bg-primary text-primary-foreground font-semibold py-3 rounded-xl hover:bg-primary/90 transition-colors"
+              >
+                {t("branchSwitchConfirm")}
+              </button>
+              <button
+                type="button"
+                onClick={() => setBranchSwitchPending(null)}
+                className="flex-1 border border-border rounded-xl font-medium hover:bg-muted transition-colors"
+              >
+                {t("branchSwitchCancel")}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
