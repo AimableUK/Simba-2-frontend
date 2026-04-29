@@ -22,16 +22,22 @@ import {
   Bell,
   CheckCheck,
 } from "lucide-react";
-import { useCartStore, useUIStore, useBranchStore } from "@/store";
+import {
+  useCartStore,
+  useUIStore,
+  useBranchStore,
+  useGuestCartStore,
+} from "@/store";
 import { useSession, signOut } from "@/lib/auth-client";
 import { useQuery } from "@tanstack/react-query";
-import { categoryApi, branchApi } from "@/lib/api";
+import { categoryApi, branchApi, cartApi } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { useNotifications } from "@/hooks/useSocket";
 import { useNotificationStore } from "@/store";
 import { ThemeSwitcherV1 } from "@/lib/theme-switcher-v1";
 import LanguageSwitcherV1 from "../common/LanguageSwitcherV1";
 import Image from "next/image";
+import { toast } from "sonner";
 
 export function Navbar() {
   const t = useTranslations("nav");
@@ -43,8 +49,10 @@ export function Navbar() {
   const { theme, setTheme } = useTheme();
   const { data: session } = useSession();
   const { openCart } = useCartStore();
+  const cartItems = useCartStore((s) => s.items);
   const itemCount = useCartStore((s) => s.getItemCount());
   const { selectedBranchId, selectedBranchName, setBranch } = useBranchStore();
+  const guestCart = useGuestCartStore();
   const {
     searchOpen,
     mobileMenuOpen,
@@ -58,12 +66,36 @@ export function Navbar() {
   const [userOpen, setUserOpen] = useState(false);
   const [catOpen, setCatOpen] = useState(false);
   const [branchOpen, setBranchOpen] = useState(false);
+  const [branchChecking, setBranchChecking] = useState(false);
+  const [branchSwitchPending, setBranchSwitchPending] = useState<{
+    branch: any;
+    available: Array<{
+      productId: string;
+      quantity: number;
+      product: {
+        id: string;
+        name: string;
+        slug: string;
+        price: number;
+        comparePrice?: number;
+        images: string[];
+        stock: number;
+      };
+    }>;
+    unavailable: Array<{
+      productId: string;
+      name: string;
+      requested: number;
+      available: number;
+    }>;
+  } | null>(null);
   const [notifOpen, setNotifOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
 
   const user = session?.user as any;
   const userRole = user?.role as string | undefined;
+  const isLoggedIn = !!user;
   useNotifications(user?.id);
   const notifications = useNotificationStore((s) => s.items);
   const unreadCount = useNotificationStore((s) => s.unreadCount);
@@ -91,6 +123,142 @@ export function Navbar() {
       setBranch(b.id, b.slug, b.name);
     }
   }, [branches, selectedBranchId, setBranch]);
+
+  const migrateCartToBranch = async (
+    branch: any,
+    keepItems: Array<{
+      productId: string;
+      quantity: number;
+      product: {
+        id: string;
+        name: string;
+        slug: string;
+        price: number;
+        comparePrice?: number;
+        images: string[];
+        stock: number;
+      };
+    }>,
+  ) => {
+    if (isLoggedIn) {
+      if (selectedBranchId && selectedBranchId !== branch.id) {
+        await cartApi.clear(selectedBranchId);
+      }
+
+      if (!keepItems.length) return;
+
+      for (const item of keepItems) {
+        await cartApi.add({
+          productId: item.productId,
+          quantity: item.quantity,
+          branchId: branch.id,
+        });
+      }
+      return;
+    }
+
+    guestCart.clear();
+    if (!keepItems.length) return;
+    for (const item of keepItems) {
+      guestCart.add({
+        productId: item.productId,
+        quantity: item.quantity,
+        product: item.product,
+      });
+    }
+  };
+
+  const verifyBranchSwitch = async (branch: any) => {
+    if (branch.id === selectedBranchId) {
+      setBranchOpen(false);
+      return;
+    }
+
+    const currentItems = cartItems;
+    if (!currentItems.length) {
+      setBranch(branch.id, branch.slug, branch.name);
+      setBranchOpen(false);
+      return;
+    }
+
+    setBranchChecking(true);
+    try {
+      const productIds = currentItems.map((item) => item.productId).join(",");
+      const res = await branchApi.stock(branch.id, { productIds });
+      const branchItems = Array.isArray(res.data?.data) ? res.data.data : [];
+      const stockMap = new Map<string, { stock: number }>(
+        branchItems.map((entry: any) => [
+          entry.productId,
+          { stock: Number(entry.stock) || 0 },
+        ]),
+      );
+
+      const unavailable = currentItems
+        .map((item) => {
+          const stockEntry = stockMap.get(item.productId);
+          const available = stockEntry?.stock ?? 0;
+          if (!stockEntry || available < item.quantity) {
+            return {
+              productId: item.productId,
+              name: item.product.name,
+              requested: item.quantity,
+              available,
+            };
+          }
+          return null;
+        })
+        .filter(Boolean) as Array<{
+        productId: string;
+        name: string;
+        requested: number;
+        available: number;
+      }>;
+
+      const available = currentItems
+        .filter((item) => {
+          const stockEntry = stockMap.get(item.productId);
+          const stock = stockEntry?.stock ?? 0;
+          return stockEntry && stock >= item.quantity;
+        })
+        .map((item) => ({
+          productId: item.productId,
+          quantity: item.quantity,
+          product: item.product,
+        }));
+
+      if (unavailable.length === 0) {
+        await migrateCartToBranch(branch, available);
+        setBranch(branch.id, branch.slug, branch.name);
+        setBranchOpen(false);
+        return;
+      }
+
+      setBranchSwitchPending({ branch, available, unavailable });
+      setBranchOpen(false);
+    } catch {
+      toast.error("Failed to check branch stock");
+    } finally {
+      setBranchChecking(false);
+    }
+  };
+
+  const confirmBranchSwitch = async () => {
+    if (!branchSwitchPending) return;
+    try {
+      await migrateCartToBranch(
+        branchSwitchPending.branch,
+        branchSwitchPending.available,
+      );
+      setBranch(
+        branchSwitchPending.branch.id,
+        branchSwitchPending.branch.slug,
+        branchSwitchPending.branch.name,
+      );
+      setBranchSwitchPending(null);
+    } catch {
+      toast.error("Failed to switch branch");
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -149,11 +317,8 @@ export function Navbar() {
                     {branches?.map((b: any) => (
                       <button
                         key={b.id}
-                        onClick={() => {
-                          setBranch(b.id, b.slug, b.name);
-                          setBranchOpen(false);
-                          router.refresh();
-                        }}
+                        onClick={() => void verifyBranchSwitch(b)}
+                        disabled={branchChecking}
                         className={cn(
                           "w-full text-left px-4 py-2.5 text-sm hover:bg-accent transition-colors flex flex-col gap-0.5",
                           selectedBranchId === b.id && "bg-accent text-primary",
@@ -672,6 +837,70 @@ export function Navbar() {
               </div>
             </motion.div>
           </>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {branchSwitchPending && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[70] bg-black/60 flex items-center justify-center p-4"
+            onClick={() => setBranchSwitchPending(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.98, y: 8 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.98, y: 8 }}
+              className="w-full max-w-lg rounded-2xl border border-border bg-card p-6 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h2 className="text-lg font-bold mb-2">Switch branch</h2>
+              <p className="text-sm text-muted-foreground mb-4">
+                Some items in your cart are not available at{" "}
+                {branchSwitchPending.branch.name.replace("Simba Supermarket ", "")}
+                . If you continue, those items will be removed and only the
+                available ones will remain.
+              </p>
+
+              <div className="space-y-3 mb-5">
+                {branchSwitchPending.unavailable.map((item) => (
+                  <div
+                    key={item.productId}
+                    className="flex items-start justify-between gap-3 rounded-xl border border-border p-3"
+                  >
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium truncate">{item.name}</p>
+                      <p className="text-xs text-muted-foreground">
+                        Requested {item.requested}, available {item.available}
+                      </p>
+                    </div>
+                    <span className="text-xs font-medium text-destructive shrink-0">
+                      Remove
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => void confirmBranchSwitch()}
+                  className="flex-1 bg-primary text-primary-foreground font-semibold py-3 rounded-xl hover:bg-primary/90 transition-colors"
+                >
+                  Continue
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setBranchSwitchPending(null)}
+                  className="flex-1 border border-border rounded-xl font-medium hover:bg-muted transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
         )}
       </AnimatePresence>
     </>

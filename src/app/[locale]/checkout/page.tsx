@@ -17,9 +17,9 @@ import {
   ChevronDown,
   Loader2,
 } from "lucide-react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { orderApi, branchApi } from "@/lib/api";
+import { orderApi, branchApi, cartApi } from "@/lib/api";
 import { useCart } from "@/hooks/useCart";
 import { useSession } from "@/lib/auth-client";
 import { formatPrice, getImageUrl } from "@/lib/utils";
@@ -104,8 +104,8 @@ export default function CheckoutPage() {
     deliveryFee,
     grandTotal,
     isLoading: cartLoading,
-    removeItem,
   } = useCart();
+  const qc = useQueryClient();
 
   const [paymentMethod, setPaymentMethod] = useState<
     "dpo" | "cash_on_delivery"
@@ -123,6 +123,10 @@ export default function CheckoutPage() {
   const [branchError, setBranchError] = useState("");
   const [branchSwitchPending, setBranchSwitchPending] = useState<{
     branch: any;
+    available: Array<{
+      productId: string;
+      quantity: number;
+    }>;
     unavailable: Array<{
       productId: string;
       name: string;
@@ -172,6 +176,35 @@ export default function CheckoutPage() {
       setSelectedBranchId(storedBranchId);
     }
   }, [storedBranchId]);
+
+  const migrateCartToBranch = async (
+    branch: any,
+    keepItems: Array<{
+      productId: string;
+      quantity: number;
+    }>,
+  ) => {
+    const currentBranchId = storedBranchId || selectedBranchId;
+
+    if (currentBranchId && currentBranchId !== branch.id) {
+      await cartApi.clear(currentBranchId);
+    }
+
+    if (!keepItems.length) {
+      await qc.invalidateQueries({ queryKey: ["cart"] });
+      return;
+    }
+
+    for (const item of keepItems) {
+      await cartApi.add({
+        productId: item.productId,
+        quantity: item.quantity,
+        branchId: branch.id,
+      });
+    }
+
+    await qc.invalidateQueries({ queryKey: ["cart"] });
+  };
 
   // Fetch branches
   useEffect(() => {
@@ -297,7 +330,19 @@ export default function CheckoutPage() {
         available: number;
       }>;
 
+      const availableItems = items
+        .filter((item) => {
+          const stockEntry = stockMap.get(item.productId);
+          const available = stockEntry?.stock ?? 0;
+          return stockEntry && available >= item.quantity;
+        })
+        .map((item) => ({
+          productId: item.productId,
+          quantity: item.quantity,
+        }));
+
       if (unavailable.length === 0) {
+        await migrateCartToBranch(branch, availableItems);
         setSelectedBranchId(branch.id);
         setBranch(branch.id, branch.slug, branch.name);
         setBranchError("");
@@ -309,7 +354,7 @@ export default function CheckoutPage() {
         return;
       }
 
-      setBranchSwitchPending({ branch, unavailable });
+      setBranchSwitchPending({ branch, available: availableItems, unavailable });
       setBranchError("");
     } catch {
       toast.error(t("errors.branchLoadFailed"));
@@ -320,27 +365,24 @@ export default function CheckoutPage() {
 
   const confirmBranchSwitch = () => {
     if (!branchSwitchPending) return;
-    for (const item of branchSwitchPending.unavailable) {
-      removeItem({
-        productId: item.productId,
-        branchId: selectedBranchId || undefined,
-      });
-    }
-    setSelectedBranchId(branchSwitchPending.branch.id);
-    setBranch(
-      branchSwitchPending.branch.id,
-      branchSwitchPending.branch.slug,
-      branchSwitchPending.branch.name,
-    );
-    setBranchSwitchPending(null);
-    toast.success(
-      t("branchSwitchedRemoved", {
-        branch: branchSwitchPending.branch.name.replace(
-          "Simba Supermarket ",
-          "",
-        ),
-      }),
-    );
+    void (async () => {
+      await migrateCartToBranch(branchSwitchPending.branch, branchSwitchPending.available);
+      setSelectedBranchId(branchSwitchPending.branch.id);
+      setBranch(
+        branchSwitchPending.branch.id,
+        branchSwitchPending.branch.slug,
+        branchSwitchPending.branch.name,
+      );
+      setBranchSwitchPending(null);
+      toast.success(
+        t("branchSwitchedRemoved", {
+          branch: branchSwitchPending.branch.name.replace(
+            "Simba Supermarket ",
+            "",
+          ),
+        }),
+      );
+    })();
   };
 
   //  Guards
@@ -804,6 +846,14 @@ export default function CheckoutPage() {
             </p>
 
             <div className="space-y-3 mb-5">
+              <div className="rounded-xl border border-dashed border-border bg-muted/30 p-3 text-sm">
+                <p className="font-medium">
+                  If you switch to this branch,{" "}
+                  {branchSwitchPending.unavailable.length} item
+                  {branchSwitchPending.unavailable.length === 1 ? "" : "s"}{" "}
+                  will be removed because they are not available there.
+                </p>
+              </div>
               {branchSwitchPending.unavailable.map((item) => (
                 <div
                   key={item.productId}
