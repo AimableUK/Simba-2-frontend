@@ -460,21 +460,21 @@ export function Navbar() {
                         </div>
                         <div className="py-1">
                           <Link
-                            href={`/${locale}/account/profile`}
+                            href={`/${locale}/admin/profile`}
                             onClick={() => setUserOpen(false)}
                             className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-accent transition-colors"
                           >
                             <User className="w-4 h-4 text-muted-foreground" />{" "}
                             {t("account")}
                           </Link>
-                          {/* <Link
-                            href={`/${locale}/account/orders`}
+                          <Link
+                            href={`/${locale}/admin/my-orders`}
                             onClick={() => setUserOpen(false)}
                             className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-accent transition-colors"
                           >
                             <Package className="w-4 h-4 text-muted-foreground" />{" "}
                             {t("orders")}
-                          </Link> */}
+                          </Link>
                           <Link
                             href={
                               userRole === "branch_staff"
