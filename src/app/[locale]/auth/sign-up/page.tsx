@@ -206,23 +206,8 @@ export default function SignUpPage() {
             <span className="font-bold text-lg">Simba Super Market</span>
           </Link>
 
-          <div className="mb-7">
-            <h1 className="text-2xl font-bold text-foreground">
-              {t("signUp")}
-            </h1>
-            <p className="text-muted-foreground mt-1.5 text-sm">
-              {t("hasAccount")}{" "}
-              <Link
-                href={`/${locale}/auth/sign-in`}
-                className="text-primary font-semibold hover:underline"
-              >
-                {t("signInHere")}
-              </Link>
-            </p>
-          </div>
-
           {/* Google */}
-          <button
+          {/* <button
             onClick={handleGoogle}
             // disabled={googleLoading}
             disabled
@@ -251,16 +236,16 @@ export default function SignUpPage() {
               </svg>
             )}
             {t("continueWithGoogle")}
-          </button>
+          </button> */}
 
           {/* Divider */}
-          <div className="flex items-center gap-3 mb-5">
+          {/* <div className="flex items-center gap-3 mb-5">
             <div className="flex-1 h-px bg-border" />
             <span className="text-xs text-muted-foreground font-medium">
               {t("orContinueWith")}
             </span>
             <div className="flex-1 h-px bg-border" />
-          </div>
+          </div> */}
 
           {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -372,6 +357,21 @@ export default function SignUpPage() {
               )}
             </button>
           </form>
+
+          <div className="mb-3">
+            <h1 className="text-2xl font-bold text-foreground">
+              {t("signUp")}
+            </h1>
+            <p className="text-muted-foreground mt-1.5 text-sm">
+              {t("hasAccount")}{" "}
+              <Link
+                href={`/${locale}/auth/sign-in`}
+                className="text-primary font-semibold hover:underline"
+              >
+                {t("signInHere")}
+              </Link>
+            </p>
+          </div>
 
           <p className="text-center text-xs text-muted-foreground mt-5">
             {t("agreeTerms")}{" "}

@@ -151,23 +151,8 @@ export default function SignInPage() {
             <span className="font-bold text-lg">Simba Super Market</span>
           </Link>
 
-          <div className="mb-8">
-            <h1 className="text-2xl font-bold text-foreground">
-              {t("signIn")}
-            </h1>
-            <p className="text-muted-foreground mt-1.5 text-sm">
-              {t("noAccount")}{" "}
-              <Link
-                href={`/${locale}/auth/sign-up`}
-                className="text-primary font-semibold hover:underline"
-              >
-                {t("signUpHere")}
-              </Link>
-            </p>
-          </div>
-
           {/* Google button */}
-          <button
+          {/* <button
             onClick={handleGoogle}
             // disabled={googleLoading}
             disabled
@@ -196,20 +181,24 @@ export default function SignInPage() {
               </svg>
             )}
             {t("continueWithGoogle")}
-          </button>
+          </button> */}
 
           {/* Divider */}
-          <div className="flex items-center gap-3 mb-5">
+          {/* <div className="flex items-center gap-3 mb-5">
             <div className="flex-1 h-px bg-border" />
             <span className="text-xs text-muted-foreground font-medium">
               {t("orContinueWith")}
             </span>
             <div className="flex-1 h-px bg-border" />
-          </div>
+          </div> */}
 
           {/* Email form */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <FormField label={t("email")} error={errors.email?.message} required>
+            <FormField
+              label={t("email")}
+              error={errors.email?.message}
+              required
+            >
               <FormInput
                 registration={register("email", {
                   required: "Please enter your email",
@@ -274,6 +263,20 @@ export default function SignInPage() {
               )}
             </button>
           </form>
+          <div className="mt-3">
+            <h1 className="text-2xl font-bold text-foreground">
+              {t("signIn")}
+            </h1>
+            <p className="text-muted-foreground mt-1.5 text-sm">
+              {t("noAccount")}{" "}
+              <Link
+                href={`/${locale}/auth/sign-up`}
+                className="text-primary font-semibold hover:underline"
+              >
+                {t("signUpHere")}
+              </Link>
+            </p>
+          </div>
         </motion.div>
       </div>
     </div>
