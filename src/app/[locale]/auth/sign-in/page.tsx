@@ -151,7 +151,7 @@ export default function SignInPage() {
             <span className="font-bold text-lg">Simba Super Market</span>
           </Link>
 
-          <h1 className=" mt-3 text-2xl font-bold text-foreground">
+          <h1 className="mb-5 text-2xl font-bold text-foreground">
             {t("signIn")}
           </h1>
 
@@ -267,7 +267,7 @@ export default function SignInPage() {
               )}
             </button>
           </form>
-          <div className="mt-3">
+          <div className="mt-5">
             <p className="text-muted-foreground mt-1.5 text-sm">
               {t("noAccount")}{" "}
               <Link
