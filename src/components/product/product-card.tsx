@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
@@ -313,7 +314,7 @@ export function ProductCard({ product }: { product: Product }) {
             {product.reviewCount > 0 && (
               <div className="flex items-center gap-1 mb-2">
                 <RatingStars rating={product.rating} starClassName="h-3 w-3" />
-                <span className="text-[10px] text-muted-foreground">
+                <span className="text-[10px] text-muted-foreground -mt-2">
                   ({product.reviewCount})
                 </span>
               </div>

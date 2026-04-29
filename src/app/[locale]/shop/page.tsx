@@ -176,6 +176,28 @@ export default function ShopPage() {
           )}
         </div>
         <div className="flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-2">
+            <input
+              type="number"
+              placeholder={t("minPrice")}
+              value={localMin}
+              onChange={(e) => setLocalMin(e.target.value)}
+              className="w-28 text-sm border border-border rounded-full px-3 py-2 bg-card focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+            <input
+              type="number"
+              placeholder={t("maxPrice")}
+              value={localMax}
+              onChange={(e) => setLocalMax(e.target.value)}
+              className="w-28 text-sm border border-border rounded-full px-3 py-2 bg-card focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+            <button
+              onClick={applyPriceFilters}
+              className="px-4 py-2 bg-primary text-white text-sm rounded-full hover:bg-primary/90 transition-colors"
+            >
+              {t("apply")}
+            </button>
+          </div>
           {hasFilters && (
             <button
               onClick={clearFilters}
@@ -248,33 +270,6 @@ export default function ShopPage() {
                   <span className="ml-3 text-xs opacity-60">{cat.count}</span>
                 </button>
               ))}
-            </div>
-          </div>
-
-          {/* Price range */}
-          <div className="bg-card border border-border rounded-2xl p-4">
-            <h3 className="font-semibold text-sm mb-3">{t("priceRange")}</h3>
-            <div className="space-y-2">
-              <input
-                type="number"
-                placeholder={t("minPrice")}
-                value={localMin}
-                onChange={(e) => setLocalMin(e.target.value)}
-                className="w-full text-sm border border-border rounded-lg px-3 py-2 bg-muted focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              <input
-                type="number"
-                placeholder={t("maxPrice")}
-                value={localMax}
-                onChange={(e) => setLocalMax(e.target.value)}
-                className="w-full text-sm border border-border rounded-lg px-3 py-2 bg-muted focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              <button
-                onClick={applyPriceFilters}
-                className="w-full py-2 bg-primary text-white text-sm rounded-lg hover:bg-primary/90 transition-colors"
-              >
-                {t("apply")}
-              </button>
             </div>
           </div>
 
@@ -380,25 +375,6 @@ export default function ShopPage() {
                         {cat.name}
                       </button>
                     ))}
-                  </div>
-                </div>
-                <div>
-                  <h3 className="font-medium mb-2 text-sm">{t("priceRange")}</h3>
-                  <div className="space-y-2">
-                    <input
-                      type="number"
-                      placeholder={t("minPrice")}
-                      value={localMin}
-                      onChange={(e) => setLocalMin(e.target.value)}
-                      className="w-full text-sm border border-border rounded-lg px-3 py-2 bg-muted focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
-                    <input
-                      type="number"
-                      placeholder={t("maxPrice")}
-                      value={localMax}
-                      onChange={(e) => setLocalMax(e.target.value)}
-                      className="w-full text-sm border border-border rounded-lg px-3 py-2 bg-muted focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
                   </div>
                 </div>
                 <div>
