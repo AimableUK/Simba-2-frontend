@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { format } from "date-fns";
+import { type DateRange } from "react-day-picker";
 import {
   TrendingUp,
   ShoppingCart,
@@ -30,7 +31,7 @@ import {
   StatCardSkeleton,
   TableRowSkeleton,
 } from "@/components/common/skeletons";
-import { Button } from "@/components/ui/button";
+import { CalendarRange } from "@/components/common/CalendarRange";
 import {
   Select,
   SelectContent,
@@ -38,11 +39,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { toast } from "sonner";
 
 const STATUS_COLORS: Record<string, string> = {
@@ -69,9 +65,12 @@ export default function AdminDashboard() {
   const t = useTranslations("admin.dashboard");
   const [revenuePreset, setRevenuePreset] =
     useState<(typeof REVENUE_PRESETS)[number]>("month");
-  const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState("");
+  const [customRange, setCustomRange] = useState<DateRange | undefined>();
   const [customOpen, setCustomOpen] = useState(false);
+  const revenueFrom = customRange?.from
+    ? format(customRange.from, "yyyy-MM-dd")
+    : "";
+  const revenueTo = customRange?.to ? format(customRange.to, "yyyy-MM-dd") : "";
 
   const { data: stats, isLoading: statsLoading } = useQuery({
     queryKey: ["admin-dashboard"],
@@ -81,18 +80,20 @@ export default function AdminDashboard() {
 
   const revenueParams = useMemo(() => {
     if (revenuePreset === "custom") {
+      if (!revenueFrom || !revenueTo) return null;
       return {
         period: "custom",
-        ...(fromDate && { from: fromDate }),
-        ...(toDate && { to: toDate }),
+        from: revenueFrom,
+        to: revenueTo,
       };
     }
     return { period: revenuePreset };
-  }, [fromDate, revenuePreset, toDate]);
+  }, [revenueFrom, revenuePreset, revenueTo]);
 
   const { data: revenueStats, isLoading: revenueLoading } = useQuery({
     queryKey: ["admin-dashboard-revenue", revenueParams],
-    queryFn: () => orderApi.dashboard(revenueParams).then((r) => r.data),
+    queryFn: () => orderApi.dashboard(revenueParams!).then((r) => r.data),
+    enabled: !!revenueParams,
     refetchInterval: 30_000,
   });
 
@@ -102,27 +103,18 @@ export default function AdminDashboard() {
     if (revenuePreset !== "custom") {
       return t("revenueTitle", { period: selectedPresetLabel });
     }
-    if (fromDate && toDate) {
+    if (customRange?.from && customRange?.to) {
       return t("revenueCustomTitle", {
-        from: format(new Date(fromDate), "MMM d, yyyy"),
-        to: format(new Date(toDate), "MMM d, yyyy"),
+        from: format(customRange.from, "MMM d, yyyy"),
+        to: format(customRange.to, "MMM d, yyyy"),
       });
     }
     return t("revenueCustomRange");
-  }, [fromDate, revenuePreset, selectedPresetLabel, t, toDate]);
-
-  const canApplyCustomRange = Boolean(fromDate && toDate);
+  }, [customRange, revenuePreset, selectedPresetLabel, t]);
 
   const applyCustomRange = () => {
-    if (!fromDate || !toDate) {
-      toast.error(t("pickBothDates"));
-      return;
-    }
-    if (new Date(fromDate) > new Date(toDate)) {
-      toast.error(t("startBeforeEnd"));
-      return;
-    }
     setCustomOpen(false);
+    return true;
   };
 
   const statCards = stats
@@ -177,9 +169,7 @@ export default function AdminDashboard() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">{t("title")}</h1>
-          <p className="text-muted-foreground text-sm mt-0.5">
-            {t("welcome")}
-          </p>
+          <p className="text-muted-foreground text-sm mt-0.5">{t("welcome")}</p>
         </div>
         <Link
           href={`/${locale}/admin/orders`}
@@ -241,61 +231,31 @@ export default function AdminDashboard() {
             </Select>
 
             {revenuePreset === "custom" && (
-              <Popover open={customOpen} onOpenChange={setCustomOpen}>
-                <PopoverTrigger asChild>
-                  <Button variant="outline" className="whitespace-nowrap">
-                    {fromDate && toDate
-                      ? `${format(new Date(fromDate), "MMM d")} - ${format(
-                          new Date(toDate),
-                          "MMM d",
-                        )}`
-                      : t("pickDates")}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent align="end" className="w-80">
-                  <div className="space-y-4">
-                    <div>
-                      <p className="text-sm font-medium mb-1.5">{t("from")}</p>
-                      <input
-                        type="date"
-                        value={fromDate}
-                        onChange={(e) => setFromDate(e.target.value)}
-                        className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
-                      />
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium mb-1.5">{t("to")}</p>
-                      <input
-                        type="date"
-                        value={toDate}
-                        onChange={(e) => setToDate(e.target.value)}
-                        className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
-                      />
-                    </div>
-                    <div className="flex items-center justify-end gap-2">
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => setCustomOpen(false)}
-                      >
-                        {t("cancel")}
-                      </Button>
-                      <Button
-                        type="button"
-                        onClick={applyCustomRange}
-                        disabled={!canApplyCustomRange}
-                      >
-                        {t("apply")}
-                      </Button>
-                    </div>
-                  </div>
-                </PopoverContent>
-              </Popover>
+              <CalendarRange
+                open={customOpen}
+                onOpenChange={setCustomOpen}
+                value={customRange}
+                onValueChange={setCustomRange}
+                onApply={applyCustomRange}
+                onCancel={() => setCustomOpen(false)}
+                title={t("revenueCustomRange")}
+                description={t("pickDates")}
+                placeholder={t("pickDates")}
+                fromLabel={t("from")}
+                toLabel={t("to")}
+                cancelLabel={t("cancel")}
+                applyLabel={t("apply")}
+              />
             )}
           </div>
         </div>
         {statsLoading || revenueLoading ? (
           <div className="h-64 bg-muted animate-pulse rounded-xl" />
+        ) : revenuePreset === "custom" && !revenueParams ? (
+          <div className="h-64 flex flex-col items-center justify-center border border-dashed border-border rounded-xl text-muted-foreground bg-muted/5 gap-2">
+            <Clock className="h-8 w-8 opacity-20" />
+            <p className="text-sm font-medium">{t("pickDates")}</p>
+          </div>
         ) : (
           <ResponsiveContainer width="100%" height={260}>
             <AreaChart data={revenueStats?.revenueByDay || []}>
@@ -310,10 +270,10 @@ export default function AdminDashboard() {
                 dataKey="date"
                 tick={{ fontSize: 11 }}
                 tickFormatter={(v) =>
-                    new Date(v).toLocaleDateString(locale, {
-                      month: "short",
-                      day: "numeric",
-                    })
+                  new Date(v).toLocaleDateString(locale, {
+                    month: "short",
+                    day: "numeric",
+                  })
                 }
                 className="text-muted-foreground"
               />
