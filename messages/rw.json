@@ -134,7 +134,7 @@
     "items": "Ibibitswe"
   },
   "orders": {
-    "title": "Amatumiza Yanjye",
+    "title": "Ibyo Natumije",
     "order": "Itumiza",
     "payment": {
       "pending": "Kwishyura Birategerezwa",
@@ -333,7 +333,7 @@
       "banners": "Ibimenyetso",
       "settings": "Igenamiterere",
       "account": "Konti",
-      "myOrders": "Amatumiza Yanjye",
+      "myOrders": "Ibyo Natumije",
       "notifications": "Imenyesha",
       "signOut": "Sohoka"
     },
@@ -804,16 +804,16 @@
     "depositPaid": "Inguzanyo ishyuwe! Itumiza ryawe ryemejwe.",
     "orderConfirmed": "Itumiza Ryemejwe!",
     "orderConfirmedDesc": "Itumiza #{number} ryemejwe kuri {branch}. Gaba saa {time}.",
-    "viewMyOrders": "Reba Amatumiza Yanjye",
+    "viewMyOrders": "Ibyo natumije",
     "rating": "Amanota y'Ishami",
     "reviewBranch": "Tanga Ibitekerezo",
     "reviewPlaceholder": "Urugendo rwawe rwagenze bite?",
     "submitReview": "Ohereza Ibitekerezo",
     "reviewSuccess": "Urakoze ibitekerezo byawe!",
     "noReviews": "Nta bitekerezo buriho",
-    "map": "Reba ku Makarita",
+    "map": "Reba ku ikarita",
     "distance": "amashami hafi yawe",
-    "myPickupOrders": "Amatumiza Yanjye y'ibicuruzwa",
+    "myPickupOrders": "Ibicuruzwa natumije",
     "status": {
       "pending": "Ritegerezwa",
       "accepted": "Ryemejwe",

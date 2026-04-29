@@ -252,6 +252,15 @@ export default function SignInPage() {
               </div>
             </FormField>
 
+            <div className="-mt-1 flex justify-end">
+              <Link
+                href={`/${locale}/auth/forgot-password`}
+                className="text-xs font-medium text-primary hover:underline"
+              >
+                {t("forgotPassword")}
+              </Link>
+            </div>
+
             <button
               type="submit"
               disabled={loading || !isValid}
