@@ -2,11 +2,15 @@
 
 import * as React from "react";
 import { format } from "date-fns";
-import { Clock2Icon } from "lucide-react";
+import { Clock2Icon, ChevronDownIcon } from "lucide-react";
 
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 
 type PickupSlot = {
@@ -26,6 +30,8 @@ export interface CalendarWithTimeProps {
   timeLabel?: string;
   note?: string;
   className?: string;
+  triggerClassName?: string;
+  contentClassName?: string;
   calendarClassName?: string;
   timeGridClassName?: string;
   locale?: string;
@@ -79,14 +85,8 @@ export function buildPickupSlots(
 
   const slots: PickupSlot[] = [];
 
-  for (
-    let hour = openingHour;
-    hour < closingHour;
-    hour += Math.max(1, Math.floor(intervalMinutes / 60) || 1)
-  ) {
-    const minuteStep = Math.max(1, intervalMinutes);
-
-    for (let minute = 0; minute < 60; minute += minuteStep) {
+  for (let hour = openingHour; hour < closingHour; hour += 1) {
+    for (let minute = 0; minute < 60; minute += intervalMinutes) {
       const slotDate = cloneDate(selectedDate);
       slotDate.setHours(hour, minute, 0, 0);
 
@@ -134,6 +134,7 @@ export function findFirstPickupSlot(
       closingHour,
       intervalMinutes,
       leadTimeMinutes,
+      maxDaysAhead,
     });
 
     if (slots.length > 0) {
@@ -166,6 +167,8 @@ export function CalendarWithTime({
   timeLabel = "Time",
   note,
   className,
+  triggerClassName,
+  contentClassName,
   calendarClassName,
   timeGridClassName,
   locale = "en",
@@ -175,10 +178,14 @@ export function CalendarWithTime({
   leadTimeMinutes = DEFAULT_LEAD_TIME_MINUTES,
   maxDaysAhead = DEFAULT_MAX_DAYS_AHEAD,
 }: CalendarWithTimeProps) {
+  const [open, setOpen] = React.useState(false);
+  const [tempDate, setTempDate] = React.useState<Date | undefined>(selectedDate);
+  const [tempTime, setTempTime] = React.useState(selectedTime);
+
   const availableSlots = React.useMemo(
     () =>
-      selectedDate
-        ? buildPickupSlots(selectedDate, {
+      tempDate
+        ? buildPickupSlots(tempDate, {
             openingHour,
             closingHour,
             intervalMinutes,
@@ -192,9 +199,16 @@ export function CalendarWithTime({
       leadTimeMinutes,
       maxDaysAhead,
       openingHour,
-      selectedDate,
+      tempDate,
     ],
   );
+
+  React.useEffect(() => {
+    if (open) {
+      setTempDate(selectedDate);
+      setTempTime(selectedTime);
+    }
+  }, [open, selectedDate, selectedTime]);
 
   React.useEffect(() => {
     if (!selectedDate) {
@@ -204,126 +218,194 @@ export function CalendarWithTime({
       return;
     }
 
-    if (availableSlots.some((slot) => slot.value === selectedTime)) {
+    const slots = buildPickupSlots(selectedDate, {
+      openingHour,
+      closingHour,
+      intervalMinutes,
+      leadTimeMinutes,
+      maxDaysAhead,
+    });
+
+    if (!slots.length) {
       return;
     }
 
-    onTimeChange(availableSlots[0]?.value ?? "");
-  }, [availableSlots, onTimeChange, selectedDate, selectedTime]);
+    const validTimes = new Set(slots.map((slot) => slot.value));
+    if (!validTimes.has(selectedTime)) {
+      onTimeChange(slots[0].value);
+    }
+  }, [
+    closingHour,
+    intervalMinutes,
+    leadTimeMinutes,
+    maxDaysAhead,
+    onTimeChange,
+    openingHour,
+    selectedDate,
+    selectedTime,
+  ]);
 
   const isDateDisabled = React.useCallback(
-    (date: Date) => {
-      const now = new Date();
-      const lowerBound = toStartOfDay(now);
-      const upperBound = toStartOfDay(now);
-      upperBound.setDate(upperBound.getDate() + maxDaysAhead);
-      if (date < lowerBound || date > upperBound) {
-        return true;
-      }
-
-      return (
-        buildPickupSlots(date, {
-          openingHour,
-          closingHour,
-          intervalMinutes,
-          leadTimeMinutes,
-        }).length === 0
-      );
-    },
+    (date: Date) =>
+      buildPickupSlots(date, {
+        openingHour,
+        closingHour,
+        intervalMinutes,
+        leadTimeMinutes,
+        maxDaysAhead,
+      }).length === 0,
     [closingHour, intervalMinutes, leadTimeMinutes, maxDaysAhead, openingHour],
   );
 
-  const formattedDate = selectedDate
-    ? formatSelectedDate(selectedDate, locale)
-    : "—";
-  const formattedTime = selectedTime
-    ? format(new Date(selectedTime), "h:mm a")
-    : "—";
+  const activeDate = selectedDate ?? tempDate;
+  const triggerLabel =
+    activeDate && selectedTime
+      ? `${formatSelectedDate(activeDate, locale)} · ${format(
+          new Date(selectedTime),
+          "h:mm a",
+        )}`
+      : title;
+
+  const handleApply = () => {
+    onDateChange(tempDate);
+    onTimeChange(tempTime);
+    setOpen(false);
+  };
+
+  const handleOpenChange = (nextOpen: boolean) => {
+    setOpen(nextOpen);
+    if (!nextOpen) {
+      setTempDate(selectedDate);
+      setTempTime(selectedTime);
+    }
+  };
 
   return (
-    <Card className={cn("rounded-2xl border-border/80 shadow-sm", className)}>
-      <CardContent className="p-5 sm:p-6">
-        <div className="mb-5">
-          <h2 className="flex items-center gap-2 text-lg font-semibold">
-            <Clock2Icon className="h-5 w-5 text-primary" />
-            {title}
-          </h2>
-          {description ? (
-            <p className="mt-1 text-sm text-muted-foreground">{description}</p>
-          ) : null}
-        </div>
+    <div className={cn("space-y-2", className)}>
+      <Popover open={open} onOpenChange={handleOpenChange}>
+        <PopoverTrigger asChild>
+          <Button
+            type="button"
+            variant="outline"
+            className={cn(
+              "w-full justify-between rounded-xl px-4 py-6 text-left font-normal",
+              triggerClassName,
+            )}
+          >
+            <span className="flex min-w-0 flex-col items-start gap-0.5">
+              <span className="flex items-center gap-2 text-sm font-medium">
+                <Clock2Icon className="h-4 w-4 text-primary" />
+                {title}
+              </span>
+              <span className="truncate text-xs text-muted-foreground">
+                {triggerLabel}
+              </span>
+            </span>
+            <ChevronDownIcon className="h-4 w-4 text-muted-foreground" />
+          </Button>
+        </PopoverTrigger>
 
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
-          <div className={cn("rounded-2xl border border-border/70 p-2", calendarClassName)}>
-            <Calendar
-              mode="single"
-              selected={selectedDate}
-              onSelect={onDateChange}
-              disabled={isDateDisabled}
-              className="w-full"
-            />
+        <PopoverContent
+          align="start"
+          className={cn("w-[min(92vw,760px)] p-0", contentClassName)}
+        >
+          <div className="border-b border-border px-4 py-3">
+            <p className="text-sm font-semibold">{title}</p>
+            {description ? (
+              <p className="text-xs text-muted-foreground">{description}</p>
+            ) : null}
           </div>
 
-          <div className="space-y-4">
-            <div>
-              <p className="mb-2 text-sm font-medium">{timeLabel}</p>
-              {selectedDate ? (
-                <div className={cn("grid grid-cols-2 gap-2 sm:grid-cols-3", timeGridClassName)}>
-                  {availableSlots.map((slot) => {
-                    const active = slot.value === selectedTime;
-
-                    return (
-                      <Button
-                        key={slot.value}
-                        type="button"
-                        variant={active ? "default" : "outline"}
-                        onClick={() => onTimeChange(slot.value)}
-                        className={cn(
-                          "justify-start rounded-xl px-3 text-sm",
-                          active && "shadow-sm",
-                        )}
-                      >
-                        {slot.label}
-                      </Button>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className="rounded-xl border border-dashed border-border/80 bg-muted/20 px-3 py-6 text-sm text-muted-foreground">
-                  Select a date first to see available times.
-                </div>
-              )}
+          <div className="grid gap-4 p-4 md:grid-cols-[1.1fr_0.9fr]">
+            <div className={cn("rounded-2xl border border-border/70 p-2", calendarClassName)}>
+              <Calendar
+                mode="single"
+                selected={tempDate}
+                onSelect={setTempDate}
+                disabled={isDateDisabled}
+                className="w-full"
+              />
             </div>
 
-            <div className="rounded-xl bg-muted/30 p-4">
-              <div className="grid gap-3 text-sm sm:grid-cols-2">
-                <div>
-                  <p className="text-xs uppercase tracking-wide text-muted-foreground">
-                    {dateLabel}
-                  </p>
-                  <p className="mt-1 font-medium">{formattedDate}</p>
-                </div>
-                <div>
-                  <p className="text-xs uppercase tracking-wide text-muted-foreground">
-                    {timeLabel}
-                  </p>
-                  <p className="mt-1 font-medium">{formattedTime}</p>
-                </div>
+            <div className="space-y-4">
+              <div>
+                <p className="mb-2 text-sm font-medium">{timeLabel}</p>
+                {tempDate ? (
+                  <div
+                    className={cn(
+                      "grid grid-cols-2 gap-2 sm:grid-cols-3",
+                      timeGridClassName,
+                    )}
+                  >
+                    {availableSlots.map((slot) => {
+                      const active = slot.value === tempTime;
+
+                      return (
+                        <Button
+                          key={slot.value}
+                          type="button"
+                          variant={active ? "default" : "outline"}
+                          onClick={() => setTempTime(slot.value)}
+                          className="justify-start rounded-xl px-3 text-sm"
+                        >
+                          {slot.label}
+                        </Button>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="rounded-xl border border-dashed border-border/80 bg-muted/20 px-3 py-6 text-sm text-muted-foreground">
+                    Select a date first to see available times.
+                  </div>
+                )}
               </div>
-              {note ? (
-                <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-                  {note}
-                </p>
-              ) : null}
+
+              <div className="rounded-xl bg-muted/30 p-4">
+                <div className="grid gap-3 text-sm sm:grid-cols-2">
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">
+                      {dateLabel}
+                    </p>
+                    <p className="mt-1 font-medium">
+                      {tempDate ? formatSelectedDate(tempDate, locale) : "-"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">
+                      {timeLabel}
+                    </p>
+                    <p className="mt-1 font-medium">
+                      {tempTime ? format(new Date(tempTime), "h:mm a") : "-"}
+                    </p>
+                  </div>
+                </div>
+                {note ? (
+                  <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+                    {note}
+                  </p>
+                ) : null}
+              </div>
             </div>
           </div>
-        </div>
-      </CardContent>
-      <CardFooter className="border-t border-border/60 px-5 py-4 sm:px-6">
-        <p className="text-xs text-muted-foreground">
-          Pickup slots are limited to business hours and the next {maxDaysAhead + 1} days.
-        </p>
-      </CardFooter>
-    </Card>
+
+          <div className="flex items-center justify-end gap-2 border-t border-border px-4 py-3">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => handleOpenChange(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="button"
+              onClick={handleApply}
+              disabled={!tempDate || !tempTime}
+            >
+              Apply
+            </Button>
+          </div>
+        </PopoverContent>
+      </Popover>
+    </div>
   );
 }

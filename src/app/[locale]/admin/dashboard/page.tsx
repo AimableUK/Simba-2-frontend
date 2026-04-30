@@ -220,7 +220,7 @@ export default function AdminDashboard() {
               <SelectTrigger className="w-[170px]">
                 <SelectValue placeholder={t("selectPeriod")} />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-background">
                 {REVENUE_PRESETS.map((preset) => (
                   <SelectItem key={preset} value={preset}>
                     {t(`periods.${preset}`)}

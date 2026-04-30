@@ -170,6 +170,7 @@ export default function AdminLayout({
               "notifications",
               "profile",
               "branch-invites",
+              "branch-dashboard",
             ])
           : role === "poster"
             ? new Set([

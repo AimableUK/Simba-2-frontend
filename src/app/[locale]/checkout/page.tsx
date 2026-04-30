@@ -29,60 +29,6 @@ import {
 import { FormField, FormInput, FormTextarea } from "@/components/ui/form-field";
 import { useBranchStore } from "@/store";
 
-//  Pickup time helpers
-
-function generatePickupSlots(
-  todayLabel: string,
-  tomorrowLabel: string,
-  locale: string,
-): { label: string; value: string }[] {
-  const slots: { label: string; value: string }[] = [];
-  const now = new Date();
-
-  for (let dayOffset = 0; dayOffset <= 3; dayOffset++) {
-    const date = new Date(now);
-    date.setDate(now.getDate() + dayOffset);
-
-    const dayLabel =
-      dayOffset === 0
-        ? todayLabel
-        : dayOffset === 1
-          ? tomorrowLabel
-          : date.toLocaleDateString(locale, {
-              weekday: "long",
-              month: "short",
-              day: "numeric",
-            });
-
-    for (let hour = 8; hour < 20; hour++) {
-      for (const minute of [0, 30]) {
-        const slotDate = new Date(date);
-        slotDate.setHours(hour, minute, 0, 0);
-
-        if (
-          dayOffset === 0 &&
-          slotDate.getTime() < now.getTime() + 60 * 60 * 1000
-        ) {
-          continue;
-        }
-
-        const timeLabel = slotDate.toLocaleTimeString(locale, {
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: true,
-        });
-
-        slots.push({
-          label: `${dayLabel} — ${timeLabel}`,
-          value: slotDate.toISOString(),
-        });
-      }
-    }
-  }
-
-  return slots;
-}
-
 //  Types
 
 type FormData = {
@@ -151,7 +97,6 @@ export default function CheckoutPage() {
   );
   const [selectedPickupTime, setSelectedPickupTime] = useState("");
   const [pickupError, setPickupError] = useState("");
-  const pickupSlots: Array<{ label: string; value: string }> = [];
 
   // Build schema with translated error messages
   const schema = z.object({
@@ -568,7 +513,7 @@ export default function CheckoutPage() {
 
             {/* Pickup time */}
             <CalendarWithTime
-              title={t("pickupDateTime")}
+              title={t("pickupTime")}
               description={t("pickupNote")}
               selectedDate={selectedPickupDate}
               selectedTime={selectedPickupTime}
@@ -792,19 +737,6 @@ export default function CheckoutPage() {
                   </p>
                 </div>
               )}
-
-              {false && (
-                <div className="mt-2">
-                  <p className="text-xs text-muted-foreground mb-1">
-                    {t("pickupTime")}
-                  </p>
-                  <p className="text-xs font-medium">
-                    {pickupSlots.find((s) => s.value === selectedPickupTime)
-                      ?.label || "—"}
-                  </p>
-                </div>
-              )}
-
               <div className="border-t border-border mt-4 pt-4 space-y-2 text-sm">
                 <div className="flex justify-between text-muted-foreground">
                   <span>{t("subtotal")}</span>
@@ -935,3 +867,5 @@ export default function CheckoutPage() {
     </div>
   );
 }
+
+
