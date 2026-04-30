@@ -751,6 +751,20 @@
       "noPendingInvites": "Nta nzaprezi zitegereje.",
       "failed": "Kohereza inzaprezi byanze"
     },
+    "branchInvite": {
+      "title": "Inzaprezi y'ishami",
+      "signInPrompt": "Injira kugira ngo urebe iyi nzaprezi kandi uyisubize.",
+      "signIn": "Injira",
+      "invalidToken": "Kode y'inzaprezi ntiyabonetse cyangwa si yo.",
+      "goBack": "Garuka",
+      "description": "Ufite inzaprezi yo kwinjira mu itsinda ry'iri shami. Yemere niba ushaka kwinjira, cyangwa uyange niba itakureba.",
+      "accept": "Emeza inzaprezi",
+      "accepting": "Kwemera...",
+      "decline": "Yanira",
+      "declining": "Kunanira...",
+      "updated": "Inzaprezi yavuguruwe",
+      "failed": "Kuvugurura inzaprezi byanze"
+    },
     "orders": {
       "title": "Ibyatumijwe",
       "searchPlaceholder": "Shakisha amatumiza...",

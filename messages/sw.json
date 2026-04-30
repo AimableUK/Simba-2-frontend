@@ -751,6 +751,20 @@
       "noPendingInvites": "Hakuna mialiko inayosubiri.",
       "failed": "Imeshindwa kutuma mwaliko"
     },
+    "branchInvite": {
+      "title": "Mwaliko wa tawi",
+      "signInPrompt": "Ingia ili kuona na kujibu mwaliko huu.",
+      "signIn": "Ingia",
+      "invalidToken": "Tokeni ya mwaliko si sahihi au haipo.",
+      "goBack": "Rudi nyuma",
+      "description": "Una mwaliko wa kujiunga na timu ya tawi hili. Kubali ili ujiunge, au kataa kama haukuhusu.",
+      "accept": "Kubali mwaliko",
+      "accepting": "Inakubali...",
+      "decline": "Kataa",
+      "declining": "Inakataa...",
+      "updated": "Mwaliko umesasishwa",
+      "failed": "Imeshindwa kusasisha mwaliko"
+    },
     "orders": {
       "title": "Maagizo",
       "searchPlaceholder": "Tafuta maagizo...",

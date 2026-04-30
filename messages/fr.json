@@ -751,6 +751,20 @@
       "noPendingInvites": "Aucune invitation en attente.",
       "failed": "Échec de l'envoi de l'invitation"
     },
+    "branchInvite": {
+      "title": "Invitation de succursale",
+      "signInPrompt": "Connectez-vous pour voir cette invitation et y répondre.",
+      "signIn": "Se connecter",
+      "invalidToken": "Jeton d'invitation invalide ou manquant.",
+      "goBack": "Retour",
+      "description": "Vous avez une invitation pour rejoindre l'équipe de cette succursale. Acceptez-la pour rejoindre l'équipe, ou refusez-la si elle ne vous concerne pas.",
+      "accept": "Accepter l'invitation",
+      "accepting": "Acceptation...",
+      "decline": "Refuser",
+      "declining": "Refus...",
+      "updated": "Invitation mise à jour",
+      "failed": "Échec de la mise à jour de l'invitation"
+    },
     "orders": {
       "title": "Commandes",
       "searchPlaceholder": "Rechercher des commandes...",
