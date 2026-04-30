@@ -152,7 +152,7 @@ export default function BranchOrdersPage() {
                       </td>
                       <td className="px-4 py-3">
                         <p className="font-medium">{order.user?.name}</p>
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-[11px] sm:text-xs text-muted-foreground mt-1">
                           {order.user?.phone}
                         </p>
                       </td>
@@ -212,15 +212,17 @@ export default function BranchOrdersPage() {
           onClick={() => setSelected(null)}
         >
           <div
-            className="bg-card border border-border rounded-2xl p-6 max-w-2xl w-full shadow-2xl max-h-[90vh] overflow-y-auto"
+            className="bg-card border border-border rounded-2xl p-4 sm:p-6 w-[calc(100vw-0.75rem)] sm:w-full sm:max-w-2xl shadow-2xl max-h-[92vh] overflow-hidden flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
-            <h2 className="font-bold text-lg mb-1">
-              Order {selected.orderNumber}
-            </h2>
-            <p className="text-sm text-muted-foreground mb-4">
-              {formatDateTime(selected.createdAt)}
-            </p>
+            <div className="shrink-0 mb-4">
+              <h2 className="font-bold text-lg mb-1">
+                Order {selected.orderNumber}
+              </h2>
+              <p className="text-sm text-muted-foreground">
+                {formatDateTime(selected.createdAt)}
+              </p>
+            </div>
 
             {/* Customer */}
             <div className="bg-muted/40 rounded-xl p-3 mb-4 text-sm space-y-1">
@@ -229,7 +231,7 @@ export default function BranchOrdersPage() {
                 <span className="font-medium">{selected.user?.name}</span>
               </p>
               <p className="text-muted-foreground pl-5">
-                {selected.user?.phone} · {selected.user?.email}
+                {selected.user?.phone} - {selected.user?.email}
               </p>
               <p className="flex items-center gap-2 text-muted-foreground">
                 <Clock className="h-3.5 w-3.5" />
@@ -252,20 +254,20 @@ export default function BranchOrdersPage() {
               <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
                 Items
               </p>
-              <div className="space-y-3">
+              <div className="grid grid-cols-2 gap-2 sm:gap-3 max-h-[42vh] overflow-y-auto pr-1">
                 {selected.items?.map((item: any) => (
                   <div
                     key={item.id}
-                    className="flex gap-3 items-center rounded-xl border border-border p-3 bg-background"
+                    className="flex flex-col gap-2 rounded-xl border border-border p-2.5 sm:p-3 bg-background min-w-0"
                   >
-                    <div className="relative w-14 h-14 rounded-lg overflow-hidden bg-muted border border-border shrink-0">
+                    <div className="relative w-full aspect-square rounded-lg overflow-hidden bg-muted border border-border shrink-0">
                       {item.image ? (
                         <Image
                           src={getImageUrl(item.image)}
                           alt={item.name}
                           fill
                           className="object-contain p-1"
-                          sizes="56px"
+                          sizes="(max-width: 640px) 50vw, 120px"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs font-bold">
@@ -274,14 +276,14 @@ export default function BranchOrdersPage() {
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-sm line-clamp-1">
+                      <p className="font-medium text-xs sm:text-sm line-clamp-2 leading-snug">
                         {item.name}
                       </p>
-                      <p className="text-xs text-muted-foreground">
-                        x{item.quantity} · {formatPrice(item.price)} each
+                      <p className="text-[11px] sm:text-xs text-muted-foreground mt-1">
+                        x{item.quantity} - {formatPrice(item.price)} each
                       </p>
                     </div>
-                    <span className="font-semibold text-sm shrink-0">
+                    <span className="font-semibold text-xs sm:text-sm shrink-0">
                       {formatPrice(item.price * item.quantity)}
                     </span>
                   </div>
@@ -371,3 +373,6 @@ export default function BranchOrdersPage() {
     </div>
   );
 }
+
+
+

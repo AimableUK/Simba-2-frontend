@@ -96,6 +96,10 @@ export default function CheckoutPage() {
   const [selectedPickupTime, setSelectedPickupTime] = useState("");
   const [pickupError, setPickupError] = useState("");
   const [deliveryError, setDeliveryError] = useState("");
+  const isPickup = fulfillmentType === "pickup";
+  const notesLabel = isPickup ? t("pickupNotes") : t("deliveryNotes");
+  const cashLabel = isPickup ? t("cashOnArrival") : t("cashOnDelivery");
+  const cashDesc = isPickup ? t("cashOnArrivalDesc") : t("cashOnDeliveryDesc");
 
   // Build schema with translated error messages
   const schema = z.object({
@@ -688,7 +692,7 @@ export default function CheckoutPage() {
                 </FormField>
 
                 <FormField
-                  label={t("notes")}
+                  label={notesLabel}
                   error={errors.notes?.message}
                   optional
                   className="sm:col-span-2"
@@ -719,9 +723,9 @@ export default function CheckoutPage() {
                     },
                     {
                       value: "cash",
-                      label: t("cod"),
+                      label: cashLabel,
                       icon: Banknote,
-                      desc: t("codDesc"),
+                      desc: cashDesc,
                     },
                   ] as const
                 ).map(({ value, label, icon: Icon, desc }) => (

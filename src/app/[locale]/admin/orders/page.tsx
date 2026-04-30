@@ -262,15 +262,17 @@ export default function AdminOrdersPage() {
           onClick={() => setSelectedOrder(null)}
         >
           <div
-            className="bg-card border border-border rounded-2xl p-6 w-full max-w-md shadow-2xl"
+            className="bg-card border border-border rounded-2xl p-4 sm:p-6 w-[calc(100vw-1rem)] sm:w-full sm:max-w-md md:max-w-lg shadow-2xl max-h-[92vh] overflow-hidden flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
-            <h2 className="font-bold text-lg mb-1">{t("modal.title")}</h2>
-            <p className="text-sm text-muted-foreground mb-6">
-              {selectedOrder.orderNumber}
-            </p>
+            <div className="shrink-0 mb-5">
+              <h2 className="font-bold text-lg mb-1">{t("modal.title")}</h2>
+              <p className="text-sm text-muted-foreground">
+                {selectedOrder.orderNumber}
+              </p>
+            </div>
 
-            <div className="space-y-4">
+            <div className="space-y-4 overflow-y-auto pr-1">
               {/* Customer info */}
               <div className="bg-muted/50 rounded-xl p-4 text-sm space-y-1">
                 <p>
@@ -319,20 +321,20 @@ export default function AdminOrdersPage() {
                 <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
                   {t("cols.items")}
                 </p>
-                <div className="space-y-3">
+                <div className="grid grid-cols-2 gap-2 sm:gap-3 max-h-[38vh] overflow-y-auto pr-1">
                   {selectedOrder.items?.map((item) => (
                     <div
                       key={item.id}
-                      className="flex gap-3 items-center rounded-xl border border-border p-3 bg-background"
+                      className="flex flex-col gap-2 rounded-xl border border-border p-2.5 sm:p-3 bg-background min-w-0"
                     >
-                      <div className="relative w-14 h-14 rounded-lg overflow-hidden bg-muted border border-border shrink-0">
+                      <div className="relative w-full aspect-square rounded-lg overflow-hidden bg-muted border border-border shrink-0">
                         {item.image ? (
                           <Image
                             src={getImageUrl(item.image)}
                             alt={item.name}
                             fill
                             className="object-contain p-1"
-                            sizes="56px"
+                            sizes="(max-width: 640px) 50vw, 120px"
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs font-bold">
@@ -341,14 +343,14 @@ export default function AdminOrdersPage() {
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-medium text-sm line-clamp-1">
+                        <p className="font-medium text-xs sm:text-sm line-clamp-2 leading-snug">
                           {item.name}
                         </p>
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-[11px] sm:text-xs text-muted-foreground mt-1">
                           x{item.quantity} · {formatPrice(item.price)} each
                         </p>
                       </div>
-                      <div className="font-semibold text-sm shrink-0">
+                      <div className="font-semibold text-xs sm:text-sm shrink-0">
                         {formatPrice(item.price * item.quantity)}
                       </div>
                     </div>
