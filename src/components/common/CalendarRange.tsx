@@ -95,7 +95,7 @@ export function CalendarRange({
         </Button>
       </PopoverTrigger>
       <PopoverContent align="end" className="w-auto p-0">
-        <div className="border-b border-border px-4 py-3">
+        <div className="border-b border-border px-4 py-3 bg-background">
           <p className="text-sm font-semibold">{title}</p>
           <p className="text-xs text-muted-foreground">{description}</p>
         </div>

@@ -209,7 +209,7 @@ export default function AdminDashboard() {
       <div className="bg-card border border-border rounded-2xl p-6">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
           <h2 className="font-semibold">{revenueTitle}</h2>
-          <div className="flex items-center gap-2 bg-background">
+          <div className="flex items-center gap-2">
             <Select
               value={revenuePreset}
               onValueChange={(value) => {

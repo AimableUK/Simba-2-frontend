@@ -307,27 +307,35 @@ export function CalendarWithTime({
 
         <PopoverContent
           align="start"
-          className={cn("w-[min(92vw,760px)] p-0", contentClassName)}
+          className={cn(
+            "w-[min(92vw,560px)] overflow-hidden rounded-2xl border border-border bg-card p-0 text-card-foreground shadow-xl",
+            contentClassName,
+          )}
         >
-          <div className="border-b border-border px-4 py-3">
+          <div className="border-b border-border bg-card px-4 py-3">
             <p className="text-sm font-semibold">{title}</p>
             {description ? (
               <p className="text-xs text-muted-foreground">{description}</p>
             ) : null}
           </div>
 
-          <div className="grid gap-4 p-4 md:grid-cols-[1.1fr_0.9fr]">
-            <div className={cn("rounded-2xl border border-border/70 p-2", calendarClassName)}>
+          <div className="grid gap-3 bg-card p-3 md:grid-cols-[0.92fr_1.08fr]">
+            <div
+              className={cn(
+                "rounded-2xl border border-border/70 bg-background p-2",
+                calendarClassName,
+              )}
+            >
               <Calendar
                 mode="single"
                 selected={tempDate}
                 onSelect={setTempDate}
                 disabled={isDateDisabled}
-                className="w-full"
+                className="w-full [--cell-size:1.75rem] p-1"
               />
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               <div>
                 <p className="mb-2 text-sm font-medium">{timeLabel}</p>
                 {tempDate ? (
@@ -360,7 +368,7 @@ export function CalendarWithTime({
                 )}
               </div>
 
-              <div className="rounded-xl bg-muted/30 p-4">
+              <div className="rounded-xl border border-border/60 bg-muted/40 p-3">
                 <div className="grid gap-3 text-sm sm:grid-cols-2">
                   <div>
                     <p className="text-xs uppercase tracking-wide text-muted-foreground">
@@ -388,7 +396,7 @@ export function CalendarWithTime({
             </div>
           </div>
 
-          <div className="flex items-center justify-end gap-2 border-t border-border px-4 py-3">
+          <div className="flex items-center justify-end gap-2 border-t border-border bg-card px-4 py-3">
             <Button
               type="button"
               variant="outline"
