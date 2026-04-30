@@ -139,13 +139,15 @@ export default function OrderDetailPage() {
     return (
       <div className="container mx-auto px-4 py-20 text-center">
         <p className="text-muted-foreground">{t("notFound")}</p>
-        <Link
-          href={`/${locale}/admin/my-orders`}
-          className="mt-4 inline-flex items-center gap-2 whitespace-nowrap text-primary hover:underline"
-        >
-          <ArrowLeft size={16} strokeWidth={2.25} />
-          {t("title")}
-        </Link>
+        <div className="mt-4 flex justify-center">
+          <Link
+            href={`/${locale}/admin/my-orders`}
+            className="inline-flex items-center gap-2 text-primary hover:underline"
+          >
+            <ArrowLeft size={16} strokeWidth={2.25} />
+            {t("title")}
+          </Link>
+        </div>
       </div>
     );
 
