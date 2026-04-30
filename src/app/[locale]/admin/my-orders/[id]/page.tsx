@@ -141,9 +141,10 @@ export default function OrderDetailPage() {
         <p className="text-muted-foreground">{t("notFound")}</p>
         <Link
           href={`/${locale}/admin/my-orders`}
-          className="mt-4 inline-flex items-center gap-2 text-primary hover:underline"
+          className="mt-4 inline-flex items-center gap-2 whitespace-nowrap text-primary hover:underline"
         >
-          <ArrowLeft size={16} strokeWidth={2.25} /> {t("title")}
+          <ArrowLeft size={16} strokeWidth={2.25} />
+          {t("title")}
         </Link>
       </div>
     );
