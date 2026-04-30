@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "@/lib/auth-client";
 import { branchApi } from "@/lib/api";
@@ -35,6 +35,7 @@ export default function BranchOrdersPage() {
   const [page, setPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState("");
   const [selected, setSelected] = useState<any>(null);
+  const [selectedStaffId, setSelectedStaffId] = useState("");
 
   const role = (session?.user as any)?.role as string;
   const isManager = ["branch_manager", "admin", "super_admin"].includes(role);
@@ -55,6 +56,17 @@ export default function BranchOrdersPage() {
     refetchInterval: 10_000,
   });
   const branchName = data?.branch?.name;
+  const branchStaff = data?.branch?.staff || [];
+
+  useEffect(() => {
+    if (!selected) return;
+    setSelectedStaffId(
+      selected.assignedTo?.id ||
+        branchStaff.find((staff: any) => staff.user?.id === session?.user?.id)?.id ||
+        branchStaff[0]?.id ||
+        "",
+    );
+  }, [selected, branchStaff, session?.user?.id]);
 
   const statusMutation = useMutation({
     mutationFn: ({ id, status }: { id: string; status: string }) =>
@@ -312,20 +324,54 @@ export default function BranchOrdersPage() {
 
             {/* Actions */}
             <div className="space-y-2">
-              {/* Manager: assign to self / start preparing */}
-              {isManager && selected.status === "accepted" && (
-                <button
-                  onClick={() =>
-                    statusMutation.mutate({
-                      id: selected.id,
-                      status: "preparing",
-                    })
-                  }
-                  disabled={statusMutation.isPending}
-                  className="w-full bg-purple-600 text-white font-semibold py-3 rounded-xl hover:bg-purple-700 disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
-                >
-                  <Package className="h-4 w-4" /> Start Preparing
-                </button>
+              {isManager && !["picked_up", "cancelled"].includes(selected.status) && (
+                <div className="space-y-2 rounded-xl border border-border p-3 bg-muted/20">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <p className="text-sm font-medium">Assign staff</p>
+                      <p className="text-xs text-muted-foreground">
+                        {selected.assignedTo?.user?.name
+                          ? `Current assignee: ${selected.assignedTo.user.name}`
+                          : "Choose the staff member with the lightest load."}
+                      </p>
+                    </div>
+                    <span className="text-[11px] font-medium px-2 py-1 rounded-full bg-background text-muted-foreground border border-border">
+                      {branchStaff.length} available
+                    </span>
+                  </div>
+
+                  <select
+                    value={selectedStaffId}
+                    onChange={(e) => setSelectedStaffId(e.target.value)}
+                    className="w-full px-3 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                  >
+                    <option value="">Select staff</option>
+                    {branchStaff.map((staff: any) => (
+                      <option key={staff.id} value={staff.id}>
+                        {staff.user?.name} - {staff.role.replace("_", " ")} ({staff.activeOrders || 0} active)
+                      </option>
+                    ))}
+                  </select>
+
+                  <button
+                    onClick={() =>
+                      selectedStaffId &&
+                      assignMutation.mutate({
+                        id: selected.id,
+                        staffId: selectedStaffId,
+                      })
+                    }
+                    disabled={assignMutation.isPending || !selectedStaffId}
+                    className="w-full bg-purple-600 text-white font-semibold py-3 rounded-xl hover:bg-purple-700 disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
+                  >
+                    <Package className="h-4 w-4" />
+                    {assignMutation.isPending
+                      ? "Assigning..."
+                      : selected.assignedTo?.user?.name
+                        ? "Reassign and start"
+                        : "Assign and start"}
+                  </button>
+                </div>
               )}
 
               {/* Progress button based on current status */}
