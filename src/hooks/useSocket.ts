@@ -6,7 +6,8 @@ import { toast } from "sonner";
 import { useNotificationStore } from "@/store";
 
 const SOCKET_URL =
-  process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:5000";
+  process.env.NEXT_PUBLIC_SOCKET_URL ||
+  "http://localhost:5000";
 
 let globalSocket: Socket | null = null;
 
@@ -118,8 +119,7 @@ export function useAdminSocket(handlers: {
           buildNotification({
             type: "order_new",
             title: "New order",
-            message:
-              `New order: ${data.orderNumber || data.orderId || ""}`.trim(),
+            message: `New order: ${data.orderNumber || data.orderId || ""}`.trim(),
             link: "/admin/orders",
             createdAt: data.createdAt,
           }),
@@ -185,13 +185,4 @@ export function useAdminSocket(handlers: {
       cleanup.forEach((fn) => fn());
     };
   }, [socket, handlers, push]);
-}
-
-// added -check 
-export function joinCompanyRoom(companyId: string): void {
-  getSocket().emit("join:company", companyId);
-}
-
-export function leaveCompanyRoom(companyId: string): void {
-  getSocket().emit("leave:company", companyId);
 }
