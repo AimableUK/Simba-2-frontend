@@ -137,7 +137,7 @@ export function CartDrawer() {
             className="fixed right-0 top-0 h-full w-full sm:w-96 bg-card border-l border-border shadow-2xl z-50 flex flex-col"
           >
             {/* Header */}
-            <div className="flex flex-col px-5 py-4 border-b border-border">
+            <div className="flex flex-col px-5 py-3 border-b border-border">
               <div className="flex flex-row items-center justify-between">
                 <div className="flex items-center gap-2">
                   <ShoppingBag className="w-5 h-5 text-primary" />
@@ -162,13 +162,13 @@ export function CartDrawer() {
               <Link
                 href={`/${locale}/cart`}
                 onClick={closeCart}
-                className="group inline-flex items-center text-sm font-medium text-foreground hover:text-primary transition-colors line-clamp-2 leading-snug"
+                className="group inline-flex items-center gap-1 text-sm font-medium text-foreground hover:text-primary transition-colors mt-2"
               >
                 {t("viewAside")}
                 <ArrowUpRight
                   size={16}
                   strokeWidth={2.25}
-                  className="transition-transform duration-150 ease-in-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  className="shrink-0 transition-transform duration-150 ease-in-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                 />
               </Link>
             </div>
