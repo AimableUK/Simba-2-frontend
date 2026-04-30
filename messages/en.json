@@ -757,6 +757,7 @@
       "cols": {
         "order": "Order",
         "customer": "Customer",
+        "branch": "Branch",
         "items": "Items",
         "total": "Total",
         "status": "Status",
@@ -774,6 +775,7 @@
         "email": "Email",
         "phone": "Phone",
         "total": "Total",
+        "branch": "Branch",
         "currentStatus": "Current status",
         "newStatus": "New status",
         "note": "Note",

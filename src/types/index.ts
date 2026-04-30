@@ -54,6 +54,7 @@ export interface Order {
   id: string;
   orderNumber: string;
   userId: string;
+  branchId?: string;
   status: OrderStatus;
   paymentStatus: PaymentStatus;
   subtotal: number;
@@ -69,6 +70,7 @@ export interface Order {
   items: OrderItem[];
   statusLogs: OrderStatusLog[];
   user?: { id: string; name: string; email: string; phone?: string };
+  branch?: { id: string; name: string; address?: string };
 }
 
 export type OrderStatus =

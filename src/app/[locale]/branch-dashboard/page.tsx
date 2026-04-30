@@ -29,6 +29,7 @@ export default function BranchDashboardPage() {
   });
 
   const stats = data?.stats;
+  const branch = data?.branch;
 
   const statCards = stats
     ? [
@@ -59,7 +60,12 @@ export default function BranchDashboardPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Dashboard</h1>
+        <div>
+          <h1 className="text-2xl font-bold">Dashboard</h1>
+          <p className="text-sm text-muted-foreground mt-1">
+            {branch?.name ? `Orders for ${branch.name}` : "Orders for your branch"}
+          </p>
+        </div>
         <Link
           href={`/${locale}/branch-dashboard/orders`}
           className="flex items-center gap-1 text-sm text-primary font-medium hover:underline"

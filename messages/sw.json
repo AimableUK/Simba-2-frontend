@@ -758,6 +758,7 @@
       "cols": {
         "order": "Agizo",
         "customer": "Mteja",
+        "branch": "Tawi",
         "items": "Vitu",
         "total": "Jumla",
         "status": "Hali",
@@ -775,6 +776,7 @@
         "email": "Barua pepe",
         "phone": "Simu",
         "total": "Jumla",
+        "branch": "Tawi",
         "currentStatus": "Hali ya sasa",
         "newStatus": "Hali mpya",
         "note": "Kumbuka",

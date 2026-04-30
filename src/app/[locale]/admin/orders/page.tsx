@@ -166,6 +166,7 @@ export default function AdminOrdersPage() {
                 {[
                   t("cols.order"),
                   t("cols.customer"),
+                  t("cols.branch"),
                   t("cols.items"),
                   t("cols.total"),
                   t("cols.status"),
@@ -185,7 +186,7 @@ export default function AdminOrdersPage() {
             <tbody>
               {isLoading
                 ? Array.from({ length: 8 }).map((_, i) => (
-                    <TableRowSkeleton key={i} cols={8} />
+                    <TableRowSkeleton key={i} cols={9} />
                   ))
                 : data?.data?.map((order: Order) => (
                     <tr
@@ -200,6 +201,11 @@ export default function AdminOrdersPage() {
                         <p className="text-xs text-muted-foreground">
                           {order.user?.email}
                         </p>
+                      </td>
+                      <td className="px-4 py-3">
+                        <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-muted text-muted-foreground">
+                          {order.branch?.name || "-"}
+                        </span>
                       </td>
                       <td className="px-4 py-3 text-muted-foreground">
                         {order.items?.length} {t("itemsCount")}
@@ -303,6 +309,14 @@ export default function AdminOrdersPage() {
                   </span>{" "}
                   <span className="font-bold text-primary">
                     {formatPrice(selectedOrder.total)}
+                  </span>
+                </p>
+                <p>
+                  <span className="text-muted-foreground">
+                    {t("modal.branch")}:
+                  </span>{" "}
+                  <span className="font-medium">
+                    {selectedOrder.branch?.name || "-"}
                   </span>
                 </p>
                 <p>

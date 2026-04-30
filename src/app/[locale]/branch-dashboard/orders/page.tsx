@@ -54,6 +54,7 @@ export default function BranchOrdersPage() {
         .then((r) => r.data),
     refetchInterval: 10_000,
   });
+  const branchName = data?.branch?.name;
 
   const statusMutation = useMutation({
     mutationFn: ({ id, status }: { id: string; status: string }) =>
@@ -91,7 +92,12 @@ export default function BranchOrdersPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Orders</h1>
+      <div>
+        <h1 className="text-2xl font-bold">Orders</h1>
+        <p className="text-sm text-muted-foreground mt-1">
+          {branchName ? `Showing orders for ${branchName}` : "Showing orders for this branch"}
+        </p>
+      </div>
 
       {/* Status filter tabs */}
       <div className="flex flex-wrap gap-2">
