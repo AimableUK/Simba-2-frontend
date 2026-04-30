@@ -2,7 +2,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import { MailOpen, Mail, X } from 'lucide-react';
@@ -48,11 +48,16 @@ export default function AdminContactsPage() {
     onNewContact: () => qc.invalidateQueries({ queryKey: ['admin-contacts'] }),
   });
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ['admin-contacts', page, filter],
     queryFn: () =>
       contactApi.adminList({ page, limit: 20, read: filter }).then((r) => r.data),
+    refetchOnMount: 'always',
   });
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   const markReadMutation = useMutation({
     mutationFn: (id: string) => contactApi.markRead(id),
