@@ -13,7 +13,7 @@ import {
   ShoppingBag,
   ChefHat,
   Bell,
-  MoveLeft,
+  ArrowLeft,
 } from "lucide-react";
 import { orderApi } from "@/lib/api";
 import { useOrderSocket } from "@/hooks/useSocket";
@@ -141,9 +141,9 @@ export default function OrderDetailPage() {
         <p className="text-muted-foreground">{t("notFound")}</p>
         <Link
           href={`/${locale}/admin/my-orders`}
-          className="whitespace-nowrap mt-4 inline-block text-primary hover:underline"
+          className="mt-4 inline-flex items-center gap-2 text-primary hover:underline"
         >
-          <MoveLeft /> {t("title")}
+          <ArrowLeft size={16} strokeWidth={2.25} /> {t("title")}
         </Link>
       </div>
     );
@@ -160,9 +160,9 @@ export default function OrderDetailPage() {
       <div className="mb-6">
         <Link
           href={`/${locale}/admin/my-orders`}
-          className="whitespace-nowrap text-muted-foreground hover:text-primary transition-colors text-sm"
+          className="text-muted-foreground hover:text-primary transition-colors text-sm"
         >
-          <MoveLeft /> {t("title")}
+          <ArrowLeft strokeWidth={2.25} /> {t("title")}
         </Link>
       </div>
 

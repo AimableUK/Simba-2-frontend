@@ -1,4 +1,5 @@
 "use client";
+
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,7 +9,7 @@ import {
   Trash2,
   ShoppingBag,
   ArrowRight,
-  MoveLeft,
+  ArrowLeft,
 } from "lucide-react";
 import { useCart } from "@/hooks/useCart";
 import { useSession } from "@/lib/auth-client";
@@ -171,9 +172,9 @@ export default function CartPage() {
 
           <Link
             href={`/${locale}/shop`}
-            className="whitespace-nowrap inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mt-2"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mt-2"
           >
-            <MoveLeft /> {t("continueShopping")}
+            <ArrowLeft size={16} strokeWidth={2.25} /> {t("continueShopping")}
           </Link>
         </div>
 

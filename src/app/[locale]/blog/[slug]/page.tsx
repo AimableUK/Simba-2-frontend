@@ -1,7 +1,8 @@
 "use client";
+
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations, useLocale } from "next-intl";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -12,7 +13,6 @@ import {
   ArrowLeft,
   Calendar,
   User,
-  MoveLeft,
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -75,9 +75,9 @@ export default function BlogDetailPage() {
         <p className="text-muted-foreground">Post not found</p>
         <Link
           href={`/${locale}/blog`}
-          className="whitespace-nowrap mt-4 inline-block text-primary hover:underline"
+          className="mt-4 inline-flex items-center gap-2 text-primary hover:underline"
         >
-          <MoveLeft /> {t("title")}
+          <ArrowLeft size={16} strokeWidth={2.25} /> {t("title")}
         </Link>
       </div>
     );

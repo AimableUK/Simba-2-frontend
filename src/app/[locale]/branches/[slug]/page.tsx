@@ -16,7 +16,7 @@ import {
   Minus,
   CheckCircle,
   Sparkles,
-  MoveLeft,
+  ArrowLeft,
 } from "lucide-react";
 import { toast } from "sonner";
 import { branchApi } from "@/lib/api";
@@ -242,9 +242,9 @@ export default function BranchDetailPage() {
         <p className="text-muted-foreground">Branch not found</p>
         <Link
           href={`/${locale}/branches`}
-          className="mt-4 inline-block text-primary hover:underline"
+          className="mt-4 inline-flex items-center gap-2 text-primary hover:underline"
         >
-          <MoveLeft /> All Branches
+          <ArrowLeft size={16} strokeWidth={2.25} /> {t("title")}
         </Link>
       </div>
     );
@@ -276,9 +276,9 @@ export default function BranchDetailPage() {
           </Link>
           <Link
             href={`/${locale}/branches`}
-            className="whitespace-nowrap border border-border px-6 py-3 rounded-xl font-medium hover:bg-muted transition-colors"
+            className="border border-border px-6 py-3 rounded-xl font-medium hover:bg-muted transition-colors"
           >
-            <MoveLeft /> {t("title")}
+            <ArrowLeft size={16} strokeWidth={2.25} /> {t("title")}
           </Link>
         </div>
       </div>
@@ -291,9 +291,9 @@ export default function BranchDetailPage() {
         <div className="container mx-auto px-4">
           <Link
             href={`/${locale}/branches`}
-            className="whitespace-nowrap text-sm text-muted-foreground hover:text-primary transition-colors mb-4 inline-block"
+            className="text-sm text-muted-foreground hover:text-primary transition-colors mb-4 inline-block"
           >
-            <MoveLeft /> {t("title")}
+            <ArrowLeft size={16} strokeWidth={2.25} /> {t("title")}
           </Link>
           <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
             <div>
