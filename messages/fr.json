@@ -105,6 +105,7 @@
   },
   "cart": {
     "title": "Votre Panier",
+    "viewAside": "Voir le panier",
     "empty": "Votre panier est vide",
     "emptyDesc": "Commencez à acheter et ajoutez des articles à votre panier",
     "shopNow": "Commencer les Achats",

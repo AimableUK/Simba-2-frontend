@@ -105,6 +105,7 @@
   },
   "cart": {
     "title": "Agasanduku Kawe",
+    "viewAside": "Tazama kikapu",
     "empty": "Agasanduku kawe gasa ubusa",
     "emptyDesc": "Tangira kugura no kongeraho ibintu mu gasanduku",
     "shopNow": "Tangira Kugura",

@@ -163,9 +163,10 @@ export default function OrderDetailPage() {
       <div className="mb-6">
         <Link
           href={`/${locale}/admin/my-orders`}
-          className="text-muted-foreground hover:text-primary transition-colors text-sm"
+          className="inline-flex items-center gap-2 text-primary hover:underline"
         >
-          <ArrowLeft strokeWidth={2.25} /> {t("title")}
+          <ArrowLeft size={16} strokeWidth={2.25} />
+          {t("title")}
         </Link>
       </div>
 

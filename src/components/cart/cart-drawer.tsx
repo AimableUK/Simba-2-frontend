@@ -4,7 +4,14 @@ import { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
-import { X, ShoppingBag, Plus, Minus, Trash2 } from "lucide-react";
+import {
+  X,
+  ShoppingBag,
+  Plus,
+  Minus,
+  Trash2,
+  ArrowUpRight,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { cartApi } from "@/lib/api";
@@ -31,7 +38,8 @@ export function CartDrawer() {
   //  Fetch API cart when authenticated
   const { data: apiCart } = useQuery({
     queryKey: ["cart", selectedBranchId],
-    queryFn: () => cartApi.get(selectedBranchId || undefined).then((r) => r.data),
+    queryFn: () =>
+      cartApi.get(selectedBranchId || undefined).then((r) => r.data),
     enabled: isLoggedIn, // fetch on mount if logged in, not just when drawer opens
   });
 
@@ -129,24 +137,40 @@ export function CartDrawer() {
             className="fixed right-0 top-0 h-full w-full sm:w-96 bg-card border-l border-border shadow-2xl z-50 flex flex-col"
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-5 py-4 border-b border-border">
-              <div className="flex items-center gap-2">
-                <ShoppingBag className="w-5 h-5 text-primary" />
-                <h2 className="font-semibold text-foreground">{t("title")}</h2>
-                {items.length > 0 && (
-                  <span className="bg-primary text-white text-xs px-2 py-0.5 rounded-full font-medium">
-                    {t("items", {
-                      count: items.reduce((s, i) => s + i.quantity, 0),
-                    })}
-                  </span>
-                )}
+            <div className="flex flex-col items-center justify-between px-5 py-4 border-b border-border">
+              <div className="flex flex-row">
+                <div className="flex items-center gap-2">
+                  <ShoppingBag className="w-5 h-5 text-primary" />
+                  <h2 className="font-semibold text-foreground">
+                    {t("title")}
+                  </h2>
+                  {items.length > 0 && (
+                    <span className="bg-primary text-white text-xs px-2 py-0.5 rounded-full font-medium">
+                      {t("items", {
+                        count: items.reduce((s, i) => s + i.quantity, 0),
+                      })}
+                    </span>
+                  )}
+                </div>
+                <button
+                  onClick={closeCart}
+                  className="p-1.5 rounded-lg hover:bg-accent transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
               </div>
-              <button
+              <Link
+                href={`/${locale}/cart`}
                 onClick={closeCart}
-                className="p-1.5 rounded-lg hover:bg-accent transition-colors"
+                className="group inline-flex items-center text-sm font-medium text-foreground hover:text-primary transition-colors line-clamp-2 leading-snug"
               >
-                <X className="w-5 h-5" />
-              </button>
+                {t("ViewAside")}
+                <ArrowUpRight
+                  size={16}
+                  strokeWidth={2.25}
+                  className="transition-transform duration-150 ease-in-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </Link>
             </div>
 
             {/* Guest notice */}
