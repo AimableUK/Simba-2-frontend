@@ -187,7 +187,7 @@ export function useAdminSocket(handlers: {
   }, [socket, handlers, push]);
 }
 
-// added
+// added -check 
 export function joinCompanyRoom(companyId: string): void {
   getSocket().emit("join:company", companyId);
 }
