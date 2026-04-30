@@ -137,8 +137,8 @@ export function CartDrawer() {
             className="fixed right-0 top-0 h-full w-full sm:w-96 bg-card border-l border-border shadow-2xl z-50 flex flex-col"
           >
             {/* Header */}
-            <div className="flex flex-col items-center justify-between px-5 py-4 border-b border-border">
-              <div className="flex flex-row">
+            <div className="flex flex-col">
+              <div className="flex flex-row items-center justify-between px-5 py-4 border-b border-border">
                 <div className="flex items-center gap-2">
                   <ShoppingBag className="w-5 h-5 text-primary" />
                   <h2 className="font-semibold text-foreground">
@@ -164,7 +164,7 @@ export function CartDrawer() {
                 onClick={closeCart}
                 className="group inline-flex items-center text-sm font-medium text-foreground hover:text-primary transition-colors line-clamp-2 leading-snug"
               >
-                {t("ViewAside")}
+                {t("viewAside")}
                 <ArrowUpRight
                   size={16}
                   strokeWidth={2.25}
