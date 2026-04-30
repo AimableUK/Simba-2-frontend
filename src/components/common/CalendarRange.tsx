@@ -94,12 +94,12 @@ export function CalendarRange({
           {label}
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-auto p-0">
-        <div className="border-b border-border px-4 py-3 bg-background">
+      <PopoverContent align="end" className="w-auto p-0 bg-background rounded-t-sm">
+        <div className="border-b border-border px-4 py-3">
           <p className="text-sm font-semibold">{title}</p>
           <p className="text-xs text-muted-foreground">{description}</p>
         </div>
-        <div className="p-3">
+        <div className="p-1">
           <Calendar
             mode="range"
             selected={tempValue}

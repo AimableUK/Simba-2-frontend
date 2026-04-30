@@ -22,10 +22,7 @@ import { useCart } from "@/hooks/useCart";
 import { useSession } from "@/lib/auth-client";
 import { formatPrice, getImageUrl } from "@/lib/utils";
 import Link from "next/link";
-import {
-  CalendarWithTime,
-  findFirstPickupSlot,
-} from "@/components/common/CalendarWithTime";
+import { CalendarWithTime } from "@/components/common/CalendarWithTime";
 import { FormField, FormInput, FormTextarea } from "@/components/ui/form-field";
 import { useBranchStore } from "@/store";
 
@@ -128,19 +125,6 @@ export default function CheckoutPage() {
       phone: profile?.phone || (session.user as any)?.phone || "",
     }));
   }, [profile, reset, session?.user]);
-
-  // Default to the first available pickup slot.
-  useEffect(() => {
-    if (selectedPickupDate || selectedPickupTime) {
-      return;
-    }
-
-    const firstSlot = findFirstPickupSlot();
-    if (firstSlot) {
-      setSelectedPickupDate(firstSlot.date);
-      setSelectedPickupTime(firstSlot.value);
-    }
-  }, [selectedPickupDate, selectedPickupTime]);
 
   useEffect(() => {
     if (storedBranchId) {
@@ -531,7 +515,6 @@ export default function CheckoutPage() {
               locale={locale}
               openingHour={8}
               closingHour={20}
-              intervalMinutes={30}
               leadTimeMinutes={60}
               maxDaysAhead={3}
             />
