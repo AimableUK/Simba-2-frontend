@@ -13,8 +13,6 @@ import {
   Package,
   AlertCircle,
   MapPin,
-  Clock,
-  ChevronDown,
   Loader2,
 } from "lucide-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -24,6 +22,10 @@ import { useCart } from "@/hooks/useCart";
 import { useSession } from "@/lib/auth-client";
 import { formatPrice, getImageUrl } from "@/lib/utils";
 import Link from "next/link";
+import {
+  CalendarWithTime,
+  findFirstPickupSlot,
+} from "@/components/common/CalendarWithTime";
 import { FormField, FormInput, FormTextarea } from "@/components/ui/form-field";
 import { useBranchStore } from "@/store";
 
@@ -144,11 +146,12 @@ export default function CheckoutPage() {
   const { selectedBranchId: storedBranchId, setBranch } = useBranchStore();
 
   // Pickup time state
-  const [pickupSlots, setPickupSlots] = useState<
-    { label: string; value: string }[]
-  >([]);
+  const [selectedPickupDate, setSelectedPickupDate] = useState<Date | undefined>(
+    undefined,
+  );
   const [selectedPickupTime, setSelectedPickupTime] = useState("");
   const [pickupError, setPickupError] = useState("");
+  const pickupSlots: Array<{ label: string; value: string }> = [];
 
   // Build schema with translated error messages
   const schema = z.object({
@@ -181,12 +184,18 @@ export default function CheckoutPage() {
     }));
   }, [profile, reset, session?.user]);
 
-  // Generate slots after mount so locale + translations are available
+  // Default to the first available pickup slot.
   useEffect(() => {
-    const slots = generatePickupSlots(t("today"), t("tomorrow"), locale);
-    setPickupSlots(slots);
-    if (slots.length > 0) setSelectedPickupTime(slots[0].value);
-  }, [locale, t]);
+    if (selectedPickupDate || selectedPickupTime) {
+      return;
+    }
+
+    const firstSlot = findFirstPickupSlot();
+    if (firstSlot) {
+      setSelectedPickupDate(firstSlot.date);
+      setSelectedPickupTime(firstSlot.value);
+    }
+  }, [selectedPickupDate, selectedPickupTime]);
 
   useEffect(() => {
     if (storedBranchId) {
@@ -257,7 +266,7 @@ export default function CheckoutPage() {
         setBranchError(t("errors.branchRequired"));
         valid = false;
       }
-      if (!selectedPickupTime) {
+      if (!selectedPickupDate || !selectedPickupTime) {
         setPickupError(t("errors.pickupRequired"));
         valid = false;
       }
@@ -430,7 +439,7 @@ export default function CheckoutPage() {
         </p>
         <div className="flex gap-3 justify-center flex-wrap">
           <Link
-            href={`/${locale}/admin/orders/${success.orderId}`}
+            href={`/${locale}/admin/my-orders/${success.orderId}`}
             className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-medium hover:bg-primary/90 transition-colors"
           >
             {t("trackOrder")}
@@ -558,43 +567,34 @@ export default function CheckoutPage() {
             </div>
 
             {/* Pickup time */}
-            <div className="bg-card border border-border rounded-2xl p-6">
-              <h2 className="font-semibold text-lg mb-5 flex items-center gap-2">
-                <Clock className="h-5 w-5 text-primary" />
-                {t("pickupTime")}
-              </h2>
-
-              <div className="relative">
-                <select
-                  value={selectedPickupTime}
-                  onChange={(e) => {
-                    setSelectedPickupTime(e.target.value);
-                    setPickupError("");
-                  }}
-                  className={`w-full appearance-none bg-background border-2 rounded-xl px-4 py-3 pr-10 text-sm focus:outline-none focus:border-primary transition-colors ${
-                    pickupError ? "border-destructive" : "border-border"
-                  }`}
-                >
-                  <option value="">{t("selectPickupTime")}</option>
-                  {pickupSlots.map((slot) => (
-                    <option key={slot.value} value={slot.value}>
-                      {slot.label}
-                    </option>
-                  ))}
-                </select>
-                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-              </div>
-
-              {pickupError && (
-                <p className="text-sm text-destructive mt-2 flex items-center gap-1">
-                  <AlertCircle className="h-3.5 w-3.5" /> {pickupError}
-                </p>
-              )}
-
-              <p className="text-xs text-muted-foreground mt-2">
-                {t("pickupNote")}
+            <CalendarWithTime
+              title={t("pickupDateTime")}
+              description={t("pickupNote")}
+              selectedDate={selectedPickupDate}
+              selectedTime={selectedPickupTime}
+              onDateChange={(date) => {
+                setSelectedPickupDate(date);
+                setPickupError("");
+              }}
+              onTimeChange={(time) => {
+                setSelectedPickupTime(time);
+                setPickupError("");
+              }}
+              dateLabel={t("pickupDate")}
+              timeLabel={t("pickupTime")}
+              note={t("pickupNote")}
+              locale={locale}
+              openingHour={8}
+              closingHour={20}
+              intervalMinutes={30}
+              leadTimeMinutes={60}
+              maxDaysAhead={3}
+            />
+            {pickupError && (
+              <p className="text-sm text-destructive mt-2 flex items-center gap-1">
+                <AlertCircle className="h-3.5 w-3.5" /> {pickupError}
               </p>
-            </div>
+            )}
 
             {/* Contact info */}
             <div className="bg-card border border-border rounded-2xl p-6">
@@ -772,7 +772,28 @@ export default function CheckoutPage() {
                 </div>
               )}
 
-              {selectedPickupTime && (
+              {selectedPickupDate && selectedPickupTime && (
+                <div className="mt-2">
+                  <p className="text-xs text-muted-foreground mb-1">
+                    {t("pickupDateTime")}
+                  </p>
+                  <p className="text-xs font-medium">
+                    {selectedPickupDate.toLocaleDateString(locale, {
+                      weekday: "short",
+                      month: "short",
+                      day: "numeric",
+                    })}{" "}
+                    -{" "}
+                    {new Date(selectedPickupTime).toLocaleTimeString(locale, {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: true,
+                    })}
+                  </p>
+                </div>
+              )}
+
+              {false && (
                 <div className="mt-2">
                   <p className="text-xs text-muted-foreground mb-1">
                     {t("pickupTime")}

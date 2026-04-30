@@ -14,7 +14,6 @@ import {
   Clock,
   DollarSign,
   ArrowRight,
-  AlertTriangle,
 } from "lucide-react";
 import {
   AreaChart,

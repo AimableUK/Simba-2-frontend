@@ -225,6 +225,8 @@
     "payNow": "Pay Now",
     "selectBranch": "Select Pickup Branch",
     "loadingBranches": "Loading branches...",
+    "pickupDateTime": "Pickup date and time",
+    "pickupDate": "Pickup date",
     "pickupTime": "Pickup Time",
     "selectPickupTime": "Select a pickup time...",
     "pickupNote": "Your order will be ready at the selected time. Please arrive within 30 minutes of your slot.",

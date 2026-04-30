@@ -225,6 +225,8 @@
     "payNow": "Lipa Sasa",
     "selectBranch": "Chagua Tawi la Kuchukua",
     "loadingBranches": "Inapakia matawi...",
+    "pickupDateTime": "Tarehe na wakati wa kuchukua",
+    "pickupDate": "Tarehe ya kuchukua",
     "pickupTime": "Wakati wa Kuchukua",
     "selectPickupTime": "Chagua wakati wa kuchukua...",
     "pickupNote": "Agizo lako litakuwa tayari wakati uliochaguliwa. Tafadhali fika ndani ya dakika 30 za wakati wako.",

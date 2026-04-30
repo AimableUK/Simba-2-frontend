@@ -225,6 +225,8 @@
     "payNow": "Payer Maintenant",
     "selectBranch": "Choisir la succursale de retrait",
     "loadingBranches": "Chargement des succursales...",
+    "pickupDateTime": "Date et heure de retrait",
+    "pickupDate": "Date de retrait",
     "pickupTime": "Heure de retrait",
     "selectPickupTime": "Sélectionner une heure de retrait...",
     "pickupNote": "Votre commande sera prête à l'heure sélectionnée. Veuillez arriver dans les 30 minutes suivant votre créneau.",
