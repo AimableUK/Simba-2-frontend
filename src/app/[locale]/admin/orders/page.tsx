@@ -3,9 +3,10 @@ import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocale, useTranslations } from "next-intl";
 import { Search, Eye } from "lucide-react";
+import Image from "next/image";
 import { toast } from "sonner";
 import { orderApi } from "@/lib/api";
-import { formatPrice, formatDateTime } from "@/lib/utils";
+import { formatPrice, formatDateTime, getImageUrl } from "@/lib/utils";
 import { TableRowSkeleton } from "@/components/common/skeletons";
 import { Pagination } from "@/components/common/pagination";
 import { useAdminSocket } from "@/hooks/useSocket";
@@ -312,6 +313,47 @@ export default function AdminOrdersPage() {
                     {t(`status.${selectedOrder.status}`)}
                   </span>
                 </p>
+              </div>
+
+              <div>
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
+                  {t("cols.items")}
+                </p>
+                <div className="space-y-3">
+                  {selectedOrder.items?.map((item) => (
+                    <div
+                      key={item.id}
+                      className="flex gap-3 items-center rounded-xl border border-border p-3 bg-background"
+                    >
+                      <div className="relative w-14 h-14 rounded-lg overflow-hidden bg-muted border border-border shrink-0">
+                        {item.image ? (
+                          <Image
+                            src={getImageUrl(item.image)}
+                            alt={item.name}
+                            fill
+                            className="object-contain p-1"
+                            sizes="56px"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs font-bold">
+                            {item.name?.[0] || "?"}
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-sm line-clamp-1">
+                          {item.name}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          x{item.quantity} · {formatPrice(item.price)} each
+                        </p>
+                      </div>
+                      <div className="font-semibold text-sm shrink-0">
+                        {formatPrice(item.price * item.quantity)}
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               {/* New status select */}
