@@ -179,12 +179,16 @@ export default function PickupOrdersPage() {
               <div className="flex items-center justify-between text-xs text-muted-foreground border-t border-border pt-3">
                 <span>
                   Pick-up:{" "}
-                  {new Date(order.pickupTime).toLocaleString([], {
-                    month: "short",
-                    day: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
+                  {order.fulfillmentType === "delivery"
+                    ? [order.deliveryStreet, order.deliveryDistrict, order.deliverySector]
+                        .filter(Boolean)
+                        .join(", ")
+                    : new Date(order.pickupTime).toLocaleString([], {
+                        month: "short",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
                 </span>
                 <div className="flex items-center gap-3">
                   {order.status === "picked_up" && !order.review && (

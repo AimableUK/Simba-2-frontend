@@ -114,13 +114,16 @@ export default function BranchDashboardPage() {
                     {order.user?.name} · {formatDateTime(order.createdAt)}
                   </p>
                   <p className="text-xs text-muted-foreground">
-                    Pick-up:{" "}
-                    {new Date(order.pickupTime).toLocaleString([], {
-                      month: "short",
-                      day: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
+                    {order.fulfillmentType === "delivery"
+                      ? `Delivery: ${[order.deliveryStreet, order.deliveryDistrict, order.deliverySector]
+                          .filter(Boolean)
+                          .join(", ")}`
+                      : `Pick-up: ${new Date(order.pickupTime).toLocaleString([], {
+                          month: "short",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}`}
                   </p>
                 </div>
                 <div className="flex items-center gap-3">

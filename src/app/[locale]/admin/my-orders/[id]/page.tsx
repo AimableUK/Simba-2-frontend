@@ -74,7 +74,11 @@ interface Order {
   subtotal: number;
   depositAmount: number;
   total: number;
-  pickupTime: string;
+  fulfillmentType?: "pickup" | "delivery";
+  pickupTime?: string | null;
+  deliveryStreet?: string | null;
+  deliveryDistrict?: string | null;
+  deliverySector?: string | null;
   notes?: string;
   createdAt: string;
   items: OrderItem[];
@@ -279,10 +283,20 @@ export default function OrderDetailPage() {
           {t("pickupInfo")}
         </h2>
         <div className="text-sm space-y-2">
-          <div className="flex justify-between">
-            <span className="text-muted-foreground">{t("pickupTime")}</span>
-            <span className="font-medium">
-              {formatDateTime(order.pickupTime)}
+          <div className="flex justify-between gap-3">
+            <span className="text-muted-foreground">
+              {order.fulfillmentType === "delivery"
+                ? t("address")
+                : t("pickupTime")}
+            </span>
+            <span className="font-medium text-right">
+              {order.fulfillmentType === "delivery"
+                ? [order.deliveryStreet, order.deliveryDistrict, order.deliverySector]
+                    .filter(Boolean)
+                    .join(", ")
+                : order.pickupTime
+                  ? formatDateTime(order.pickupTime)
+                  : "-"}
             </span>
           </div>
           {order.branch && (

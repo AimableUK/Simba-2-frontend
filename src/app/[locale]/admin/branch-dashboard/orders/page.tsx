@@ -162,12 +162,16 @@ export default function BranchOrdersPage() {
                         {formatPrice(order.total)}
                       </td>
                       <td className="px-4 py-3 text-xs text-muted-foreground whitespace-nowrap">
-                        {new Date(order.pickupTime).toLocaleString([], {
-                          month: "short",
-                          day: "numeric",
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}
+                        {order.fulfillmentType === "delivery"
+                          ? [order.deliveryStreet, order.deliveryDistrict, order.deliverySector]
+                              .filter(Boolean)
+                              .join(", ")
+                          : new Date(order.pickupTime).toLocaleString([], {
+                              month: "short",
+                              day: "numeric",
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })}
                       </td>
                       <td className="px-4 py-3">
                         <span
@@ -228,14 +232,17 @@ export default function BranchOrdersPage() {
               </p>
               <p className="flex items-center gap-2 text-muted-foreground">
                 <Clock className="h-3.5 w-3.5" />
-                Pick-up:{" "}
-                {new Date(selected.pickupTime).toLocaleString([], {
-                  weekday: "short",
-                  month: "short",
-                  day: "numeric",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
+                {selected.fulfillmentType === "delivery"
+                  ? `Delivery: ${[selected.deliveryStreet, selected.deliveryDistrict, selected.deliverySector]
+                      .filter(Boolean)
+                      .join(", ")}`
+                  : `Pick-up: ${new Date(selected.pickupTime).toLocaleString([], {
+                      weekday: "short",
+                      month: "short",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}`}
               </p>
             </div>
 

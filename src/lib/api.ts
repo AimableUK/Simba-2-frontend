@@ -114,6 +114,8 @@ export const contactApi = {
   adminList: (params?: Record<string, any>) =>
     api.get("/contact/admin/all", { params }),
   markRead: (id: string) => api.put(`/contact/admin/${id}/read`),
+  reply: (id: string, data: { message: string }) =>
+    api.post(`/contact/admin/${id}/reply`, data),
 };
 
 //  Users

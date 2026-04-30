@@ -31,8 +31,8 @@ import { useBranchStore } from "@/store";
 type FormData = {
   fullName: string;
   phone: string;
-  street: string;
-  district: string;
+  street?: string;
+  district?: string;
   sector?: string;
   notes?: string;
 };
@@ -58,9 +58,10 @@ export default function CheckoutPage() {
   } = useCart();
   const qc = useQueryClient();
 
-  const [paymentMethod, setPaymentMethod] = useState<
-    "dpo" | "cash_on_delivery"
-  >("dpo");
+  const [fulfillmentType, setFulfillmentType] = useState<"pickup" | "delivery">(
+    "pickup",
+  );
+  const [paymentMethod, setPaymentMethod] = useState<"dpo" | "cash">("dpo");
   const [success, setSuccess] = useState<{
     orderNumber: string;
     orderId: string;
@@ -94,13 +95,14 @@ export default function CheckoutPage() {
   );
   const [selectedPickupTime, setSelectedPickupTime] = useState("");
   const [pickupError, setPickupError] = useState("");
+  const [deliveryError, setDeliveryError] = useState("");
 
   // Build schema with translated error messages
   const schema = z.object({
     fullName: z.string().min(2, t("errors.fullNameMin")),
     phone: z.string().min(10, t("errors.phoneMin")),
-    street: z.string().min(3, t("errors.streetMin")),
-    district: z.string().min(2, t("errors.districtMin")),
+    street: z.string().optional(),
+    district: z.string().optional(),
     sector: z.string().optional(),
     notes: z.string().optional(),
   });
@@ -109,6 +111,7 @@ export default function CheckoutPage() {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors, isSubmitting, isValid },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -189,15 +192,27 @@ export default function CheckoutPage() {
   const mutation = useMutation({
     mutationFn: async (formData: FormData) => {
       setServerErrors([]);
+      setDeliveryError("");
 
       let valid = true;
       if (!selectedBranchId) {
         setBranchError(t("errors.branchRequired"));
         valid = false;
       }
-      if (!selectedPickupDate || !selectedPickupTime) {
-        setPickupError(t("errors.pickupRequired"));
-        valid = false;
+      if (fulfillmentType === "pickup") {
+        if (!selectedPickupDate || !selectedPickupTime) {
+          setPickupError(t("errors.pickupRequired"));
+          valid = false;
+        }
+      } else {
+        if (!formData.street?.trim()) {
+          setDeliveryError(t("errors.streetMin"));
+          valid = false;
+        }
+        if (!formData.district?.trim()) {
+          setDeliveryError(t("errors.districtMin"));
+          valid = false;
+        }
       }
       if (!valid) throw new Error(t("errors.fillRequired"));
 
@@ -207,7 +222,14 @@ export default function CheckoutPage() {
           quantity: i.quantity,
         })),
         branchId: selectedBranchId,
-        pickupTime: selectedPickupTime,
+        fulfillmentType,
+        ...(fulfillmentType === "pickup"
+          ? { pickupTime: selectedPickupTime }
+          : {
+              deliveryStreet: formData.street?.trim(),
+              deliveryDistrict: formData.district?.trim(),
+              deliverySector: formData.sector?.trim(),
+            }),
         notes: formData.notes || undefined,
         paymentMethod,
       };
@@ -495,40 +517,146 @@ export default function CheckoutPage() {
               )}
             </div>
 
-            {/* Pickup time */}
-            <CalendarWithTime
-              title={t("pickupTime")}
-              description={t("pickupNote")}
-              selectedDate={selectedPickupDate}
-              selectedTime={selectedPickupTime}
-              onDateChange={(date) => {
-                setSelectedPickupDate(date);
-                setPickupError("");
-              }}
-              onTimeChange={(time) => {
-                setSelectedPickupTime(time);
-                setPickupError("");
-              }}
-              dateLabel={t("pickupDate")}
-              timeLabel={t("pickupTime")}
-              note={t("pickupNote")}
-              locale={locale}
-              openingHour={8}
-              closingHour={20}
-              leadTimeMinutes={60}
-              maxDaysAhead={3}
-            />
-            {pickupError && (
-              <p className="text-sm text-destructive mt-2 flex items-center gap-1">
-                <AlertCircle className="h-3.5 w-3.5" /> {pickupError}
-              </p>
+            {/* Fulfillment type */}
+            <div className="bg-card border border-border rounded-2xl p-6">
+              <h2 className="font-semibold text-lg mb-5 flex items-center gap-2">
+                <Package className="h-5 w-5 text-primary" />
+                {t("delivery")}
+              </h2>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {(
+                  [
+                    {
+                      value: "pickup",
+                      label: t("pickupOrder"),
+                      desc: t("pickupOrderDesc"),
+                    },
+                    {
+                      value: "delivery",
+                      label: t("deliveryOrder"),
+                      desc: t("deliveryOrderDesc"),
+                    },
+                  ] as const
+                ).map(({ value, label, desc }) => (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => {
+                      setFulfillmentType(value);
+                      setPickupError("");
+                      setDeliveryError("");
+                    }}
+                    className={`flex items-start gap-3 p-4 rounded-xl border-2 text-left transition-all ${
+                      fulfillmentType === value
+                        ? "border-primary bg-primary/5"
+                        : "border-border hover:border-primary/40"
+                    }`}
+                  >
+                    <span
+                      className={`mt-0.5 h-4 w-4 rounded-full border-2 shrink-0 ${
+                        fulfillmentType === value
+                          ? "border-primary bg-primary"
+                          : "border-muted-foreground"
+                      }`}
+                    />
+                    <div>
+                      <p className="font-medium text-sm">{label}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        {desc}
+                      </p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {fulfillmentType === "pickup" ? (
+              <>
+                {/* Pickup time */}
+                <CalendarWithTime
+                  title={t("pickupTime")}
+                  description={t("pickupNote")}
+                  selectedDate={selectedPickupDate}
+                  selectedTime={selectedPickupTime}
+                  onDateChange={(date) => {
+                    setSelectedPickupDate(date);
+                    setPickupError("");
+                  }}
+                  onTimeChange={(time) => {
+                    setSelectedPickupTime(time);
+                    setPickupError("");
+                  }}
+                  dateLabel={t("pickupDate")}
+                  timeLabel={t("pickupTime")}
+                  note={t("pickupNote")}
+                  locale={locale}
+                  openingHour={8}
+                  closingHour={20}
+                  leadTimeMinutes={60}
+                  maxDaysAhead={3}
+                />
+                {pickupError && (
+                  <p className="text-sm text-destructive mt-2 flex items-center gap-1">
+                    <AlertCircle className="h-3.5 w-3.5" /> {pickupError}
+                  </p>
+                )}
+              </>
+            ) : (
+              <div className="bg-card border border-border rounded-2xl p-6">
+                <h2 className="font-semibold text-lg mb-5 flex items-center gap-2">
+                  <MapPin className="h-5 w-5 text-primary" />
+                  {t("deliveryAddress")}
+                </h2>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <FormField
+                    label={t("street")}
+                    error={errors.street?.message}
+                    required
+                    className="sm:col-span-2"
+                  >
+                    <FormInput
+                      registration={register("street")}
+                      error={!!errors.street}
+                      placeholder={t("placeholders.street")}
+                    />
+                  </FormField>
+
+                  <FormField
+                    label={t("district")}
+                    error={errors.district?.message}
+                    required
+                  >
+                    <FormInput
+                      registration={register("district")}
+                      error={!!errors.district}
+                      placeholder={t("placeholders.district")}
+                    />
+                  </FormField>
+
+                  <FormField
+                    label={t("sector")}
+                    error={errors.sector?.message}
+                    optional
+                  >
+                    <FormInput
+                      registration={register("sector")}
+                      placeholder={t("placeholders.sector")}
+                    />
+                  </FormField>
+                </div>
+                {deliveryError && (
+                  <p className="text-sm text-destructive mt-3 flex items-center gap-1">
+                    <AlertCircle className="h-3.5 w-3.5" /> {deliveryError}
+                  </p>
+                )}
+              </div>
             )}
 
             {/* Contact info */}
             <div className="bg-card border border-border rounded-2xl p-6">
               <h2 className="font-semibold text-lg mb-5 flex items-center gap-2">
                 <Package className="h-5 w-5 text-primary" />
-                {t("delivery")}
+                {t("contact")}
               </h2>
               <div className="grid sm:grid-cols-2 gap-4">
                 <FormField
@@ -556,41 +684,6 @@ export default function CheckoutPage() {
                     type="tel"
                     placeholder={t("placeholders.phone")}
                     autoComplete="tel"
-                  />
-                </FormField>
-
-                <FormField
-                  label={t("street")}
-                  error={errors.street?.message}
-                  required
-                >
-                  <FormInput
-                    registration={register("street")}
-                    error={!!errors.street}
-                    placeholder={t("placeholders.street")}
-                  />
-                </FormField>
-
-                <FormField
-                  label={t("district")}
-                  error={errors.district?.message}
-                  required
-                >
-                  <FormInput
-                    registration={register("district")}
-                    error={!!errors.district}
-                    placeholder={t("placeholders.district")}
-                  />
-                </FormField>
-
-                <FormField
-                  label={t("sector")}
-                  error={errors.sector?.message}
-                  optional
-                >
-                  <FormInput
-                    registration={register("sector")}
-                    placeholder={t("placeholders.sector")}
                   />
                 </FormField>
 
@@ -623,6 +716,12 @@ export default function CheckoutPage() {
                       label: t("dpo"),
                       icon: CreditCard,
                       desc: t("dpoDesc"),
+                    },
+                    {
+                      value: "cash",
+                      label: t("cod"),
+                      icon: Banknote,
+                      desc: t("codDesc"),
                     },
                   ] as const
                 ).map(({ value, label, icon: Icon, desc }) => (
@@ -700,7 +799,7 @@ export default function CheckoutPage() {
                 </div>
               )}
 
-              {selectedPickupDate && selectedPickupTime && (
+              {fulfillmentType === "pickup" && selectedPickupDate && selectedPickupTime && (
                 <div className="mt-2">
                   <p className="text-xs text-muted-foreground mb-1">
                     {t("pickupDateTime")}
@@ -717,6 +816,18 @@ export default function CheckoutPage() {
                       minute: "2-digit",
                       hour12: true,
                     })}
+                  </p>
+                </div>
+              )}
+              {fulfillmentType === "delivery" && (
+                <div className="mt-2">
+                  <p className="text-xs text-muted-foreground mb-1">
+                    {t("deliveryAddress")}
+                  </p>
+                  <p className="text-xs font-medium">
+                    {[watch("street"), watch("district")]
+                      .filter(Boolean)
+                      .join(", ") || "—"}
                   </p>
                 </div>
               )}
@@ -746,7 +857,9 @@ export default function CheckoutPage() {
                   branchChecking ||
                   !isValid ||
                   !selectedBranchId ||
-                  !selectedPickupTime ||
+                  (fulfillmentType === "pickup" && !selectedPickupTime) ||
+                  (fulfillmentType === "delivery" &&
+                    (!watch("street") || !watch("district"))) ||
                   items.length === 0
                 }
                 className="w-full mt-5 bg-primary hover:bg-primary/90 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed text-primary-foreground font-semibold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2"
