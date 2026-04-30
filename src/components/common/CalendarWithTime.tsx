@@ -235,27 +235,27 @@ export function CalendarWithTime({
             type="button"
             variant="outline"
             className={cn(
-              "w-full justify-between rounded-xl px-5 py-5 text-left font-normal sm:px-6 sm:py-6",
+              "w-full justify-between rounded-xl px-4 py-4 text-left font-normal",
               triggerClassName,
             )}
           >
             <span className="flex min-w-0 flex-col items-start gap-0.5">
-              <span className="flex items-center gap-2 text-base font-medium sm:text-[1.05rem]">
-                <Clock2Icon className="h-5 w-5 text-primary" />
+              <span className="flex items-center gap-2 text-sm font-medium">
+                <Clock2Icon className="h-4 w-4 text-primary" />
                 {title}
               </span>
-              <span className="truncate text-sm text-muted-foreground">
+              <span className="truncate text-xs text-muted-foreground">
                 {triggerLabel}
               </span>
             </span>
-            <ChevronDownIcon className="h-5 w-5 text-muted-foreground" />
+            <ChevronDownIcon className="h-4 w-4 text-muted-foreground" />
           </Button>
         </PopoverTrigger>
 
         <PopoverContent
           align="start"
           className={cn(
-            "w-[min(96vw,720px)] overflow-hidden rounded-2xl border border-border bg-card p-0 text-card-foreground shadow-xl sm:w-[min(92vw,720px)]",
+            "w-[min(92vw,420px)] overflow-hidden rounded-2xl border border-border bg-card p-0 text-card-foreground shadow-xl",
             contentClassName,
           )}
         >
@@ -266,10 +266,10 @@ export function CalendarWithTime({
             ) : null}
           </div>
 
-          <div className="space-y-4 bg-card p-4 sm:p-5">
+          <div className="space-y-3 bg-card p-3">
             <div
               className={cn(
-                "rounded-2xl border border-border/70 bg-background p-3 sm:p-4",
+                "rounded-2xl border border-border/70 bg-background p-2",
                 calendarClassName,
               )}
             >
@@ -278,11 +278,11 @@ export function CalendarWithTime({
                 selected={tempDate}
                 onSelect={setTempDate}
                 disabled={isDateDisabled}
-                className="w-full [--cell-size:2.1rem] p-1 sm:[--cell-size:2.35rem]"
+                className="w-full [--cell-size:1.65rem] p-1"
               />
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2">
               <div>
                 <label className="mb-1 block text-sm font-medium" htmlFor="pickup-time-input">
                   {timeLabel}
@@ -293,7 +293,7 @@ export function CalendarWithTime({
                   step={60}
                   value={tempTime}
                   onChange={(e) => handleTimeChange(e.target.value)}
-                  className="h-11 rounded-xl bg-background sm:h-12"
+                  className="h-10 rounded-xl bg-background"
                 />
               </div>
 
@@ -301,7 +301,7 @@ export function CalendarWithTime({
                 <p className="text-xs text-destructive">{timeError}</p>
               ) : null}
 
-              <div className="rounded-xl border border-border/60 bg-muted/40 p-4">
+              <div className="rounded-xl border border-border/60 bg-muted/40 p-3">
                 <div className="grid gap-2 text-sm">
                   <div className="flex items-center justify-between gap-2">
                     <span className="text-xs uppercase tracking-wide text-muted-foreground">
