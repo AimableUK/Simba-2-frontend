@@ -31,7 +31,7 @@ import {
 import { useSession, signOut } from "@/lib/auth-client";
 import { useQuery } from "@tanstack/react-query";
 import { categoryApi, branchApi, cartApi } from "@/lib/api";
-import { cn } from "@/lib/utils";
+import { cn, resolveLocalizedPath } from "@/lib/utils";
 import { useNotifications } from "@/hooks/useSocket";
 import { useNotificationStore } from "@/store";
 import { ThemeSwitcherV1 } from "@/lib/theme-switcher-v1";
@@ -61,6 +61,7 @@ export function Navbar() {
     closeMobileMenu,
   } = useUIStore();
   const isAdminRoute = pathname.includes("/admin");
+  const isBranchRoute = pathname.includes("/branch-dashboard");
 
   const [searchQuery, setSearchQuery] = useState("");
   const [userOpen, setUserOpen] = useState(false);
@@ -281,7 +282,7 @@ export function Navbar() {
     }
   };
 
-  if (isAdminRoute) return null;
+  if (isAdminRoute || isBranchRoute) return null;
 
   return (
     <>
@@ -550,7 +551,9 @@ export function Navbar() {
                                 onClick={() => {
                                   markRead(n.id);
                                   setNotifOpen(false);
-                                  if (n.link) router.push(n.link);
+                                  if (n.link) {
+                                    router.push(resolveLocalizedPath(n.link, locale));
+                                  }
                                 }}
                                 className={cn(
                                   "w-full text-left px-4 py-3 border-b border-border/60 last:border-0 hover:bg-accent transition-colors",
@@ -859,7 +862,10 @@ export function Navbar() {
               <h2 className="text-lg font-bold mb-2">Switch branch</h2>
               <p className="text-sm text-muted-foreground mb-4">
                 Some items in your cart are not available at{" "}
-                {branchSwitchPending.branch.name.replace("Simba Supermarket ", "")}
+                {branchSwitchPending.branch.name.replace(
+                  "Simba Supermarket ",
+                  "",
+                )}
                 . If you continue, those items will be removed and only the
                 available ones will remain.
               </p>
@@ -871,7 +877,9 @@ export function Navbar() {
                     className="flex items-start justify-between gap-3 rounded-xl border border-border p-3"
                   >
                     <div className="min-w-0">
-                      <p className="text-sm font-medium truncate">{item.name}</p>
+                      <p className="text-sm font-medium truncate">
+                        {item.name}
+                      </p>
                       <p className="text-xs text-muted-foreground">
                         Requested {item.requested}, available {item.available}
                       </p>

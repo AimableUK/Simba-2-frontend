@@ -19,8 +19,9 @@ export function Footer() {
 
   const pathname = usePathname();
   const isAdminRoute = pathname.includes("/admin");
+  const isBranchRoute = pathname.includes("/branch-dashboard");
 
-  if (isAdminRoute) return null;
+  if (isAdminRoute || isBranchRoute) return null;
 
   return (
     <footer className="bg-card border-t border-border mt-16">
