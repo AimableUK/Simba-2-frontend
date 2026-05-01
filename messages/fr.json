@@ -951,7 +951,9 @@
     "pending": "En attente",
     "accepted": "Acceptée",
     "preparing": "En préparation",
-    "ready": "Prête",`r`n    "pickedUp": "Picked Up",`r`n    "cancelled": "Cancelled",
+    "ready": "Prête",
+    "pickedUp": "Picked Up",
+    "cancelled": "Cancelled",
     "all": "All",
     "delivery": "Delivery",
     "pickup": "Pick-up",
@@ -959,7 +961,10 @@
     "ordersForYourBranch": "Orders for your branch",
     "recentOrders": "Recent Orders",
     "orderUpdated": "Order updated",
-    "orderAssigned": "Order assigned",`r`n    "newPickupOrder": "New pick-up order: {number}",`r`n    "inviteAccepted": "Invite accepted",`r`n    "inviteDeclined": "Invite declined",
+    "orderAssigned": "Order assigned",
+    "newPickupOrder": "New pick-up order: {number}",
+    "inviteAccepted": "Invite accepted",
+    "inviteDeclined": "Invite declined",
     "failed": "Failed",
     "manage": "Manage",
     "orderTitle": "Order {number}",
@@ -1009,7 +1014,8 @@
     "updateStock": "Mettre à jour le Stock",
     "currentStock": "Stock actuel",
     "markOutOfStock": "Marquer Indisponible"
-  },  "about": {
+  },
+  "about": {
     "hero": {
       "eyebrow": "Profil de l'entreprise",
       "title_line1": "À propos de Simba",
@@ -1567,6 +1573,3 @@
     }
   }
 }
-
-
-
