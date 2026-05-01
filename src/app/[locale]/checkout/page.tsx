@@ -220,12 +220,15 @@ export default function CheckoutPage() {
           valid = false;
         }
       } else {
-        if (!formData.street?.trim()) {
-          setDeliveryError(t("errors.streetMin"));
-          valid = false;
-        }
-        if (!formData.district?.trim()) {
-          setDeliveryError(t("errors.districtMin"));
+        const hasCoordinates =
+          formData.deliveryLatitude !== "" &&
+          formData.deliveryLatitude !== undefined &&
+          formData.deliveryLongitude !== "" &&
+          formData.deliveryLongitude !== undefined;
+        const hasAddress = formData.street?.trim() && formData.district?.trim();
+
+        if (!hasCoordinates && !hasAddress) {
+          setDeliveryError(t("errors.locationOrAddressRequired"));
           valid = false;
         }
       }
@@ -632,11 +635,13 @@ export default function CheckoutPage() {
                   <MapPin className="h-5 w-5 text-primary" />
                   {t("deliveryAddress")}
                 </h2>
+                <p className="mb-4 text-sm text-muted-foreground">
+                  {t("deliveryAddressHint")}
+                </p>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <FormField
                     label={t("street")}
                     error={errors.street?.message}
-                    required
                     className="sm:col-span-2"
                   >
                     <FormInput
@@ -649,7 +654,6 @@ export default function CheckoutPage() {
                   <FormField
                     label={t("district")}
                     error={errors.district?.message}
-                    required
                   >
                     <FormInput
                       registration={register("district")}
@@ -661,7 +665,6 @@ export default function CheckoutPage() {
                   <FormField
                     label={t("sector")}
                     error={errors.sector?.message}
-                    optional
                   >
                     <FormInput
                       registration={register("sector")}
