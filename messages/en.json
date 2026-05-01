@@ -393,7 +393,9 @@
     "layout": {
       "appName": "Simba Market",
       "panel": "Admin Panel",
-      "branchPanel": "Branch Panel"
+      "branchPanel": "Branch Panel",
+      "branchManagerPanel": "Branch Dashboard",
+      "branchStaffPanel": "My Branch"
     },
     "menu": {
       "dashboard": "Dashboard",

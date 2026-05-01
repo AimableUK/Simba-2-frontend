@@ -60,9 +60,7 @@ export default function ProfilePage() {
   if (!session?.user) {
     return (
       <div className="container mx-auto px-4 py-20 text-center">
-        <p className="text-muted-foreground mb-4">
-          {t("signInPrompt")}
-        </p>
+        <p className="text-muted-foreground mb-4">{t("signInPrompt")}</p>
         <Link
           href={`/${locale}/auth/sign-in`}
           className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-medium"
@@ -78,31 +76,6 @@ export default function ProfilePage() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-2xl">
       <h1 className="text-2xl font-bold mb-8">{t("title")}</h1>
-
-      <div className="grid gap-4 mb-8">
-        {[
-          {
-            href: `/${locale}/admin/my-orders`,
-            icon: Package,
-            label: t("myOrders"),
-            desc: t("trackOrders"),
-          },
-        ].map(({ href, icon: Icon, label, desc }) => (
-          <Link
-            key={href}
-            href={href}
-            className="flex items-center gap-4 bg-card border border-border rounded-2xl p-5 hover:border-primary/40 transition-colors"
-          >
-            <div className="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
-              <Icon className="h-5 w-5 text-primary" />
-            </div>
-            <div>
-              <p className="font-semibold">{label}</p>
-              <p className="text-sm text-muted-foreground">{desc}</p>
-            </div>
-          </Link>
-        ))}
-      </div>
 
       {/* Profile edit form */}
       <div className="bg-card border border-border rounded-2xl p-6">
@@ -137,7 +110,9 @@ export default function ProfilePage() {
               )}
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1.5">{t("email")}</label>
+              <label className="block text-sm font-medium mb-1.5">
+                {t("email")}
+              </label>
               <input
                 value={profile?.email || ""}
                 disabled
@@ -158,7 +133,9 @@ export default function ProfilePage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1.5">{t("role")}</label>
+              <label className="block text-sm font-medium mb-1.5">
+                {t("role")}
+              </label>
               <div className="px-4 py-3 rounded-xl border border-border bg-muted text-sm capitalize text-muted-foreground">
                 {role?.replace("_", " ")}
               </div>

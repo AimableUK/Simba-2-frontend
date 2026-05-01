@@ -393,7 +393,9 @@
     "layout": {
       "appName": "Simba Market",
       "panel": "Aho Abayobozi Biga",
-      "branchPanel": "Aho Ishami Rigenga"
+      "branchPanel": "Aho Ishami Rigenga",
+      "branchManagerPanel": "Imbonerahamwe y'Ishami",
+      "branchStaffPanel": "Ishami Rya Njye"
     },
     "menu": {
       "dashboard": "Imbonerahamwe",

@@ -51,6 +51,7 @@ export default function AdminLayout({
   const clear = useNotificationStore((s) => s.clear);
   const resolvedLocale = locale || pathname.split("/")[1] || "en";
   const adminPath = pathname.replace(/^\/(en|fr|rw|sw)(?=\/|$)/, "") || "/";
+  const role = (session?.user as any)?.role || "user";
   useNotifications(session?.user?.id);
 
   const NAV_ITEMS = [
@@ -64,7 +65,7 @@ export default function AdminLayout({
       label: tMenu("products"),
       href: "products",
       icon: Package,
-      roles: ["admin", "super_admin"],
+      roles: ["admin", "super_admin", "branch_manager"],
     },
     {
       label: tMenu("orders"),
@@ -147,6 +148,16 @@ export default function AdminLayout({
         "branch_staff",
       ],
     },
+    {
+      label:
+        role === "branch_staff"
+          ? tLayout("branchStaffPanel")
+          : tLayout("branchManagerPanel"),
+      href: `/${locale}/branch-dashboard`,
+      icon: LayoutDashboard,
+      roles: ["branch_manager", "branch_staff"],
+      external: true,
+    },
   ];
 
   useEffect(() => {
@@ -161,7 +172,6 @@ export default function AdminLayout({
     }
   }, [session, isPending, router, resolvedLocale]);
 
-  const role = (session?.user as any)?.role || "user";
   const routeKey =
     adminPath === "/admin"
       ? ""
@@ -190,6 +200,7 @@ export default function AdminLayout({
         : role === "branch_manager"
           ? new Set([
               "",
+              "products",
               "branches",
               "users",
               "settings",
@@ -301,9 +312,11 @@ export default function AdminLayout({
 
         <nav className="flex-1 py-4 overflow-y-auto">
           {NAV_ITEMS.filter((item) => item.roles.includes(role)).map(
-            ({ label, href, icon: Icon }) => {
-              const fullPath = `/${locale}/admin/${href}`;
-              const active = pathname.includes(`/admin/${href}`);
+            ({ label, href, icon: Icon, external }) => {
+              const fullPath = external ? href : `/${locale}/admin/${href}`;
+              const active = external
+                ? pathname.startsWith(`/${resolvedLocale}/branch-dashboard`)
+                : pathname.includes(`/admin/${href}`);
               return (
                 <Link
                   key={href}

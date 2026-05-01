@@ -22,7 +22,7 @@ export default function AdminAccountPage() {
 
   const items = [
     {
-      href: `/${locale}/account/profile`,
+      href: `/${locale}/admin/profile`,
       icon: User,
       title: t("nav.account"),
       desc: t("common.profile"),

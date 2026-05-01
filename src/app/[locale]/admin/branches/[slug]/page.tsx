@@ -148,7 +148,7 @@ export default function AdminBranchDetailPage({
               )}
               <Link
                 href={`/${locale}/admin/branches/${branch?.slug}/team`}
-                className="text-xs px-2.5 py-1 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                className="text-xs p-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
               >
                 {t("team")}
               </Link>

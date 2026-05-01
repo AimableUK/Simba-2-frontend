@@ -393,7 +393,9 @@
     "layout": {
       "appName": "Simba Market",
       "panel": "Panneau Admin",
-      "branchPanel": "Panneau de Succursale"
+      "branchPanel": "Panneau de Succursale",
+      "branchManagerPanel": "Tableau de bord de la succursale",
+      "branchStaffPanel": "Ma succursale"
     },
     "menu": {
       "dashboard": "Tableau de bord",

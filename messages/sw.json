@@ -393,7 +393,9 @@
     "layout": {
       "appName": "Simba Market",
       "panel": "Paneli ya Msimamizi",
-      "branchPanel": "Paneli ya Tawi"
+      "branchPanel": "Paneli ya Tawi",
+      "branchManagerPanel": "Dashibodi ya Tawi",
+      "branchStaffPanel": "Tawi Langu"
     },
     "menu": {
       "dashboard": "Dashibodi",
