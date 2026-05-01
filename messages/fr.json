@@ -894,6 +894,8 @@
   },
   "branches": {
     "title": "Nos Agences",
+    "backToBranches": "Retour aux agences",
+    "branchNotFound": "Succursale introuvable",
     "subtitle": "Retirez votre commande dans l'une de nos 9 agences à Kigali",
     "shoppingAt": "Achats chez",
     "selectBranch": "Choisir une Agence",
@@ -916,6 +918,7 @@
     "orderConfirmedDesc": "Commande #{number} confirmée à {branch}. Retrait à {time}.",
     "viewMyOrders": "Voir Mes Commandes",
     "rating": "Note de l'Agence",
+    "reviewCount": "avis",
     "reviewBranch": "Évaluez Votre Expérience",
     "reviewPlaceholder": "Comment s'est passé votre retrait ?",
     "submitReview": "Soumettre l'Évaluation",

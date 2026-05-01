@@ -895,6 +895,8 @@
   },
   "branches": {
     "title": "Our Branches",
+    "backToBranches": "Back to branches",
+    "branchNotFound": "Branch not found",
     "subtitle": "Pick up your order at any of our 9 Kigali locations",
     "shoppingAt": "Shopping at",
     "selectBranch": "Select a Branch",
@@ -917,6 +919,7 @@
     "orderConfirmedDesc": "Order #{number} is confirmed at {branch}. Pick up at {time}.",
     "viewMyOrders": "View My Orders",
     "rating": "Branch Rating",
+    "reviewCount": "reviews",
     "reviewBranch": "Rate Your Experience",
     "reviewPlaceholder": "How was your pick-up experience?",
     "submitReview": "Submit Review",

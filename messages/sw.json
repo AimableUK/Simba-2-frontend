@@ -894,6 +894,8 @@
   },
   "branches": {
     "title": "Matawi Yetu",
+    "backToBranches": "Rudi kwenye matawi",
+    "branchNotFound": "Tawi halikupatikana",
     "subtitle": "Chukua oda yako katika tawi lolote la Kigali",
     "shoppingAt": "Ununuzi katika",
     "selectBranch": "Chagua Tawi",
@@ -916,6 +918,7 @@
     "orderConfirmedDesc": "Oda #{number} imethibitishwa katika {branch}. Chukua saa {time}.",
     "viewMyOrders": "Angalia Maagizo Yangu",
     "rating": "Ukadiriaji wa Tawi",
+    "reviewCount": "maoni",
     "reviewBranch": "Kadiria Uzoefu Wako",
     "reviewPlaceholder": "Uzoefu wako wa kuchukua ulikuwaje?",
     "submitReview": "Tuma Ukadiriaji",

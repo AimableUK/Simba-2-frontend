@@ -218,11 +218,11 @@
     "notes": "Ibisobanuro byo Gutumiza",
     "pickupNotes": "Ibisobanuro byo Gufata",
     "deliveryNotes": "Ibisobanuro byo Gutanga",
-    "dpo": "Ishyura na Karita / Mobile Money (DPO)",
-    "cod": "Ishyura Igicuruzwa Kikigera",
+    "dpo": "Ishyura n'ikarita / Mobile Money",
+    "cod": "Ishyura Igicuruzwa Kikikugeraho",
     "cashOnArrival": "Ishyura igihe ufata",
     "cashOnArrivalDesc": "Wishyura igihe ufata ibyo waguze",
-    "cashOnDelivery": "Ishyura Igicuruzwa Kikigera",
+    "cashOnDelivery": "Ishyura Igicuruzwa Kikikugeraho",
     "cashOnDeliveryDesc": "Wishyura igihe ibyo waguze bije",
     "placeOrder": "Ohereza Itumiza",
     "processing": "Birikurindwa...",
@@ -230,7 +230,7 @@
     "successDesc": "Itumiza ryawe #{number} ryatanzwe neza.",
     "trackOrder": "Kurikirana Itumiza Ryawe",
     "payNow": "Ishyura Ubu",
-    "selectBranch": "Hitamo Ishami ry'Gufata Ibintu",
+    "selectBranch": "Hitamo Ishami ryo gutore ibyo Uguze",
     "loadingBranches": "Ishami rirategurwa...",
     "contact": "Amakuru yo Kuvugana",
     "pickupOrder": "Gufatira aho",
@@ -894,6 +894,8 @@
   },
   "branches": {
     "title": "Amashami Yacu",
+    "backToBranches": "Subira ku mashami",
+    "branchNotFound": "Ishami ntiryabonetse",
     "subtitle": "Gaba ibicuruzwa byawe mu cyumba kimwe cya Kigali",
     "shoppingAt": "Gura kuri",
     "selectBranch": "Hitamo Ishami",
@@ -916,6 +918,7 @@
     "orderConfirmedDesc": "Itumiza #{number} ryemejwe kuri {branch}. Gaba saa {time}.",
     "viewMyOrders": "Ibyo natumije",
     "rating": "Amanota y'Ishami",
+    "reviewCount": "ibitekerezo",
     "reviewBranch": "Tanga Ibitekerezo",
     "reviewPlaceholder": "Urugendo rwawe rwagenze bite?",
     "submitReview": "Ohereza Ibitekerezo",
@@ -1585,4 +1588,3 @@
     }
   }
 }
-
