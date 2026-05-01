@@ -61,6 +61,13 @@ export interface Order {
   deliveryFee: number;
   total: number;
   notes?: string;
+  fulfillmentType?: "pickup" | "delivery";
+  deliveryStreet?: string | null;
+  deliveryDistrict?: string | null;
+  deliverySector?: string | null;
+  deliveryLatitude?: number | null;
+  deliveryLongitude?: number | null;
+  pickupTime?: string | null;
   deliveryAddress: DeliveryAddress;
   dpoToken?: string;
   paidAt?: string;

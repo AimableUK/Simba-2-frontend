@@ -130,13 +130,15 @@ export default function BranchDashboardPage() {
                   </p>
                   <p className="text-xs text-muted-foreground">
                     {order.fulfillmentType === "delivery"
-                      ? `${t("delivery")}: ${[
+                      ? `${[
                           order.deliveryStreet,
                           order.deliveryDistrict,
                           order.deliverySector,
                         ]
                           .filter(Boolean)
-                          .join(", ")}`
+                          .join(", ")}${order.deliveryLatitude !== null && order.deliveryLatitude !== undefined && order.deliveryLongitude !== null && order.deliveryLongitude !== undefined
+                            ? ` | ${t("location")}: ${order.deliveryLatitude}, ${order.deliveryLongitude}`
+                            : ""}`
                       : `${t("pickup")}: ${new Date(
                           order.pickupTime,
                         ).toLocaleString([], {

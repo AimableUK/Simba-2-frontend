@@ -117,9 +117,21 @@ export default function BranchOrdersPage() {
 
   const getDeliveryLabel = (order: any) => {
     if (order.fulfillmentType === "delivery") {
-      return `${t("delivery")}: ${[order.deliveryStreet, order.deliveryDistrict, order.deliverySector]
+      const address = [order.deliveryStreet, order.deliveryDistrict, order.deliverySector]
         .filter(Boolean)
-        .join(", ")}`;
+        .join(", ");
+      const coords =
+        order.deliveryLatitude !== null &&
+        order.deliveryLatitude !== undefined &&
+        order.deliveryLongitude !== null &&
+        order.deliveryLongitude !== undefined
+          ? `${order.deliveryLatitude}, ${order.deliveryLongitude}`
+          : "";
+      return coords && address
+        ? `${t("delivery")}: ${address} | ${t("location")}: ${coords}`
+        : coords
+          ? `${t("location")}: ${coords}`
+          : `${t("delivery")}: ${address || "-"}`;
     }
 
     return `${t("pickup")}: ${new Date(order.pickupTime).toLocaleString([], {
@@ -277,6 +289,25 @@ export default function BranchOrdersPage() {
                   <Clock className="h-3.5 w-3.5" />
                   {getDeliveryLabel(selected)}
                 </p>
+                {selected.fulfillmentType === "delivery" &&
+                  [selected.deliveryStreet, selected.deliveryDistrict, selected.deliverySector]
+                    .filter(Boolean)
+                    .join(", ") && (
+                    <p className="pl-5 text-xs text-muted-foreground">
+                      {t("address")}: {[selected.deliveryStreet, selected.deliveryDistrict, selected.deliverySector]
+                        .filter(Boolean)
+                        .join(", ")}
+                    </p>
+                  )}
+                {selected.fulfillmentType === "delivery" &&
+                  selected.deliveryLatitude !== null &&
+                  selected.deliveryLatitude !== undefined &&
+                  selected.deliveryLongitude !== null &&
+                  selected.deliveryLongitude !== undefined && (
+                    <p className="pl-5 text-xs text-muted-foreground">
+                      {t("coordinates")}: {selected.deliveryLatitude}, {selected.deliveryLongitude}
+                    </p>
+                  )}
               </div>
 
               <div className="mb-4">

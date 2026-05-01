@@ -122,6 +122,27 @@ export default function AdminOrdersPage() {
     statusMutation.mutate({ id: selectedOrder.id, status: newStatus, note });
   };
 
+  const getDeliveryLocation = (order: Order | null) => {
+    if (!order || order.fulfillmentType !== "delivery") return null;
+
+    const address = [order.deliveryStreet, order.deliveryDistrict, order.deliverySector]
+      .filter(Boolean)
+      .join(", ");
+    const hasCoords =
+      order.deliveryLatitude !== null &&
+      order.deliveryLatitude !== undefined &&
+      order.deliveryLongitude !== null &&
+      order.deliveryLongitude !== undefined;
+
+    return {
+      address,
+      coordinates: hasCoords ? `${order.deliveryLatitude}, ${order.deliveryLongitude}` : "",
+      href: hasCoords
+        ? `https://www.openstreetmap.org/?mlat=${order.deliveryLatitude}&mlon=${order.deliveryLongitude}#map=16/${order.deliveryLatitude}/${order.deliveryLongitude}`
+        : null,
+    };
+  };
+
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">{t("title")}</h1>
@@ -319,6 +340,36 @@ export default function AdminOrdersPage() {
                     {selectedOrder.branch?.name || "-"}
                   </span>
                 </p>
+                {selectedOrder.fulfillmentType === "delivery" && (
+                  <>
+                    <p>
+                      <span className="text-muted-foreground">
+                        {t("modal.address")}:
+                      </span>{" "}
+                      <span className="font-medium">
+                        {getDeliveryLocation(selectedOrder)?.address || "-"}
+                      </span>
+                    </p>
+                    {getDeliveryLocation(selectedOrder)?.coordinates && (
+                      <p>
+                        <span className="text-muted-foreground">
+                          {t("modal.location")}:
+                        </span>{" "}
+                        <span className="font-medium">
+                          {getDeliveryLocation(selectedOrder)?.coordinates}
+                        </span>{" "}
+                        <a
+                          href={getDeliveryLocation(selectedOrder)!.href!}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="font-medium text-primary hover:underline"
+                        >
+                          ({t("modal.openMap")})
+                        </a>
+                      </p>
+                    )}
+                  </>
+                )}
                 <p>
                   <span className="text-muted-foreground">
                     {t("modal.currentStatus")}:

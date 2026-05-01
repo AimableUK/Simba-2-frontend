@@ -79,6 +79,8 @@ interface Order {
   deliveryStreet?: string | null;
   deliveryDistrict?: string | null;
   deliverySector?: string | null;
+  deliveryLatitude?: number | null;
+  deliveryLongitude?: number | null;
   notes?: string;
   createdAt: string;
   items: OrderItem[];
@@ -98,6 +100,40 @@ export default function OrderDetailPage() {
     queryKey: ["order", id],
     queryFn: () => orderApi.myOrder(id as string).then((r) => r.data),
   });
+  const deliveryAddress =
+    order?.fulfillmentType === "delivery"
+      ? [order.deliveryStreet, order.deliveryDistrict, order.deliverySector]
+          .filter(Boolean)
+          .join(", ")
+      : "";
+  const deliveryCoordinates =
+    order?.fulfillmentType === "delivery" &&
+    order.deliveryLatitude !== null &&
+    order.deliveryLatitude !== undefined &&
+    order.deliveryLongitude !== null &&
+    order.deliveryLongitude !== undefined
+      ? {
+          label: `${order.deliveryLatitude}, ${order.deliveryLongitude}`,
+          href: `https://www.openstreetmap.org/?mlat=${order.deliveryLatitude}&mlon=${order.deliveryLongitude}#map=16/${order.deliveryLatitude}/${order.deliveryLongitude}`,
+        }
+      : null;
+  const deliveryLocation =
+    order?.fulfillmentType === "delivery"
+      ? order.deliveryLatitude !== null &&
+        order.deliveryLatitude !== undefined &&
+        order.deliveryLongitude !== null &&
+        order.deliveryLongitude !== undefined
+        ? {
+            label: `${order.deliveryLatitude}, ${order.deliveryLongitude}`,
+            href: `https://www.openstreetmap.org/?mlat=${order.deliveryLatitude}&mlon=${order.deliveryLongitude}#map=16/${order.deliveryLatitude}/${order.deliveryLongitude}`,
+          }
+        : {
+            label: [order.deliveryStreet, order.deliveryDistrict, order.deliverySector]
+              .filter(Boolean)
+              .join(", "),
+            href: null,
+          }
+      : null;
 
   const handleOrderUpdate = useCallback(
     (data: any) => {
@@ -291,14 +327,33 @@ export default function OrderDetailPage() {
             </span>
             <span className="font-medium text-right">
               {order.fulfillmentType === "delivery"
-                ? [order.deliveryStreet, order.deliveryDistrict, order.deliverySector]
-                    .filter(Boolean)
-                    .join(", ")
+                ? deliveryAddress || deliveryCoordinates?.label || "-"
                 : order.pickupTime
                   ? formatDateTime(order.pickupTime)
                   : "-"}
             </span>
           </div>
+          {order.fulfillmentType === "delivery" && deliveryCoordinates?.href && (
+            <div className="flex justify-between gap-3">
+              <span className="text-muted-foreground">{t("location")}</span>
+              <a
+                href={deliveryCoordinates.href}
+                target="_blank"
+                rel="noreferrer"
+                className="font-medium text-primary hover:underline"
+              >
+                {t("coordinates")}
+              </a>
+            </div>
+          )}
+          {order.fulfillmentType === "delivery" && deliveryAddress && (
+            <div className="flex justify-between gap-3">
+              <span className="text-muted-foreground">{t("address")}</span>
+              <span className="font-medium text-right max-w-[60%]">
+                {deliveryAddress}
+              </span>
+            </div>
+          )}
           {order.branch && (
             <>
               <div className="flex justify-between">
