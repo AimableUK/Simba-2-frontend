@@ -16,6 +16,9 @@ import { User, Package, LogOut } from "lucide-react";
 const schema = z.object({
   name: z.string().min(2),
   phone: z.string().optional(),
+  deliveryStreet: z.string().optional(),
+  deliveryDistrict: z.string().optional(),
+  deliverySector: z.string().optional(),
 });
 type FormData = z.infer<typeof schema>;
 
@@ -45,7 +48,14 @@ export default function ProfilePage() {
   });
 
   useEffect(() => {
-    if (profile) reset({ name: profile.name, phone: profile.phone || "" });
+    if (profile)
+      reset({
+        name: profile.name,
+        phone: profile.phone || "",
+        deliveryStreet: profile.deliveryStreet || "",
+        deliveryDistrict: profile.deliveryDistrict || "",
+        deliverySector: profile.deliverySector || "",
+      });
   }, [profile, reset]);
 
   const mutation = useMutation({
@@ -83,6 +93,9 @@ export default function ProfilePage() {
           <User className="h-5 w-5 text-primary" />
           {t("details")}
         </h2>
+        <p className="mb-5 text-sm text-muted-foreground">
+          {t("deliveryHint")}
+        </p>
 
         {isLoading ? (
           <div className="space-y-3">
@@ -131,6 +144,38 @@ export default function ProfilePage() {
                 placeholder={t("phonePlaceholder")}
                 className="w-full px-4 py-3 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
               />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1.5">
+                {t("deliveryStreet")}
+              </label>
+              <input
+                {...register("deliveryStreet")}
+                placeholder={t("deliveryStreetPlaceholder")}
+                className="w-full px-4 py-3 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+              />
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label className="block text-sm font-medium mb-1.5">
+                  {t("deliveryDistrict")}
+                </label>
+                <input
+                  {...register("deliveryDistrict")}
+                  placeholder={t("deliveryDistrictPlaceholder")}
+                  className="w-full px-4 py-3 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1.5">
+                  {t("deliverySector")}
+                </label>
+                <input
+                  {...register("deliverySector")}
+                  placeholder={t("deliverySectorPlaceholder")}
+                  className="w-full px-4 py-3 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                />
+              </div>
             </div>
             <div>
               <label className="block text-sm font-medium mb-1.5">

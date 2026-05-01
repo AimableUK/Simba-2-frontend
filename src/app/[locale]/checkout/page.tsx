@@ -130,6 +130,9 @@ export default function CheckoutPage() {
       ...current,
       fullName: profile?.name || (session.user as any)?.name || "",
       phone: profile?.phone || (session.user as any)?.phone || "",
+      street: profile?.deliveryStreet || "",
+      district: profile?.deliveryDistrict || "",
+      sector: profile?.deliverySector || "",
     }));
   }, [profile, reset, session?.user]);
 
@@ -381,6 +384,8 @@ export default function CheckoutPage() {
       </div>
     );
   }
+
+  // but havent we worked on the blogs stats??? i think soo may bee that things we worked on such as showing the stats of the blogs, 2. 
 
   if (success) {
     return (
