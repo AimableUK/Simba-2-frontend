@@ -646,7 +646,7 @@ export function Navbar() {
                           <Link
                             href={
                               userRole === "branch_staff"
-                                ? `/${locale}/branch-dashboard`
+                                ? `/${locale}/admin/account`
                                 : `/${locale}/admin`
                             }
                             onClick={() => setUserOpen(false)}
@@ -654,7 +654,7 @@ export function Navbar() {
                           >
                             <Settings className="w-4 h-4" />
                             {userRole === "branch_staff"
-                              ? "Branch panel"
+                              ? t("accountCenter")
                               : t("admin")}
                           </Link>
                         </div>

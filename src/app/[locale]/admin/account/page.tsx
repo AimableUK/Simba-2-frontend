@@ -3,11 +3,19 @@
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { useSession } from "@/lib/auth-client";
-import { User, Package, Bell, ShieldCheck, ArrowRight } from "lucide-react";
+import {
+  User,
+  Package,
+  Bell,
+  ShieldCheck,
+  ArrowRight,
+  LayoutDashboard,
+} from "lucide-react";
 
 export default function AdminAccountPage() {
   const locale = useLocale();
   const t = useTranslations();
+  const tBranch = useTranslations("branchDashboard");
   const { data: session } = useSession();
   const role = (session?.user as any)?.role || "user";
   const canViewAdminDashboard = ["admin", "super_admin"].includes(role);
@@ -31,6 +39,16 @@ export default function AdminAccountPage() {
       title: t("nav.notifications"),
       desc: t("nav.recentNotifications"),
     },
+    ...(role === "branch_staff"
+      ? [
+          {
+            href: `/${locale}/branch-dashboard`,
+            icon: LayoutDashboard,
+            title: tBranch("overview"),
+            desc: tBranch("assignedOrders"),
+          },
+        ]
+      : []),
     ...(canViewAdminDashboard
       ? [
           {

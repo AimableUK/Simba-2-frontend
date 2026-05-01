@@ -292,7 +292,7 @@ export default function BranchDashboardLayout({
 
   return (
     <div className="min-h-screen bg-background flex">
-      <aside className="hidden w-56 shrink-0 flex-col border-r border-border bg-card lg:flex">
+      <aside className="fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border flex flex-col transition-transform duration-300 lg:translate-x-0">
         <div className="border-b border-border p-5">
           <Link href={`/${resolvedLocale}`} className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">

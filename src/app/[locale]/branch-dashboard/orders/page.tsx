@@ -334,98 +334,101 @@ export default function BranchOrdersPage() {
               )}
 
               <div className="space-y-2">
-              {isManager && !["picked_up", "cancelled"].includes(selected.status) && (
-                <div className="space-y-2 rounded-xl border border-border bg-muted/20 p-3">
-                  <div className="flex items-center justify-between gap-3">
-                    <div>
-                      <p className="text-sm font-medium">{t("assignStaff")}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {selected.assignedTo?.user?.name
-                          ? t("currentAssignee", {
-                              name: selected.assignedTo.user.name,
-                            })
-                          : t("assignHint")}
-                      </p>
+                {isManager &&
+                  !["picked_up", "cancelled"].includes(selected.status) && (
+                    <div className="space-y-2 rounded-xl border border-border bg-muted/20 p-3">
+                      <div className="flex items-center justify-between gap-3">
+                        <div>
+                          <p className="text-sm font-medium">
+                            {t("assignStaff")}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {selected.assignedTo?.user?.name
+                              ? t("currentAssignee", {
+                                  name: selected.assignedTo.user.name,
+                                })
+                              : t("assignHint")}
+                          </p>
+                        </div>
+                        <span className="rounded-full border border-border bg-background px-2 py-1 text-[11px] font-medium text-muted-foreground">
+                          {t("availableStaff", { count: branchStaff.length })}
+                        </span>
+                      </div>
+
+                      <select
+                        value={selectedStaffId}
+                        onChange={(e) => setSelectedStaffId(e.target.value)}
+                        className="w-full rounded-xl border border-border bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                      >
+                        <option value="">{t("selectStaff")}</option>
+                        {branchStaff.map((staff: any) => (
+                          <option key={staff.id} value={staff.id}>
+                            {staff.user?.name} - {staff.role.replace("_", " ")} (
+                            {staff.activeOrders || 0} {t("active")})
+                          </option>
+                        ))}
+                      </select>
+
+                      <button
+                        onClick={() =>
+                          selectedStaffId &&
+                          assignMutation.mutate({
+                            id: selected.id,
+                            staffId: selectedStaffId,
+                          })
+                        }
+                        disabled={assignMutation.isPending || !selectedStaffId}
+                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-purple-600 py-3 font-semibold text-white transition-colors hover:bg-purple-700 disabled:opacity-50"
+                      >
+                        <Package className="h-4 w-4" />
+                        {assignMutation.isPending
+                          ? t("assigning")
+                          : selected.assignedTo?.user?.name
+                            ? t("reassignAndStart")
+                            : t("assignAndStart")}
+                      </button>
                     </div>
-                    <span className="rounded-full border border-border bg-background px-2 py-1 text-[11px] font-medium text-muted-foreground">
-                      {t("availableStaff", { count: branchStaff.length })}
-                    </span>
-                  </div>
+                  )}
 
-                  <select
-                    value={selectedStaffId}
-                    onChange={(e) => setSelectedStaffId(e.target.value)}
-                    className="w-full rounded-xl border border-border bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
-                  >
-                    <option value="">{t("selectStaff")}</option>
-                    {branchStaff.map((staff: any) => (
-                      <option key={staff.id} value={staff.id}>
-                        {staff.user?.name} - {staff.role.replace("_", " ")} (
-                        {staff.activeOrders || 0} {t("active")})
-                      </option>
-                    ))}
-                  </select>
-
+                {NEXT_STATUS[selected.status] && (
                   <button
                     onClick={() =>
-                      selectedStaffId &&
-                      assignMutation.mutate({
+                      statusMutation.mutate({
                         id: selected.id,
-                        staffId: selectedStaffId,
+                        status: NEXT_STATUS[selected.status],
                       })
                     }
-                    disabled={assignMutation.isPending || !selectedStaffId}
-                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-purple-600 py-3 font-semibold text-white transition-colors hover:bg-purple-700 disabled:opacity-50"
+                    disabled={statusMutation.isPending}
+                    className="w-full rounded-xl bg-primary py-3 font-semibold text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
                   >
-                    <Package className="h-4 w-4" />
-                    {assignMutation.isPending
-                      ? t("assigning")
-                      : selected.assignedTo?.user?.name
-                        ? t("reassignAndStart")
-                        : t("assignAndStart")}
+                    {statusMutation.isPending
+                      ? t("updating")
+                      : selected.status === "preparing"
+                        ? t("markReady")
+                        : selected.status === "ready"
+                          ? t("markPickedUp")
+                          : t("nextStep")}
                   </button>
-                </div>
-              )}
+                )}
 
-              {NEXT_STATUS[selected.status] && (
+                {["pending", "accepted"].includes(selected.status) && (
+                  <button
+                    onClick={() =>
+                      statusMutation.mutate({
+                        id: selected.id,
+                        status: "cancelled",
+                      })
+                    }
+                    disabled={statusMutation.isPending}
+                    className="w-full rounded-xl border border-destructive py-2.5 font-medium text-destructive transition-colors hover:bg-destructive/5 disabled:opacity-50"
+                  >
+                    {t("cancelOrder")}
+                  </button>
+                )}
+
                 <button
-                  onClick={() =>
-                    statusMutation.mutate({
-                      id: selected.id,
-                      status: NEXT_STATUS[selected.status],
-                    })
-                  }
-                  disabled={statusMutation.isPending}
-                  className="w-full rounded-xl bg-primary py-3 font-semibold text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
-                >
-                  {statusMutation.isPending
-                    ? t("updating")
-                    : selected.status === "preparing"
-                      ? t("markReady")
-                      : selected.status === "ready"
-                        ? t("markPickedUp")
-                        : t("nextStep")}
-                </button>
-              )}
-
-              {["pending", "accepted"].includes(selected.status) && (
-                <button
-                  onClick={() =>
-                    statusMutation.mutate({
-                      id: selected.id,
-                      status: "cancelled",
-                    })
-                  }
-                  disabled={statusMutation.isPending}
-                  className="w-full rounded-xl border border-destructive py-2.5 font-medium text-destructive transition-colors hover:bg-destructive/5 disabled:opacity-50"
-                >
-                  {t("cancelOrder")}
-                </button>
-              )}
-
-              <button
-                onClick={() => setSelected(null)}
-                className="w-full rounded-xl border border-border py-2.5 text-sm font-medium transition-colors hover:bg-muted"
+                  onClick={() => setSelected(null)}
+                  className="w-full rounded-xl border border-border py-2.5 text-sm font-medium transition-colors hover:bg-muted"
                 >
                   {t("close")}
                 </button>
