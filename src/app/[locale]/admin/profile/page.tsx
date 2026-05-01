@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { User, Package, LogOut } from "lucide-react";
+import LocationPicker from "@/components/common/location-picker";
 
 const schema = z.object({
   name: z.string().min(2),
@@ -19,6 +20,8 @@ const schema = z.object({
   deliveryStreet: z.string().optional(),
   deliveryDistrict: z.string().optional(),
   deliverySector: z.string().optional(),
+  deliveryLatitude: z.coerce.number().optional().or(z.literal("")),
+  deliveryLongitude: z.coerce.number().optional().or(z.literal("")),
 });
 type FormData = z.infer<typeof schema>;
 
@@ -40,6 +43,8 @@ export default function ProfilePage() {
     register,
     handleSubmit,
     reset,
+    watch,
+    setValue,
     formState: { errors, isValid },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -55,6 +60,8 @@ export default function ProfilePage() {
         deliveryStreet: profile.deliveryStreet || "",
         deliveryDistrict: profile.deliveryDistrict || "",
         deliverySector: profile.deliverySector || "",
+        deliveryLatitude: profile.deliveryLatitude || "",
+        deliveryLongitude: profile.deliveryLongitude || "",
       });
   }, [profile, reset]);
 
@@ -177,6 +184,22 @@ export default function ProfilePage() {
                 />
               </div>
             </div>
+            <LocationPicker
+              label={t("deliveryMap")}
+              hint={t("deliveryMapHint")}
+              lat={watch("deliveryLatitude")}
+              lng={watch("deliveryLongitude")}
+              onChange={({ lat, lng }) => {
+                setValue("deliveryLatitude", lat as any, {
+                  shouldValidate: true,
+                  shouldDirty: true,
+                });
+                setValue("deliveryLongitude", lng as any, {
+                  shouldValidate: true,
+                  shouldDirty: true,
+                });
+              }}
+            />
             <div>
               <label className="block text-sm font-medium mb-1.5">
                 {t("role")}

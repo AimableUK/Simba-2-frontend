@@ -23,6 +23,7 @@ import { useSession } from "@/lib/auth-client";
 import { formatPrice, getImageUrl } from "@/lib/utils";
 import Link from "next/link";
 import { CalendarWithTime } from "@/components/common/CalendarWithTime";
+import LocationPicker from "@/components/common/location-picker";
 import { FormField, FormInput, FormTextarea } from "@/components/ui/form-field";
 import { useBranchStore } from "@/store";
 
@@ -34,6 +35,8 @@ type FormData = {
   street?: string;
   district?: string;
   sector?: string;
+  deliveryLatitude?: number | string;
+  deliveryLongitude?: number | string;
   notes?: string;
 };
 
@@ -108,6 +111,8 @@ export default function CheckoutPage() {
     street: z.string().optional(),
     district: z.string().optional(),
     sector: z.string().optional(),
+    deliveryLatitude: z.coerce.number().optional().or(z.literal("")),
+    deliveryLongitude: z.coerce.number().optional().or(z.literal("")),
     notes: z.string().optional(),
   });
 
@@ -116,6 +121,7 @@ export default function CheckoutPage() {
     handleSubmit,
     reset,
     watch,
+    setValue,
     formState: { errors, isSubmitting, isValid },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -133,6 +139,8 @@ export default function CheckoutPage() {
       street: profile?.deliveryStreet || "",
       district: profile?.deliveryDistrict || "",
       sector: profile?.deliverySector || "",
+      deliveryLatitude: profile?.deliveryLatitude || "",
+      deliveryLongitude: profile?.deliveryLongitude || "",
     }));
   }, [profile, reset, session?.user]);
 
@@ -236,6 +244,14 @@ export default function CheckoutPage() {
               deliveryStreet: formData.street?.trim(),
               deliveryDistrict: formData.district?.trim(),
               deliverySector: formData.sector?.trim(),
+              deliveryLatitude:
+                formData.deliveryLatitude === "" || formData.deliveryLatitude === undefined
+                  ? undefined
+                  : Number(formData.deliveryLatitude),
+              deliveryLongitude:
+                formData.deliveryLongitude === "" || formData.deliveryLongitude === undefined
+                  ? undefined
+                  : Number(formData.deliveryLongitude),
             }),
         notes: formData.notes || undefined,
         paymentMethod,
@@ -653,6 +669,24 @@ export default function CheckoutPage() {
                     />
                   </FormField>
                 </div>
+                <div className="mt-4">
+                  <LocationPicker
+                    label={t("deliveryMap")}
+                    hint={t("deliveryMapHint")}
+                    lat={watch("deliveryLatitude")}
+                    lng={watch("deliveryLongitude")}
+                    onChange={({ lat, lng }) => {
+                      setValue("deliveryLatitude", lat as any, {
+                        shouldValidate: true,
+                        shouldDirty: true,
+                      });
+                      setValue("deliveryLongitude", lng as any, {
+                        shouldValidate: true,
+                        shouldDirty: true,
+                      });
+                    }}
+                  />
+                </div>
                 {deliveryError && (
                   <p className="text-sm text-destructive mt-3 flex items-center gap-1">
                     <AlertCircle className="h-3.5 w-3.5" /> {deliveryError}
@@ -972,5 +1006,3 @@ export default function CheckoutPage() {
     </div>
   );
 }
-
-
