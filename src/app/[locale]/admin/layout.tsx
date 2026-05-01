@@ -107,7 +107,7 @@ export default function AdminLayout({
       label: tMenu("settings"),
       href: "settings",
       icon: Settings,
-      roles: ["admin", "super_admin", "branch_manager"],
+      roles: ["admin", "super_admin"],
     },
     {
       label: tNav("account"),
@@ -203,7 +203,6 @@ export default function AdminLayout({
               "products",
               "branches",
               "users",
-              "settings",
               "account",
               "my-orders",
               "notifications",

@@ -3,6 +3,8 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
+import { useRouter } from "next/navigation";
 import { Save, Settings } from "lucide-react";
 import { toast } from "sonner";
 import { settingsApi } from "@/lib/api";
@@ -35,10 +37,18 @@ const SETTINGS_FIELDS = [
 export default function AdminSettingsPage() {
   const qc = useQueryClient();
   const t = useTranslations("admin.settings");
+  const locale = useLocale();
+  const router = useRouter();
   const { data: session } = useSession();
   const canEdit = ["admin", "super_admin"].includes(
     ((session?.user as any)?.role || "") as string,
   );
+
+  useEffect(() => {
+    if (session?.user && !canEdit) {
+      router.replace(`/${locale}/admin/account`);
+    }
+  }, [canEdit, locale, router, session?.user]);
 
   const {
     register,
@@ -73,6 +83,11 @@ export default function AdminSettingsPage() {
 
   return (
     <div className="space-y-6 max-w-2xl">
+      {!canEdit && (
+        <div className="rounded-2xl border border-border bg-muted/40 p-4 text-sm text-muted-foreground">
+          You do not have access to system settings.
+        </div>
+      )}
       <div className="flex items-center gap-3">
         <h1 className="text-2xl font-bold">{t("title")}</h1>
       </div>
