@@ -44,11 +44,6 @@ export default function BranchDashboardLayout({
   const markRead = useNotificationStore((s) => s.markRead);
   const markAllRead = useNotificationStore((s) => s.markAllRead);
   const clear = useNotificationStore((s) => s.clear);
-  const notificationsPath =
-    role === "admin" || role === "super_admin"
-      ? `/${resolvedLocale}/admin/notifications`
-      : `/${resolvedLocale}/branch-dashboard/orders`;
-
   useNotifications(session?.user?.id);
 
   useAdminSocket({
@@ -269,7 +264,11 @@ export default function BranchDashboardLayout({
               type="button"
               onClick={() => {
                 setNotifOpen(false);
-                router.push(notificationsPath);
+                router.push(
+                  role === "admin" || role === "super_admin"
+                    ? `/${resolvedLocale}/admin/notifications`
+                    : `/${resolvedLocale}/branch-dashboard/orders`,
+                );
               }}
               className="text-xs font-medium text-primary hover:underline"
             >
@@ -331,8 +330,6 @@ export default function BranchDashboardLayout({
             </div>
           </div>
 
-          <div className="mb-3">{notificationsPopover}</div>
-
           <Link
             href={`/${resolvedLocale}`}
             className="mb-2 flex items-center gap-2 text-xs text-muted-foreground transition-colors hover:text-primary"
@@ -357,6 +354,43 @@ export default function BranchDashboardLayout({
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
+        <header className="sticky top-0 z-30 hidden items-center justify-between border-b border-border bg-background/80 px-4 py-3 backdrop-blur lg:flex">
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
+              <ShoppingBag className="h-4 w-4 text-white" />
+            </div>
+            <div>
+              <p className="text-sm font-bold leading-none">{t("panelTitle")}</p>
+              <p className="mt-0.5 text-xs capitalize text-muted-foreground">
+                {role?.replace("_", " ")}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            {notificationsPopover}
+            <Link
+              href={`/${resolvedLocale}`}
+              className="flex items-center gap-2 rounded-xl border border-border px-3 py-2 text-xs font-medium text-muted-foreground hover:bg-muted hover:text-primary"
+            >
+              <Home className="h-3.5 w-3.5" />
+              {t("backToStore")}
+            </Link>
+            <button
+              onClick={() =>
+                signOut({
+                  fetchOptions: {
+                    onSuccess: () => router.push(`/${resolvedLocale}`),
+                  },
+                })
+              }
+              className="flex items-center gap-2 rounded-xl border border-border px-3 py-2 text-xs font-medium text-muted-foreground hover:bg-muted hover:text-destructive"
+            >
+              <LogOut className="h-3.5 w-3.5" />
+              {t("signOut")}
+            </button>
+          </div>
+        </header>
+
         <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-background px-4 py-3 lg:hidden">
           <Link href={`/${resolvedLocale}`} className="flex items-center gap-2">
             <ShoppingBag className="h-5 w-5 text-primary" />

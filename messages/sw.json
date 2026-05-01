@@ -20,6 +20,7 @@
     "notifications": "Arifa",
     "viewMore": "Ona zaidi",
     "markAllRead": "Weka yote kuwa yamesomwa",
+    "clearNotifications": "Futa arifa",
     "noNotifications": "Bado hakuna arifa",
     "recentNotifications": "Arifa za hivi karibuni",
     "unread": "haijasomwa",
@@ -1573,3 +1574,4 @@
     }
   }
 }
+

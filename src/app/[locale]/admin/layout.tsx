@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { useSession } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
+import { useNotifications } from "@/hooks/useSocket";
 import { useNotificationStore } from "@/store";
 import { ThemeSwitcherV1 } from "@/lib/theme-switcher-v1";
 import LanguageSwitcherV1 from "@/components/common/LanguageSwitcherV1";
@@ -41,10 +42,16 @@ export default function AdminLayout({
   const tMenu = useTranslations("admin.menu");
   const tNav = useTranslations("nav");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [notifOpen, setNotifOpen] = useState(false);
   const [time, setTime] = useState(new Date());
   const unreadCount = useNotificationStore((s) => s.unreadCount);
+  const notifications = useNotificationStore((s) => s.items);
+  const markRead = useNotificationStore((s) => s.markRead);
+  const markAllRead = useNotificationStore((s) => s.markAllRead);
+  const clear = useNotificationStore((s) => s.clear);
   const resolvedLocale = locale || pathname.split("/")[1] || "en";
   const adminPath = pathname.replace(/^\/(en|fr|rw|sw)(?=\/|$)/, "") || "/";
+  useNotifications(session?.user?.id);
 
   const NAV_ITEMS = [
     {
@@ -105,19 +112,40 @@ export default function AdminLayout({
       label: tNav("account"),
       href: "account",
       icon: User,
-      roles: ["user", "poster", "admin", "super_admin", "branch_manager", "branch_staff"],
+      roles: [
+        "user",
+        "poster",
+        "admin",
+        "super_admin",
+        "branch_manager",
+        "branch_staff",
+      ],
     },
     {
       label: tNav("orders"),
       href: "my-orders",
       icon: ShoppingCart,
-      roles: ["user", "poster", "admin", "super_admin", "branch_manager", "branch_staff"],
+      roles: [
+        "user",
+        "poster",
+        "admin",
+        "super_admin",
+        "branch_manager",
+        "branch_staff",
+      ],
     },
     {
       label: tNav("notifications"),
       href: "notifications",
       icon: Bell,
-      roles: ["user", "poster", "admin", "super_admin", "branch_manager", "branch_staff"],
+      roles: [
+        "user",
+        "poster",
+        "admin",
+        "super_admin",
+        "branch_manager",
+        "branch_staff",
+      ],
     },
   ];
 
@@ -182,29 +210,27 @@ export default function AdminLayout({
                 "profile",
                 "branch-invites",
               ])
-          : new Set([
-              "",
-              "account",
-              "my-orders",
-              "notifications",
-              "profile",
-              "branch-invites",
-            ]);
+            : new Set([
+                "",
+                "account",
+                "my-orders",
+                "notifications",
+                "profile",
+                "branch-invites",
+              ]);
 
   const roleFallback =
     role === "admin" || role === "super_admin"
       ? "/dashboard"
       : role === "branch_manager"
         ? "/branches"
-      : role === "poster"
-        ? "/blogs"
-      : role === "branch_staff"
-          ? "/branch-dashboard"
-          : "/account";
+        : role === "poster"
+          ? "/blogs"
+          : role === "branch_staff"
+            ? "/branch-dashboard"
+            : "/account";
   const unauthorized =
-    !!session?.user &&
-    allowedRoutes !== null &&
-    !allowedRoutes.has(routeKey);
+    !!session?.user && allowedRoutes !== null && !allowedRoutes.has(routeKey);
 
   useEffect(() => {
     if (unauthorized && resolvedLocale) {
@@ -249,19 +275,21 @@ export default function AdminLayout({
         <div className="flex items-center justify-between p-5 border-b border-border">
           <Link href={`/${locale}`} className="flex items-center gap-2.5">
             <div className="flex items-center justify-center">
-            <Image
-              src="/simbalogo.png"
-              alt="Simba Super Market logo"
-              width={35}
-              height={35}
-            />
-          </div>
-          <div>
-            <p className="font-bold text-sm leading-none">{tLayout("appName")}</p>
-            <p className="text-xs text-muted-foreground mt-0.5">
-              {tLayout("panel")}
-            </p>
-          </div>
+              <Image
+                src="/simbalogo.png"
+                alt="Simba Super Market logo"
+                width={35}
+                height={35}
+              />
+            </div>
+            <div>
+              <p className="font-bold text-sm leading-none">
+                {tLayout("appName")}
+              </p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                {tLayout("panel")}
+              </p>
+            </div>
           </Link>
           <button
             onClick={() => setSidebarOpen(false)}
@@ -337,17 +365,89 @@ export default function AdminLayout({
           <div className="flex-1" />
           <div className="flex items-center gap-2">
             <LanguageSwitcherV1 />
-            <Link
-              href={`/${locale}/admin/notifications`}
-              className="relative p-2 hover:bg-muted rounded-lg transition-colors"
-            >
-              <Bell className="h-5 w-5" />
-              {unreadCount > 0 && (
-                <span className="absolute top-1 right-1 w-4 h-4 bg-primary text-primary-foreground text-[10px] font-bold rounded-full flex items-center justify-center">
-                  {unreadCount > 9 ? "9+" : unreadCount}
-                </span>
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setNotifOpen((v) => !v)}
+                className="relative p-2 hover:bg-muted rounded-lg transition-colors"
+                aria-label={tNav("notifications")}
+              >
+                <Bell className="h-5 w-5" />
+                {unreadCount > 0 && (
+                  <span className="absolute top-1 right-1 w-4 h-4 bg-primary text-primary-foreground text-[10px] font-bold rounded-full flex items-center justify-center">
+                    {unreadCount > 9 ? "9+" : unreadCount}
+                  </span>
+                )}
+              </button>
+              {notifOpen && (
+                <div className="absolute right-0 top-full z-50 mt-2 w-[min(22rem,calc(100vw-1rem))] overflow-hidden rounded-2xl border border-border bg-card shadow-2xl">
+                  <div className="flex items-center justify-between border-b border-border px-4 py-3">
+                    <p className="text-sm font-semibold">
+                      {tNav("notifications")}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => markAllRead()}
+                      className="text-xs font-medium text-primary hover:underline"
+                    >
+                      {tNav("markAllRead")}
+                    </button>
+                  </div>
+                  <div className="max-h-80 overflow-y-auto">
+                    {notifications.length === 0 ? (
+                      <div className="px-4 py-8 text-center text-sm text-muted-foreground">
+                        {tNav("noNotifications")}
+                      </div>
+                    ) : (
+                      notifications.slice(0, 6).map((n) => (
+                        <button
+                          key={n.id}
+                          type="button"
+                          onClick={() => {
+                            markRead(n.id);
+                            setNotifOpen(false);
+                            if (n.link) router.push(n.link);
+                          }}
+                          className={cn(
+                            "w-full border-b border-border/60 px-4 py-3 text-left last:border-0 hover:bg-muted/60 transition-colors",
+                            !n.read && "bg-primary/5",
+                          )}
+                        >
+                          <p className="text-sm font-medium truncate">
+                            {n.title}
+                          </p>
+                          <p className="mt-0.5 text-xs text-muted-foreground line-clamp-2">
+                            {n.message}
+                          </p>
+                        </button>
+                      ))
+                    )}
+                  </div>
+                  <div className="flex items-center justify-between border-t border-border bg-muted/40 px-4 py-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setNotifOpen(false);
+                        clear();
+                      }}
+                      className="text-xs font-medium text-muted-foreground hover:text-foreground"
+                    >
+                      {tNav("clearNotifications")}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setNotifOpen(false);
+                        router.push(`/${locale}/admin/notifications`);
+                      }}
+                      className="text-xs font-medium text-primary hover:underline"
+                    >
+                      {tNav("viewMore")}
+                    </button>
+                  </div>
+                </div>
               )}
-            </Link>
+            </div>
             <ThemeSwitcherV1 />
           </div>
         </header>

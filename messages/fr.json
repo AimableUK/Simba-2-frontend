@@ -20,6 +20,7 @@
     "notifications": "Notifications",
     "viewMore": "Voir plus",
     "markAllRead": "Tout marquer comme lu",
+    "clearNotifications": "Effacer les notifications",
     "noNotifications": "Aucune notification pour le moment",
     "recentNotifications": "Notifications r?centes",
     "unread": "non lu",
@@ -1573,3 +1574,4 @@
     }
   }
 }
+
