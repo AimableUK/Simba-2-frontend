@@ -36,6 +36,15 @@ export function getImageUrl(path: string): string {
   return `${base}${path}`;
 }
 
+export function resolveLocalizedPath(path: string, locale: string): string {
+  if (!path.startsWith("/")) return path;
+  const localePrefix = `/${locale}`;
+  if (path === localePrefix || path.startsWith(`${localePrefix}/`)) {
+    return path;
+  }
+  return `${localePrefix}${path}`;
+}
+
 export function truncate(text: string, length = 100): string {
   if (text.length <= length) return text;
   return text.slice(0, length).trim() + "…";

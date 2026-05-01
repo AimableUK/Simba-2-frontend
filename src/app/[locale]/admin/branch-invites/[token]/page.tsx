@@ -28,6 +28,11 @@ export default function BranchInvitePage({
     onSuccess: (res: any) => {
       toast.success(t("updated"));
       const slug = res?.data?.branch?.slug;
+      const role = res?.data?.role;
+      if (role === "branch_staff" || role === "branch_manager") {
+        router.replace(`/${locale}/branch-dashboard`);
+        return;
+      }
       router.replace(slug ? `/${locale}/admin/branches/${slug}` : `/${locale}/admin/branches`);
     },
     onError: (err: any) =>

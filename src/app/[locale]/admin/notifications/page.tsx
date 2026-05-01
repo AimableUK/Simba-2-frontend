@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Bell, CheckCheck, Trash2 } from "lucide-react";
 import { useNotificationStore } from "@/store";
 import { formatDateTime } from "@/lib/utils";
+import { resolveLocalizedPath } from "@/lib/utils";
 
 export default function AdminNotificationsPage() {
   const locale = useLocale();
@@ -63,7 +64,7 @@ export default function AdminNotificationsPage() {
               type="button"
               onClick={() => {
                 markRead(item.id);
-                if (item.link) router.push(item.link);
+                if (item.link) router.push(resolveLocalizedPath(item.link, locale));
               }}
               className="w-full text-left rounded-2xl border border-border bg-card p-5 hover:border-primary/40 transition-colors"
             >

@@ -9,8 +9,10 @@ import Image from "next/image";
 import { Pagination } from "@/components/common/pagination";
 import { Skeleton } from "@/components/common/skeletons";
 import { Search, AlertTriangle } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function BranchStockPage() {
+  const t = useTranslations("branchDashboard");
   const qc = useQueryClient();
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
@@ -41,47 +43,47 @@ export default function BranchStockPage() {
       isActive?: boolean;
     }) => branchApi.updateStock(payload),
     onSuccess: () => {
-      toast.success("Stock updated");
+      toast.success(t("stockUpdated"));
       setEditing(null);
       qc.invalidateQueries({ queryKey: ["branch-stock-admin"] });
     },
     onError: (err: any) =>
-      toast.error(err?.response?.data?.message || "Failed"),
+      toast.error(err?.response?.data?.message || t("failed")),
   });
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Stock Management</h1>
+      <h1 className="text-2xl font-bold">{t("stockManagement")}</h1>
 
       <div className="relative max-w-sm">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <input
           value={search}
           onChange={(e) => {
             setSearch(e.target.value);
             setPage(1);
           }}
-          placeholder="Search products..."
-          className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+          placeholder={t("searchProducts")}
+          className="w-full rounded-xl border border-border bg-background py-2.5 pl-9 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
         />
       </div>
 
-      <div className="bg-card border border-border rounded-2xl overflow-hidden">
+      <div className="overflow-hidden rounded-2xl border border-border bg-card">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-border bg-muted/50">
                 {[
-                  "Product",
-                  "Category",
-                  "Price",
-                  "Branch Stock",
-                  "Status",
-                  "Actions",
+                  t("cols.product"),
+                  t("cols.category"),
+                  t("cols.price"),
+                  t("cols.branchStock"),
+                  t("cols.status"),
+                  t("cols.actions"),
                 ].map((h) => (
                   <th
                     key={h}
-                    className="text-left px-4 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wide"
+                    className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground"
                   >
                     {h}
                   </th>
@@ -102,11 +104,11 @@ export default function BranchStockPage() {
                 : data?.data?.map((item: any) => (
                     <tr
                       key={item.id}
-                      className="border-b border-border last:border-0 hover:bg-muted/30 transition-colors"
+                      className="border-b border-border last:border-0 transition-colors hover:bg-muted/30"
                     >
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-3">
-                          <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-muted shrink-0">
+                          <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-muted">
                             <Image
                               src={getImageUrl(item.product.images?.[0])}
                               alt={item.product.name}
@@ -115,12 +117,12 @@ export default function BranchStockPage() {
                               sizes="40px"
                             />
                           </div>
-                          <p className="font-medium text-sm truncate max-w-[160px]">
+                          <p className="max-w-[160px] truncate text-sm font-medium">
                             {item.product.name}
                           </p>
                         </div>
                       </td>
-                      <td className="px-4 py-3 text-muted-foreground text-xs">
+                      <td className="px-4 py-3 text-xs text-muted-foreground">
                         {item.product.category?.name}
                       </td>
                       <td className="px-4 py-3 font-semibold text-primary">
@@ -133,7 +135,7 @@ export default function BranchStockPage() {
                               type="number"
                               value={newStock}
                               onChange={(e) => setNewStock(e.target.value)}
-                              className="w-20 px-2 py-1 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                              className="w-20 rounded-lg border border-border bg-background px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
                               min="0"
                             />
                             <button
@@ -144,15 +146,15 @@ export default function BranchStockPage() {
                                 })
                               }
                               disabled={updateMutation.isPending}
-                              className="text-xs bg-primary text-primary-foreground px-3 py-1.5 rounded-lg hover:bg-primary/90 disabled:opacity-50"
+                              className="rounded-lg bg-primary px-3 py-1.5 text-xs text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
                             >
-                              Save
+                              {t("save")}
                             </button>
                             <button
                               onClick={() => setEditing(null)}
-                              className="text-xs border border-border px-3 py-1.5 rounded-lg hover:bg-muted"
+                              className="rounded-lg border border-border px-3 py-1.5 text-xs hover:bg-muted"
                             >
-                              Cancel
+                              {t("cancel")}
                             </button>
                           </div>
                         ) : (
@@ -161,16 +163,16 @@ export default function BranchStockPage() {
                           >
                             {item.stock}
                             {item.stock <= 10 && item.stock > 0 && (
-                              <AlertTriangle className="h-3.5 w-3.5 inline ml-1 text-yellow-500" />
+                              <AlertTriangle className="ml-1 inline h-3.5 w-3.5 text-yellow-500" />
                             )}
                           </span>
                         )}
                       </td>
                       <td className="px-4 py-3">
                         <span
-                          className={`text-xs font-medium px-2.5 py-1 rounded-full ${item.isActive ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" : "bg-muted text-muted-foreground"}`}
+                          className={`rounded-full px-2.5 py-1 text-xs font-medium ${item.isActive ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" : "bg-muted text-muted-foreground"}`}
                         >
-                          {item.isActive ? "Active" : "Hidden"}
+                          {item.isActive ? t("active") : t("hidden")}
                         </span>
                       </td>
                       <td className="px-4 py-3">
@@ -183,9 +185,9 @@ export default function BranchStockPage() {
                               });
                               setNewStock(String(item.stock));
                             }}
-                            className="text-xs text-primary hover:underline font-medium"
+                            className="text-xs font-medium text-primary hover:underline"
                           >
-                            Update
+                            {t("update")}
                           </button>
                           <button
                             onClick={() =>
@@ -194,9 +196,9 @@ export default function BranchStockPage() {
                                 isActive: !item.isActive,
                               })
                             }
-                            className="text-xs text-muted-foreground hover:text-foreground hover:underline"
+                            className="text-xs text-muted-foreground hover:underline hover:text-foreground"
                           >
-                            {item.isActive ? "Hide" : "Show"}
+                            {item.isActive ? t("hide") : t("show")}
                           </button>
                         </div>
                       </td>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { Clock, Package, CheckCircle, ChevronRight } from "lucide-react";
 import { branchApi } from "@/lib/api";
@@ -21,6 +21,7 @@ const STATUS_COLORS: Record<string, string> = {
 
 export default function BranchDashboardPage() {
   const locale = useLocale();
+  const t = useTranslations("branchDashboard");
 
   const { data, isLoading } = useQuery({
     queryKey: ["branch-dashboard"],
@@ -30,25 +31,33 @@ export default function BranchDashboardPage() {
 
   const stats = data?.stats;
   const branch = data?.branch;
+  const statusLabels: Record<string, string> = {
+    pending: t("pending"),
+    accepted: t("accepted"),
+    preparing: t("preparing"),
+    ready: t("ready"),
+    picked_up: t("pickedUp"),
+    cancelled: t("cancelled"),
+  };
 
   const statCards = stats
     ? [
         {
-          label: "Pending",
+          label: t("pending"),
           value: stats.pendingCount,
           icon: Clock,
           color: "text-yellow-500",
           bg: "bg-yellow-50 dark:bg-yellow-900/20",
         },
         {
-          label: "Preparing",
+          label: t("preparing"),
           value: stats.preparingCount,
           icon: Package,
           color: "text-purple-500",
           bg: "bg-purple-50 dark:bg-purple-900/20",
         },
         {
-          label: "Ready",
+          label: t("ready"),
           value: stats.readyCount,
           icon: CheckCircle,
           color: "text-green-500",
@@ -59,22 +68,23 @@ export default function BranchDashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold">Dashboard</h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            {branch?.name ? `Orders for ${branch.name}` : "Orders for your branch"}
+          <h1 className="text-2xl font-bold">{t("dashboard")}</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {branch?.name
+              ? t("ordersForBranch", { branch: branch.name })
+              : t("ordersForYourBranch")}
           </p>
         </div>
         <Link
           href={`/${locale}/branch-dashboard/orders`}
-          className="flex items-center gap-1 text-sm text-primary font-medium hover:underline"
+          className="flex items-center gap-1 text-sm font-medium text-primary hover:underline"
         >
-          All Orders <ChevronRight className="h-4 w-4" />
+          {t("allOrders")} <ChevronRight className="h-4 w-4" />
         </Link>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-3 gap-4">
         {isLoading
           ? Array.from({ length: 3 }).map((_, i) => (
@@ -83,24 +93,23 @@ export default function BranchDashboardPage() {
           : statCards.map(({ label, value, icon: Icon, color, bg }) => (
               <div
                 key={label}
-                className={`${bg} rounded-2xl p-5 border border-border`}
+                className={`${bg} rounded-2xl border border-border p-5`}
               >
                 <div className={`${color} mb-2`}>
                   <Icon className="h-5 w-5" />
                 </div>
                 <p className="text-2xl font-bold">{value}</p>
-                <p className="text-sm text-muted-foreground mt-0.5">{label}</p>
+                <p className="mt-0.5 text-sm text-muted-foreground">{label}</p>
               </div>
             ))}
       </div>
 
-      {/* Recent orders */}
-      <div className="bg-card border border-border rounded-2xl overflow-hidden">
-        <div className="px-5 py-4 border-b border-border">
-          <h2 className="font-semibold">Recent Orders</h2>
+      <div className="overflow-hidden rounded-2xl border border-border bg-card">
+        <div className="border-b border-border px-5 py-4">
+          <h2 className="font-semibold">{t("recentOrders")}</h2>
         </div>
         {isLoading ? (
-          <div className="p-4 space-y-3">
+          <div className="space-y-3 p-4">
             {Array.from({ length: 5 }).map((_, i) => (
               <Skeleton key={i} className="h-14 rounded-xl" />
             ))}
@@ -110,21 +119,27 @@ export default function BranchDashboardPage() {
             {data?.orders?.data?.slice(0, 8).map((order: any) => (
               <div
                 key={order.id}
-                className="flex items-center justify-between px-5 py-3.5 hover:bg-muted/30 transition-colors"
+                className="flex items-center justify-between px-5 py-3.5 transition-colors hover:bg-muted/30"
               >
                 <div>
-                  <p className="font-mono font-semibold text-sm">
+                  <p className="font-mono text-sm font-semibold">
                     {order.orderNumber}
                   </p>
                   <p className="text-xs text-muted-foreground">
-                    {order.user?.name} · {formatDateTime(order.createdAt)}
+                    {order.user?.name} - {formatDateTime(order.createdAt)}
                   </p>
                   <p className="text-xs text-muted-foreground">
                     {order.fulfillmentType === "delivery"
-                      ? `Delivery: ${[order.deliveryStreet, order.deliveryDistrict, order.deliverySector]
+                      ? `${t("delivery")}: ${[
+                          order.deliveryStreet,
+                          order.deliveryDistrict,
+                          order.deliverySector,
+                        ]
                           .filter(Boolean)
                           .join(", ")}`
-                      : `Pick-up: ${new Date(order.pickupTime).toLocaleString([], {
+                      : `${t("pickup")}: ${new Date(
+                          order.pickupTime,
+                        ).toLocaleString([], {
                           month: "short",
                           day: "numeric",
                           hour: "2-digit",
@@ -134,11 +149,12 @@ export default function BranchDashboardPage() {
                 </div>
                 <div className="flex items-center gap-3">
                   <span
-                    className={`text-xs font-medium px-2.5 py-1 rounded-full ${STATUS_COLORS[order.status]}`}
+                    className={`rounded-full px-2.5 py-1 text-xs font-medium ${STATUS_COLORS[order.status]}`}
                   >
-                    {order.status.replace("_", " ")}
+                    {statusLabels[order.status] ||
+                      order.status.replace("_", " ")}
                   </span>
-                  <span className="font-bold text-sm text-primary">
+                  <span className="text-sm font-bold text-primary">
                     {formatPrice(order.total)}
                   </span>
                 </div>

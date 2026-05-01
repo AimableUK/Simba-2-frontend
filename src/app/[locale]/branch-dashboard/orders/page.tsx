@@ -11,6 +11,7 @@ import { Pagination } from "@/components/common/pagination";
 import { TableRowSkeleton } from "@/components/common/skeletons";
 import { useAdminSocket } from "@/hooks/useSocket";
 import { User, Clock, Package } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const STATUS_COLORS: Record<string, string> = {
   pending:
@@ -30,6 +31,7 @@ const NEXT_STATUS: Record<string, string> = {
 };
 
 export default function BranchOrdersPage() {
+  const t = useTranslations("branchDashboard");
   const { data: session } = useSession();
   const qc = useQueryClient();
   const [page, setPage] = useState(1);
@@ -39,6 +41,7 @@ export default function BranchOrdersPage() {
 
   const role = (session?.user as any)?.role as string;
   const isManager = ["branch_manager", "admin", "super_admin"].includes(role);
+  const isStaff = role === "branch_staff";
 
   useAdminSocket({
     onNewOrder: () =>
@@ -62,7 +65,8 @@ export default function BranchOrdersPage() {
     if (!selected) return;
     setSelectedStaffId(
       selected.assignedTo?.id ||
-        branchStaff.find((staff: any) => staff.user?.id === session?.user?.id)?.id ||
+        branchStaff.find((staff: any) => staff.user?.id === session?.user?.id)
+          ?.id ||
         branchStaff[0]?.id ||
         "",
     );
@@ -72,24 +76,24 @@ export default function BranchOrdersPage() {
     mutationFn: ({ id, status }: { id: string; status: string }) =>
       branchApi.updateStatus(id, { status }),
     onSuccess: () => {
-      toast.success("Order updated");
+      toast.success(t("orderUpdated"));
       setSelected(null);
       qc.invalidateQueries({ queryKey: ["branch-dashboard-orders"] });
     },
     onError: (err: any) =>
-      toast.error(err?.response?.data?.message || "Failed"),
+      toast.error(err?.response?.data?.message || t("failed")),
   });
 
   const assignMutation = useMutation({
     mutationFn: ({ id, staffId }: { id: string; staffId: string }) =>
       branchApi.assignOrder(id, staffId),
     onSuccess: () => {
-      toast.success("Order assigned");
+      toast.success(t("orderAssigned"));
       setSelected(null);
       qc.invalidateQueries({ queryKey: ["branch-dashboard-orders"] });
     },
     onError: (err: any) =>
-      toast.error(err?.response?.data?.message || "Failed"),
+      toast.error(err?.response?.data?.message || t("failed")),
   });
 
   const STATUSES = [
@@ -101,17 +105,45 @@ export default function BranchOrdersPage() {
     "picked_up",
     "cancelled",
   ];
+  const STATUS_LABELS: Record<string, string> = {
+    "": t("all"),
+    pending: t("pending"),
+    accepted: t("accepted"),
+    preparing: t("preparing"),
+    ready: t("ready"),
+    picked_up: t("pickedUp"),
+    cancelled: t("cancelled"),
+  };
+
+  const getDeliveryLabel = (order: any) => {
+    if (order.fulfillmentType === "delivery") {
+      return `${t("delivery")}: ${[order.deliveryStreet, order.deliveryDistrict, order.deliverySector]
+        .filter(Boolean)
+        .join(", ")}`;
+    }
+
+    return `${t("pickup")}: ${new Date(order.pickupTime).toLocaleString([], {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    })}`;
+  };
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold">Orders</h1>
-        <p className="text-sm text-muted-foreground mt-1">
-          {branchName ? `Showing orders for ${branchName}` : "Showing orders for this branch"}
+        <h1 className="text-2xl font-bold">
+          {isStaff ? t("assignedOrders") : t("orders")}
+        </h1>
+        <p className="mt-1 text-sm text-muted-foreground">
+          {branchName
+            ? t("ordersForBranch", { branch: branchName })
+            : t("ordersForYourBranch")}
         </p>
       </div>
 
-      {/* Status filter tabs */}
       <div className="flex flex-wrap gap-2">
         {STATUSES.map((s) => (
           <button
@@ -120,35 +152,35 @@ export default function BranchOrdersPage() {
               setStatusFilter(s);
               setPage(1);
             }}
-            className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors border capitalize ${
+            className={`rounded-xl border px-4 py-2 text-sm font-medium capitalize transition-colors ${
               statusFilter === s
-                ? "bg-primary text-primary-foreground border-primary"
+                ? "border-primary bg-primary text-primary-foreground"
                 : "border-border hover:bg-muted"
             }`}
           >
-            {s === "" ? "All" : s.replace("_", " ")}
+            {STATUS_LABELS[s] || s.replace("_", " ")}
           </button>
         ))}
       </div>
 
-      <div className="bg-card border border-border rounded-2xl overflow-hidden">
+      <div className="overflow-hidden rounded-2xl border border-border bg-card">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-border bg-muted/50">
                 {[
-                  "Order",
-                  "Customer",
-                  "Items",
-                  "Total",
-                  "Pick-up Time",
-                  "Status",
-                  "Assigned To",
-                  "Actions",
+                  t("cols.order"),
+                  t("cols.customer"),
+                  t("cols.items"),
+                  t("cols.total"),
+                  t("cols.pickupTime"),
+                  t("cols.status"),
+                  t("cols.assignedTo"),
+                  t("cols.actions"),
                 ].map((h) => (
                   <th
                     key={h}
-                    className="text-left px-4 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wide"
+                    className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground"
                   >
                     {h}
                   </th>
@@ -163,14 +195,14 @@ export default function BranchOrdersPage() {
                 : data?.orders?.data?.map((order: any) => (
                     <tr
                       key={order.id}
-                      className="border-b border-border last:border-0 hover:bg-muted/30 transition-colors"
+                      className="border-b border-border last:border-0 transition-colors hover:bg-muted/30"
                     >
-                      <td className="px-4 py-3 font-mono font-semibold text-xs">
+                      <td className="px-4 py-3 font-mono text-xs font-semibold">
                         {order.orderNumber}
                       </td>
                       <td className="px-4 py-3">
                         <p className="font-medium">{order.user?.name}</p>
-                        <p className="text-[11px] sm:text-xs text-muted-foreground mt-1">
+                        <p className="mt-1 text-[11px] text-muted-foreground sm:text-xs">
                           {order.user?.phone}
                         </p>
                       </td>
@@ -180,23 +212,14 @@ export default function BranchOrdersPage() {
                       <td className="px-4 py-3 font-semibold text-primary">
                         {formatPrice(order.total)}
                       </td>
-                      <td className="px-4 py-3 text-xs text-muted-foreground whitespace-nowrap">
-                        {order.fulfillmentType === "delivery"
-                          ? [order.deliveryStreet, order.deliveryDistrict, order.deliverySector]
-                              .filter(Boolean)
-                              .join(", ")
-                          : new Date(order.pickupTime).toLocaleString([], {
-                              month: "short",
-                              day: "numeric",
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            })}
+                      <td className="px-4 py-3 text-xs whitespace-nowrap text-muted-foreground">
+                        {getDeliveryLabel(order)}
                       </td>
                       <td className="px-4 py-3">
                         <span
-                          className={`text-xs font-medium px-2.5 py-1 rounded-full ${STATUS_COLORS[order.status]}`}
+                          className={`rounded-full px-2.5 py-1 text-xs font-medium ${STATUS_COLORS[order.status]}`}
                         >
-                          {order.status.replace("_", " ")}
+                          {STATUS_LABELS[order.status] || order.status.replace("_", " ")}
                         </span>
                       </td>
                       <td className="px-4 py-3 text-xs text-muted-foreground">
@@ -205,9 +228,9 @@ export default function BranchOrdersPage() {
                       <td className="px-4 py-3">
                         <button
                           onClick={() => setSelected(order)}
-                          className="text-xs text-primary hover:underline font-medium"
+                          className="text-xs font-medium text-primary hover:underline"
                         >
-                          Manage
+                          {t("manage")}
                         </button>
                       </td>
                     </tr>
@@ -223,62 +246,49 @@ export default function BranchOrdersPage() {
         onPageChange={setPage}
       />
 
-      {/* Order detail modal */}
       {selected && (
         <div
-          className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
           onClick={() => setSelected(null)}
         >
           <div
-            className="bg-card border border-border rounded-2xl p-4 sm:p-6 w-[calc(100vw-0.75rem)] sm:w-full sm:max-w-2xl shadow-2xl max-h-[92vh] overflow-hidden flex flex-col"
+            className="flex max-h-[92vh] w-[calc(100vw-0.75rem)] flex-col overflow-hidden rounded-2xl border border-border bg-card p-4 shadow-2xl sm:max-w-2xl sm:p-6"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="shrink-0 mb-4">
-              <h2 className="font-bold text-lg mb-1">
-                Order {selected.orderNumber}
+            <div className="mb-4 shrink-0">
+              <h2 className="mb-1 text-lg font-bold">
+                {t("orderTitle", { number: selected.orderNumber })}
               </h2>
               <p className="text-sm text-muted-foreground">
                 {formatDateTime(selected.createdAt)}
               </p>
             </div>
 
-            {/* Customer */}
-            <div className="bg-muted/40 rounded-xl p-3 mb-4 text-sm space-y-1">
+            <div className="mb-4 rounded-xl bg-muted/40 p-3 text-sm space-y-1">
               <p className="flex items-center gap-2">
                 <User className="h-3.5 w-3.5 text-muted-foreground" />
                 <span className="font-medium">{selected.user?.name}</span>
               </p>
-              <p className="text-muted-foreground pl-5">
+              <p className="pl-5 text-muted-foreground">
                 {selected.user?.phone} - {selected.user?.email}
               </p>
               <p className="flex items-center gap-2 text-muted-foreground">
                 <Clock className="h-3.5 w-3.5" />
-                {selected.fulfillmentType === "delivery"
-                  ? `Delivery: ${[selected.deliveryStreet, selected.deliveryDistrict, selected.deliverySector]
-                      .filter(Boolean)
-                      .join(", ")}`
-                  : `Pick-up: ${new Date(selected.pickupTime).toLocaleString([], {
-                      weekday: "short",
-                      month: "short",
-                      day: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}`}
+                {getDeliveryLabel(selected)}
               </p>
             </div>
 
-            {/* Items */}
             <div className="mb-4">
-              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
-                Items
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                {t("items")}
               </p>
-              <div className="grid grid-cols-2 gap-2 sm:gap-3 max-h-[42vh] overflow-y-auto pr-1">
+              <div className="grid max-h-[42vh] grid-cols-2 gap-2 overflow-y-auto pr-1 sm:gap-3">
                 {selected.items?.map((item: any) => (
                   <div
                     key={item.id}
-                    className="flex flex-col gap-2 rounded-xl border border-border p-2.5 sm:p-3 bg-background min-w-0"
+                    className="flex min-w-0 flex-col gap-2 rounded-xl border border-border bg-background p-2.5 sm:p-3"
                   >
-                    <div className="relative w-full aspect-square rounded-lg overflow-hidden bg-muted border border-border shrink-0">
+                    <div className="relative aspect-square w-full overflow-hidden rounded-lg border border-border bg-muted">
                       {item.image ? (
                         <Image
                           src={getImageUrl(item.image)}
@@ -288,67 +298,67 @@ export default function BranchOrdersPage() {
                           sizes="(max-width: 640px) 50vw, 120px"
                         />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs font-bold">
+                        <div className="flex h-full w-full items-center justify-center text-xs font-bold text-muted-foreground">
                           {item.name?.[0] || "?"}
                         </div>
                       )}
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-xs sm:text-sm line-clamp-2 leading-snug">
+                    <div className="min-w-0 flex-1">
+                      <p className="line-clamp-2 text-xs font-medium leading-snug sm:text-sm">
                         {item.name}
                       </p>
-                      <p className="text-[11px] sm:text-xs text-muted-foreground mt-1">
+                      <p className="mt-1 text-[11px] text-muted-foreground sm:text-xs">
                         x{item.quantity} - {formatPrice(item.price)} each
                       </p>
                     </div>
-                    <span className="font-semibold text-xs sm:text-sm shrink-0">
+                    <span className="shrink-0 text-xs font-semibold sm:text-sm">
                       {formatPrice(item.price * item.quantity)}
                     </span>
                   </div>
                 ))}
               </div>
-              <div className="border-t border-border mt-2 pt-2 flex justify-between font-bold text-sm">
-                <span>Total</span>
-                <span className="text-primary">
-                  {formatPrice(selected.total)}
-                </span>
+              <div className="mt-2 flex justify-between border-t border-border pt-2 text-sm font-bold">
+                <span>{t("total")}</span>
+                <span className="text-primary">{formatPrice(selected.total)}</span>
               </div>
             </div>
 
             {selected.notes && (
-              <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl p-3 mb-4 text-sm">
-                <p className="font-medium mb-0.5">Note:</p>
+              <div className="mb-4 rounded-xl border border-yellow-200 bg-yellow-50 p-3 text-sm dark:border-yellow-800 dark:bg-yellow-900/20">
+                <p className="mb-0.5 font-medium">{t("note")}:</p>
                 <p className="text-muted-foreground">{selected.notes}</p>
               </div>
             )}
 
-            {/* Actions */}
             <div className="space-y-2">
               {isManager && !["picked_up", "cancelled"].includes(selected.status) && (
-                <div className="space-y-2 rounded-xl border border-border p-3 bg-muted/20">
+                <div className="space-y-2 rounded-xl border border-border bg-muted/20 p-3">
                   <div className="flex items-center justify-between gap-3">
                     <div>
-                      <p className="text-sm font-medium">Assign staff</p>
+                      <p className="text-sm font-medium">{t("assignStaff")}</p>
                       <p className="text-xs text-muted-foreground">
                         {selected.assignedTo?.user?.name
-                          ? `Current assignee: ${selected.assignedTo.user.name}`
-                          : "Choose the staff member with the lightest load."}
+                          ? t("currentAssignee", {
+                              name: selected.assignedTo.user.name,
+                            })
+                          : t("assignHint")}
                       </p>
                     </div>
-                    <span className="text-[11px] font-medium px-2 py-1 rounded-full bg-background text-muted-foreground border border-border">
-                      {branchStaff.length} available
+                    <span className="rounded-full border border-border bg-background px-2 py-1 text-[11px] font-medium text-muted-foreground">
+                      {t("availableStaff", { count: branchStaff.length })}
                     </span>
                   </div>
 
                   <select
                     value={selectedStaffId}
                     onChange={(e) => setSelectedStaffId(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                    className="w-full rounded-xl border border-border bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
                   >
-                    <option value="">Select staff</option>
+                    <option value="">{t("selectStaff")}</option>
                     {branchStaff.map((staff: any) => (
                       <option key={staff.id} value={staff.id}>
-                        {staff.user?.name} - {staff.role.replace("_", " ")} ({staff.activeOrders || 0} active)
+                        {staff.user?.name} - {staff.role.replace("_", " ")} (
+                        {staff.activeOrders || 0} {t("active")})
                       </option>
                     ))}
                   </select>
@@ -362,19 +372,18 @@ export default function BranchOrdersPage() {
                       })
                     }
                     disabled={assignMutation.isPending || !selectedStaffId}
-                    className="w-full bg-purple-600 text-white font-semibold py-3 rounded-xl hover:bg-purple-700 disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-purple-600 py-3 font-semibold text-white transition-colors hover:bg-purple-700 disabled:opacity-50"
                   >
                     <Package className="h-4 w-4" />
                     {assignMutation.isPending
-                      ? "Assigning..."
+                      ? t("assigning")
                       : selected.assignedTo?.user?.name
-                        ? "Reassign and start"
-                        : "Assign and start"}
+                        ? t("reassignAndStart")
+                        : t("assignAndStart")}
                   </button>
                 </div>
               )}
 
-              {/* Progress button based on current status */}
               {NEXT_STATUS[selected.status] && (
                 <button
                   onClick={() =>
@@ -384,19 +393,18 @@ export default function BranchOrdersPage() {
                     })
                   }
                   disabled={statusMutation.isPending}
-                  className="w-full bg-primary text-primary-foreground font-semibold py-3 rounded-xl hover:bg-primary/90 disabled:opacity-50 transition-colors"
+                  className="w-full rounded-xl bg-primary py-3 font-semibold text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
                 >
                   {statusMutation.isPending
-                    ? "Updating..."
+                    ? t("updating")
                     : selected.status === "preparing"
-                      ? "✅ Mark as Ready"
+                      ? t("markReady")
                       : selected.status === "ready"
-                        ? "🎉 Mark as Picked Up"
-                        : "Next Step"}
+                        ? t("markPickedUp")
+                        : t("nextStep")}
                 </button>
               )}
 
-              {/* Cancel (only pending/accepted) */}
               {["pending", "accepted"].includes(selected.status) && (
                 <button
                   onClick={() =>
@@ -406,17 +414,17 @@ export default function BranchOrdersPage() {
                     })
                   }
                   disabled={statusMutation.isPending}
-                  className="w-full border border-destructive text-destructive font-medium py-2.5 rounded-xl hover:bg-destructive/5 disabled:opacity-50 transition-colors"
+                  className="w-full rounded-xl border border-destructive py-2.5 font-medium text-destructive transition-colors hover:bg-destructive/5 disabled:opacity-50"
                 >
-                  Cancel Order
+                  {t("cancelOrder")}
                 </button>
               )}
 
               <button
                 onClick={() => setSelected(null)}
-                className="w-full border border-border py-2.5 rounded-xl hover:bg-muted transition-colors font-medium text-sm"
+                className="w-full rounded-xl border border-border py-2.5 text-sm font-medium transition-colors hover:bg-muted"
               >
-                Close
+                {t("close")}
               </button>
             </div>
           </div>
@@ -425,6 +433,3 @@ export default function BranchOrdersPage() {
     </div>
   );
 }
-
-
-
