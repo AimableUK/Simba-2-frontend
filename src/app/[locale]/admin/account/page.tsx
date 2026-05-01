@@ -10,6 +10,7 @@ export default function AdminAccountPage() {
   const t = useTranslations();
   const { data: session } = useSession();
   const role = (session?.user as any)?.role || "user";
+  const canViewAdminDashboard = ["admin", "super_admin"].includes(role);
 
   const items = [
     {
@@ -30,7 +31,7 @@ export default function AdminAccountPage() {
       title: t("nav.notifications"),
       desc: t("nav.recentNotifications"),
     },
-    ...(role !== "user"
+    ...(canViewAdminDashboard
       ? [
           {
             href: `/${locale}/admin/dashboard`,

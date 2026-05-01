@@ -248,11 +248,11 @@ export default function BranchOrdersPage() {
 
       {selected && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-2 sm:p-4"
           onClick={() => setSelected(null)}
         >
           <div
-            className="flex max-h-[92vh] w-[calc(100vw-0.75rem)] flex-col overflow-hidden rounded-2xl border border-border bg-card p-4 shadow-2xl sm:max-w-2xl sm:p-6"
+            className="flex max-h-[calc(100vh-1rem)] w-[calc(100vw-0.5rem)] flex-col overflow-hidden rounded-2xl border border-border bg-card p-4 shadow-2xl sm:max-w-2xl sm:p-6"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-4 shrink-0">
@@ -264,73 +264,76 @@ export default function BranchOrdersPage() {
               </p>
             </div>
 
-            <div className="mb-4 rounded-xl bg-muted/40 p-3 text-sm space-y-1">
-              <p className="flex items-center gap-2">
-                <User className="h-3.5 w-3.5 text-muted-foreground" />
-                <span className="font-medium">{selected.user?.name}</span>
-              </p>
-              <p className="pl-5 text-muted-foreground">
-                {selected.user?.phone} - {selected.user?.email}
-              </p>
-              <p className="flex items-center gap-2 text-muted-foreground">
-                <Clock className="h-3.5 w-3.5" />
-                {getDeliveryLabel(selected)}
-              </p>
-            </div>
+            <div className="min-h-0 flex-1 overflow-y-auto pr-1">
+              <div className="mb-4 rounded-xl bg-muted/40 p-3 text-sm space-y-1">
+                <p className="flex items-center gap-2">
+                  <User className="h-3.5 w-3.5 text-muted-foreground" />
+                  <span className="font-medium">{selected.user?.name}</span>
+                </p>
+                <p className="pl-5 text-muted-foreground">
+                  {selected.user?.phone} - {selected.user?.email}
+                </p>
+                <p className="flex items-center gap-2 text-muted-foreground">
+                  <Clock className="h-3.5 w-3.5" />
+                  {getDeliveryLabel(selected)}
+                </p>
+              </div>
 
-            <div className="mb-4">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                {t("items")}
-              </p>
-              <div className="grid max-h-[42vh] grid-cols-2 gap-2 overflow-y-auto pr-1 sm:gap-3">
-                {selected.items?.map((item: any) => (
-                  <div
-                    key={item.id}
-                    className="flex min-w-0 flex-col gap-2 rounded-xl border border-border bg-background p-2.5 sm:p-3"
-                  >
-                    <div className="relative aspect-square w-full overflow-hidden rounded-lg border border-border bg-muted">
-                      {item.image ? (
-                        <Image
-                          src={getImageUrl(item.image)}
-                          alt={item.name}
-                          fill
-                          className="object-contain p-1"
-                          sizes="(max-width: 640px) 50vw, 120px"
-                        />
-                      ) : (
-                        <div className="flex h-full w-full items-center justify-center text-xs font-bold text-muted-foreground">
-                          {item.name?.[0] || "?"}
-                        </div>
-                      )}
+              <div className="mb-4">
+                <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  {t("items")}
+                </p>
+                <div className="grid max-h-[42vh] grid-cols-2 gap-2 overflow-y-auto pr-1 sm:gap-3">
+                  {selected.items?.map((item: any) => (
+                    <div
+                      key={item.id}
+                      className="flex min-w-0 flex-col gap-2 rounded-xl border border-border bg-background p-2.5 sm:p-3"
+                    >
+                      <div className="relative aspect-square w-full overflow-hidden rounded-lg border border-border bg-muted">
+                        {item.image ? (
+                          <Image
+                            src={getImageUrl(item.image)}
+                            alt={item.name}
+                            fill
+                            className="object-contain p-1"
+                            sizes="(max-width: 640px) 50vw, 120px"
+                          />
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center text-xs font-bold text-muted-foreground">
+                            {item.name?.[0] || "?"}
+                          </div>
+                        )}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="line-clamp-2 text-xs font-medium leading-snug sm:text-sm">
+                          {item.name}
+                        </p>
+                        <p className="mt-1 text-[11px] text-muted-foreground sm:text-xs">
+                          x{item.quantity} - {formatPrice(item.price)} each
+                        </p>
+                      </div>
+                      <span className="shrink-0 text-xs font-semibold sm:text-sm">
+                        {formatPrice(item.price * item.quantity)}
+                      </span>
                     </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="line-clamp-2 text-xs font-medium leading-snug sm:text-sm">
-                        {item.name}
-                      </p>
-                      <p className="mt-1 text-[11px] text-muted-foreground sm:text-xs">
-                        x{item.quantity} - {formatPrice(item.price)} each
-                      </p>
-                    </div>
-                    <span className="shrink-0 text-xs font-semibold sm:text-sm">
-                      {formatPrice(item.price * item.quantity)}
-                    </span>
-                  </div>
-                ))}
+                  ))}
+                </div>
+                <div className="mt-2 flex justify-between border-t border-border pt-2 text-sm font-bold">
+                  <span>{t("total")}</span>
+                  <span className="text-primary">
+                    {formatPrice(selected.total)}
+                  </span>
+                </div>
               </div>
-              <div className="mt-2 flex justify-between border-t border-border pt-2 text-sm font-bold">
-                <span>{t("total")}</span>
-                <span className="text-primary">{formatPrice(selected.total)}</span>
-              </div>
-            </div>
 
-            {selected.notes && (
-              <div className="mb-4 rounded-xl border border-yellow-200 bg-yellow-50 p-3 text-sm dark:border-yellow-800 dark:bg-yellow-900/20">
-                <p className="mb-0.5 font-medium">{t("note")}:</p>
-                <p className="text-muted-foreground">{selected.notes}</p>
-              </div>
-            )}
+              {selected.notes && (
+                <div className="mb-4 rounded-xl border border-yellow-200 bg-yellow-50 p-3 text-sm dark:border-yellow-800 dark:bg-yellow-900/20">
+                  <p className="mb-0.5 font-medium">{t("note")}:</p>
+                  <p className="text-muted-foreground">{selected.notes}</p>
+                </div>
+              )}
 
-            <div className="space-y-2">
+              <div className="space-y-2">
               {isManager && !["picked_up", "cancelled"].includes(selected.status) && (
                 <div className="space-y-2 rounded-xl border border-border bg-muted/20 p-3">
                   <div className="flex items-center justify-between gap-3">
@@ -423,9 +426,10 @@ export default function BranchOrdersPage() {
               <button
                 onClick={() => setSelected(null)}
                 className="w-full rounded-xl border border-border py-2.5 text-sm font-medium transition-colors hover:bg-muted"
-              >
-                {t("close")}
-              </button>
+                >
+                  {t("close")}
+                </button>
+              </div>
             </div>
           </div>
         </div>
