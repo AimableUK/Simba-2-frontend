@@ -962,6 +962,7 @@
     "all": "All",
     "delivery": "Delivery",
     "pickup": "Pick-up",
+    "total": "Total",
     "ordersForBranch": "Orders for {branch}",
     "ordersForYourBranch": "Orders for your branch",
     "recentOrders": "Recent Orders",

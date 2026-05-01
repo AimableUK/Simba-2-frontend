@@ -961,6 +961,7 @@
     "all": "Toutes",
     "delivery": "Livraison",
     "pickup": "Retrait",
+    "total": "Total",
     "ordersForBranch": "Commandes pour {branch}",
     "ordersForYourBranch": "Commandes de votre agence",
     "recentOrders": "Commandes récentes",
