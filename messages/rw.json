@@ -936,12 +936,13 @@
   "branchDashboard": {
     "title": "Ikibaho cy'Ishami",
     "panelTitle": "Branch Panel",
-    "dashboard": "Dashboard",
-    "orders": "Orders",
-    "assignedOrders": "Assigned Orders",
-    "stock": "Stock",
-    "backToStore": "Back to Store",
-    "signOut": "Sign Out",
+    "dashboard": "Ikibaho",
+    "overview": "Incamake",
+    "orders": "Amatumiza",
+    "assignedOrders": "Amatumiza yahawe",
+    "stock": "Ububiko",
+    "backToStore": "Subira ku Isoko",
+    "signOut": "Sohoka",
     "notifications": "Notifications",
     "noNotifications": "No notifications",
     "markAllRead": "Mark all as read",
@@ -1574,3 +1575,4 @@
     }
   }
 }
+

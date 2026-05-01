@@ -938,6 +938,7 @@
     "title": "Branch Dashboard",
     "panelTitle": "Branch Panel",
     "dashboard": "Dashboard",
+    "overview": "Overview",
     "orders": "Orders",
     "assignedOrders": "Assigned Orders",
     "stock": "Stock",

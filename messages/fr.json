@@ -936,12 +936,13 @@
   "branchDashboard": {
     "title": "Tableau de Bord",
     "panelTitle": "Branch Panel",
-    "dashboard": "Dashboard",
-    "orders": "Orders",
-    "assignedOrders": "Assigned Orders",
+    "dashboard": "Tableau de bord",
+    "overview": "Aperçu",
+    "orders": "Commandes",
+    "assignedOrders": "Commandes assignées",
     "stock": "Stock",
-    "backToStore": "Back to Store",
-    "signOut": "Sign Out",
+    "backToStore": "Retour à la boutique",
+    "signOut": "Se déconnecter",
     "notifications": "Notifications",
     "noNotifications": "No notifications",
     "markAllRead": "Mark all as read",
@@ -1574,4 +1575,5 @@
     }
   }
 }
+
 

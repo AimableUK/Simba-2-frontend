@@ -16,6 +16,8 @@ import {
   CheckCheck,
   Check,
   X,
+  Clock,
+  Menu,
 } from "lucide-react";
 import { useSession, signOut } from "@/lib/auth-client";
 import { cn, resolveLocalizedPath } from "@/lib/utils";
@@ -24,6 +26,8 @@ import { useNotificationStore } from "@/store";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { branchApi } from "@/lib/api";
+import { ThemeSwitcherV1 } from "@/lib/theme-switcher-v1";
+import LanguageSwitcherV1 from "@/components/common/LanguageSwitcherV1";
 
 export default function BranchDashboardLayout({
   children,
@@ -36,15 +40,23 @@ export default function BranchDashboardLayout({
   const pathname = usePathname();
   const qc = useQueryClient();
   const t = useTranslations("branchDashboard");
+  const tNav = useTranslations("nav");
   const resolvedLocale = locale || pathname.split("/")[1] || "en";
   const role = (session?.user as any)?.role as string;
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
+  const [time, setTime] = useState(new Date());
   const notifications = useNotificationStore((s) => s.items);
   const unreadCount = useNotificationStore((s) => s.unreadCount);
   const markRead = useNotificationStore((s) => s.markRead);
   const markAllRead = useNotificationStore((s) => s.markAllRead);
   const clear = useNotificationStore((s) => s.clear);
   useNotifications(session?.user?.id);
+
+  useEffect(() => {
+    const interval = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   useAdminSocket({
     onNewOrder: (data) => {
@@ -78,15 +90,13 @@ export default function BranchDashboardLayout({
     {
       href: `/${resolvedLocale}/branch-dashboard`,
       icon: BarChart2,
-      label:
-        role === "branch_staff" ? t("assignedOrders") : t("dashboard"),
+      label: role === "branch_staff" ? t("overview") : t("dashboard"),
       exact: true,
     },
     {
       href: `/${resolvedLocale}/branch-dashboard/orders`,
       icon: ClipboardList,
-      label:
-        role === "branch_staff" ? t("assignedOrders") : t("orders"),
+      label: role === "branch_staff" ? t("assignedOrders") : t("orders"),
     },
     {
       href: `/${resolvedLocale}/branch-dashboard/stock`,
@@ -301,7 +311,9 @@ export default function BranchDashboardLayout({
 
         <nav className="flex-1 py-4">
           {NAV.map(({ href, icon: Icon, label, exact }) => {
-            const active = exact ? pathname === href : pathname.startsWith(href);
+            const active = exact
+              ? pathname === href
+              : pathname.startsWith(href);
             return (
               <Link
                 key={href}
@@ -320,96 +332,130 @@ export default function BranchDashboardLayout({
           })}
         </nav>
 
-        <div className="border-t border-border p-4">
-          <div className="mb-3 flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 font-bold text-sm text-primary">
-              {session.user.name?.[0]?.toUpperCase()}
+        <div className="p-4 border-t border-border">
+          <Link href={`/${locale}/admin/profile`}>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary text-sm">
+                {session.user.name?.[0]?.toUpperCase()}
+              </div>
+              <div className="min-w-0">
+                <p className="text-sm font-medium truncate">
+                  {session.user.name}
+                </p>
+                <p className="text-xs text-muted-foreground capitalize">
+                  {role?.replace("_", " ")}
+                </p>
+              </div>
             </div>
-            <div className="min-w-0">
-              <p className="truncate text-sm font-medium">{session.user.name}</p>
-            </div>
-          </div>
-
-          <Link
-            href={`/${resolvedLocale}`}
-            className="mb-2 flex items-center gap-2 text-xs text-muted-foreground transition-colors hover:text-primary"
-          >
-            <Home className="h-3.5 w-3.5" />
-            {t("backToStore")}
           </Link>
-          <button
-            onClick={() =>
-              signOut({
-                fetchOptions: {
-                  onSuccess: () => router.push(`/${resolvedLocale}`),
-                },
-              })
-            }
-            className="flex w-full items-center gap-2 text-xs text-muted-foreground transition-colors hover:text-destructive"
-          >
-            <LogOut className="h-3.5 w-3.5" />
-            {t("signOut")}
-          </button>
         </div>
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-30 hidden items-center justify-between border-b border-border bg-background/80 px-4 py-3 backdrop-blur lg:flex">
-          <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-              <ShoppingBag className="h-4 w-4 text-white" />
-            </div>
-            <div>
-              <p className="text-sm font-bold leading-none">{t("panelTitle")}</p>
-              <p className="mt-0.5 text-xs capitalize text-muted-foreground">
-                {role?.replace("_", " ")}
-              </p>
-            </div>
+        <header className="sticky top-0 z-30 bg-background/80 backdrop-blur border-b border-border flex items-center justify-between px-4 h-14">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="lg:hidden p-2 hover:bg-muted rounded-lg transition-colors"
+          >
+            <Menu className="h-5 w-5" />
+          </button>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground ml-3">
+            <Clock className="h-4 w-4" />
+            <span className="font-mono">
+              {time.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+              })}
+            </span>
           </div>
+          <div className="flex-1" />
           <div className="flex items-center gap-2">
-            {notificationsPopover}
-            <Link
-              href={`/${resolvedLocale}`}
-              className="flex items-center gap-2 rounded-xl border border-border px-3 py-2 text-xs font-medium text-muted-foreground hover:bg-muted hover:text-primary"
-            >
-              <Home className="h-3.5 w-3.5" />
-              {t("backToStore")}
-            </Link>
-            <button
-              onClick={() =>
-                signOut({
-                  fetchOptions: {
-                    onSuccess: () => router.push(`/${resolvedLocale}`),
-                  },
-                })
-              }
-              className="flex items-center gap-2 rounded-xl border border-border px-3 py-2 text-xs font-medium text-muted-foreground hover:bg-muted hover:text-destructive"
-            >
-              <LogOut className="h-3.5 w-3.5" />
-              {t("signOut")}
-            </button>
-          </div>
-        </header>
-
-        <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-background px-4 py-3 lg:hidden">
-          <Link href={`/${resolvedLocale}`} className="flex items-center gap-2">
-            <ShoppingBag className="h-5 w-5 text-primary" />
-            <span className="text-sm font-bold">{t("panelTitle")}</span>
-          </Link>
-          <div className="flex items-center gap-2">
-            {notificationsPopover}
-            <button
-              onClick={() =>
-                signOut({
-                  fetchOptions: {
-                    onSuccess: () => router.push(`/${resolvedLocale}`),
-                  },
-                })
-              }
-              className="rounded-xl border border-border px-3 py-2 text-xs font-medium hover:bg-muted"
-            >
-              {t("signOut")}
-            </button>
+            <LanguageSwitcherV1 />
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setNotifOpen((v) => !v)}
+                className="relative p-2 hover:bg-muted rounded-lg transition-colors"
+                aria-label={tNav("notifications")}
+              >
+                <Bell className="h-5 w-5" />
+                {unreadCount > 0 && (
+                  <span className="absolute top-1 right-1 w-4 h-4 bg-primary text-primary-foreground text-[10px] font-bold rounded-full flex items-center justify-center">
+                    {unreadCount > 9 ? "9+" : unreadCount}
+                  </span>
+                )}
+              </button>
+              {notifOpen && (
+                <div className="absolute right-0 top-full z-50 mt-2 w-[min(22rem,calc(100vw-1rem))] overflow-hidden rounded-2xl border border-border bg-card shadow-2xl">
+                  <div className="flex items-center justify-between border-b border-border px-4 py-3">
+                    <p className="text-sm font-semibold">
+                      {tNav("notifications")}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => markAllRead()}
+                      className="text-xs font-medium text-primary hover:underline"
+                    >
+                      {tNav("markAllRead")}
+                    </button>
+                  </div>
+                  <div className="max-h-80 overflow-y-auto">
+                    {notifications.length === 0 ? (
+                      <div className="px-4 py-8 text-center text-sm text-muted-foreground">
+                        {tNav("noNotifications")}
+                      </div>
+                    ) : (
+                      notifications.slice(0, 6).map((n) => (
+                        <button
+                          key={n.id}
+                          type="button"
+                          onClick={() => {
+                            markRead(n.id);
+                            setNotifOpen(false);
+                            if (n.link) router.push(n.link);
+                          }}
+                          className={cn(
+                            "w-full border-b border-border/60 px-4 py-3 text-left last:border-0 hover:bg-muted/60 transition-colors",
+                            !n.read && "bg-primary/5",
+                          )}
+                        >
+                          <p className="text-sm font-medium truncate">
+                            {n.title}
+                          </p>
+                          <p className="mt-0.5 text-xs text-muted-foreground line-clamp-2">
+                            {n.message}
+                          </p>
+                        </button>
+                      ))
+                    )}
+                  </div>
+                  <div className="flex items-center justify-between border-t border-border bg-muted/40 px-4 py-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setNotifOpen(false);
+                        clear();
+                      }}
+                      className="text-xs font-medium text-muted-foreground hover:text-foreground"
+                    >
+                      {tNav("clearNotifications")}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setNotifOpen(false);
+                        router.push(`/${locale}/admin/notifications`);
+                      }}
+                      className="text-xs font-medium text-primary hover:underline"
+                    >
+                      {tNav("viewMore")}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+            <ThemeSwitcherV1 />
           </div>
         </header>
 
