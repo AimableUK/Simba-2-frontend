@@ -351,7 +351,7 @@ export default function BranchDashboardLayout({
         </div>
       </aside>
 
-      <div className="flex min-w-0 flex-1 flex-col">
+      <div className="flex min-w-0 flex-1 flex-col lg:pl-64">
         <header className="sticky top-0 z-30 bg-background/80 backdrop-blur border-b border-border flex items-center justify-between px-4 h-14">
           <button
             onClick={() => setSidebarOpen(true)}
