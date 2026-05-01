@@ -6,11 +6,8 @@ import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  ShoppingBag,
   ClipboardList,
   Package,
-  LogOut,
-  Home,
   BarChart2,
   Bell,
   CheckCheck,
@@ -19,7 +16,7 @@ import {
   Clock,
   Menu,
 } from "lucide-react";
-import { useSession, signOut } from "@/lib/auth-client";
+import { useSession } from "@/lib/auth-client";
 import { cn, resolveLocalizedPath } from "@/lib/utils";
 import { useAdminSocket, useNotifications } from "@/hooks/useSocket";
 import { useNotificationStore } from "@/store";
@@ -28,6 +25,7 @@ import { toast } from "sonner";
 import { branchApi } from "@/lib/api";
 import { ThemeSwitcherV1 } from "@/lib/theme-switcher-v1";
 import LanguageSwitcherV1 from "@/components/common/LanguageSwitcherV1";
+import Image from "next/image";
 
 export default function BranchDashboardLayout({
   children,
@@ -295,8 +293,13 @@ export default function BranchDashboardLayout({
       <aside className="fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border flex flex-col transition-transform duration-300 lg:translate-x-0">
         <div className="border-b border-border p-5">
           <Link href={`/${resolvedLocale}`} className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-              <ShoppingBag className="h-4 w-4 text-white" />
+            <div className="flex items-center justify-center">
+              <Image
+                src="/simbalogo.png"
+                alt="Simba Super Market logo"
+                width={35}
+                height={35}
+              />
             </div>
             <div>
               <p className="text-sm font-bold leading-none">

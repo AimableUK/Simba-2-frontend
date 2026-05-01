@@ -170,7 +170,7 @@ export interface User {
   image?: string;
   emailVerified: boolean;
   createdAt: string;
-  _count?: { orders: number };
+  _count?: { branchOrders: number };
 }
 
 export interface Banner {
