@@ -93,9 +93,9 @@ export default function CheckoutPage() {
   const { selectedBranchId: storedBranchId, setBranch } = useBranchStore();
 
   // Pickup time state
-  const [selectedPickupDate, setSelectedPickupDate] = useState<Date | undefined>(
-    undefined,
-  );
+  const [selectedPickupDate, setSelectedPickupDate] = useState<
+    Date | undefined
+  >(undefined);
   const [selectedPickupTime, setSelectedPickupTime] = useState("");
   const [pickupError, setPickupError] = useState("");
   const [deliveryError, setDeliveryError] = useState("");
@@ -248,11 +248,13 @@ export default function CheckoutPage() {
               deliveryDistrict: formData.district?.trim(),
               deliverySector: formData.sector?.trim(),
               deliveryLatitude:
-                formData.deliveryLatitude === "" || formData.deliveryLatitude === undefined
+                formData.deliveryLatitude === "" ||
+                formData.deliveryLatitude === undefined
                   ? undefined
                   : Number(formData.deliveryLatitude),
               deliveryLongitude:
-                formData.deliveryLongitude === "" || formData.deliveryLongitude === undefined
+                formData.deliveryLongitude === "" ||
+                formData.deliveryLongitude === undefined
                   ? undefined
                   : Number(formData.deliveryLongitude),
             }),
@@ -357,7 +359,11 @@ export default function CheckoutPage() {
         return;
       }
 
-      setBranchSwitchPending({ branch, available: availableItems, unavailable });
+      setBranchSwitchPending({
+        branch,
+        available: availableItems,
+        unavailable,
+      });
       setBranchError("");
     } catch {
       toast.error(t("errors.branchLoadFailed"));
@@ -369,7 +375,10 @@ export default function CheckoutPage() {
   const confirmBranchSwitch = () => {
     if (!branchSwitchPending) return;
     void (async () => {
-      await migrateCartToBranch(branchSwitchPending.branch, branchSwitchPending.available);
+      await migrateCartToBranch(
+        branchSwitchPending.branch,
+        branchSwitchPending.available,
+      );
       setSelectedBranchId(branchSwitchPending.branch.id);
       setBranch(
         branchSwitchPending.branch.id,
@@ -404,7 +413,7 @@ export default function CheckoutPage() {
     );
   }
 
-  // but havent we worked on the blogs stats??? i think soo may bee that things we worked on such as showing the stats of the blogs, 2. 
+  // but havent we worked on the blogs stats??? i think soo may bee that things we worked on such as showing the stats of the blogs, 2.
 
   if (success) {
     return (
@@ -662,10 +671,7 @@ export default function CheckoutPage() {
                     />
                   </FormField>
 
-                  <FormField
-                    label={t("sector")}
-                    error={errors.sector?.message}
-                  >
+                  <FormField label={t("sector")} error={errors.sector?.message}>
                     <FormInput
                       registration={register("sector")}
                       placeholder={t("placeholders.sector")}
@@ -840,31 +846,33 @@ export default function CheckoutPage() {
                   <p className="text-xs font-medium">
                     {branches
                       .find((b) => b.id === selectedBranchId)
-                      ?.name?.replace("Simba Supermarket ", "") || "—"}
+                      ?.name?.replace("Simba Supermarket ", "") || "-"}
                   </p>
                 </div>
               )}
 
-              {fulfillmentType === "pickup" && selectedPickupDate && selectedPickupTime && (
-                <div className="mt-2">
-                  <p className="text-xs text-muted-foreground mb-1">
-                    {t("pickupDateTime")}
-                  </p>
-                  <p className="text-xs font-medium">
-                    {selectedPickupDate.toLocaleDateString(locale, {
-                      weekday: "short",
-                      month: "short",
-                      day: "numeric",
-                    })}{" "}
-                    -{" "}
-                    {new Date(selectedPickupTime).toLocaleTimeString(locale, {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      hour12: true,
-                    })}
-                  </p>
-                </div>
-              )}
+              {fulfillmentType === "pickup" &&
+                selectedPickupDate &&
+                selectedPickupTime && (
+                  <div className="mt-2">
+                    <p className="text-xs text-muted-foreground mb-1">
+                      {t("pickupDateTime")}
+                    </p>
+                    <p className="text-xs font-medium">
+                      {selectedPickupDate.toLocaleDateString(locale, {
+                        weekday: "short",
+                        month: "short",
+                        day: "numeric",
+                      })}{" "}
+                      -{" "}
+                      {new Date(selectedPickupTime).toLocaleTimeString(locale, {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: true,
+                      })}
+                    </p>
+                  </div>
+                )}
               {fulfillmentType === "delivery" && (
                 <div className="mt-2">
                   <p className="text-xs text-muted-foreground mb-1">
@@ -873,7 +881,7 @@ export default function CheckoutPage() {
                   <p className="text-xs font-medium">
                     {[watch("street"), watch("district")]
                       .filter(Boolean)
-                      .join(", ") || "—"}
+                      .join(", ") || "-"}
                   </p>
                 </div>
               )}
@@ -945,9 +953,7 @@ export default function CheckoutPage() {
             className="w-full max-w-lg rounded-2xl border border-border bg-card p-6 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <h2 className="text-lg font-bold mb-2">
-              {t("branchSwitchTitle")}
-            </h2>
+            <h2 className="text-lg font-bold mb-2">{t("branchSwitchTitle")}</h2>
             <p className="text-sm text-muted-foreground mb-4">
               {t("branchSwitchDescription", {
                 branch: branchSwitchPending.branch.name.replace(
@@ -962,8 +968,8 @@ export default function CheckoutPage() {
                 <p className="font-medium">
                   If you switch to this branch,{" "}
                   {branchSwitchPending.unavailable.length} item
-                  {branchSwitchPending.unavailable.length === 1 ? "" : "s"}{" "}
-                  will be removed because they are not available there.
+                  {branchSwitchPending.unavailable.length === 1 ? "" : "s"} will
+                  be removed because they are not available there.
                 </p>
               </div>
               {branchSwitchPending.unavailable.map((item) => (

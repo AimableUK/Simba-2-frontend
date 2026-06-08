@@ -42,7 +42,7 @@ export default function AdminOrdersPage() {
   const [newStatus, setNewStatus] = useState("");
   const [note, setNote] = useState("");
 
-  // ── Socket: best-effort only, refetch on event but don't depend on it ──────
+  //  Socket: best-effort only, refetch on event but don't depend on it 
   useAdminSocket({
     onNewOrder: () => qc.invalidateQueries({ queryKey: ["admin-orders"] }),
     onOrderUpdated: () => qc.invalidateQueries({ queryKey: ["admin-orders"] }),
@@ -69,7 +69,7 @@ export default function AdminOrdersPage() {
       note?: string;
     }) => orderApi.updateStatus(id, { status, note }),
 
-    // Optimistically update the list immediately — don't wait for socket
+    // Optimistically update the list immediately - don't wait for socket
     onMutate: async ({ id, status }) => {
       await qc.cancelQueries({
         queryKey: ["admin-orders", page, search, statusFilter],
@@ -322,7 +322,7 @@ export default function AdminOrdersPage() {
                   </span>{" "}
                   {selectedOrder.user?.phone ||
                     (selectedOrder as any).deliveryAddress?.phone ||
-                    "—"}
+                    "-"}
                 </p>
                 <p>
                   <span className="text-muted-foreground">

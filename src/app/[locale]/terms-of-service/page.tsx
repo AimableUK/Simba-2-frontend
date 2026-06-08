@@ -54,7 +54,7 @@ function Reveal({
   );
 }
 
-//  Section definitions — keys never change across locales
+//  Section definitions - keys never change across locales
 const SECTIONS = [
   { key: "acceptance", icon: ScrollText },
   { key: "purchases", icon: ShoppingBag },

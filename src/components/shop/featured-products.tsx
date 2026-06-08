@@ -143,12 +143,12 @@ export function RecommendedProducts() {
 }
 
 const CATEGORY_IMAGES: Record<string, string> = {
-  // "Food & Groceries" — brown paper bag with vegetables
+  // "Food & Groceries" - brown paper bag with vegetables
   food: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&q=80&fit=crop",
   groceries:
     "https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&q=80&fit=crop",
 
-  // "Beverages" — two glasses with red liquid
+  // "Beverages" - two glasses with red liquid
   beverage:
     "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400&q=80&fit=crop",
   drink:
@@ -156,7 +156,7 @@ const CATEGORY_IMAGES: Record<string, string> = {
   juice:
     "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400&q=80&fit=crop",
 
-  // "Alcoholic Drinks" — bottles of liquor
+  // "Alcoholic Drinks" - bottles of liquor
   alcohol:
     "https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=400&q=80&fit=crop",
   wine: "https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=400&q=80&fit=crop",
@@ -166,7 +166,7 @@ const CATEGORY_IMAGES: Record<string, string> = {
   liquor:
     "https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=400&q=80&fit=crop",
 
-  // "Household" — dining room
+  // "Household" - dining room
   household:
     "https://images.unsplash.com/photo-1617806118233-18e1de247200?w=400&q=80&fit=crop",
   house:
@@ -175,7 +175,7 @@ const CATEGORY_IMAGES: Record<string, string> = {
   cleaning:
     "https://images.unsplash.com/photo-1617806118233-18e1de247200?w=400&q=80&fit=crop",
 
-  // "Personal Care" — hand brushes
+  // "Personal Care" - hand brushes
   personal:
     "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80&fit=crop",
   care: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80&fit=crop",
@@ -184,14 +184,14 @@ const CATEGORY_IMAGES: Record<string, string> = {
   beauty:
     "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&q=80&fit=crop",
 
-  // "Toys & Games" — small toy with red hat
+  // "Toys & Games" - small toy with red hat
   toy: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80&fit=crop",
   game: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80&fit=crop",
   kid: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80&fit=crop",
   children:
     "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80&fit=crop",
 
-  // "Electronics" — Sony headphones
+  // "Electronics" - Sony headphones
   electronic:
     "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80&fit=crop",
   tech: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80&fit=crop",
@@ -200,7 +200,7 @@ const CATEGORY_IMAGES: Record<string, string> = {
   phone:
     "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80&fit=crop",
 
-  // "Fresh Produce" — colourful chili peppers
+  // "Fresh Produce" - colourful chili peppers
   fresh:
     "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&q=80&fit=crop",
   produce:

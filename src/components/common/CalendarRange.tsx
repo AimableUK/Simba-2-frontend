@@ -113,10 +113,10 @@ export function CalendarRange({
         <div className="flex items-center justify-between gap-3 border-t border-border px-4 py-3">
           <div className="text-xs text-muted-foreground">
             <span className="font-medium text-foreground">{fromLabel}:</span>{" "}
-            {tempValue?.from ? format(tempValue.from, "MMM d, yyyy") : "—"}
+            {tempValue?.from ? format(tempValue.from, "MMM d, yyyy") : "-"}
             <span className="mx-2">•</span>
             <span className="font-medium text-foreground">{toLabel}:</span>{" "}
-            {tempValue?.to ? format(tempValue.to, "MMM d, yyyy") : "—"}
+            {tempValue?.to ? format(tempValue.to, "MMM d, yyyy") : "-"}
           </div>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm" onClick={handleCancel}>

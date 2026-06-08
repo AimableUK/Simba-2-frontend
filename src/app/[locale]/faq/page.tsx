@@ -49,7 +49,7 @@ function Reveal({
   );
 }
 
-//  Category keys — stable, never translated
+//  Category keys - stable, never translated
 const CATEGORY_KEYS = [
   "orders",
   "shipping",

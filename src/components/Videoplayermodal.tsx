@@ -365,7 +365,7 @@ export default function VideoPlayerModal({
   return (
     <AnimatePresence>
       {isOpen && (
-        // Single wrapper — backdrop click closes, inner click stops propagation
+        // Single wrapper - backdrop click closes, inner click stops propagation
         <motion.div
           key="modal-root"
           className="fixed inset-0 z-[999] flex items-center justify-center p-4 sm:p-8"
@@ -378,7 +378,7 @@ export default function VideoPlayerModal({
           {/* Backdrop */}
           <div className="absolute inset-0 bg-black/85 backdrop-blur-sm" />
 
-          {/* Dialog — clicks here must NOT propagate to the backdrop */}
+          {/* Dialog - clicks here must NOT propagate to the backdrop */}
           <motion.div
             className="relative z-10 w-full max-w-4xl"
             initial={{ scale: 0.92, y: 28 }}
