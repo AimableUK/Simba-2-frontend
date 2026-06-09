@@ -966,6 +966,7 @@
     "dashboard": "Tableau de bord",
     "overview": "Aperçu",
     "orders": "Commandes",
+    "hide": "Masquer",
     "assignedOrders": "Commandes assignées",
     "stock": "Stock",
     "backToStore": "Retour à la boutique",

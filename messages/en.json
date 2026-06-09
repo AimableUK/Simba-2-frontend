@@ -967,6 +967,7 @@
     "dashboard": "Dashboard",
     "overview": "Overview",
     "orders": "Orders",
+    "hide": "Hide",
     "assignedOrders": "Assigned Orders",
     "stock": "Stock",
     "backToStore": "Back to Store",

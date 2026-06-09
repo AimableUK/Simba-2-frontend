@@ -41,12 +41,10 @@ import { toast } from "sonner";
 
 export function Navbar() {
   const t = useTranslations("nav");
-  const tCommon = useTranslations("common");
   const tBranch = useTranslations("branches");
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
-  const { theme, setTheme } = useTheme();
   const { data: session } = useSession();
   const { openCart } = useCartStore();
   const cartItems = useCartStore((s) => s.items);
@@ -507,7 +505,14 @@ export function Navbar() {
               {user && (
                 <div className="relative">
                   <button
-                    onClick={() => setNotifOpen((v) => !v)}
+                    onClick={() => {
+                      if (typeof window !== "undefined" && window.innerWidth < 1024) {
+                        closeMobileMenu();
+                        router.push(`/${locale}/admin/notifications`);
+                      } else {
+                        setNotifOpen((v) => !v);
+                      }
+                    }}
                     className="relative p-2 rounded-lg hover:bg-accent text-foreground/70 hover:text-primary transition-colors"
                     aria-label={t("notifications")}
                   >

@@ -401,7 +401,14 @@ export default function BranchDashboardLayout({
             <div className="relative">
               <button
                 type="button"
-                onClick={() => setNotifOpen((v) => !v)}
+                onClick={() => {
+                  if (typeof window !== "undefined" && window.innerWidth < 1024) {
+                    setSidebarOpen(false);
+                    router.push(`/${resolvedLocale}/admin/notifications`);
+                  } else {
+                    setNotifOpen((v) => !v);
+                  }
+                }}
                 className="relative p-2 hover:bg-muted rounded-lg transition-colors"
                 aria-label={tNav("notifications")}
               >
