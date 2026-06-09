@@ -676,7 +676,7 @@ function MessageBubble({
       transition={{ duration: 0.2, ease: "easeOut" }}
       className={`flex items-end gap-2 ${isUser ? "flex-row-reverse" : "flex-row"}`}
     >
-      {/* Avatar — only on last message in a group */}
+      {/* Avatar - only on last message in a group */}
       <div className="w-7 shrink-0 mb-0.5">
         {showAvatar && !isUser && (
           <div className="w-7 h-7 rounded-full bg-primary flex items-center justify-center">
@@ -945,7 +945,7 @@ export function SimbaAgent() {
       {
         id: Date.now().toString(),
         role: "assistant",
-        content: "Chat cleared! Fresh start — what can I help you with? 😊",
+        content: "Chat cleared! Fresh start - what can I help you with? 😊",
         timestamp: new Date(),
       },
     ]);

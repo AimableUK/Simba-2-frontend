@@ -53,64 +53,77 @@ function formatTime(date: Date) {
   return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 }
 
-//  Product Card
+//  Product Row (image left, details right)
 
-function ProductCard({ p, locale }: { p: any; locale: string }) {
+function ProductRow({ p, locale }: { p: any; locale: string }) {
   return (
     <Link
       href={`/${locale}/product/${p.slug}`}
-      className="group flex-none w-32 sm:w-36 bg-card border border-border rounded-xl overflow-hidden hover:border-primary/60 hover:shadow-sm transition-all"
+      className="group flex items-center gap-3 px-3 py-2.5 hover:bg-muted/50 transition-colors rounded-xl"
     >
-      <div className="relative aspect-square bg-muted/60">
+      {/* Square image */}
+      <div className="relative w-14 h-14 shrink-0 rounded-xl overflow-hidden bg-muted/60 border border-border">
         <Image
           src={getImageUrl(p.images?.[0])}
           alt={p.name}
           fill
-          className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
-          sizes="144px"
+          className="object-contain p-1.5 group-hover:scale-105 transition-transform duration-300"
+          sizes="56px"
         />
-        {p.stock === 0 && (
-          <div className="absolute inset-0 bg-background/70 flex items-center justify-center">
-            <span className="text-[9px] font-bold text-destructive bg-background border border-destructive/30 px-1.5 py-0.5 rounded-full">
-              Out of stock
-            </span>
-          </div>
-        )}
       </div>
-      <div className="p-2">
-        <p className="text-[11px] font-semibold line-clamp-2 leading-tight group-hover:text-primary transition-colors">
+
+      {/* Details */}
+      <div className="min-w-0 flex-1">
+        <p className="text-sm font-semibold leading-snug line-clamp-2 group-hover:text-primary transition-colors">
           {p.name}
         </p>
-        <p className="text-xs text-primary font-bold mt-1.5">
-          {formatPrice(p.price)}
+        <p className="text-xs text-muted-foreground mt-0.5">{p.category}</p>
+      </div>
+
+      {/* Price + stock */}
+      <div className="shrink-0 text-right">
+        <p className="text-sm font-bold text-primary">{formatPrice(p.price)}</p>
+        <p
+          className={`text-[10px] font-medium mt-0.5 ${
+            p.stock > 0
+              ? "text-emerald-600 dark:text-emerald-400"
+              : "text-destructive"
+          }`}
+        >
+          {p.stock > 0 ? `${p.stock} in stock` : "Out of stock"}
         </p>
-        {p.stock > 0 && (
-          <p className="text-[10px] text-emerald-600 dark:text-emerald-400 mt-0.5">
-            {p.stock} in stock
-          </p>
-        )}
       </div>
     </Link>
   );
 }
 
-function ProductScroll({
+function ProductList({
   products,
   locale,
 }: {
   products: any[];
   locale: string;
 }) {
+  const [showAll, setShowAll] = useState(false);
   if (!products?.length) return null;
+
+  const visible = showAll ? products : products.slice(0, 5);
+
   return (
-    <div className="mt-2">
-      <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory -mx-1 px-1">
-        {products.slice(0, 10).map((p) => (
-          <div key={p.id} className="snap-start">
-            <ProductCard p={p} locale={locale} />
-          </div>
+    <div className="mt-2 rounded-xl border border-border bg-background overflow-hidden">
+      <div className="divide-y divide-border/60">
+        {visible.map((p) => (
+          <ProductRow key={p.id} p={p} locale={locale} />
         ))}
       </div>
+      {products.length > 5 && (
+        <button
+          onClick={() => setShowAll((v) => !v)}
+          className="w-full py-2.5 text-xs font-semibold text-primary hover:bg-primary/5 transition-colors border-t border-border/60"
+        >
+          {showAll ? "Show less" : `Show ${products.length - 5} more results`}
+        </button>
+      )}
     </div>
   );
 }
@@ -465,9 +478,7 @@ function ToolResultRenderer({
         const r = tr.result;
 
         if (tr.toolName === "get_products" && r.products?.length)
-          return (
-            <ProductScroll key={i} products={r.products} locale={locale} />
-          );
+          return <ProductList key={i} products={r.products} locale={locale} />;
 
         if (tr.toolName === "get_branches" && r.branches?.length)
           return <BranchMapPanel key={i} branches={r.branches} />;
@@ -674,11 +685,11 @@ export function ConversationalSearch({ branchId }: { branchId?: string }) {
     });
   }, [messages]);
 
-  //  Auto-scroll — scrolls ONLY the chat panel, never the page
+  //  Auto-scroll - scrolls ONLY the chat panel, never the page
   const scrollToBottom = useCallback((smooth = true) => {
     const el = scrollRef.current;
     if (!el) return;
-    // Use scrollTop on the container — never scrollIntoView which moves the page
+    // Use scrollTop on the container - never scrollIntoView which moves the page
     el.scrollTo({
       top: el.scrollHeight,
       behavior: smooth ? "smooth" : "instant",
