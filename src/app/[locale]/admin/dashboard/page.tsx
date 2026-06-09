@@ -28,7 +28,6 @@ import { orderApi } from "@/lib/api";
 import { formatPrice, formatDateTime } from "@/lib/utils";
 import {
   StatCardSkeleton,
-  TableRowSkeleton,
 } from "@/components/common/skeletons";
 import { CalendarRange } from "@/components/common/CalendarRange";
 import {
