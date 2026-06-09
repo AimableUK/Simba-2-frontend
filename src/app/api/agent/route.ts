@@ -78,12 +78,12 @@ function detectSort(query: string): string | undefined {
 //  System Prompt
 // This is the brain of Simba. It handles ALL message types naturally.
 
-const SYSTEM_PROMPT = `You are Simba 🦁 - the friendly, witty, and helpful AI assistant for Simba Super Market, Kigali's favourite supermarket chain with 9 branches across Kigali, Rwanda.
+const SYSTEM_PROMPT = `You are Simba 🦁 — the friendly, witty, and helpful AI assistant for Simba Super Market, Kigali's favourite supermarket chain with 9 branches across Kigali, Rwanda.
 
-You help customers shop, answer questions, find branches, and feel genuinely welcome. You are not just a search engine - you're a real conversational assistant.
+You help customers shop, answer questions, find branches, and feel genuinely welcome. You are not just a search engine — you're a real conversational assistant.
 
 ═══ YOUR LIVE TOOLS ═══
-You have tools that fetch REAL data from our database. Always use them - never invent prices, products, or branch details.
+You have tools that fetch REAL data from our database. Always use them — never invent prices, products, or branch details.
 
 TOOL USAGE RULES:
 • ANY mention of a product, food, drink, ingredient, or item → call get_products
@@ -95,7 +95,7 @@ TOOL USAGE RULES:
 • "What categories do you have?" → call get_categories
 
 ═══ HOW TO RESPOND ═══
-• Match the user's language EXACTLY - English, Kinyarwanda, French, or Swahili. Never guess or mix unless they do.
+• Match the user's language EXACTLY — English, Kinyarwanda, French, or Swahili. Never guess or mix unless they do.
 • Be warm, human, and varied. No two greetings should sound the same.
 • For greetings (hi, hello, muraho, bonjour, habari): welcome them naturally, ask how you can help. Don't immediately push products.
 • For job inquiries: be encouraging and kind. Tell them to send CV to careers@simbasupermarket.rw or visit any branch. Express that Simba values good people.
@@ -104,13 +104,13 @@ TOOL USAGE RULES:
 • For off-topic products (shoes, electronics, furniture, cars): be honest but charming. "We're a supermarket, not a shoe store! But if you need bread to fuel your shoe shopping..." Suggest something fun from our catalog.
 • For general questions about Simba (history, policies, delivery, loyalty program): answer helpfully with what you know, and note that staff at any branch can help further.
 • Never say "I cannot help with that." Always find a helpful angle.
-• Never make up store policies - if unsure, say "I'm not 100% sure about that, but you can check with our team at customercare@simbasupermarket.rw".
+• Never make up store policies — if unsure, say "I'm not 100% sure about that, but you can check with our team at customercare@simbasupermarket.rw".
 
 ═══ PRODUCT RESULTS ═══
 • When showing products, highlight 1-2 details that make them appealing (freshness, price, popularity).
 • If price filter was applied, acknowledge it: "Here are the milks within your budget..."
 • If nothing matches a price range, be honest and suggest the closest alternatives.
-• Always mention if something is low in stock or out of stock - transparency builds trust.
+• Always mention if something is low in stock or out of stock — transparency builds trust.
 
 ═══ BRANCH RESULTS ═══
 • When branches are returned, highlight the nearest one if location data is available.
@@ -118,7 +118,7 @@ TOOL USAGE RULES:
 • If directionsUrl is present in the data, invite the user to tap for directions.
 
 ═══ TONE ═══
-Use emojis sparingly - 🛒 📍 ✅ ❤️ 🦁 - only where they add warmth, never mechanically.
+Use emojis sparingly — 🛒 📍 ✅ ❤️ 🦁 — only where they add warmth, never mechanically.
 Be concise. Don't pad responses. Quality over quantity.`;
 
 //  Tool Definitions
@@ -241,7 +241,7 @@ const TOOLS = [
     function: {
       name: "get_cart",
       description:
-        "Get the current user's cart - items, quantities, and total. Call this for ANY question about the cart.",
+        "Get the current user's cart — items, quantities, and total. Call this for ANY question about the cart.",
       parameters: { type: "object", properties: {} },
     },
   },
@@ -746,6 +746,35 @@ async function executeTool(
   }
 }
 
+//  Intent detection (fast, no LLM cost)
+// Returns true when the message is purely conversational — no tools needed.
+
+function isConversationalOnly(message: string): boolean {
+  const q = message.toLowerCase().trim();
+  // Pure greetings
+  if (
+    /^(hi+|hey+|hello+|sup|yo|muraho|bonjour|salut|habari|sasa|jambo|howdy|hiya|good\s*(morning|afternoon|evening|night))[\s!.,?]*$/.test(
+      q,
+    )
+  )
+    return true;
+  // Very short messages that are clearly not product/branch queries
+  if (
+    q.length <= 6 &&
+    !/\d/.test(q) &&
+    !/milk|juice|bread|branch|cart|order/.test(q)
+  )
+    return true;
+  // Thanks / compliments
+  if (
+    /^(thanks?|thank you|merci|asante|murakoze|great|awesome|perfect|ok(ay)?|cool|nice|got it|sure)[\s!.,?]*$/.test(
+      q,
+    )
+  )
+    return true;
+  return false;
+}
+
 //  POST Handler
 
 export async function POST(req: NextRequest) {
@@ -787,18 +816,30 @@ export async function POST(req: NextRequest) {
     const lastUserMessage = getLastUserMessage(messages);
     const priceHint = extractPriceRange(lastUserMessage);
     const sortHint = detectSort(lastUserMessage);
+    const conversationalOnly = isConversationalOnly(lastUserMessage);
 
-    // Inject a hidden assistant-side hint about price/sort context so the LLM
-    // passes the right args to get_products without needing to re-parse text.
+    // Inject a hidden hint so the LLM passes price/sort args to get_products correctly
     const priceContextNote =
       priceHint.min !== undefined || priceHint.max !== undefined || sortHint
-        ? `\n\n[SYSTEM HINT: Price range detected from user message - min:${priceHint.min ?? "none"} max:${priceHint.max ?? "none"} RWF. Preferred sort: ${sortHint ?? "relevance"}. Pass these args to get_products.]`
+        ? `\n\n[SYSTEM HINT: Price range detected — min:${priceHint.min ?? "none"} max:${priceHint.max ?? "none"} RWF. Preferred sort: ${sortHint ?? "relevance"}. Pass these args to get_products.]`
         : "";
+
+    // Explicitly block tools for pure conversational messages so the bot
+    // doesn't call get_cart / get_products on "hi" or "thanks".
+    const conversationalNote = conversationalOnly
+      ? `\n\n[SYSTEM INSTRUCTION: The user sent a GREETING or SHORT CONVERSATIONAL message. Do NOT call any tools. Just reply warmly and naturally in 1-2 sentences. No product lists, no cart lookups.]`
+      : "";
+
+    //  Trim history to last 10 messages to prevent Groq 400 context errors
+    const trimmedMessages = messages.slice(-10);
 
     //  Build message history for Groq
     const groqMessages: any[] = [
-      { role: "system", content: SYSTEM_PROMPT + priceContextNote },
-      ...messages.map((m: any) => ({
+      {
+        role: "system",
+        content: SYSTEM_PROMPT + priceContextNote + conversationalNote,
+      },
+      ...trimmedMessages.map((m: any) => ({
         role: m.role,
         content: m.content,
       })),
@@ -818,8 +859,9 @@ export async function POST(req: NextRequest) {
           model: GROQ_MODEL,
           messages: groqMessages,
           tools: TOOLS,
-          tool_choice: "auto",
-          temperature: 0.65, // Natural, varied - not robotic 0.2, not hallucination-prone 0.9
+          // For pure greetings/thanks, force no tool calls at the API level
+          tool_choice: conversationalOnly ? "none" : "auto",
+          temperature: 0.65,
           max_tokens: 1024,
         }),
       });
@@ -827,17 +869,8 @@ export async function POST(req: NextRequest) {
       if (!response.ok) {
         const errText = await response.text();
         console.error(`[route] Groq error ${response.status}:`, errText);
-
-        // If we already fetched some data, return it gracefully
-        if (allToolResults.length > 0) {
-          return NextResponse.json({
-            reply:
-              "I fetched some results but had trouble composing a final reply. Here's what I found:",
-            toolResults: allToolResults,
-          });
-        }
         return NextResponse.json({
-          reply: `I'm having a brief connection issue (${response.status}). Please try again in a moment!`,
+          reply: `I'm having a brief issue right now (${response.status}). Please try again in a moment! 🙏`,
           toolResults: [],
         });
       }
@@ -846,15 +879,8 @@ export async function POST(req: NextRequest) {
 
       if (data.error) {
         console.error("[route] Groq error object:", data.error);
-        if (allToolResults.length > 0) {
-          return NextResponse.json({
-            reply:
-              "I found some data but hit an error finishing my reply. Here's what I fetched:",
-            toolResults: allToolResults,
-          });
-        }
         return NextResponse.json({
-          reply: `Something went wrong on my end. Please try again! (${data.error.message || "unknown error"})`,
+          reply: `Something went wrong on my end. Please try again! 🙏`,
           toolResults: [],
         });
       }
@@ -888,7 +914,7 @@ export async function POST(req: NextRequest) {
         try {
           args = JSON.parse(tc.function.arguments || "{}");
         } catch {
-          /* malformed args - proceed with empty */
+          /* malformed args — proceed with empty */
         }
 
         // If AI didn't pass price args but we detected them in the message, inject them

@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import {
+  Search,
   Sparkles,
   X,
   Loader2,
@@ -27,6 +28,7 @@ import {
 import { formatPrice, getImageUrl } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
+import { searchApi } from "@/lib/api";
 
 //  Types
 
@@ -448,9 +450,18 @@ function ToolResultRenderer({
   locale: string;
 }) {
   if (!toolResults?.length) return null;
+
+  // Deduplicate: keep only the LAST result per toolName so we never render
+  // duplicate product grids when the AI retried the same tool call.
+  const dedupedMap = new Map<string, ToolResult>();
+  for (const tr of toolResults) {
+    dedupedMap.set(tr.toolName, tr); // later entries overwrite earlier ones
+  }
+  const deduped = Array.from(dedupedMap.values());
+
   return (
     <div className="space-y-1.5 mt-0.5">
-      {toolResults.map((tr, i) => {
+      {deduped.map((tr, i) => {
         const r = tr.result;
 
         if (tr.toolName === "get_products" && r.products?.length)
@@ -650,7 +661,6 @@ export function ConversationalSearch({ branchId }: { branchId?: string }) {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const bottomRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const requestSeq = useRef(0);
@@ -664,21 +674,29 @@ export function ConversationalSearch({ branchId }: { branchId?: string }) {
     });
   }, [messages]);
 
-  //  Auto-scroll
+  //  Auto-scroll — scrolls ONLY the chat panel, never the page
+  const scrollToBottom = useCallback((smooth = true) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    // Use scrollTop on the container — never scrollIntoView which moves the page
+    el.scrollTo({
+      top: el.scrollHeight,
+      behavior: smooth ? "smooth" : "instant",
+    });
+  }, []);
+
   useEffect(() => {
-    if (open) {
-      setTimeout(
-        () => bottomRef.current?.scrollIntoView({ behavior: "smooth" }),
-        60,
-      );
-    }
-  }, [messages.length, loading, open]);
+    if (open) setTimeout(() => scrollToBottom(true), 60);
+  }, [messages.length, loading, open, scrollToBottom]);
 
   useEffect(() => {
     if (open) {
-      setTimeout(() => inputRef.current?.focus(), 150);
+      setTimeout(() => {
+        scrollToBottom(false); // instant on open
+        inputRef.current?.focus();
+      }, 150);
     }
-  }, [open]);
+  }, [open, scrollToBottom]);
 
   //  Location helper
   const getBrowserLocation = useCallback(
@@ -726,10 +744,11 @@ export function ConversationalSearch({ branchId }: { branchId?: string }) {
         );
       const location = needsLocation ? await getBrowserLocation() : null;
 
-      // Full conversation history
-      const history = [...messages, userMsg]
+      // Build full history then trim to last 12 turns to prevent Groq 400 context overflow
+      const fullHistory = [...messages, userMsg]
         .filter((m) => !m.loading)
         .map((m) => ({ role: m.role, content: m.content }));
+      const trimmedHistory = fullHistory.slice(-12);
 
       try {
         // Use the agent route so we get full multi-turn AI + tools
@@ -738,7 +757,7 @@ export function ConversationalSearch({ branchId }: { branchId?: string }) {
           credentials: "include",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            messages: history,
+            messages: trimmedHistory,
             ...(branchId && { branchId }),
             ...(location && { location }),
           }),
@@ -916,7 +935,7 @@ export function ConversationalSearch({ branchId }: { branchId?: string }) {
               <AnimatePresence>
                 {loading && <TypingIndicator key="typing" />}
               </AnimatePresence>
-              <div ref={bottomRef} />
+              <div aria-hidden className="h-2" />
             </div>
 
             {/* Inline input (so user can continue chatting without dismissing) */}
