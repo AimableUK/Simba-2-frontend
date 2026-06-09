@@ -647,37 +647,52 @@ export default function CheckoutPage() {
                 <p className="mb-4 text-sm text-muted-foreground">
                   {t("deliveryAddressHint")}
                 </p>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <FormField
-                    label={t("street")}
-                    error={errors.street?.message}
-                    className="sm:col-span-2"
-                  >
-                    <FormInput
-                      registration={register("street")}
-                      error={!!errors.street}
-                      placeholder={t("placeholders.street")}
-                    />
-                  </FormField>
+                {(() => {
+                  const hasCoords =
+                    !!watch("deliveryLatitude") &&
+                    watch("deliveryLatitude") !== "" &&
+                    !!watch("deliveryLongitude") &&
+                    watch("deliveryLongitude") !== "";
+                  return (
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <FormField
+                        label={t("street")}
+                        error={errors.street?.message}
+                        optional={hasCoords}
+                        className="sm:col-span-2"
+                      >
+                        <FormInput
+                          registration={register("street")}
+                          error={!!errors.street}
+                          placeholder={t("placeholders.street")}
+                        />
+                      </FormField>
 
-                  <FormField
-                    label={t("district")}
-                    error={errors.district?.message}
-                  >
-                    <FormInput
-                      registration={register("district")}
-                      error={!!errors.district}
-                      placeholder={t("placeholders.district")}
-                    />
-                  </FormField>
+                      <FormField
+                        label={t("district")}
+                        error={errors.district?.message}
+                        optional={hasCoords}
+                      >
+                        <FormInput
+                          registration={register("district")}
+                          error={!!errors.district}
+                          placeholder={t("placeholders.district")}
+                        />
+                      </FormField>
 
-                  <FormField label={t("sector")} error={errors.sector?.message}>
-                    <FormInput
-                      registration={register("sector")}
-                      placeholder={t("placeholders.sector")}
-                    />
-                  </FormField>
-                </div>
+                      <FormField
+                        label={t("sector")}
+                        error={errors.sector?.message}
+                        optional={hasCoords}
+                      >
+                        <FormInput
+                          registration={register("sector")}
+                          placeholder={t("placeholders.sector")}
+                        />
+                      </FormField>
+                    </div>
+                  );
+                })()}
                 <div className="mt-4">
                   <LocationPicker
                     label={t("deliveryMap")}
@@ -913,6 +928,8 @@ export default function CheckoutPage() {
                   !selectedBranchId ||
                   (fulfillmentType === "pickup" && !selectedPickupTime) ||
                   (fulfillmentType === "delivery" &&
+                    !watch("deliveryLatitude") &&
+                    !watch("deliveryLongitude") &&
                     (!watch("street") || !watch("district"))) ||
                   items.length === 0
                 }
