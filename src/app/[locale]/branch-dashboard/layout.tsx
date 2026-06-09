@@ -290,8 +290,20 @@ export default function BranchDashboardLayout({
 
   return (
     <div className="min-h-screen bg-background flex">
-      <aside className="fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border flex flex-col transition-transform duration-300 lg:translate-x-0">
-        <div className="border-b border-border p-5">
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      <aside
+        className={cn(
+          "fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border flex flex-col transition-transform duration-300 lg:translate-x-0",
+          sidebarOpen ? "translate-x-0" : "-translate-x-full",
+        )}
+      >
+        <div className="border-b border-border p-5 flex items-center justify-between">
           <Link href={`/${resolvedLocale}`} className="flex items-center gap-2">
             <div className="flex items-center justify-center">
               <Image
@@ -310,9 +322,15 @@ export default function BranchDashboardLayout({
               </p>
             </div>
           </Link>
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="lg:hidden p-1 hover:bg-muted rounded-lg transition-colors"
+          >
+            <X className="h-4 w-4" />
+          </button>
         </div>
 
-        <nav className="flex-1 py-4">
+        <nav className="flex-1 py-4 overflow-y-auto">
           {NAV.map(({ href, icon: Icon, label, exact }) => {
             const active = exact
               ? pathname === href
@@ -321,6 +339,7 @@ export default function BranchDashboardLayout({
               <Link
                 key={href}
                 href={href}
+                onClick={() => setSidebarOpen(false)}
                 className={cn(
                   "mx-3 mb-0.5 flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
                   active
@@ -362,6 +381,7 @@ export default function BranchDashboardLayout({
           >
             <Menu className="h-5 w-5" />
           </button>
+
           <div className="flex items-center gap-2 text-sm text-muted-foreground ml-3">
             <Clock className="h-4 w-4" />
             <span className="font-mono">
@@ -372,9 +392,12 @@ export default function BranchDashboardLayout({
               })}
             </span>
           </div>
+
           <div className="flex-1" />
+
           <div className="flex items-center gap-2">
             <LanguageSwitcherV1 />
+
             <div className="relative">
               <button
                 type="button"
@@ -389,6 +412,7 @@ export default function BranchDashboardLayout({
                   </span>
                 )}
               </button>
+
               {notifOpen && (
                 <div className="absolute right-0 top-full z-50 mt-2 w-[min(22rem,calc(100vw-1rem))] overflow-hidden rounded-2xl border border-border bg-card shadow-2xl">
                   <div className="flex items-center justify-between border-b border-border px-4 py-3">
@@ -458,6 +482,7 @@ export default function BranchDashboardLayout({
                 </div>
               )}
             </div>
+
             <ThemeSwitcherV1 />
           </div>
         </header>
