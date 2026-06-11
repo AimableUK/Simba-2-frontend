@@ -58,7 +58,6 @@ export default function SignInPage() {
   };
 
   const handleGoogle = async () => {
-    toast.error(t("errors.googleUnavailable"));
     setGoogleLoading(true);
     try {
       await signIn.social({

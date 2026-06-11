@@ -106,7 +106,6 @@ export default function SignUpPage() {
   };
 
   const handleGoogle = async () => {
-    toast.error("Google sign in Currently Unavailable");
     setGoogleLoading(true);
     try {
       await signIn.social({ provider: "google", callbackURL: `/${locale}` });
