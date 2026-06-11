@@ -107,13 +107,13 @@ export default function SignUpPage() {
 
   const handleGoogle = async () => {
     toast.error("Google sign in Currently Unavailable");
-    // setGoogleLoading(true);
-    // try {
-    //   await signIn.social({ provider: "google", callbackURL: `/${locale}` });
-    // } catch {
-    //   toast.error("Google sign in failed");
-    //   setGoogleLoading(false);
-    // }
+    setGoogleLoading(true);
+    try {
+      await signIn.social({ provider: "google", callbackURL: `/${locale}` });
+    } catch {
+      toast.error("Google sign in failed");
+      setGoogleLoading(false);
+    }
   };
 
   return (
@@ -211,7 +211,7 @@ export default function SignUpPage() {
           </h1>
 
           {/* Google */}
-          {/* <button
+          <button
             onClick={handleGoogle}
             // disabled={googleLoading}
             disabled
@@ -240,16 +240,16 @@ export default function SignUpPage() {
               </svg>
             )}
             {t("continueWithGoogle")}
-          </button> */}
+          </button>
 
           {/* Divider */}
-          {/* <div className="flex items-center gap-3 mb-5">
+          <div className="flex items-center gap-3 mb-5">
             <div className="flex-1 h-px bg-border" />
             <span className="text-xs text-muted-foreground font-medium">
               {t("orContinueWith")}
             </span>
             <div className="flex-1 h-px bg-border" />
-          </div> */}
+          </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
