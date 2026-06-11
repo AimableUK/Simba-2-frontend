@@ -213,8 +213,7 @@ export default function SignUpPage() {
           {/* Google */}
           <button
             onClick={handleGoogle}
-            // disabled={googleLoading}
-            disabled
+            disabled={googleLoading}
             className="w-full flex items-center justify-center gap-3 border border-border bg-background hover:bg-muted py-3 px-4 rounded-xl text-sm font-medium transition-colors disabled:opacity-60 mb-5"
           >
             {googleLoading ? (
