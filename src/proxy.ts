@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 
-const SESSION_COOKIE = "simba.session_token";
-const SECURE_SESSION_COOKIE = "__Secure-simba.session_token";
+const SESSION_COOKIE = "better-auth.session_token";
+const SECURE_SESSION_COOKIE = "__Secure-better-auth.session_token";
 
 const PROTECTED_PREFIXES = ["/dashboard", "/admin", "/orders", "/profile"];
 const SKIP_EXTENSIONS =
