@@ -10,12 +10,20 @@ import {
   ShoppingBag,
   ArrowRight,
   ArrowLeft,
+  Trash,
+  Bookmark,
+  BookmarkCheck,
+  AlertTriangle,
 } from "lucide-react";
 import { useCart } from "@/hooks/useCart";
 import { useSession } from "@/lib/auth-client";
 import { formatPrice, getImageUrl } from "@/lib/utils";
 import { Skeleton } from "@/components/common/skeletons";
 import { useRouter } from "next/navigation";
+import { useSaveForLaterStore } from "@/store";
+import { toast } from "sonner";
+
+const MIN_ORDER = 2500;
 
 export default function CartPage() {
   const t = useTranslations("cart");
@@ -29,9 +37,13 @@ export default function CartPage() {
     isLoading,
     updateQuantity,
     removeItem,
+    clearCart,
     itemCount,
   } = useCart();
   const router = useRouter();
+  const saveForLater = useSaveForLaterStore();
+
+  const belowMinimum = total < MIN_ORDER;
 
   if (!session?.user) {
     return (
@@ -64,7 +76,7 @@ export default function CartPage() {
       </div>
     );
 
-  if (items.length === 0)
+  if (items.length === 0 && saveForLater.items.length === 0)
     return (
       <div className="container mx-auto px-4 py-20 text-center">
         <ShoppingBag className="h-20 w-20 text-muted-foreground mx-auto mb-4" />
@@ -81,10 +93,31 @@ export default function CartPage() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-5xl">
-      <h1 className="text-2xl font-bold mb-2">{t("title")}</h1>
+      <div className="flex items-center justify-between mb-2">
+        <h1 className="text-2xl font-bold">{t("title")}</h1>
+        {items.length > 0 && (
+          <button
+            onClick={() => { clearCart(); toast.success(t("cleared")); }}
+            className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-destructive transition-colors"
+          >
+            <Trash className="h-4 w-4" />
+            {t("clearCart")}
+          </button>
+        )}
+      </div>
       <p className="text-muted-foreground mb-8">
         {t("items", { count: itemCount })}
       </p>
+
+      {/* Minimum order warning */}
+      {items.length > 0 && belowMinimum && (
+        <div className="mb-6 flex items-start gap-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-2xl p-4">
+          <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
+          <p className="text-sm text-amber-700 dark:text-amber-400">
+            {t("minimumOrder", { amount: formatPrice(MIN_ORDER), remaining: formatPrice(MIN_ORDER - total) })}
+          </p>
+        </div>
+      )}
 
       <div className="grid lg:grid-cols-3 gap-8">
         {/* Cart Items */}
@@ -94,10 +127,7 @@ export default function CartPage() {
               key={item.id}
               className="flex gap-4 bg-card border border-border rounded-2xl p-4"
             >
-              <Link
-                href={`/${locale}/product/${item.product.slug}`}
-                className="shrink-0"
-              >
+              <Link href={`/${locale}/product/${item.product.slug}`} className="shrink-0">
                 <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-muted">
                   <Image
                     src={getImageUrl(item.product.images[0])}
@@ -138,10 +168,7 @@ export default function CartPage() {
                       onClick={() =>
                         updateQuantity({
                           productId: item.productId,
-                          quantity: Math.min(
-                            item.product.stock,
-                            item.quantity + 1,
-                          ),
+                          quantity: Math.min(item.product.stock, item.quantity + 1),
                         })
                       }
                       className="p-2 hover:bg-muted transition-colors"
@@ -150,12 +177,18 @@ export default function CartPage() {
                     </button>
                   </div>
                   <button
-                    onClick={() =>
-                      removeItem({
-                        productId: item.productId,
-                        branchId: undefined,
-                      })
-                    }
+                    onClick={() => {
+                      saveForLater.save({ productId: item.productId, product: item.product });
+                      removeItem({ productId: item.productId, branchId: undefined });
+                      toast.success(t("savedForLater"));
+                    }}
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                    title={t("saveForLater")}
+                  >
+                    <Bookmark className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => removeItem({ productId: item.productId, branchId: undefined })}
                     className="text-muted-foreground hover:text-destructive transition-colors"
                   >
                     <Trash2 className="h-4 w-4" />
@@ -163,9 +196,7 @@ export default function CartPage() {
                 </div>
               </div>
               <div className="text-right shrink-0">
-                <p className="font-bold">
-                  {formatPrice(item.product.price * item.quantity)}
-                </p>
+                <p className="font-bold">{formatPrice(item.product.price * item.quantity)}</p>
               </div>
             </div>
           ))}
@@ -193,24 +224,74 @@ export default function CartPage() {
               </div>
               <div className="border-t border-border pt-3 flex justify-between text-base">
                 <span className="font-bold">{t("total")}</span>
-                <span className="font-bold text-primary text-lg">
-                  {formatPrice(grandTotal)}
-                </span>
+                <span className="font-bold text-primary text-lg">{formatPrice(grandTotal)}</span>
               </div>
             </div>
-            <p className="text-xs text-muted-foreground mt-3">
-              {t("deliveryNote")}
-            </p>
+            <p className="text-xs text-muted-foreground mt-3">{t("deliveryNote")}</p>
             <button
               onClick={() => router.push(`/${locale}/checkout`)}
-              className="w-full mt-5 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3.5 rounded-xl transition-colors flex items-center justify-center gap-2"
+              disabled={belowMinimum || items.length === 0}
+              className="w-full mt-5 bg-primary hover:bg-primary/90 disabled:opacity-60 disabled:cursor-not-allowed text-primary-foreground font-semibold py-3.5 rounded-xl transition-colors flex items-center justify-center gap-2"
             >
               {t("checkout")}
               <ArrowRight className="h-4 w-4" />
             </button>
+            {belowMinimum && items.length > 0 && (
+              <p className="text-xs text-amber-600 text-center mt-2">
+                {t("minimumOrderShort", { amount: formatPrice(MIN_ORDER) })}
+              </p>
+            )}
           </div>
         </div>
       </div>
+
+      {/* Save for Later */}
+      {saveForLater.items.length > 0 && (
+        <div className="mt-12">
+          <h2 className="text-lg font-bold mb-4">{t("savedForLaterTitle")}</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {saveForLater.items.map((item) => (
+              <div
+                key={item.productId}
+                className="flex gap-3 bg-card border border-border rounded-2xl p-4"
+              >
+                <div className="relative w-14 h-14 rounded-xl overflow-hidden bg-muted shrink-0">
+                  <Image
+                    src={getImageUrl(item.product.images[0])}
+                    alt={item.product.name}
+                    fill
+                    className="object-contain p-1"
+                    sizes="56px"
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium line-clamp-2">{item.product.name}</p>
+                  <p className="text-primary font-bold text-sm mt-0.5">{formatPrice(item.product.price)}</p>
+                  <div className="flex gap-2 mt-2">
+                    <button
+                      onClick={() => {
+                        // Move back to cart - handled by product card add
+                        saveForLater.remove(item.productId);
+                        toast.success(t("movedToCart"));
+                      }}
+                      className="flex items-center gap-1 text-xs text-primary hover:underline"
+                    >
+                      <BookmarkCheck className="h-3.5 w-3.5" />
+                      {t("moveToCart")}
+                    </button>
+                    <button
+                      onClick={() => saveForLater.remove(item.productId)}
+                      className="text-xs text-muted-foreground hover:text-destructive"
+                    >
+                      {t("remove")}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

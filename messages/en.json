@@ -122,7 +122,16 @@
     "continueShopping": "Continue Shopping",
     "guestCartNotice": "You're browsing as a guest. Sign in to save your cart.",
     "signIn": "Sign in",
-    "signInToCheckout": "Sign in to Checkout"
+    "signInToCheckout": "Sign in to Checkout",
+    "clearCart": "Clear Cart",
+    "cleared": "Cart cleared",
+    "minimumOrder": "Minimum order is {amount}. Add {remaining} more to checkout.",
+    "minimumOrderShort": "Minimum order: {amount}",
+    "saveForLater": "Save for later",
+    "savedForLater": "Saved for later",
+    "savedForLaterTitle": "Saved for Later",
+    "moveToCart": "Move to cart",
+    "movedToCart": "Moved to cart"
   },
   "wishlist": {
     "title": "My Wishlist",
@@ -283,6 +292,7 @@
     "errors": {
       "fullNameMin": "Full name must be at least 2 characters",
       "phoneMin": "Enter a valid phone number (min 10 digits)",
+      "phoneInvalid": "Enter a valid Rwandan number (e.g. +250781234567)",
       "streetMin": "Please enter your street address",
       "districtMin": "Please enter your district",
       "locationOrAddressRequired": "Add delivery coordinates, or enter both street and district",
@@ -293,7 +303,8 @@
       "cartEmpty": "Your cart is empty",
       "orderFailed": "Order failed. Please try again.",
       "fixErrors": "Please fix the following errors:",
-      "field": "Field"
+      "field": "Field",
+      "minimumOrder": "Minimum order is {amount}. Please add more items."
     }
   },
   "auth": {

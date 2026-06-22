@@ -122,7 +122,16 @@
     "continueShopping": "Endelea Kununua",
     "guestCartNotice": "Unatumia kama mgeni. Ingia ili kuhifadhi mkoba wako.",
     "signIn": "Ingia",
-    "signInToCheckout": "Ingia ili Kulipa"
+    "signInToCheckout": "Ingia ili Kulipa",
+    "clearCart": "Futa Kikapu",
+    "cleared": "Kikapu kimefutwa",
+    "minimumOrder": "Agizo la chini ni {amount}. Ongeza {remaining} zaidi ili kulipa.",
+    "minimumOrderShort": "Agizo la chini: {amount}",
+    "saveForLater": "Hifadhi kwa baadaye",
+    "savedForLater": "Imehifadhiwa kwa baadaye",
+    "savedForLaterTitle": "Iliyohifadhiwa Baadaye",
+    "moveToCart": "Hamisha kwenye kikapu",
+    "movedToCart": "Imehamishwa kwenye kikapu"
   },
   "wishlist": {
     "title": "Orodha ya Matakwa",
@@ -148,9 +157,9 @@
     "track": "Fuatilia Agizo",
     "noOrders": "Hakuna maagizo bado",
     "noOrdersDesc": "Weka agizo lako la kwanza kuona hapa",
-    "signInPrompt": "Please sign in to view your orders",
-    "signIn": "Sign In",
-    "startShopping": "Start Shopping",
+    "signInPrompt": "Tafadhali ingia ili kuona maagizo yako",
+    "signIn": "Ingia",
+    "startShopping": "Anza Kununua",
     "notFound": "Agizo halipatikani",
     "orderNumber": "Agizo #",
     "timeline": "Mwendo wa Agizo",
@@ -283,6 +292,7 @@
     "errors": {
       "fullNameMin": "Jina kamili lazima liwe na herufi angalau 2",
       "phoneMin": "Ingiza nambari ya simu halali (angalau tarakimu 10)",
+      "phoneInvalid": "Ingiza nambari ya Rwanda halali (mfano +250781234567)",
       "streetMin": "Tafadhali ingiza anwani yako ya barabara",
       "districtMin": "Tafadhali ingiza wilaya yako",
       "locationOrAddressRequired": "Ongeza coordinates za uwasilishaji, au weka barabara na wilaya",
@@ -293,7 +303,8 @@
       "cartEmpty": "Mkoba wako uko tupu",
       "orderFailed": "Agizo limeshindwa. Tafadhali jaribu tena.",
       "fixErrors": "Tafadhali rekebisha makosa yafuatayo:",
-      "field": "Sehemu"
+      "field": "Sehemu",
+      "minimumOrder": "Agizo la chini ni {amount}. Tafadhali ongeza vitu zaidi."
     }
   },
   "auth": {

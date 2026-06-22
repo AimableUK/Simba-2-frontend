@@ -122,7 +122,16 @@
     "continueShopping": "Komeza Kugura",
     "guestCartNotice": "Urimo nk'umushyitsi. Injira kugira ngo uhahe.",
     "signIn": "Injira",
-    "signInToCheckout": "Injira kugira ngo Ugure"
+    "signInToCheckout": "Injira kugira ngo Ugure",
+    "clearCart": "Siba Agasanduku",
+    "cleared": "Agasanduku gasibwe",
+    "minimumOrder": "Agaciro gato k'itumiza ni {amount}. Ongeraho {remaining} kugira ngo ugure.",
+    "minimumOrderShort": "Agaciro gato k'itumiza: {amount}",
+    "saveForLater": "Bika kuri nyuma",
+    "savedForLater": "Byabitswe kuri nyuma",
+    "savedForLaterTitle": "Byabitswe Kuri Nyuma",
+    "moveToCart": "Bika mu gasanduku",
+    "movedToCart": "Byimukiye mu gasanduku"
   },
   "wishlist": {
     "title": "Ibyo Nshaka",
@@ -150,9 +159,9 @@
     "noOrdersDesc": "Ohereza itumiza rya mbere uribone hano",
     "orderNumber": "Itumiza #",
     "timeline": "Inzira y'Itumiza",
-    "signInPrompt": "Please sign in to view your orders",
-    "signIn": "Sign In",
-    "startShopping": "Start Shopping",
+    "signInPrompt": "Injira kugira ngo urebe amatumiza yawe",
+    "signIn": "Injira",
+    "startShopping": "Tangira Kugura",
     "notFound": "Itumiza ntiryabonetse",
     "pickupInfo": "Amakuru yo Gufata",
     "pickupTime": "Igihe cyo Gufata",
@@ -283,6 +292,7 @@
     "errors": {
       "fullNameMin": "Amazina yuzuye agomba kuba afite nibura inyuguti 2",
       "phoneMin": "Injiza nimero ya telefoni nyayo (nibura imibare 10)",
+      "phoneInvalid": "Injiza nimero y'u Rwanda nyayo (urugero +250781234567)",
       "streetMin": "Nyamuneka injiza aderesi yawe y'umuhanda",
       "districtMin": "Nyamuneka injiza akarere kawe",
       "locationOrAddressRequired": "Shyiramo coordinates zo gutanga, cyangwa utange umuhanda n'akarere",
@@ -293,7 +303,8 @@
       "cartEmpty": "Igashya ryawe nta kintu kirimo",
       "orderFailed": "Itumiza ntiryakozwe. Nyamuneka gerageza nanone.",
       "fixErrors": "Nyamuneka hindura amakosa akurikira:",
-      "field": "Inzego"
+      "field": "Inzego",
+      "minimumOrder": "Agaciro gato k'itumiza ni {amount}. Nyamuneka ongeraho ibintu byinshi."
     }
   },
   "auth": {

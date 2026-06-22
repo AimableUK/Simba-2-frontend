@@ -11,6 +11,7 @@ import {
   Minus,
   Trash2,
   ArrowUpRight,
+  Trash,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -35,15 +36,13 @@ export function CartDrawer() {
   const isLoggedIn = !!session?.user;
   const isAdminRoute = pathname.includes("/admin");
 
-  //  Fetch API cart when authenticated
   const { data: apiCart } = useQuery({
     queryKey: ["cart", selectedBranchId],
     queryFn: () =>
       cartApi.get(selectedBranchId || undefined).then((r) => r.data),
-    enabled: isLoggedIn, // fetch on mount if logged in, not just when drawer opens
+    enabled: isLoggedIn,
   });
 
-  // Sync API cart -> store
   useEffect(() => {
     if (isLoggedIn && apiCart) {
       setCart(
@@ -54,23 +53,17 @@ export function CartDrawer() {
     }
   }, [apiCart, isLoggedIn]);
 
-  // Sync guest cart -> store whenever drawer opens or guest items change
   useEffect(() => {
     if (!isLoggedIn) {
       const guestTotal = guestCart.items.reduce(
         (sum, i) => sum + i.product.price * i.quantity,
         0,
       );
-      // Map GuestCartItem -> CartItem by adding a fake `id` (productId works fine)
-      const mapped = guestCart.items.map((i) => ({
-        id: i.productId,
-        ...i,
-      }));
+      const mapped = guestCart.items.map((i) => ({ id: i.productId, ...i }));
       setCart(mapped, guestTotal, 1000);
     }
   }, [isLoggedIn, guestCart.items]);
 
-  //  Auth mutations
   const removeMutation = useMutation({
     mutationFn: ({
       productId,
@@ -79,6 +72,11 @@ export function CartDrawer() {
       productId: string;
       branchId?: string;
     }) => cartApi.remove(productId, branchId),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["cart"] }),
+  });
+
+  const clearMutation = useMutation({
+    mutationFn: () => cartApi.clear(selectedBranchId || undefined),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["cart"] }),
   });
 
@@ -95,7 +93,6 @@ export function CartDrawer() {
       toast.error(err?.response?.data?.message || "Error updating cart"),
   });
 
-  //  Unified handlers
   const handleRemove = (productId: string) => {
     if (isLoggedIn)
       removeMutation.mutate({
@@ -112,6 +109,12 @@ export function CartDrawer() {
     }
     if (isLoggedIn) updateMutation.mutate({ productId, quantity });
     else guestCart.update(productId, quantity);
+  };
+
+  const handleClearCart = () => {
+    if (isLoggedIn) clearMutation.mutate();
+    else guestCart.clear();
+    toast.success(t("cleared"));
   };
 
   const grandTotal = total + deliveryFee;
@@ -152,12 +155,23 @@ export function CartDrawer() {
                     </span>
                   )}
                 </div>
-                <button
-                  onClick={closeCart}
-                  className="p-1.5 rounded-lg hover:bg-accent transition-colors"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+                <div className="flex items-center gap-1">
+                  {items.length > 0 && (
+                    <button
+                      onClick={handleClearCart}
+                      className="p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+                      title={t("clearCart")}
+                    >
+                      <Trash className="w-4 h-4" />
+                    </button>
+                  )}
+                  <button
+                    onClick={closeCart}
+                    className="p-1.5 rounded-lg hover:bg-accent transition-colors"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
               <Link
                 href={`/${locale}/cart`}
@@ -200,12 +214,13 @@ export function CartDrawer() {
                       {t("emptyDesc")}
                     </p>
                   </div>
-                  <button
+                  <Link
+                    href={`/${locale}/shop`}
                     onClick={closeCart}
                     className="px-6 py-2.5 bg-primary text-white rounded-full text-sm font-medium hover:bg-primary/90 transition-colors"
                   >
                     {t("shopNow")}
-                  </button>
+                  </Link>
                 </div>
               ) : (
                 <div className="divide-y divide-border">

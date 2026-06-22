@@ -122,7 +122,16 @@
     "continueShopping": "Continuer les Achats",
     "guestCartNotice": "Vous naviguez en tant qu'invité. Connectez-vous pour sauvegarder votre panier.",
     "signIn": "Se connecter",
-    "signInToCheckout": "Se connecter pour payer"
+    "signInToCheckout": "Se connecter pour payer",
+    "clearCart": "Vider le Panier",
+    "cleared": "Panier vidé",
+    "minimumOrder": "La commande minimum est de {amount}. Ajoutez {remaining} de plus pour payer.",
+    "minimumOrderShort": "Commande minimum : {amount}",
+    "saveForLater": "Enregistrer pour plus tard",
+    "savedForLater": "Enregistré pour plus tard",
+    "savedForLaterTitle": "Enregistré pour Plus Tard",
+    "moveToCart": "Déplacer vers le panier",
+    "movedToCart": "Déplacé vers le panier"
   },
   "wishlist": {
     "title": "Ma Liste de Souhaits",
@@ -148,9 +157,9 @@
     "track": "Suivre la Commande",
     "noOrders": "Aucune commande pour l'instant",
     "noOrdersDesc": "Passez votre première commande pour la voir ici",
-    "signInPrompt": "Please sign in to view your orders",
-    "signIn": "Sign In",
-    "startShopping": "Start Shopping",
+    "signInPrompt": "Veuillez vous connecter pour voir vos commandes",
+    "signIn": "Se Connecter",
+    "startShopping": "Commencer les Achats",
     "notFound": "Commande introuvable",
     "orderNumber": "Commande #",
     "timeline": "Suivi de commande",
@@ -283,6 +292,7 @@
     "errors": {
       "fullNameMin": "Le nom complet doit contenir au moins 2 caractères",
       "phoneMin": "Entrez un numéro de téléphone valide (min 10 chiffres)",
+      "phoneInvalid": "Entrez un numéro rwandais valide (ex. +250781234567)",
       "streetMin": "Veuillez entrer votre adresse",
       "districtMin": "Veuillez entrer votre district",
       "locationOrAddressRequired": "Ajoutez les coordonnées de livraison, ou indiquez rue et district",
@@ -293,7 +303,8 @@
       "cartEmpty": "Votre panier est vide",
       "orderFailed": "Commande échouée. Veuillez réessayer.",
       "fixErrors": "Veuillez corriger les erreurs suivantes :",
-      "field": "Champ"
+      "field": "Champ",
+      "minimumOrder": "La commande minimum est de {amount}. Veuillez ajouter plus d'articles."
     }
   },
   "auth": {

@@ -105,9 +105,10 @@ export default function CheckoutPage() {
   const cashDesc = isPickup ? t("cashOnArrivalDesc") : t("cashOnDeliveryDesc");
 
   // Build schema with translated error messages
+  const RW_PHONE = /^(\+?250|0)(78|79|72|73)\d{7}$/;
   const schema = z.object({
     fullName: z.string().min(2, t("errors.fullNameMin")),
-    phone: z.string().min(10, t("errors.phoneMin")),
+    phone: z.string().regex(RW_PHONE, t("errors.phoneInvalid")),
     street: z.string().optional(),
     district: z.string().optional(),
     sector: z.string().optional(),
@@ -208,6 +209,11 @@ export default function CheckoutPage() {
     mutationFn: async (formData: FormData) => {
       setServerErrors([]);
       setDeliveryError("");
+
+      const MIN_ORDER = 2500;
+      if (total < MIN_ORDER) {
+        throw new Error(t("errors.minimumOrder", { amount: "2,500 RWF" }));
+      }
 
       let valid = true;
       if (!selectedBranchId) {

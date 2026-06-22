@@ -13,11 +13,13 @@ import { signUp, signIn } from "@/lib/auth-client";
 import { FormField, FormInput } from "@/components/ui/form-field";
 import { toast } from "sonner";
 
+const RW_PHONE = /^(\+?250|0)(78|79|72|73)\d{7}$/;
+
 const schema = z
   .object({
     name: z.string().min(2, "Name must be at least 2 characters"),
     email: z.email("Please enter a valid email"),
-    phone: z.string().optional(),
+    phone: z.string().regex(RW_PHONE, "Enter a valid Rwandan number (e.g. +250781234567)").optional().or(z.literal("")),
     password: z.string().min(8, "Password must be at least 8 characters"),
     confirmPassword: z.string(),
   })
@@ -286,7 +288,7 @@ export default function SignUpPage() {
                 registration={register("phone")}
                 type="tel"
                 autoComplete="tel"
-                placeholder={t("phone")}
+                placeholder="+250 78X XXX XXX"
               />
             </FormField>
 

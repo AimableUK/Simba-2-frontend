@@ -183,6 +183,48 @@ export const useGuestCartStore = create<GuestCartStore>()(
   ),
 );
 
+// Save for Later Store (persisted)
+
+export interface SavedItem {
+  productId: string;
+  product: {
+    id: string;
+    name: string;
+    slug: string;
+    price: number;
+    comparePrice?: number;
+    images: string[];
+    stock: number;
+  };
+}
+
+interface SaveForLaterStore {
+  items: SavedItem[];
+  save: (item: SavedItem) => void;
+  remove: (productId: string) => void;
+  has: (productId: string) => boolean;
+}
+
+export const useSaveForLaterStore = create<SaveForLaterStore>()(
+  persist(
+    (set, get) => ({
+      items: [],
+      save: (item) =>
+        set((s) => ({
+          items: s.items.find((i) => i.productId === item.productId)
+            ? s.items
+            : [...s.items, item],
+        })),
+      remove: (productId) =>
+        set((s) => ({
+          items: s.items.filter((i) => i.productId !== productId),
+        })),
+      has: (productId) => get().items.some((i) => i.productId === productId),
+    }),
+    { name: "simba-saved-later" },
+  ),
+);
+
 //  Branch Store (persisted)
 
 interface BranchStore {
