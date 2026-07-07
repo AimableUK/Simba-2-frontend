@@ -239,7 +239,7 @@ export function ProductCard({ product }: { product: Product }) {
             </div>
 
             {/* Actions overlay */}
-            <div className="absolute top-2 right-2 flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="absolute top-2 right-2 flex flex-col gap-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
               <button
                 onClick={handleWishlist}
                 className={cn(
@@ -263,7 +263,7 @@ export function ProductCard({ product }: { product: Product }) {
             </div>
 
             {/* Add to cart hover bar */}
-            <div className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 translate-y-[140%] opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-hover:pointer-events-auto">
+            <div className="pointer-events-auto absolute bottom-2 left-1/2 -translate-x-1/2 translate-y-0 opacity-100 md:pointer-events-none md:translate-y-[140%] md:opacity-0 transition-all duration-300 md:group-hover:translate-y-0 md:group-hover:opacity-100 md:group-hover:pointer-events-auto">
               {product.stock === 0 ? (
                 <button
                   disabled
