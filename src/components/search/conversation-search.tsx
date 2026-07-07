@@ -4,7 +4,6 @@ import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Search,
   Sparkles,
   X,
   Loader2,
@@ -28,7 +27,6 @@ import {
 import { formatPrice, getImageUrl } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
-import { searchApi } from "@/lib/api";
 
 //  Types
 

@@ -126,6 +126,35 @@ export default function ProductPage() {
     toggle(product.id);
   }, [product, toggle]);
 
+  const serverCartItem = serverCartItems.find((i) => i.product.id === product?.id);
+  const guestCartItem = guestCart.items.find((i) => i.productId === product?.id);
+  const cartQuantity = session?.user
+    ? serverCartItem?.quantity ?? 0
+    : guestCartItem?.quantity ?? 0;
+
+  const handleRemoveFromCart = useCallback(() => {
+    if (!product) return;
+    if (!session?.user) {
+      guestCart.remove(product.id);
+      toast.success("Removed from cart");
+      return;
+    }
+    removeItem({ productId: product.id, branchId: selectedBranchId || undefined });
+    toast.success("Removed from cart");
+  }, [session, product, guestCart, removeItem, selectedBranchId]);
+
+  const handleCartQuantityChange = useCallback((delta: number) => {
+    if (!product) return;
+    const next = cartQuantity + delta;
+    if (next <= 0) { handleRemoveFromCart(); return; }
+    if (next > product.stock) return;
+    if (!session?.user) {
+      guestCart.update(product.id, next);
+      return;
+    }
+    updateQuantity({ productId: product.id, quantity: next, branchId: selectedBranchId || undefined });
+  }, [cartQuantity, product, session, guestCart, updateQuantity, selectedBranchId, handleRemoveFromCart]);
+
   if (isLoading) return <ProductDetailSkeleton />;
   if (!product)
     return (
@@ -144,33 +173,6 @@ export default function ProductPage() {
   const discount = getDiscountPercent(product.price, product.comparePrice);
   const wishlisted = has(product.id);
   const inStock = product.stock > 0;
-
-  const serverCartItem = serverCartItems.find((i) => i.product.id === product.id);
-  const guestCartItem = guestCart.items.find((i) => i.productId === product.id);
-  const cartQuantity = session?.user
-    ? serverCartItem?.quantity ?? 0
-    : guestCartItem?.quantity ?? 0;
-
-  const handleRemoveFromCart = useCallback(() => {
-    if (!session?.user) {
-      guestCart.remove(product.id);
-      toast.success("Removed from cart");
-      return;
-    }
-    removeItem({ productId: product.id, branchId: selectedBranchId || undefined });
-    toast.success("Removed from cart");
-  }, [session, product, guestCart, removeItem, selectedBranchId]);
-
-  const handleCartQuantityChange = useCallback((delta: number) => {
-    const next = cartQuantity + delta;
-    if (next <= 0) { handleRemoveFromCart(); return; }
-    if (next > product.stock) return;
-    if (!session?.user) {
-      guestCart.update(product.id, next);
-      return;
-    }
-    updateQuantity({ productId: product.id, quantity: next, branchId: selectedBranchId || undefined });
-  }, [cartQuantity, product, session, guestCart, updateQuantity, selectedBranchId, handleRemoveFromCart]);
 
   return (
     <div className="min-h-screen bg-background">
