@@ -17,6 +17,7 @@ function isSkippable(pathname: string): boolean {
   );
 }
 
+// check
 function getSessionToken(request: NextRequest): string | undefined {
   return (
     request.cookies.get(SESSION_COOKIE)?.value ||
