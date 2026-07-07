@@ -5,6 +5,10 @@ import { NextRequest, NextResponse } from "next/server";
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
 const GROQ_MODEL = "llama-3.3-70b-versatile";
 
+// Set to true temporarily if you suspect Groq is silently failing -
+// this makes every fallback loud and impossible to miss in logs.
+const VERBOSE_FALLBACK_LOGGING = true;
+
 const API_BASE =
   process.env.INTERNAL_API_URL ||
   process.env.API_URL ||
@@ -60,6 +64,37 @@ function extractPriceRange(query: string): {
   }
 
   return {};
+}
+
+/**
+ * Strip common conversational wrapper phrases (EN/FR/SW/RW) so the fallback
+ * path never sends a raw sentence like "i love milk!" straight into a
+ * keyword search. This is intentionally simple (no LLM) since it only
+ * runs when Groq itself is unreachable - it's a safety net, not the
+ * primary understanding layer (that's the LLM + tools in the happy path).
+ */
+function extractSearchTerm(raw: string): string {
+  let q = raw.trim();
+
+  const wrapperPatterns: RegExp[] = [
+    // English
+    /^(do you have|have you got|got any|is there|are there|any|i (?:want|need|love|like)|i'd like|i would like|can i get|looking for|show me|find me|where('?s| is) the|what about)\s+/i,
+    // French
+    /^(avez[- ]vous|est[- ]ce que vous avez|je (?:veux|voudrais|cherche|aime)|vous avez)\s+/i,
+    // Swahili
+    /^(una|mna|nataka|ninahitaji|napenda)\s+/i,
+    // Kinyarwanda
+    /^(mufite|ufite|ndashaka|nkeneye|nkunda)\s+/i,
+  ];
+
+  for (const pattern of wrapperPatterns) {
+    q = q.replace(pattern, "");
+  }
+
+  // Strip trailing punctuation / question marks / exclamation marks
+  q = q.replace(/[?!.,]+$/g, "").trim();
+
+  return q || raw.trim();
 }
 
 /**
@@ -781,18 +816,33 @@ async function callGroq(
   groqKey: string,
   body: object,
   maxRetries = 3,
-): Promise<{ ok: boolean; status: number; data: any }> {
+): Promise<{ ok: boolean; status: number; data: any; errorText?: string }> {
   let lastStatus = 0;
+  let lastErrorText = "";
 
   for (let attempt = 0; attempt < maxRetries; attempt++) {
-    const response = await fetch(GROQ_API_URL, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${groqKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
+    let response: Response;
+    try {
+      response = await fetch(GROQ_API_URL, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${groqKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+    } catch (networkErr: any) {
+      // Network-level failure (DNS, timeout, etc) - retry like a 503
+      lastErrorText = `network error: ${networkErr?.message || networkErr}`;
+      console.error(
+        `[route] Groq fetch threw on attempt ${attempt + 1}:`,
+        lastErrorText,
+      );
+      await new Promise((r) =>
+        setTimeout(r, Math.min(1000 * 2 ** attempt, 8000)),
+      );
+      continue;
+    }
 
     lastStatus = response.status;
 
@@ -804,7 +854,6 @@ async function callGroq(
 
     // Rate limit or server overload - wait and retry
     if (response.status === 429 || response.status === 503) {
-      // Respect Retry-After header if present, otherwise exponential backoff
       const retryAfter = response.headers.get("retry-after");
       const waitMs = retryAfter
         ? Number(retryAfter) * 1000
@@ -816,16 +865,42 @@ async function callGroq(
       continue;
     }
 
-    // Other error - don't retry
-    const text = await response.text().catch(() => "");
-    console.error(`[route] Groq error ${response.status}:`, text);
-    return { ok: false, status: response.status, data: null };
+    // Other error - don't retry, but capture the body so we know WHY
+    // (401 = bad/missing key, 400 = often a decommissioned/renamed model)
+    lastErrorText = await response.text().catch(() => "");
+    console.error(
+      `[route] Groq error ${response.status} (not retrying):`,
+      lastErrorText,
+    );
+
+    if (response.status === 401) {
+      console.error(
+        "[route] 401 from Groq usually means GROQ_API_KEY is missing, wrong, or not set for this environment (check Vercel Project Settings -> Environment Variables).",
+      );
+    }
+    if (response.status === 400 && /model/i.test(lastErrorText)) {
+      console.error(
+        `[route] 400 mentioning "model" usually means "${GROQ_MODEL}" has been renamed/decommissioned. Check https://console.groq.com/docs/models for the current name.`,
+      );
+    }
+
+    return {
+      ok: false,
+      status: response.status,
+      data: null,
+      errorText: lastErrorText,
+    };
   }
 
   console.error(
-    `[route] Groq exhausted ${maxRetries} retries, last status: ${lastStatus}`,
+    `[route] Groq exhausted ${maxRetries} retries, last status: ${lastStatus}, last error: ${lastErrorText}`,
   );
-  return { ok: false, status: lastStatus, data: null };
+  return {
+    ok: false,
+    status: lastStatus,
+    data: null,
+    errorText: lastErrorText,
+  };
 }
 
 //  Intelligent offline fallback
@@ -838,7 +913,20 @@ async function intelligentFallback(
   sortHint: string | undefined,
   backendHeaders: Record<string, string>,
   userLocation: { lat?: number; lng?: number },
+  groqErrorInfo?: { status: number; errorText?: string },
 ): Promise<{ reply: string; toolResults: any[] }> {
+  // This path bypasses the LLM entirely, so it should be RARE. If you're
+  // seeing this fire on every message, Groq is broken for every request -
+  // check the [route] Groq error logs above for the real cause (bad
+  // GROQ_API_KEY, decommissioned model, etc), don't just patch this fallback.
+  if (VERBOSE_FALLBACK_LOGGING) {
+    console.error(
+      `[route] ⚠️ intelligentFallback triggered for "${lastUserMessage}" - Groq status: ${groqErrorInfo?.status ?? "unknown"}${
+        groqErrorInfo?.errorText ? `, error: ${groqErrorInfo.errorText}` : ""
+      }`,
+    );
+  }
+
   const q = lastUserMessage.toLowerCase();
 
   //  Branch query fallback
@@ -874,8 +962,9 @@ async function intelligentFallback(
   }
 
   //  Product search fallback
+  const searchTerm = extractSearchTerm(lastUserMessage);
   try {
-    const params = new URLSearchParams({ search: lastUserMessage, limit: "8" });
+    const params = new URLSearchParams({ search: searchTerm, limit: "8" });
     if (priceHint.min !== undefined)
       params.set("minPrice", String(priceHint.min));
     if (priceHint.max !== undefined)
@@ -903,7 +992,7 @@ async function intelligentFallback(
 
       if (!mapped.length) {
         return {
-          reply: `I couldn't find anything matching "${lastUserMessage}" right now.${priceHint.max ? ` (price filter: under ${priceHint.max} RWF)` : ""} Try a different keyword or browse our categories!`,
+          reply: `Hmm, I'm having a little trouble searching right now 🙏${priceHint.max ? ` (looking under ${priceHint.max} RWF)` : ""} - could you try naming the product a bit more directly (e.g. "milk" instead of a full sentence)? You can also browse our categories in the meantime.`,
           toolResults: [],
         };
       }
@@ -912,7 +1001,7 @@ async function intelligentFallback(
         priceHint.min || priceHint.max
           ? ` in the ${priceHint.min ?? "any"}–${priceHint.max ?? "any"} RWF range`
           : "";
-      const reply = `Here are ${mapped.length} result${mapped.length !== 1 ? "s" : ""}${priceNote} for "${lastUserMessage}":`;
+      const reply = `Here are ${mapped.length} result${mapped.length !== 1 ? "s" : ""}${priceNote} for "${searchTerm}":`;
       return {
         reply,
         toolResults: [
@@ -951,6 +1040,11 @@ export async function POST(req: NextRequest) {
 
     const groqKey = process.env.GROQ_API_KEY;
     if (!groqKey) {
+      console.error(
+        "[route] FATAL: GROQ_API_KEY is not set in this environment. " +
+          "If this is production, add it in Vercel -> Project -> Settings -> Environment Variables " +
+          "and redeploy (env vars added after a deploy don't apply retroactively).",
+      );
       return NextResponse.json({
         reply:
           "I need a GROQ_API_KEY to work properly. Please add it to your .env file.",
@@ -1029,6 +1123,7 @@ export async function POST(req: NextRequest) {
           sortHint,
           backendHeaders,
           userLocation,
+          { status },
         );
         return NextResponse.json(fallback);
       }
@@ -1041,6 +1136,7 @@ export async function POST(req: NextRequest) {
           sortHint,
           backendHeaders,
           userLocation,
+          { status: 200, errorText: JSON.stringify(data.error) },
         );
         return NextResponse.json(fallback);
       }
