@@ -20,8 +20,10 @@ import { useSession } from "@/lib/auth-client";
 import { formatPrice, getImageUrl } from "@/lib/utils";
 import { Skeleton } from "@/components/common/skeletons";
 import { useRouter } from "next/navigation";
-import { useSaveForLaterStore } from "@/store";
+import { savedForLaterApi, cartApi } from "@/lib/api";
+import { useBranchStore } from "@/store";
 import { toast } from "sonner";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 const MIN_ORDER = 2500;
 
@@ -41,9 +43,47 @@ export default function CartPage() {
     itemCount,
   } = useCart();
   const router = useRouter();
-  const saveForLater = useSaveForLaterStore();
+  const { selectedBranchId } = useBranchStore();
+  const qc = useQueryClient();
 
   const belowMinimum = total < MIN_ORDER;
+
+  // DB-backed saved for later
+  const { data: savedItems = [] } = useQuery({
+    queryKey: ["saved-for-later"],
+    queryFn: () => savedForLaterApi.get().then((r) => r.data),
+    enabled: !!session?.user,
+  });
+
+  const saveMutation = useMutation({
+    mutationFn: (productId: string) => savedForLaterApi.save(productId),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["saved-for-later"] }),
+  });
+
+  const removeSavedMutation = useMutation({
+    mutationFn: (productId: string) => savedForLaterApi.remove(productId),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["saved-for-later"] }),
+  });
+
+  const moveToCartMutation = useMutation({
+    mutationFn: async ({ productId, branchId }: { productId: string; branchId?: string }) => {
+      await cartApi.add({ productId, quantity: 1, branchId });
+      await savedForLaterApi.remove(productId);
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["cart"] });
+      qc.invalidateQueries({ queryKey: ["saved-for-later"] });
+      toast.success(t("movedToCart"));
+    },
+    onError: (err: any) =>
+      toast.error(err?.response?.data?.message || "Failed to move to cart"),
+  });
+
+  const handleSaveForLater = (item: { productId: string; product: any }) => {
+    saveMutation.mutate(item.productId);
+    removeItem({ productId: item.productId, branchId: selectedBranchId || undefined });
+    toast.success(t("savedForLater"));
+  };
 
   if (!session?.user) {
     return (
@@ -76,7 +116,7 @@ export default function CartPage() {
       </div>
     );
 
-  if (items.length === 0 && saveForLater.items.length === 0)
+  if (items.length === 0 && savedItems.length === 0)
     return (
       <div className="container mx-auto px-4 py-20 text-center">
         <ShoppingBag className="h-20 w-20 text-muted-foreground mx-auto mb-4" />
@@ -177,18 +217,15 @@ export default function CartPage() {
                     </button>
                   </div>
                   <button
-                    onClick={() => {
-                      saveForLater.save({ productId: item.productId, product: item.product });
-                      removeItem({ productId: item.productId, branchId: undefined });
-                      toast.success(t("savedForLater"));
-                    }}
+                    onClick={() => handleSaveForLater(item)}
+                    disabled={saveMutation.isPending}
                     className="text-muted-foreground hover:text-primary transition-colors"
                     title={t("saveForLater")}
                   >
                     <Bookmark className="h-4 w-4" />
                   </button>
                   <button
-                    onClick={() => removeItem({ productId: item.productId, branchId: undefined })}
+                    onClick={() => removeItem({ productId: item.productId, branchId: selectedBranchId || undefined })}
                     className="text-muted-foreground hover:text-destructive transition-colors"
                   >
                     <Trash2 className="h-4 w-4" />
@@ -246,11 +283,11 @@ export default function CartPage() {
       </div>
 
       {/* Save for Later */}
-      {saveForLater.items.length > 0 && (
+      {savedItems.length > 0 && (
         <div className="mt-12">
           <h2 className="text-lg font-bold mb-4">{t("savedForLaterTitle")}</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {saveForLater.items.map((item) => (
+            {savedItems.map((item: any) => (
               <div
                 key={item.productId}
                 className="flex gap-3 bg-card border border-border rounded-2xl p-4"
@@ -269,18 +306,22 @@ export default function CartPage() {
                   <p className="text-primary font-bold text-sm mt-0.5">{formatPrice(item.product.price)}</p>
                   <div className="flex gap-2 mt-2">
                     <button
-                      onClick={() => {
-                        // Move back to cart - handled by product card add
-                        saveForLater.remove(item.productId);
-                        toast.success(t("movedToCart"));
-                      }}
-                      className="flex items-center gap-1 text-xs text-primary hover:underline"
+                      onClick={() =>
+                        moveToCartMutation.mutate({
+                          productId: item.productId,
+                          branchId: selectedBranchId || undefined,
+                        })
+                      }
+                      disabled={moveToCartMutation.isPending || !selectedBranchId}
+                      className="flex items-center gap-1 text-xs text-primary hover:underline disabled:opacity-50"
+                      title={!selectedBranchId ? "Select a branch first" : undefined}
                     >
                       <BookmarkCheck className="h-3.5 w-3.5" />
                       {t("moveToCart")}
                     </button>
                     <button
-                      onClick={() => saveForLater.remove(item.productId)}
+                      onClick={() => removeSavedMutation.mutate(item.productId)}
+                      disabled={removeSavedMutation.isPending}
                       className="text-xs text-muted-foreground hover:text-destructive"
                     >
                       {t("remove")}

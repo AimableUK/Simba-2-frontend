@@ -74,6 +74,14 @@ export const wishlistApi = {
   toggle: (productId: string) => api.post(`/wishlist/${productId}`),
 };
 
+//  Save for Later
+
+export const savedForLaterApi = {
+  get: () => api.get("/saved-for-later"),
+  save: (productId: string) => api.post("/saved-for-later", { productId }),
+  remove: (productId: string) => api.delete(`/saved-for-later/${productId}`),
+};
+
 //  Orders
 
 export const orderApi = {
