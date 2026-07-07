@@ -192,6 +192,7 @@
   "product": {
     "addToCart": "Shyira mu Gasanduku",
     "addedToCart": "Byashyizwe mu gasanduku!",
+    "removefromCart": "Kura mu Gasanduku",
     "buyNow": "Gura Ubu",
     "outOfStock": "Ntigihari",
     "lowStock": "Hasigaye gusa",

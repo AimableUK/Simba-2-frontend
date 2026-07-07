@@ -192,6 +192,7 @@
   "product": {
     "addToCart": "Ajouter au Panier",
     "addedToCart": "Ajouté au panier !",
+    "removefromCart": "Retirer du Panier",
     "buyNow": "Acheter Maintenant",
     "outOfStock": "Rupture de Stock",
     "lowStock": "Plus que restants",

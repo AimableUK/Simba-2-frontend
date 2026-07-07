@@ -192,6 +192,7 @@
   "product": {
     "addToCart": "Ongeza kwenye Kikapu",
     "addedToCart": "Imeongezwa kwenye kikapu!",
+    "removefromCart": "Ondoa kwenye Kikapu",
     "buyNow": "Nunua Sasa",
     "outOfStock": "Imeisha",
     "lowStock": "Zimebaki tu",

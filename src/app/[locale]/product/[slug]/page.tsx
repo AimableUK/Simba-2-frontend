@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState, useCallback } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
@@ -39,7 +39,6 @@ import { ProductCard } from "@/components/product/product-card";
 export default function ProductPage() {
   const params = useParams();
   const locale = useLocale();
-  const router = useRouter();
   const t = useTranslations("product");
   const tCommon = useTranslations("common");
   const { data: session } = useSession();
@@ -126,11 +125,15 @@ export default function ProductPage() {
     toggle(product.id);
   }, [product, toggle]);
 
-  const serverCartItem = serverCartItems.find((i) => i.product.id === product?.id);
-  const guestCartItem = guestCart.items.find((i) => i.productId === product?.id);
+  const serverCartItem = serverCartItems.find(
+    (i) => i.product.id === product?.id,
+  );
+  const guestCartItem = guestCart.items.find(
+    (i) => i.productId === product?.id,
+  );
   const cartQuantity = session?.user
-    ? serverCartItem?.quantity ?? 0
-    : guestCartItem?.quantity ?? 0;
+    ? (serverCartItem?.quantity ?? 0)
+    : (guestCartItem?.quantity ?? 0);
 
   const handleRemoveFromCart = useCallback(() => {
     if (!product) return;
@@ -139,21 +142,42 @@ export default function ProductPage() {
       toast.success("Removed from cart");
       return;
     }
-    removeItem({ productId: product.id, branchId: selectedBranchId || undefined });
+    removeItem({
+      productId: product.id,
+      branchId: selectedBranchId || undefined,
+    });
     toast.success("Removed from cart");
   }, [session, product, guestCart, removeItem, selectedBranchId]);
 
-  const handleCartQuantityChange = useCallback((delta: number) => {
-    if (!product) return;
-    const next = cartQuantity + delta;
-    if (next <= 0) { handleRemoveFromCart(); return; }
-    if (next > product.stock) return;
-    if (!session?.user) {
-      guestCart.update(product.id, next);
-      return;
-    }
-    updateQuantity({ productId: product.id, quantity: next, branchId: selectedBranchId || undefined });
-  }, [cartQuantity, product, session, guestCart, updateQuantity, selectedBranchId, handleRemoveFromCart]);
+  const handleCartQuantityChange = useCallback(
+    (delta: number) => {
+      if (!product) return;
+      const next = cartQuantity + delta;
+      if (next <= 0) {
+        handleRemoveFromCart();
+        return;
+      }
+      if (next > product.stock) return;
+      if (!session?.user) {
+        guestCart.update(product.id, next);
+        return;
+      }
+      updateQuantity({
+        productId: product.id,
+        quantity: next,
+        branchId: selectedBranchId || undefined,
+      });
+    },
+    [
+      cartQuantity,
+      product,
+      session,
+      guestCart,
+      updateQuantity,
+      selectedBranchId,
+      handleRemoveFromCart,
+    ],
+  );
 
   if (isLoading) return <ProductDetailSkeleton />;
   if (!product)
@@ -354,34 +378,6 @@ export default function ProductPage() {
               </span>
             </div>
 
-            {/* Quantity */}
-            {inStock && (
-              <div className="flex items-center gap-4">
-                <span className="text-sm font-medium text-foreground">
-                  {t("quantity")}:
-                </span>
-                <div className="flex items-center gap-0 border border-border rounded-xl overflow-hidden">
-                  <button
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="p-3 hover:bg-muted transition-colors"
-                  >
-                    <Minus className="h-4 w-4" />
-                  </button>
-                  <span className="w-12 text-center font-semibold text-sm">
-                    {quantity}
-                  </span>
-                  <button
-                    onClick={() =>
-                      setQuantity(Math.min(product.stock, quantity + 1))
-                    }
-                    className="p-3 hover:bg-muted transition-colors"
-                  >
-                    <Plus className="h-4 w-4" />
-                  </button>
-                </div>
-              </div>
-            )}
-
             {/* CTA buttons */}
             <div className="flex gap-3 flex-col sm:flex-row">
               {cartQuantity > 0 ? (
@@ -409,7 +405,7 @@ export default function ProductPage() {
                     className="flex-1 flex items-center justify-center gap-2 border border-destructive text-destructive hover:bg-destructive/10 font-semibold py-3.5 px-6 rounded-xl transition-colors"
                   >
                     <Trash2 className="h-5 w-5" />
-                    Remove from Cart
+                   {t("removefromCart")}
                   </button>
                 </div>
               ) : (
@@ -448,14 +444,14 @@ export default function ProductPage() {
                 <button
                   onClick={() => {
                     const url = encodeURIComponent(
-                      typeof window !== "undefined" ? window.location.href : ""
+                      typeof window !== "undefined" ? window.location.href : "",
                     );
                     const text = encodeURIComponent(
-                      `Check out ${product.name} at Simba Supermarket!`
+                      `Check out ${product.name} at Simba Supermarket!`,
                     );
                     window.open(
                       `https://wa.me/?text=${text}%20${url}`,
-                      "_blank"
+                      "_blank",
                     );
                   }}
                   className="p-2.5 rounded-xl border border-border hover:border-[#25D366] hover:bg-[#25D366]/10 transition-colors group"
@@ -472,12 +468,12 @@ export default function ProductPage() {
                 <button
                   onClick={() => {
                     const url = encodeURIComponent(
-                      typeof window !== "undefined" ? window.location.href : ""
+                      typeof window !== "undefined" ? window.location.href : "",
                     );
                     window.open(
                       `https://www.facebook.com/sharer/sharer.php?u=${url}`,
                       "_blank",
-                      "width=600,height=400"
+                      "width=600,height=400",
                     );
                   }}
                   className="p-2.5 rounded-xl border border-border hover:border-[#1877F2] hover:bg-[#1877F2]/10 transition-colors group"
@@ -494,15 +490,15 @@ export default function ProductPage() {
                 <button
                   onClick={() => {
                     const url = encodeURIComponent(
-                      typeof window !== "undefined" ? window.location.href : ""
+                      typeof window !== "undefined" ? window.location.href : "",
                     );
                     const text = encodeURIComponent(
-                      `Check out ${product.name} at Simba Supermarket!`
+                      `Check out ${product.name} at Simba Supermarket!`,
                     );
                     window.open(
                       `https://twitter.com/intent/tweet?text=${text}&url=${url}`,
                       "_blank",
-                      "width=600,height=400"
+                      "width=600,height=400",
                     );
                   }}
                   className="p-2.5 rounded-xl border border-border hover:border-[#1DA1F2] hover:bg-[#1DA1F2]/10 transition-colors group"
@@ -677,7 +673,10 @@ export default function ProductPage() {
                         </p>
                       </div>
                     </div>
-                    <RatingStars rating={review.rating} starClassName="h-5 w-5" />
+                    <RatingStars
+                      rating={review.rating}
+                      starClassName="h-5 w-5"
+                    />
                   </div>
                   {review.comment && (
                     <p className="text-sm text-muted-foreground mt-2">

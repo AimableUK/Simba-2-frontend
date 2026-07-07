@@ -191,6 +191,7 @@
   },
   "product": {
     "addToCart": "Add to Cart",
+    "removefromCart": "Remove from Cart",
     "addedToCart": "Added to cart!",
     "buyNow": "Buy Now",
     "outOfStock": "Out of Stock",
