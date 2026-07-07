@@ -216,7 +216,8 @@
     "reviewSuccess": "Review submitted successfully!",
     "reviewError": "You can only review products you have purchased and received.",
     "quantity": "Quantity",
-    "images": "Product Images"
+    "images": "Product Images",
+    "quickView": "Quick View"
   },
   "checkout": {
     "title": "Checkout",

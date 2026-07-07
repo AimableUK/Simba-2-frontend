@@ -1,9 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
-import { Heart, ShoppingCart, Star, Minus, Plus } from "lucide-react";
+import { Heart, ShoppingCart, Star, Minus, Plus, Eye } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -13,6 +14,7 @@ import { cn, formatPrice, getDiscountPercent, getImageUrl } from "@/lib/utils";
 import { useSession } from "@/lib/auth-client";
 import { RatingStars } from "@/components/common/rating-stars";
 import { useCart } from "@/hooks/useCart";
+import { QuickViewModal } from "@/components/product/quick-view-modal";
 
 interface Product {
   id: string;
@@ -32,6 +34,7 @@ interface Product {
 export function ProductCard({ product }: { product: Product }) {
   const t = useTranslations("product");
   const locale = useLocale();
+  const [quickViewOpen, setQuickViewOpen] = useState(false);
   const { data: session } = useSession();
   const { has: isWishlisted, toggle: toggleLocal } = useWishlistStore();
   const { selectedBranchId } = useBranchStore();
@@ -236,7 +239,7 @@ export function ProductCard({ product }: { product: Product }) {
             </div>
 
             {/* Actions overlay */}
-            <div className="absolute top-2 right-2 flex flex-col opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="absolute top-2 right-2 flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
               <button
                 onClick={handleWishlist}
                 className={cn(
@@ -249,6 +252,13 @@ export function ProductCard({ product }: { product: Product }) {
                 <Heart
                   className={cn("w-4 h-4", wishlisted && "fill-current")}
                 />
+              </button>
+              <button
+                onClick={(e) => { e.preventDefault(); setQuickViewOpen(true); }}
+                className="w-8 h-8 rounded-full flex items-center justify-center shadow-md bg-card text-foreground hover:bg-primary hover:text-white transition-all"
+                title={t("quickView")}
+              >
+                <Eye className="w-4 h-4" />
               </button>
             </div>
 
@@ -334,6 +344,10 @@ export function ProductCard({ product }: { product: Product }) {
           </div>
         </div>
       </Link>
+      <QuickViewModal
+        product={quickViewOpen ? product : null}
+        onClose={() => setQuickViewOpen(false)}
+      />
     </motion.div>
   );
 }

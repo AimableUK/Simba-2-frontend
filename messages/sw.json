@@ -216,7 +216,8 @@
     "reviewSuccess": "Maoni yametumwa!",
     "reviewError": "Unaweza tu kutoa maoni kwa bidhaa ulizonunua na kupokea.",
     "quantity": "Kiasi",
-    "images": "Picha za Bidhaa"
+    "images": "Picha za Bidhaa",
+    "quickView": "Angalia Haraka"
   },
   "checkout": {
     "title": "Malipo",

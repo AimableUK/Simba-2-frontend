@@ -216,7 +216,8 @@
     "reviewSuccess": "Igitekerezo cyatanzwe neza!",
     "reviewError": "Ushobora gusa gutanga ibitekerezo ku bicuruzwa waguze kandi wakiriye.",
     "quantity": "Ingano",
-    "images": "Amafoto y'Igicuruzwa"
+    "images": "Amafoto y'Igicuruzwa",
+    "quickView": "Reba Vuba"
   },
   "checkout": {
     "title": "Kwishyura",
