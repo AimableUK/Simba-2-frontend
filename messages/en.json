@@ -179,6 +179,7 @@
     "subtotal": "Subtotal",
     "deposit": "Deposit",
     "cancelledMessage": "This order has been cancelled.",
+    "downloadInvoice": "Download Invoice",
     "status": {
       "pending": "Order Placed",
       "accepted": "Order Accepted",

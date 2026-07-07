@@ -178,6 +178,7 @@
     "deposit": "Dépôt",
     "total": "Total",
     "cancelledMessage": "Cette commande a été annulée.",
+    "downloadInvoice": "Télécharger la facture",
     "deliveryAddress": "Adresse de livraison",
     "status": {
       "pending": "Commande passée",

@@ -14,12 +14,13 @@ import {
   ChefHat,
   Bell,
   ArrowLeft,
+  Download,
 } from "lucide-react";
 import { orderApi } from "@/lib/api";
 import { useOrderSocket } from "@/hooks/useSocket";
 import { formatPrice, formatDateTime, getImageUrl } from "@/lib/utils";
 import { Skeleton } from "@/components/common/skeletons";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 //  Match your BranchOrderStatus enum exactly
 
@@ -95,6 +96,22 @@ export default function OrderDetailPage() {
   const locale = useLocale();
   const { id } = useParams();
   const qc = useQueryClient();
+  const [downloading, setDownloading] = useState(false);
+
+  async function downloadInvoice() {
+    setDownloading(true);
+    try {
+      const res = await orderApi.invoice(id as string);
+      const url = URL.createObjectURL(new Blob([res.data], { type: "application/pdf" }));
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `invoice-${order?.orderNumber ?? id}.pdf`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } finally {
+      setDownloading(false);
+    }
+  }
 
   const { data: order, isLoading } = useQuery<Order>({
     queryKey: ["order", id],
@@ -200,7 +217,7 @@ export default function OrderDetailPage() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-3xl">
       {/* Back link */}
-      <div className="mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <Link
           href={`/${locale}/admin/my-orders`}
           className="inline-flex items-center gap-2 text-primary hover:underline"
@@ -208,6 +225,14 @@ export default function OrderDetailPage() {
           <ArrowLeft size={16} strokeWidth={2.25} />
           {t("title")}
         </Link>
+        <button
+          onClick={downloadInvoice}
+          disabled={downloading}
+          className="inline-flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-xl border border-border hover:border-primary/50 hover:text-primary transition-colors disabled:opacity-50"
+        >
+          <Download size={15} />
+          {downloading ? "Generating..." : t("downloadInvoice")}
+        </button>
       </div>
 
       {/* Header */}

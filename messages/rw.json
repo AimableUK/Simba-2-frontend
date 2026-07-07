@@ -178,6 +178,7 @@
     "deposit": "Inguzanyo",
     "total": "Igiteranyo",
     "cancelledMessage": "Iri tumba rahagaritswe.",
+    "downloadInvoice": "Kurura Fagitire",
     "deliveryAddress": "Aderesi yo Gutanga",
     "status": {
       "pending": "Itumiza Ryoherejwe",
