@@ -217,7 +217,8 @@
     "reviewError": "Vous pouvez seulement évaluer les produits que vous avez achetés et reçus.",
     "quantity": "Quantité",
     "images": "Images du Produit",
-    "quickView": "Aperçu rapide"
+    "quickView": "Aperçu rapide",
+    "removeFromCart": "Retirer du Panier"
   },
   "checkout": {
     "title": "Paiement",

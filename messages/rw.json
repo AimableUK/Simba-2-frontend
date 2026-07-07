@@ -217,7 +217,8 @@
     "reviewError": "Ushobora gusa gutanga ibitekerezo ku bicuruzwa waguze kandi wakiriye.",
     "quantity": "Ingano",
     "images": "Amafoto y'Igicuruzwa",
-    "quickView": "Reba Vuba"
+    "quickView": "Reba Vuba",
+    "removeFromCart": "Kura mu Gasanduku"
   },
   "checkout": {
     "title": "Kwishyura",

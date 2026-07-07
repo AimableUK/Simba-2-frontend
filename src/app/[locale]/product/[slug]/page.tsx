@@ -18,6 +18,7 @@ import {
   RotateCcw,
   AlertTriangle,
   Share2,
+  Trash2,
 } from "lucide-react";
 import { toast } from "sonner";
 import { productApi, reviewApi } from "@/lib/api";
@@ -42,7 +43,7 @@ export default function ProductPage() {
   const t = useTranslations("product");
   const tCommon = useTranslations("common");
   const { data: session } = useSession();
-  const { addToCartAsync, isAdding } = useCart();
+  const { addToCartAsync, isAdding, updateQuantity, removeItem } = useCart();
   const qc = useQueryClient();
   const { toggle, has } = useWishlistStore();
   const { selectedBranchId } = useBranchStore();
@@ -53,7 +54,7 @@ export default function ProductPage() {
   const [reviewRating, setReviewRating] = useState(5);
   const [reviewComment, setReviewComment] = useState("");
   const guestCart = useGuestCartStore();
-  const { openCart } = useCartStore();
+  const { openCart, items: serverCartItems } = useCartStore();
 
   const { data: product, isLoading } = useQuery({
     queryKey: ["product", slug],
@@ -143,6 +144,33 @@ export default function ProductPage() {
   const discount = getDiscountPercent(product.price, product.comparePrice);
   const wishlisted = has(product.id);
   const inStock = product.stock > 0;
+
+  const serverCartItem = serverCartItems.find((i) => i.product.id === product.id);
+  const guestCartItem = guestCart.items.find((i) => i.productId === product.id);
+  const cartQuantity = session?.user
+    ? serverCartItem?.quantity ?? 0
+    : guestCartItem?.quantity ?? 0;
+
+  const handleRemoveFromCart = useCallback(() => {
+    if (!session?.user) {
+      guestCart.remove(product.id);
+      toast.success("Removed from cart");
+      return;
+    }
+    removeItem({ productId: product.id, branchId: selectedBranchId || undefined });
+    toast.success("Removed from cart");
+  }, [session, product, guestCart, removeItem, selectedBranchId]);
+
+  const handleCartQuantityChange = useCallback((delta: number) => {
+    const next = cartQuantity + delta;
+    if (next <= 0) { handleRemoveFromCart(); return; }
+    if (next > product.stock) return;
+    if (!session?.user) {
+      guestCart.update(product.id, next);
+      return;
+    }
+    updateQuantity({ productId: product.id, quantity: next, branchId: selectedBranchId || undefined });
+  }, [cartQuantity, product, session, guestCart, updateQuantity, selectedBranchId, handleRemoveFromCart]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -354,14 +382,44 @@ export default function ProductPage() {
 
             {/* CTA buttons */}
             <div className="flex gap-3 flex-col sm:flex-row">
-              <button
-                onClick={handleAddToCart}
-                disabled={!inStock || isAdding}
-                className="flex-1 flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed text-primary-foreground font-semibold py-3.5 px-6 rounded-xl transition-colors"
-              >
-                <ShoppingCart className="h-5 w-5" />
-                {isAdding ? tCommon("loading") : t("addToCart")}
-              </button>
+              {cartQuantity > 0 ? (
+                <div className="flex-1 flex items-center gap-2">
+                  <div className="flex items-center border border-border rounded-xl overflow-hidden">
+                    <button
+                      onClick={() => handleCartQuantityChange(-1)}
+                      className="p-3 hover:bg-muted transition-colors"
+                    >
+                      <Minus className="h-4 w-4" />
+                    </button>
+                    <span className="w-12 text-center font-semibold text-sm">
+                      {cartQuantity}
+                    </span>
+                    <button
+                      onClick={() => handleCartQuantityChange(1)}
+                      disabled={cartQuantity >= product.stock}
+                      className="p-3 hover:bg-muted transition-colors disabled:opacity-40"
+                    >
+                      <Plus className="h-4 w-4" />
+                    </button>
+                  </div>
+                  <button
+                    onClick={handleRemoveFromCart}
+                    className="flex-1 flex items-center justify-center gap-2 border border-destructive text-destructive hover:bg-destructive/10 font-semibold py-3.5 px-6 rounded-xl transition-colors"
+                  >
+                    <Trash2 className="h-5 w-5" />
+                    Remove from Cart
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={handleAddToCart}
+                  disabled={!inStock || isAdding}
+                  className="flex-1 flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed text-primary-foreground font-semibold py-3.5 px-6 rounded-xl transition-colors"
+                >
+                  <ShoppingCart className="h-5 w-5" />
+                  {isAdding ? tCommon("loading") : t("addToCart")}
+                </button>
+              )}
               <button
                 onClick={handleWishlist}
                 className={`flex items-center justify-center gap-2 border font-medium py-3.5 px-5 rounded-xl transition-colors ${

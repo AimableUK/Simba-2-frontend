@@ -217,7 +217,8 @@
     "reviewError": "You can only review products you have purchased and received.",
     "quantity": "Quantity",
     "images": "Product Images",
-    "quickView": "Quick View"
+    "quickView": "Quick View",
+    "removeFromCart": "Remove from Cart"
   },
   "checkout": {
     "title": "Checkout",

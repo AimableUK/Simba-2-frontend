@@ -217,7 +217,8 @@
     "reviewError": "Unaweza tu kutoa maoni kwa bidhaa ulizonunua na kupokea.",
     "quantity": "Kiasi",
     "images": "Picha za Bidhaa",
-    "quickView": "Angalia Haraka"
+    "quickView": "Angalia Haraka",
+    "removeFromCart": "Ondoa kwenye Kikapu"
   },
   "checkout": {
     "title": "Malipo",
