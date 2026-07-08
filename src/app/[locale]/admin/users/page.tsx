@@ -5,7 +5,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { Search, Shield } from "lucide-react";
 import { toast } from "sonner";
-import { userApi } from "@/lib/api";
+import { userApi, branchApi } from "@/lib/api";
 import { formatDate } from "@/lib/utils";
 import { TableRowSkeleton } from "@/components/common/skeletons";
 import { Pagination } from "@/components/common/pagination";
@@ -47,6 +47,15 @@ export default function AdminUsersPage() {
   const [roleFilter, setRoleFilter] = useState("");
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [newRole, setNewRole] = useState("");
+  const [newBranchId, setNewBranchId] = useState("");
+
+  const { data: branchesData } = useQuery({
+    queryKey: ["branches-list"],
+    queryFn: () => branchApi.list().then((r) => r.data),
+    enabled: canEditRoles,
+  });
+  const branches: { id: string; name: string }[] = branchesData?.data ?? branchesData ?? [];
+  const isBranchRole = newRole === "branch_manager" || newRole === "branch_staff";
 
   const { data, isLoading } = useQuery({
     queryKey: ["admin-users", page, search, roleFilter],
@@ -57,8 +66,8 @@ export default function AdminUsersPage() {
   });
 
   const roleMutation = useMutation({
-    mutationFn: ({ id, role }: { id: string; role: string }) =>
-      userApi.updateRole(id, role),
+    mutationFn: ({ id, role, branchId }: { id: string; role: string; branchId?: string }) =>
+      userApi.updateRole(id, role, branchId),
     onSuccess: () => {
       toast.success("Role updated");
       setSelectedUser(null);
@@ -168,6 +177,7 @@ export default function AdminUsersPage() {
                             onClick={() => {
                               setSelectedUser(user);
                               setNewRole(user.role);
+                              setNewBranchId("");
                             }}
                             className="flex items-center gap-1.5 text-xs text-primary hover:underline font-medium"
                           >
@@ -199,7 +209,7 @@ export default function AdminUsersPage() {
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="font-bold text-lg mb-1">{t("changeRole")}</h2>
-            <p className="text-sm text-muted-foreground mb-6">
+            <p className="text-sm text-muted-foreground mb-4">
               {selectedUser.name} · {selectedUser.email}
             </p>
             <div className="space-y-3 mb-6">
@@ -250,13 +260,32 @@ export default function AdminUsersPage() {
                 </button>
               ))}
             </div>
+            {isBranchRole && (
+              <div className="mb-4">
+                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1.5 block">
+                  Assign to Branch
+                </label>
+                <select
+                  value={newBranchId}
+                  onChange={(e) => setNewBranchId(e.target.value)}
+                  className="w-full px-3 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                >
+                  <option value="">Select a branch…</option>
+                  {branches.map((b) => (
+                    <option key={b.id} value={b.id}>{b.name}</option>
+                  ))}
+                </select>
+              </div>
+            )}
             <div className="flex gap-3">
               <button
                 onClick={() =>
-                  roleMutation.mutate({ id: selectedUser.id, role: newRole })
+                  roleMutation.mutate({ id: selectedUser.id, role: newRole, branchId: newBranchId || undefined })
                 }
                 disabled={
-                  roleMutation.isPending || newRole === selectedUser.role
+                  roleMutation.isPending ||
+                  (newRole === selectedUser.role && !newBranchId) ||
+                  (isBranchRole && !newBranchId)
                 }
                 className="flex-1 bg-primary text-primary-foreground font-semibold py-3 rounded-xl hover:bg-primary/90 disabled:opacity-50 transition-colors"
               >

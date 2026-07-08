@@ -134,8 +134,8 @@ export const userApi = {
   updateMe: (data: any) => api.put("/users/me", data),
   adminList: (params?: Record<string, any>) =>
     api.get("/users/admin/all", { params }),
-  updateRole: (id: string, role: string) =>
-    api.put(`/users/admin/${id}/role`, { role }),
+  updateRole: (id: string, role: string, branchId?: string) =>
+    api.put(`/users/admin/${id}/role`, { role, branchId }),
 };
 
 //  Reviews
