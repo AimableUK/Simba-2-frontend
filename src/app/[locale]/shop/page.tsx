@@ -190,7 +190,7 @@ export default function ShopPage() {
               )}
             >
             {minPrice || maxPrice
-              ? `${minPrice ? `$${minPrice}` : "Min"} - ${maxPrice ? `$${maxPrice}` : "Max"}`
+              ? `${minPrice ? `RWF${minPrice}` : "Min"} - ${maxPrice ? `RWF${maxPrice}` : "Max"}`
               : t("priceRange")}
             </button>
             <AnimatePresence>
