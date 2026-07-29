@@ -32,6 +32,7 @@ export default function ShopPage() {
 
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [page, setPage] = useState(1);
+  const [showPriceInputs, setShowPriceInputs] = useState(false);
 
   const SORT_OPTIONS = [
     { value: "createdAt-desc", label: tCommon("sortOptions.newestFirst") },
@@ -130,10 +131,14 @@ export default function ShopPage() {
   };
 
   const applyPriceFilters = () => {
+    const validatedMin = localMin === "" ? "" : String(Math.max(0, Number(localMin)));
+    const validatedMax = localMax === "" ? "" : String(Math.max(0, Number(localMax)));
+    setLocalMin(validatedMin);
+    setLocalMax(validatedMax);
     const params = new URLSearchParams(searchParams.toString());
-    if (localMin) params.set("minPrice", localMin);
+    if (validatedMin) params.set("minPrice", validatedMin);
     else params.delete("minPrice");
-    if (localMax) params.set("maxPrice", localMax);
+    if (validatedMax) params.set("maxPrice", validatedMax);
     else params.delete("maxPrice");
     params.delete("page");
     setPage(1);
@@ -177,26 +182,59 @@ export default function ShopPage() {
         </div>
         <div className="flex items-center gap-2">
           <div className="hidden lg:flex items-center gap-2">
-            <input
-              type="number"
-              placeholder={t("minPrice")}
-              value={localMin}
-              onChange={(e) => setLocalMin(e.target.value)}
-              className="w-28 text-sm border border-border rounded-full px-3 py-2 bg-card focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-            <input
-              type="number"
-              placeholder={t("maxPrice")}
-              value={localMax}
-              onChange={(e) => setLocalMax(e.target.value)}
-              className="w-28 text-sm border border-border rounded-full px-3 py-2 bg-card focus:outline-none focus:ring-2 focus:ring-primary"
-            />
             <button
-              onClick={applyPriceFilters}
-              className="px-4 py-2 bg-primary text-white text-sm rounded-full hover:bg-primary/90 transition-colors"
+              onClick={() => setShowPriceInputs(!showPriceInputs)}
+              className={cn(
+                "text-sm border border-border rounded-full px-4 py-2 bg-card focus:outline-none focus:ring-2 focus:ring-primary transition-colors",
+                showPriceInputs && "border-primary",
+              )}
             >
-              {t("apply")}
+            {minPrice || maxPrice
+              ? `${minPrice ? `$${minPrice}` : "Min"} - ${maxPrice ? `$${maxPrice}` : "Max"}`
+              : t("priceRange")}
             </button>
+            <AnimatePresence>
+              {showPriceInputs && (
+                <motion.div
+                  initial={{ opacity: 0, width: 0 }}
+                  animate={{ opacity: 1, width: "auto" }}
+                  exit={{ opacity: 0, width: 0 }}
+                  className="flex items-center gap-2 overflow-hidden"
+                >
+                  <input
+                    type="number"
+                    min={0}
+                    step="0.01"
+                    placeholder={t("minPrice")}
+                    value={localMin}
+                    onChange={(e) =>
+                      setLocalMin(e.target.value === "" ? "" : String(Math.max(0, Number(e.target.value))))
+                    }
+                    className="w-28 text-sm border border-border rounded-full px-3 py-2 bg-card focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                  <input
+                    type="number"
+                    min={0}
+                    step="0.01"
+                    placeholder={t("maxPrice")}
+                    value={localMax}
+                    onChange={(e) =>
+                      setLocalMax(e.target.value === "" ? "" : String(Math.max(0, Number(e.target.value))))
+                    }
+                    className="w-28 text-sm border border-border rounded-full px-3 py-2 bg-card focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                  <button
+                    onClick={() => {
+                      applyPriceFilters();
+                      setShowPriceInputs(false);
+                    }}
+                    className="px-4 py-2 bg-primary text-white text-sm rounded-full hover:bg-primary/90 transition-colors whitespace-nowrap"
+                  >
+                    {t("apply")}
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
           {hasFilters && (
             <button
@@ -312,6 +350,53 @@ export default function ShopPage() {
             </div>
           </div>
 
+          {/* Price Range */}
+          <div className="bg-card border border-border rounded-2xl p-4">
+            <button
+              onClick={() => setShowPriceInputs(!showPriceInputs)}
+              className="w-full flex items-center justify-between text-sm font-medium mb-3"
+            >
+              <span>{t("priceRange")}</span>
+              <span className="text-xs text-muted-foreground">
+              {minPrice || maxPrice
+                ? `${minPrice ? `$${minPrice}` : "Min"} - ${maxPrice ? `$${maxPrice}` : "Max"}`
+                : "Any"}
+              </span>
+            </button>
+            {showPriceInputs && (
+              <div className="flex flex-col gap-2">
+                <input
+                  type="number"
+                  min={0}
+                  step="0.01"
+                  placeholder={t("minPrice")}
+                  value={localMin}
+                  onChange={(e) =>
+                    setLocalMin(e.target.value === "" ? "" : String(Math.max(0, Number(e.target.value))))
+                  }
+                  className="w-full text-sm border border-border rounded-full px-3 py-2 bg-card focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+                <input
+                  type="number"
+                  min={0}
+                  step="0.01"
+                  placeholder={t("maxPrice")}
+                  value={localMax}
+                  onChange={(e) =>
+                    setLocalMax(e.target.value === "" ? "" : String(Math.max(0, Number(e.target.value))))
+                  }
+                  className="w-full text-sm border border-border rounded-full px-3 py-2 bg-card focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+                <button
+                  onClick={applyPriceFilters}
+                  className="w-full px-4 py-2 bg-primary text-white text-sm rounded-full hover:bg-primary/90 transition-colors"
+                >
+                  {t("apply")}
+                </button>
+              </div>
+            )}
+          </div>
+
           {/* Quick filters */}
           <div className="bg-card border border-border rounded-2xl p-4">
             <h3 className="font-semibold text-sm mb-3">{t("quickFilters")}</h3>
@@ -355,6 +440,53 @@ export default function ShopPage() {
                 </button>
               </div>
               <div className="p-4 space-y-4">
+                <div>
+                  <h3 className="font-medium mb-2 text-sm">{t("priceRange")}</h3>
+                  {!showPriceInputs ? (
+                    <button
+                      onClick={() => setShowPriceInputs(true)}
+                      className="w-full text-sm px-3 py-2 rounded-xl border border-border text-left"
+                    >
+                      {minPrice || maxPrice
+                        ? `${minPrice ? `$${minPrice}` : "Min"} - ${maxPrice ? `$${maxPrice}` : "Max"}`
+                        : "Any"}
+                    </button>
+                  ) : (
+                    <div className="flex flex-col gap-2">
+                      <input
+                        type="number"
+                        min={0}
+                        step="0.01"
+                        placeholder={t("minPrice")}
+                        value={localMin}
+                        onChange={(e) =>
+                          setLocalMin(e.target.value === "" ? "" : String(Math.max(0, Number(e.target.value))))
+                        }
+                        className="w-full text-sm border border-border rounded-full px-3 py-2 bg-card focus:outline-none focus:ring-2 focus:ring-primary"
+                      />
+                      <input
+                        type="number"
+                        min={0}
+                        step="0.01"
+                        placeholder={t("maxPrice")}
+                        value={localMax}
+                        onChange={(e) =>
+                          setLocalMax(e.target.value === "" ? "" : String(Math.max(0, Number(e.target.value))))
+                        }
+                        className="w-full text-sm border border-border rounded-full px-3 py-2 bg-card focus:outline-none focus:ring-2 focus:ring-primary"
+                      />
+                      <button
+                        onClick={() => {
+                          applyPriceFilters();
+                          setFiltersOpen(false);
+                        }}
+                        className="w-full py-3 bg-primary text-white rounded-full font-medium"
+                      >
+                        {t("apply")}
+                      </button>
+                    </div>
+                  )}
+                </div>
                 <div>
                   <h3 className="font-medium mb-2 text-sm">{t("categories")}</h3>
                   <div className="grid grid-cols-2 gap-2">
