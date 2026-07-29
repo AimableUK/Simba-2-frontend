@@ -1062,7 +1062,16 @@
     "stockManagement": "Stock Management",
     "updateStock": "Update Stock",
     "currentStock": "Current Stock",
-    "markOutOfStock": "Mark Out of Stock"
+    "markOutOfStock": "Mark Out of Stock",
+    "transferOrder": "Transfer Order",
+    "transferToBranch": "Transfer to another branch",
+    "transferToBranchHint": "Only delivery orders can be transferred. Stock will be moved to the new branch.",
+    "selectTargetBranch": "Select target branch",
+    "transferring": "Transferring...",
+    "orderTransferred": "Order transferred successfully",
+    "transferFailed": "Failed to transfer order",
+    "onlyDeliveryTransfer": "Only delivery orders can be transferred",
+    "transferNotAllowed": "This order can no longer be transferred"
   },
   "about": {
     "hero": {

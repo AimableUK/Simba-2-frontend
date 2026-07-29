@@ -193,6 +193,8 @@ export const branchApi = {
     api.get("/branches/dashboard", { params }),
   assignOrder: (id: string, staffId: string) =>
     api.post(`/branches/dashboard/orders/${id}/assign`, { staffId }),
+  transferOrder: (id: string, targetBranchId: string) =>
+    api.put(`/branches/dashboard/orders/${id}/transfer`, { targetBranchId }),
   updateStatus: (id: string, data: { status: string; note?: string }) =>
     api.put(`/branches/dashboard/orders/${id}/status`, data),
   updateStock: (data: any) => api.put("/branches/dashboard/stock", data),

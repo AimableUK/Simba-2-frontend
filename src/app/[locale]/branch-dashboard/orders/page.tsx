@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { Pagination } from "@/components/common/pagination";
 import { TableRowSkeleton } from "@/components/common/skeletons";
 import { useAdminSocket } from "@/hooks/useSocket";
-import { User, Clock, Package } from "lucide-react";
+import { User, Clock, Package, ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 const STATUS_COLORS: Record<string, string> = {
@@ -38,6 +38,8 @@ export default function BranchOrdersPage() {
   const [statusFilter, setStatusFilter] = useState("");
   const [selected, setSelected] = useState<any>(null);
   const [selectedStaffId, setSelectedStaffId] = useState("");
+  const [transferOpen, setTransferOpen] = useState(false);
+  const [transferBranchId, setTransferBranchId] = useState("");
 
   const role = (session?.user as any)?.role as string;
   const isManager = ["branch_manager", "admin", "super_admin"].includes(role);
@@ -94,6 +96,26 @@ export default function BranchOrdersPage() {
     },
     onError: (err: any) =>
       toast.error(err?.response?.data?.message || t("failed")),
+  });
+
+  const { data: branches } = useQuery({
+    queryKey: ["branches"],
+    queryFn: () => branchApi.list().then((r) => r.data),
+    staleTime: 1000 * 60 * 30,
+  });
+
+  const transferMutation = useMutation({
+    mutationFn: ({ id, targetBranchId }: { id: string; targetBranchId: string }) =>
+      branchApi.transferOrder(id, targetBranchId),
+    onSuccess: () => {
+      toast.success(t("orderTransferred"));
+      setTransferOpen(false);
+      setTransferBranchId("");
+      setSelected(null);
+      qc.invalidateQueries({ queryKey: ["branch-dashboard-orders"] });
+    },
+    onError: (err: any) =>
+      toast.error(err?.response?.data?.message || t("transferFailed")),
   });
 
   const STATUSES = [
@@ -442,28 +464,115 @@ export default function BranchOrdersPage() {
                   </button>
                 )}
 
-                {["pending", "accepted"].includes(selected.status) && (
-                  <button
-                    onClick={() =>
-                      statusMutation.mutate({
-                        id: selected.id,
-                        status: "cancelled",
-                      })
-                    }
-                    disabled={statusMutation.isPending}
-                    className="w-full rounded-xl border border-destructive py-2.5 font-medium text-destructive transition-colors hover:bg-destructive/5 disabled:opacity-50"
-                  >
-                    {t("cancelOrder")}
-                  </button>
-                )}
+                 {["pending", "accepted"].includes(selected.status) && (
+                   <button
+                     onClick={() =>
+                       statusMutation.mutate({
+                         id: selected.id,
+                         status: "cancelled",
+                       })
+                     }
+                     disabled={statusMutation.isPending}
+                     className="w-full rounded-xl border border-destructive py-2.5 font-medium text-destructive transition-colors hover:bg-destructive/5 disabled:opacity-50"
+                   >
+                     {t("cancelOrder")}
+                   </button>
+                 )}
 
-                <button
+                 {isManager &&
+                   selected.fulfillmentType === "delivery" &&
+                   !["picked_up", "cancelled"].includes(selected.status) && (
+                     <button
+                       onClick={() => {
+                         setTransferOpen(true);
+                         setTransferBranchId("");
+                       }}
+                       className="w-full rounded-xl border border-primary py-2.5 font-medium text-primary transition-colors hover:bg-primary/5"
+                     >
+                       <span className="flex items-center justify-center gap-2">
+                         <ArrowRight className="h-4 w-4" />
+                         {t("transferOrder")}
+                       </span>
+                     </button>
+                   )}
+
+                 <button
                   onClick={() => setSelected(null)}
                   className="w-full rounded-xl border border-border py-2.5 text-sm font-medium transition-colors hover:bg-muted"
                 >
                   {t("close")}
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {transferOpen && selected && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 p-4"
+          onClick={() => {
+            setTransferOpen(false);
+            setTransferBranchId("");
+          }}
+        >
+          <div
+            className="w-full max-w-md rounded-2xl border border-border bg-card p-6 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="mb-1 text-lg font-bold">{t("transferOrder")}</h3>
+            <p className="mb-4 text-sm text-muted-foreground">
+              {t("transferToBranchHint")}
+            </p>
+
+            <div className="mb-4">
+              <label className="mb-1.5 block text-sm font-medium">
+                {t("selectTargetBranch")}
+              </label>
+              <select
+                value={transferBranchId}
+                onChange={(e) => setTransferBranchId(e.target.value)}
+                className="w-full rounded-xl border border-border bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+              >
+                <option value="">{t("selectTargetBranch")}</option>
+                {(branches || [])
+                  .filter(
+                    (b: any) =>
+                      b.id !== selected.branchId && b.isActive !== false,
+                  )
+                  .map((b: any) => (
+                    <option key={b.id} value={b.id}>
+                      {b.name} - {b.address}
+                    </option>
+                  ))}
+              </select>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() =>
+                  transferBranchId &&
+                  transferMutation.mutate({
+                    id: selected.id,
+                    targetBranchId: transferBranchId,
+                  })
+                }
+                disabled={transferMutation.isPending || !transferBranchId}
+                className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-primary py-3 font-semibold text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
+              >
+                {transferMutation.isPending
+                  ? t("transferring")
+                  : t("transferOrder")}
+              </button>
+              <button
+                onClick={() => {
+                  setTransferOpen(false);
+                  setTransferBranchId("");
+                }}
+                className="flex-1 rounded-xl border border-border py-3 font-medium transition-colors hover:bg-muted"
+              >
+                {t("cancel")}
+              </button>
             </div>
           </div>
         </div>
