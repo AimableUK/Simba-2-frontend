@@ -1071,7 +1071,15 @@
     "orderTransferred": "Order transferred successfully",
     "transferFailed": "Failed to transfer order",
     "onlyDeliveryTransfer": "Only delivery orders can be transferred",
-    "transferNotAllowed": "This order can no longer be transferred"
+    "transferNotAllowed": "This order can no longer be transferred",
+    "customerConfirmedDelivery": "Customer confirmed receipt",
+    "confirmDeliveryTitle": "Confirm Delivery Receipt",
+    "confirmDeliveryDesc": "Please confirm that you have received your order. This will allow the branch to mark it as completed.",
+    "confirmDelivery": "Confirm Receipt",
+    "confirming": "Confirming...",
+    "deliveryConfirmed": "Delivery confirmed successfully",
+    "waitingForCustomerConfirmation": "Waiting for customer confirmation",
+    "confirmDeliveryButton": "I Have Received the Order"
   },
   "about": {
     "hero": {

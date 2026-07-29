@@ -15,6 +15,7 @@ import {
   Bell,
   ArrowLeft,
   Download,
+  CheckCheck,
 } from "lucide-react";
 import { orderApi } from "@/lib/api";
 import { useOrderSocket } from "@/hooks/useSocket";
@@ -87,6 +88,7 @@ interface Order {
   items: OrderItem[];
   statusLogs?: StatusLog[];
   branch?: Branch;
+  deliveryConfirmed?: boolean;
 }
 
 //  Page
@@ -97,6 +99,7 @@ export default function OrderDetailPage() {
   const { id } = useParams();
   const qc = useQueryClient();
   const [downloading, setDownloading] = useState(false);
+  const [confirming, setConfirming] = useState(false);
 
   async function downloadInvoice() {
     setDownloading(true);
@@ -172,6 +175,7 @@ export default function OrderDetailPage() {
           status: nextStatus,
           statusLogs: nextLogs,
           paymentStatus: data?.paymentStatus || old.paymentStatus,
+          deliveryConfirmed: data?.deliveryConfirmed ?? old.deliveryConfirmed,
         };
       });
       qc.invalidateQueries({ queryKey: ["order", id] });
@@ -180,6 +184,17 @@ export default function OrderDetailPage() {
   );
 
   useOrderSocket(id as string, handleOrderUpdate);
+
+  const confirmMutation = useMutation({
+    mutationFn: () => orderApi.confirmDelivery(id as string),
+    onSuccess: () => {
+      toast.success(t("deliveryConfirmed") || "Delivery confirmed");
+      setConfirming(false);
+      qc.invalidateQueries({ queryKey: ["order", id] });
+    },
+    onError: (err: any) =>
+      toast.error(err?.response?.data?.message || "Failed to confirm delivery"),
+  });
 
   //  Loading
   if (isLoading)
@@ -336,6 +351,32 @@ export default function OrderDetailPage() {
           </div>
         </div>
       )}
+
+      {order.fulfillmentType === "delivery" &&
+        order.status === "ready" &&
+        !order.deliveryConfirmed && (
+          <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-2xl p-6 mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <h3 className="font-semibold text-green-800 dark:text-green-300">
+                {t("confirmDeliveryTitle") || "Confirm Delivery Receipt"}
+              </h3>
+              <p className="text-sm text-green-700 dark:text-green-400 mt-1">
+                {t("confirmDeliveryDesc") ||
+                  "Please confirm that you have received your order. This will allow the branch to mark it as completed."}
+              </p>
+            </div>
+            <button
+              onClick={() => confirmMutation.mutate()}
+              disabled={confirmMutation.isPending}
+              className="flex items-center gap-2 bg-green-600 text-white px-5 py-2.5 rounded-xl font-medium hover:bg-green-700 disabled:opacity-50 transition-colors shrink-0"
+            >
+              <CheckCheck className="h-4 w-4" />
+              {confirmMutation.isPending
+                ? t("confirming") || "Confirming..."
+                : t("confirmDelivery") || "Confirm Receipt"}
+            </button>
+          </div>
+        )}
 
       {/* Pickup info */}
       <div className="bg-card border border-border rounded-2xl p-6 mb-4">

@@ -330,6 +330,12 @@ export default function BranchOrdersPage() {
                       {t("coordinates")}: {selected.deliveryLatitude}, {selected.deliveryLongitude}
                     </p>
                   )}
+                {selected.fulfillmentType === "delivery" &&
+                  selected.deliveryConfirmed && (
+                    <p className="pl-5 text-xs font-medium text-green-600 dark:text-green-400">
+                      ✓ {t("customerConfirmedDelivery") || "Customer confirmed receipt"}
+                    </p>
+                  )}
               </div>
 
               <div className="mb-4">
@@ -451,7 +457,12 @@ export default function BranchOrdersPage() {
                         status: NEXT_STATUS[selected.status],
                       })
                     }
-                    disabled={statusMutation.isPending}
+                    disabled={
+                      statusMutation.isPending ||
+                      (selected.fulfillmentType === "delivery" &&
+                        selected.status === "ready" &&
+                        !selected.deliveryConfirmed)
+                    }
                     className="w-full rounded-xl bg-primary py-3 font-semibold text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
                   >
                     {statusMutation.isPending
@@ -459,7 +470,9 @@ export default function BranchOrdersPage() {
                       : selected.status === "preparing"
                         ? t("markReady")
                         : selected.status === "ready"
-                          ? t("markPickedUp")
+                          ? selected.fulfillmentType === "delivery" && !selected.deliveryConfirmed
+                            ? t("waitingForCustomerConfirmation")
+                            : t("markPickedUp")
                           : t("nextStep")}
                   </button>
                 )}

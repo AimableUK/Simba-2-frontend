@@ -1062,7 +1062,24 @@
     "stockManagement": "Gucunga Ububiko",
     "updateStock": "Vugurura Ububiko",
     "currentStock": "Ububiko Buriho",
-    "markOutOfStock": "Ntigihari"
+    "markOutOfStock": "Ntigihari",
+    "confirmDelivery": "Emeza Koherezwa",
+    "confirmDeliveryButton": "Nakiriye Ibintu",
+    "confirmDeliveryDesc": "Nyamuneka emeza ko wakiriye ibintu byawe. Bishaka bishaka biremewe n'abakozi ba shami kw'ishira.",
+    "confirmDeliveryTitle": "Emeza Koherezwa",
+    "confirming": "Kurema...",
+    "customerConfirmedDelivery": "Umukiriya yemeje koherwa",
+    "deliveryConfirmed": "Koherezwa kwemejwe",
+    "onlyDeliveryTransfer": "Ibintu byoherejwe gusa byobishake kwimura",
+    "orderTransferred": "Ibintu byimuriwe neza",
+    "selectTargetBranch": "Hitamo shami rishya",
+    "transferFailed": "Kwimura byanze",
+    "transferNotAllowed": "Ibi ntibishobora kwimurwa ukundi",
+    "transferOrder": "Imura Ibintu",
+    "transferToBranch": "Imura ku shami rindi",
+    "transferToBranchHint": "Ibintu byoherejwe gusa byobishake kwimura. Ububiko buzajya ku shami rishya.",
+    "transferring": "Kurimo kwimura...",
+    "waitingForCustomerConfirmation": "Kurimo gutegereza emezo ry'umukiriya"
   },
   "about": {
     "hero": {

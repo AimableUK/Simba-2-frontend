@@ -1062,7 +1062,24 @@
     "stockManagement": "Usimamizi wa Hisa",
     "updateStock": "Sasisha Hisa",
     "currentStock": "Hisa ya Sasa",
-    "markOutOfStock": "Weka kama Imeisha"
+    "markOutOfStock": "Weka kama Imeisha",
+    "confirmDelivery": "Thibitisha upokeaji",
+    "confirmDeliveryButton": "Nimekipokea",
+    "confirmDeliveryDesc": "Tafadhali thibitisha kuwa umepokea agizo lako. Hii itawaruhusu wafanyakazi kuiweka kamilifu.",
+    "confirmDeliveryTitle": "Thibitisha Upokeaji",
+    "confirming": "Inathibitisha...",
+    "customerConfirmedDelivery": "Mteja amethibitisha upokeaji",
+    "deliveryConfirmed": "Uwasilishaji umethibitishwa",
+    "onlyDeliveryTransfer": "Maagizo ya usambazaji peke ndiyo yanaweza kuhamishwa",
+    "orderTransferred": "Agizo limehamishwa kwa mafanikio",
+    "selectTargetBranch": "Chagua tawi lengwa",
+    "transferFailed": "Uhamishaji umeshindwa",
+    "transferNotAllowed": "Agizo hili haliwezi kuhamishwa tena",
+    "transferOrder": "Hamisha Agizo",
+    "transferToBranch": "Hamisha kwa tawi lingine",
+    "transferToBranchHint": "Maagizo ya usambazaji peke ndiyo yanaweza kuhamishwa. Hesabi itahamishwa kwa tawi jipya.",
+    "transferring": "Inahamisha...",
+    "waitingForCustomerConfirmation": "Inasubiri uthibitisho wa mteja"
   },
   "about": {
     "hero": {
@@ -1622,5 +1639,3 @@
     }
   }
 }
-
-

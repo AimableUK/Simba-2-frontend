@@ -91,6 +91,7 @@ export const orderApi = {
   create: (data: any) => api.post("/orders", data),
   myOrders: (params?: Record<string, any>) => api.get("/orders/my", { params }),
   myOrder: (id: string) => api.get(`/orders/my/${id}`),
+  confirmDelivery: (id: string) => api.post(`/orders/my/${id}/confirm-delivery`),
   invoice: (id: string) => api.get(`/orders/my/${id}/invoice`, { responseType: "blob" }),
   adminList: (params?: Record<string, any>) =>
     api.get("/orders/admin/all", { params }),

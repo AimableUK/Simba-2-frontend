@@ -1062,7 +1062,24 @@
     "stockManagement": "Gestion des stocks",
     "updateStock": "Mettre à jour le stock",
     "currentStock": "Stock actuel",
-    "markOutOfStock": "Marquer en rupture"
+    "markOutOfStock": "Marquer en rupture",
+    "confirmDelivery": "Confirmer la réception",
+    "confirmDeliveryButton": "J'ai reçu la commande",
+    "confirmDeliveryDesc": "Veuillez confirmer que vous avez reçu votre commande. Cela permettra à l'agence de la marquer comme terminée.",
+    "confirmDeliveryTitle": "Confirmer la réception",
+    "confirming": "Confirmation...",
+    "customerConfirmedDelivery": "Client a confirmé la réception",
+    "deliveryConfirmed": "Livraison confirmée",
+    "onlyDeliveryTransfer": "Seules les commandes en livraison peuvent être transférées",
+    "orderTransferred": "Commande transférée avec succès",
+    "selectTargetBranch": "Sélectionner l'agence cible",
+    "transferFailed": "Échec du transfert",
+    "transferNotAllowed": "Cette commande ne peut plus être transférée",
+    "transferOrder": "Transférer la commande",
+    "transferToBranch": "Transférer vers une autre agence",
+    "transferToBranchHint": "Seules les commandes en livraison peuvent être transférées. Le stock sera déplacé vers la nouvelle agence.",
+    "transferring": "Transfert en cours...",
+    "waitingForCustomerConfirmation": "En attente de confirmation client"
   },
   "about": {
     "hero": {
@@ -1622,5 +1639,3 @@
     }
   }
 }
-
-
