@@ -21,14 +21,15 @@ api.interceptors.response.use(
 );
 
 //  Products
-
 export const productApi = {
   list: (params?: Record<string, any>) => api.get("/products", { params }),
   get: (slug: string) => api.get(`/products/${slug}`),
-  similar: (slug: string) => api.get(`/products/${slug}/similar`),
+  similar: (slug: string, params?: Record<string, any>) =>
+    api.get(`/products/${slug}/similar`, { params }),
   featured: (params?: Record<string, any>) =>
     api.get("/products/featured", { params }),
-  top: (params?: Record<string, any>) => api.get("/products/top", { params }),
+  top: (params?: Record<string, any>) =>
+    api.get("/products/top", { params }),
   recommendations: (params?: Record<string, any>) =>
     api.get("/products/recommendations", { params }),
   adminList: (params?: Record<string, any>) =>
@@ -70,14 +71,16 @@ export const cartApi = {
 //  Wishlist
 
 export const wishlistApi = {
-  get: () => api.get("/wishlist"),
+  get: (params?: Record<string, any>) =>
+    api.get("/wishlist", { params }),
   toggle: (productId: string) => api.post(`/wishlist/${productId}`),
 };
 
 //  Save for Later
 
 export const savedForLaterApi = {
-  get: () => api.get("/saved-for-later"),
+  get: (params?: Record<string, any>) =>
+    api.get("/saved-for-later", { params }),
   save: (productId: string) => api.post("/saved-for-later", { productId }),
   remove: (productId: string) => api.delete(`/saved-for-later/${productId}`),
 };

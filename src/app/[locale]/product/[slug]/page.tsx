@@ -61,8 +61,11 @@ export default function ProductPage() {
   });
 
   const { data: similar } = useQuery({
-    queryKey: ["similar", slug],
-    queryFn: () => productApi.similar(slug).then((r) => r.data),
+    queryKey: ["similar", slug, selectedBranchId],
+    queryFn: () =>
+      productApi
+        .similar(slug, { branchId: selectedBranchId || undefined })
+        .then((r) => r.data),
     enabled: !!product,
   });
 

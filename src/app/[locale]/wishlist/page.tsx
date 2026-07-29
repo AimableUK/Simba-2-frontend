@@ -11,17 +11,22 @@ import { useSession } from "@/lib/auth-client";
 import { formatPrice, getImageUrl, getDiscountPercent } from "@/lib/utils";
 import { useQueryClient as useQC } from "@tanstack/react-query";
 import { Skeleton } from "@/components/common/skeletons";
+import { useBranchStore } from "@/store";
 
 export default function WishlistPage() {
   const t = useTranslations("wishlist");
   const tProduct = useTranslations("product");
   const locale = useLocale();
   const { data: session } = useSession();
+  const { selectedBranchId } = useBranchStore();
   const qc = useQueryClient();
 
   const { data: items, isLoading } = useQuery({
-    queryKey: ["wishlist"],
-    queryFn: () => wishlistApi.get().then((r) => r.data),
+    queryKey: ["wishlist", selectedBranchId],
+    queryFn: () =>
+      wishlistApi
+        .get({ branchId: selectedBranchId || undefined })
+        .then((r) => r.data),
     enabled: !!session?.user,
   });
 
@@ -34,7 +39,12 @@ export default function WishlistPage() {
   });
 
   const addToCartMutation = useMutation({
-    mutationFn: (productId: string) => cartApi.add({ productId, quantity: 1 }),
+    mutationFn: (productId: string) =>
+      cartApi.add({
+        productId,
+        quantity: 1,
+        branchId: selectedBranchId || undefined,
+      }),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["cart"] });
       toast.success(tProduct("addedToCart"));
@@ -54,7 +64,11 @@ export default function WishlistPage() {
     let added = 0;
     for (const item of inStock) {
       try {
-        await cartApi.add({ productId: item.productId, quantity: 1 });
+        await cartApi.add({
+          productId: item.productId,
+          quantity: 1,
+          branchId: selectedBranchId || undefined,
+        });
         added++;
       } catch {
         /* skip out of stock */

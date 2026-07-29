@@ -50,8 +50,11 @@ export default function CartPage() {
 
   // DB-backed saved for later
   const { data: savedItems = [] } = useQuery({
-    queryKey: ["saved-for-later"],
-    queryFn: () => savedForLaterApi.get().then((r) => r.data),
+    queryKey: ["saved-for-later", selectedBranchId],
+    queryFn: () =>
+      savedForLaterApi
+        .get({ branchId: selectedBranchId || undefined })
+        .then((r) => r.data),
     enabled: !!session?.user,
   });
 
