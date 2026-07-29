@@ -715,6 +715,7 @@ export default function CheckoutPage() {
                         shouldDirty: true,
                       });
                     }}
+                    disabled
                   />
                 </div>
                 {deliveryError && (

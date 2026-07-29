@@ -10,6 +10,7 @@ type Props = {
   onChange: (value: { lat: string; lng: string }) => void;
   label?: string;
   hint?: string;
+  disabled?: boolean;
 };
 
 function toNumber(value: number | string | null | undefined) {
@@ -30,6 +31,7 @@ export default function LocationPicker({
   onChange,
   label,
   hint,
+  disabled,
 }: Props) {
   const t = useTranslations("admin.profile");
   const [loading, setLoading] = useState(false);
@@ -102,6 +104,7 @@ export default function LocationPicker({
             onChange={(e) => onChange({ lat: e.target.value, lng: String(lng ?? "") })}
             className="w-full rounded-xl border border-border bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
             placeholder="-1.95"
+            readOnly={disabled}
           />
         </label>
         <label className="space-y-1.5">
@@ -115,6 +118,7 @@ export default function LocationPicker({
             onChange={(e) => onChange({ lat: String(lat ?? ""), lng: e.target.value })}
             className="w-full rounded-xl border border-border bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
             placeholder="30.06"
+            readOnly={disabled}
           />
         </label>
       </div>
