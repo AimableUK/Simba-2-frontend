@@ -19,6 +19,7 @@ const ROLES = [
   "super_admin",
   "branch_manager",
   "branch_staff",
+  "driver",
 ];
 const ROLE_COLORS: Record<string, string> = {
   user: "bg-muted text-muted-foreground",
@@ -31,6 +32,8 @@ const ROLE_COLORS: Record<string, string> = {
     "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
   branch_staff:
     "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-400",
+  driver:
+    "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
 };
 
 function formatRole(role: string) {
@@ -55,7 +58,7 @@ export default function AdminUsersPage() {
     enabled: canEditRoles,
   });
   const branches: { id: string; name: string }[] = branchesData?.data ?? branchesData ?? [];
-  const isBranchRole = newRole === "branch_manager" || newRole === "branch_staff";
+  const isBranchRole = newRole === "branch_manager" || newRole === "branch_staff" || newRole === "driver";
 
   const { data, isLoading } = useQuery({
     queryKey: ["admin-users", page, search, roleFilter],
@@ -250,6 +253,11 @@ export default function AdminUsersPage() {
                   {role === "branch_staff" && (
                     <span className="ml-auto text-xs text-muted-foreground">
                       {t("roles.branch_staff")}
+                    </span>
+                  )}
+                  {role === "driver" && (
+                    <span className="ml-auto text-xs text-muted-foreground">
+                      {t("roles.driver")}
                     </span>
                   )}
                   {role === "user" && (

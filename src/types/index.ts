@@ -173,7 +173,8 @@ export interface User {
     | "admin"
     | "super_admin"
     | "branch_manager"
-    | "branch_staff";
+    | "branch_staff"
+    | "driver";
   image?: string;
   emailVerified: boolean;
   createdAt: string;

@@ -509,6 +509,7 @@
         "poster": "Post products/blogs",
         "branch_manager": "Branch control",
         "branch_staff": "Branch operations",
+        "driver": "Delivery driver",
         "user": "Shop only"
       }
     },
