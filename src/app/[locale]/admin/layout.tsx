@@ -65,7 +65,7 @@ export default function AdminLayout({
       label: tMenu("products"),
       href: "products",
       icon: Package,
-      roles: ["admin", "super_admin", "branch_manager"],
+      roles: ["admin", "super_admin"],
     },
     {
       label: tMenu("orders"),
@@ -200,7 +200,6 @@ export default function AdminLayout({
         : role === "branch_manager"
           ? new Set([
               "",
-              "products",
               "users",
               "account",
               "my-orders",

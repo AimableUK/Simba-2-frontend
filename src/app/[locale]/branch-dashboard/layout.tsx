@@ -16,6 +16,7 @@ import {
   Clock,
   Menu,
   Users,
+  Tag,
 } from "lucide-react";
 import { useSession } from "@/lib/auth-client";
 import { cn, resolveLocalizedPath } from "@/lib/utils";
@@ -106,6 +107,11 @@ export default function BranchDashboardLayout({
           },
           ...((role as string) === "branch_manager"
             ? [
+                {
+                  href: `/${resolvedLocale}/branch-dashboard/products`,
+                  icon: Tag,
+                  label: t("products", { default: "Products" }),
+                },
                 {
                   href: `/${resolvedLocale}/branch-dashboard/team`,
                   icon: Users,
