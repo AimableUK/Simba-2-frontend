@@ -101,8 +101,8 @@
     "emailLabel": "Email",
     "phoneLabel": "Phone",
     "hours": "Business Hours",
-    "hoursValue": "Mon–Sat: 8am–8pm",
-    "hoursValueSun": "Sun: 9am–5pm"
+    "hoursValue": "Mon\u2013Sat: 8am\u20138pm",
+    "hoursValueSun": "Sun: 9am\u20135pm"
   },
   "cart": {
     "title": "Your Cart",
@@ -929,8 +929,8 @@
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "delivery": "Delivery Info",
-    "rights": "© {year} Simba Super Market. All rights reserved.",
-    "madeIn": "Made in Rwanda 🇷🇼"
+    "rights": "\u00a9 {year} Simba Super Market. All rights reserved.",
+    "madeIn": "Made in Rwanda \ud83c\uddf7\ud83c\uddfc"
   },
   "branches": {
     "title": "Our Branches",
@@ -1090,7 +1090,11 @@
     "deliveryConfirmed": "Delivery confirmed successfully",
     "waitingForCustomerConfirmation": "Waiting for customer confirmation",
     "confirmDeliveryButton": "I Have Received the Order",
-    "acceptOrder": "Accept Order"
+    "acceptOrder": "Accept Order",
+    "assignDriver": "Assign Driver",
+    "assignDriverHint": "Choose a driver for this delivery order.",
+    "noDriversAvailable": "No drivers available. Please add drivers to staff first.",
+    "driverAssigned": "Driver already assigned"
   },
   "about": {
     "hero": {
@@ -1197,7 +1201,7 @@
         },
         "coffee": {
           "title": "Restaurant & Coffee Shop",
-          "desc": "Trucillo Café and coffee shop services across 5 Simba branches."
+          "desc": "Trucillo Caf\u00e9 and coffee shop services across 5 Simba branches."
         },
         "arcade": {
           "title": "Simba Arcade",
@@ -1220,7 +1224,7 @@
     "coffee": {
       "eyebrow": "Coffee",
       "heading": "Coffee Shops",
-      "desc": "Simba Coffee Shops and one Trucillo Café across five branches, offering a relaxing experience for every shopper."
+      "desc": "Simba Coffee Shops and one Trucillo Caf\u00e9 across five branches, offering a relaxing experience for every shopper."
     },
     "awards": {
       "eyebrow": "Achievements",
@@ -1272,7 +1276,7 @@
         },
         "1": {
           "q": "How long does delivery take?",
-          "a": "Standard delivery takes 2–4 hours for in-stock items ordered before 3 PM. Express delivery is available within 1 hour for an additional fee. Same-day delivery is guaranteed for orders placed before noon."
+          "a": "Standard delivery takes 2\u20134 hours for in-stock items ordered before 3 PM. Express delivery is available within 1 hour for an additional fee. Same-day delivery is guaranteed for orders placed before noon."
         },
         "2": {
           "q": "Is there a minimum order for delivery?",
@@ -1294,7 +1298,7 @@
         },
         "2": {
           "q": "When will I receive my refund?",
-          "a": "Refunds are processed within 3–5 business days once the return is received and inspected. Mobile money refunds are typically faster than card refunds."
+          "a": "Refunds are processed within 3\u20135 business days once the return is received and inspected. Mobile money refunds are typically faster than card refunds."
         }
       },
       "products": {
@@ -1340,7 +1344,7 @@
     },
     "stats": {
       "window": "7-day return window",
-      "refundTime": "Refunds in 3–5 business days",
+      "refundTime": "Refunds in 3\u20135 business days",
       "condition": "Original packaging required"
     },
     "eligibility": {
@@ -1381,7 +1385,7 @@
         },
         "refund": {
           "title": "Receive your refund",
-          "desc": "Once inspected and approved, your refund will be issued within 3–5 business days via your original payment method."
+          "desc": "Once inspected and approved, your refund will be issued within 3\u20135 business days via your original payment method."
         }
       }
     },
@@ -1501,7 +1505,7 @@
       "items": {
         "standard": {
           "title": "Standard",
-          "time": "2–4 hours",
+          "time": "2\u20134 hours",
           "price": "1,000 RWF",
           "note": "Best for planned shopping. Order before 3 PM for same-day standard delivery."
         },
@@ -1513,7 +1517,7 @@
         },
         "sameDay": {
           "title": "Free Delivery",
-          "time": "2–4 hours",
+          "time": "2\u20134 hours",
           "price": "Free",
           "note": "Orders above 50,000 RWF qualify for complimentary standard delivery."
         }

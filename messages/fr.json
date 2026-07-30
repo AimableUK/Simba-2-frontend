@@ -2,7 +2,7 @@
   "nav": {
     "home": "Accueil",
     "shop": "Boutique",
-    "categories": "Catégories",
+    "categories": "Cat\u00e9gories",
     "blog": "Blog",
     "contact": "Contact",
     "cart": "Panier",
@@ -11,7 +11,7 @@
     "orders": "Mes Commandes",
     "signIn": "Se Connecter",
     "signUp": "S'inscrire",
-    "signOut": "Se Déconnecter",
+    "signOut": "Se D\u00e9connecter",
     "admin": "Panneau Admin",
     "search": "Rechercher des produits...",
     "searchPlaceholder": "Rechercher des produits, marques...",
@@ -22,41 +22,41 @@
     "markAllRead": "Tout marquer comme lu",
     "clearNotifications": "Effacer les notifications",
     "noNotifications": "Aucune notification pour le moment",
-    "recentNotifications": "Notifications récentes",
+    "recentNotifications": "Notifications r\u00e9centes",
     "unread": "non lu",
     "accountCenter": "Centre de compte"
   },
   "home": {
     "hero": {
-      "badge": "Le Supermarché Favori de Kigali",
-      "title": "Épicerie Fraîche Livrée à Votre Porte",
-      "subtitle": "Achetez des milliers de produits - alimentation, boissons, essentiels ménagers et plus, livrés rapidement à Kigali.",
+      "badge": "Le Supermarch\u00e9 Favori de Kigali",
+      "title": "\u00c9picerie Fra\u00eeche Livr\u00e9e \u00e0 Votre Porte",
+      "subtitle": "Achetez des milliers de produits - alimentation, boissons, essentiels m\u00e9nagers et plus, livr\u00e9s rapidement \u00e0 Kigali.",
       "shopNow": "Acheter Maintenant",
-      "viewDemo": "Voir la démo"
+      "viewDemo": "Voir la d\u00e9mo"
     },
     "featured": "Produits en Vedette",
-    "featuredDesc": "Favoris sélectionnés rien que pour vous",
+    "featuredDesc": "Favoris s\u00e9lectionn\u00e9s rien que pour vous",
     "topProducts": "Meilleures Ventes",
     "topProductsDesc": "Nos produits les plus populaires ce mois",
-    "recommended": "Recommandé pour Vous",
-    "recommendedDesc": "Basé sur votre historique d'achats",
-    "categories": "Acheter par Catégorie",
+    "recommended": "Recommand\u00e9 pour Vous",
+    "recommendedDesc": "Bas\u00e9 sur votre historique d'achats",
+    "categories": "Acheter par Cat\u00e9gorie",
     "categoriesDesc": "Trouvez exactement ce dont vous avez besoin",
     "viewAll": "Voir Tout",
-    "newArrivals": "Nouvelles Arrivées",
+    "newArrivals": "Nouvelles Arriv\u00e9es",
     "deals": "Offres du Jour"
   },
   "shop": {
-    "resultsFor": "Résultats pour \"{query}\"",
-    "categories": "Catégories",
-    "allCategories": "Toutes les catégories",
+    "resultsFor": "R\u00e9sultats pour \"{query}\"",
+    "categories": "Cat\u00e9gories",
+    "allCategories": "Toutes les cat\u00e9gories",
     "priceRange": "Fourchette de prix",
     "minPrice": "Min (RWF)",
     "maxPrice": "Max (RWF)",
     "quickFilters": "Filtres rapides",
-    "ratings": "Évaluations",
+    "ratings": "\u00c9valuations",
     "anyRating": "N'importe quelle note",
-    "ratingPlus": "{rating}+ étoiles",
+    "ratingPlus": "{rating}+ \u00e9toiles",
     "featured": "En vedette",
     "inStock": "En stock",
     "filters": "Filtres",
@@ -73,65 +73,65 @@
     "likes": "{count} j'aime",
     "comments": "{count} commentaires",
     "comment": "Laisser un Commentaire",
-    "commentPlaceholder": "Partagez vos pensées...",
+    "commentPlaceholder": "Partagez vos pens\u00e9es...",
     "submitComment": "Publier le Commentaire",
     "loginToComment": "Connectez-vous pour commenter",
     "noBlogs": "Aucun article de blog pour l'instant",
-    "tags": "Étiquettes",
+    "tags": "\u00c9tiquettes",
     "share": "Partager cet article",
     "relatedPosts": "Articles Connexes"
   },
   "contact": {
     "title": "Nous Contacter",
-    "subtitle": "Nous sommes là pour vous aider. Envoyez-nous un message et nous vous répondrons dans les 24 heures.",
+    "subtitle": "Nous sommes l\u00e0 pour vous aider. Envoyez-nous un message et nous vous r\u00e9pondrons dans les 24 heures.",
     "sendOtherMessage": "Envoyer un autre message",
-    "messageSent": "Message envoyé !",
+    "messageSent": "Message envoy\u00e9 !",
     "touch": "Entrer en contact",
     "name": "Votre Nom",
     "email": "Adresse E-mail",
-    "phone": "Numéro de Téléphone (Facultatif)",
+    "phone": "Num\u00e9ro de T\u00e9l\u00e9phone (Facultatif)",
     "subject": "Sujet",
     "message": "Message",
     "messagePlaceholder": "Dites-nous comment nous pouvons vous aider...",
     "send": "Envoyer le Message",
     "sending": "Envoi en cours...",
-    "success": "Message envoyé ! Nous vous répondrons bientôt.",
+    "success": "Message envoy\u00e9 ! Nous vous r\u00e9pondrons bient\u00f4t.",
     "address": "Adresse",
     "addressValue": "Kigali, Rwanda",
     "emailLabel": "E-mail",
-    "phoneLabel": "Téléphone",
+    "phoneLabel": "T\u00e9l\u00e9phone",
     "hours": "Heures d'Ouverture",
-    "hoursValue": "Lun–Sam : 8h–20h",
-    "hoursValueSun": "Dim : 9h–17h"
+    "hoursValue": "Lun\u2013Sam : 8h\u201320h",
+    "hoursValueSun": "Dim : 9h\u201317h"
   },
   "cart": {
     "title": "Votre Panier",
     "viewAside": "Voir le panier",
     "empty": "Votre panier est vide",
-    "emptyDesc": "Commencez à acheter et ajoutez des articles à votre panier",
+    "emptyDesc": "Commencez \u00e0 acheter et ajoutez des articles \u00e0 votre panier",
     "shopNow": "Commencer les Achats",
     "subtotal": "Sous-total",
     "delivery": "Frais de Livraison",
     "total": "Total",
-    "checkout": "Procéder au Paiement",
+    "checkout": "Proc\u00e9der au Paiement",
     "remove": "Supprimer",
-    "update": "Mettre à Jour",
+    "update": "Mettre \u00e0 Jour",
     "items": "articles",
-    "freeDelivery": "Livraison gratuite pour les commandes supérieures à RWF {amount}",
-    "deliveryNote": "Livraison à Kigali uniquement",
+    "freeDelivery": "Livraison gratuite pour les commandes sup\u00e9rieures \u00e0 RWF {amount}",
+    "deliveryNote": "Livraison \u00e0 Kigali uniquement",
     "continueShopping": "Continuer les Achats",
-    "guestCartNotice": "Vous naviguez en tant qu'invité. Connectez-vous pour sauvegarder votre panier.",
+    "guestCartNotice": "Vous naviguez en tant qu'invit\u00e9. Connectez-vous pour sauvegarder votre panier.",
     "signIn": "Se connecter",
     "signInToCheckout": "Se connecter pour payer",
     "clearCart": "Vider le Panier",
-    "cleared": "Panier vidé",
+    "cleared": "Panier vid\u00e9",
     "minimumOrder": "La commande minimum est de {amount}. Ajoutez {remaining} de plus pour payer.",
     "minimumOrderShort": "Commande minimum : {amount}",
     "saveForLater": "Enregistrer pour plus tard",
-    "savedForLater": "Enregistré pour plus tard",
-    "savedForLaterTitle": "Enregistré pour Plus Tard",
-    "moveToCart": "Déplacer vers le panier",
-    "movedToCart": "Déplacé vers le panier"
+    "savedForLater": "Enregistr\u00e9 pour plus tard",
+    "savedForLaterTitle": "Enregistr\u00e9 pour Plus Tard",
+    "moveToCart": "D\u00e9placer vers le panier",
+    "movedToCart": "D\u00e9plac\u00e9 vers le panier"
   },
   "wishlist": {
     "title": "Ma Liste de Souhaits",
@@ -142,21 +142,21 @@
     "remove": "Supprimer",
     "inStock": "En stock",
     "outOfStock": "Rupture de stock",
-    "items": "articles sauvegardés"
+    "items": "articles sauvegard\u00e9s"
   },
   "orders": {
     "title": "Mes Commandes",
     "order": "Commande",
     "payment": {
       "pending": "Paiement en Attente",
-      "paid": "Payée",
-      "failed": "Paiement Échoué",
-      "refunded": "Remboursée"
+      "paid": "Pay\u00e9e",
+      "failed": "Paiement \u00c9chou\u00e9",
+      "refunded": "Rembours\u00e9e"
     },
     "date": "Date de Commande",
     "track": "Suivre la Commande",
     "noOrders": "Aucune commande pour l'instant",
-    "noOrdersDesc": "Passez votre première commande pour la voir ici",
+    "noOrdersDesc": "Passez votre premi\u00e8re commande pour la voir ici",
     "signInPrompt": "Veuillez vous connecter pour voir vos commandes",
     "signIn": "Se Connecter",
     "startShopping": "Commencer les Achats",
@@ -168,38 +168,38 @@
     "branch": "Succursale",
     "address": "Adresse",
     "location": "Emplacement",
-    "coordinates": "Coordonnées",
+    "coordinates": "Coordonn\u00e9es",
     "openMap": "Ouvrir la carte",
-    "phone": "Téléphone",
+    "phone": "T\u00e9l\u00e9phone",
     "notes": "Notes",
     "items": "Articles",
     "each": "chacun",
     "subtotal": "Sous-total",
-    "deposit": "Dépôt",
+    "deposit": "D\u00e9p\u00f4t",
     "total": "Total",
-    "cancelledMessage": "Cette commande a été annulée.",
-    "downloadInvoice": "Télécharger la facture",
+    "cancelledMessage": "Cette commande a \u00e9t\u00e9 annul\u00e9e.",
+    "downloadInvoice": "T\u00e9l\u00e9charger la facture",
     "deliveryAddress": "Adresse de livraison",
     "status": {
-      "pending": "Commande passée",
-      "accepted": "Commande acceptée",
-      "preparing": "En préparation",
-      "ready": "Prête pour le retrait",
-      "picked_up": "Récupérée",
-      "cancelled": "Annulée"
+      "pending": "Commande pass\u00e9e",
+      "accepted": "Commande accept\u00e9e",
+      "preparing": "En pr\u00e9paration",
+      "ready": "Pr\u00eate pour le retrait",
+      "picked_up": "R\u00e9cup\u00e9r\u00e9e",
+      "cancelled": "Annul\u00e9e"
     },
-    "confirmDeliveryTitle": "Confirmer la réception",
-    "confirmDeliveryDesc": "Veuillez confirmer que vous avez reçu votre commande. Cela permettra à l'agence de la marquer comme terminée.",
-    "confirmDelivery": "Confirmer la réception",
-    "deliveryConfirmed": "Livraison confirmée",
+    "confirmDeliveryTitle": "Confirmer la r\u00e9ception",
+    "confirmDeliveryDesc": "Veuillez confirmer que vous avez re\u00e7u votre commande. Cela permettra \u00e0 l'agence de la marquer comme termin\u00e9e.",
+    "confirmDelivery": "Confirmer la r\u00e9ception",
+    "deliveryConfirmed": "Livraison confirm\u00e9e",
     "confirming": "Confirmation...",
     "waitingForCustomerConfirmation": "En attente de confirmation client",
-    "customerConfirmedDelivery": "Client a confirmé la réception",
-    "confirmDeliveryButton": "J'ai reçu la commande"
+    "customerConfirmedDelivery": "Client a confirm\u00e9 la r\u00e9ception",
+    "confirmDeliveryButton": "J'ai re\u00e7u la commande"
   },
   "product": {
     "addToCart": "Ajouter au Panier",
-    "addedToCart": "Ajouté au panier !",
+    "addedToCart": "Ajout\u00e9 au panier !",
     "removefromCart": "Retirer du Panier",
     "buyNow": "Acheter Maintenant",
     "outOfStock": "Rupture de Stock",
@@ -208,78 +208,78 @@
     "reviews": "Avis",
     "rating": "Note",
     "noReviews": "Aucun avis pour l'instant. Soyez le premier !",
-    "writeReview": "Écrire un Avis",
+    "writeReview": "\u00c9crire un Avis",
     "submitReview": "Soumettre l'Avis",
     "similar": "Vous Pourriez Aussi Aimer",
     "description": "Description",
-    "details": "Détails",
-    "sku": "Référence",
-    "category": "Catégorie",
-    "tags": "Étiquettes",
+    "details": "D\u00e9tails",
+    "sku": "R\u00e9f\u00e9rence",
+    "category": "Cat\u00e9gorie",
+    "tags": "\u00c9tiquettes",
     "share": "Partager",
     "wishlist": "Ajouter aux Souhaits",
     "removeWishlist": "Retirer des Souhaits",
     "perUnit": "par {unit}",
     "weight": "Poids",
     "alcohol": "Ce produit contient de l'alcool",
-    "reviewSuccess": "Avis soumis avec succès !",
-    "reviewError": "Vous pouvez seulement évaluer les produits que vous avez achetés et reçus.",
-    "quantity": "Quantité",
+    "reviewSuccess": "Avis soumis avec succ\u00e8s !",
+    "reviewError": "Vous pouvez seulement \u00e9valuer les produits que vous avez achet\u00e9s et re\u00e7us.",
+    "quantity": "Quantit\u00e9",
     "images": "Images du Produit",
-    "quickView": "Aperçu rapide",
+    "quickView": "Aper\u00e7u rapide",
     "removeFromCart": "Retirer du Panier"
   },
   "checkout": {
     "title": "Paiement",
     "delivery": "Informations de Livraison",
     "payment": "Mode de Paiement",
-    "review": "Vérifier la Commande",
+    "review": "V\u00e9rifier la Commande",
     "fullName": "Nom Complet",
-    "phone": "Numéro de Téléphone",
+    "phone": "Num\u00e9ro de T\u00e9l\u00e9phone",
     "street": "Adresse",
     "district": "District",
     "sector": "Secteur",
     "deliveryMap": "Votre position sur la carte",
-    "deliveryMapHint": "Utilisez votre position actuelle ou saisissez les coordonnées manuellement.",
-    "deliveryAddressHint": "Vous pouvez utiliser uniquement les coordonnées, ou ajouter rue et district pour faciliter la livraison.",
+    "deliveryMapHint": "Utilisez votre position actuelle ou saisissez les coordonn\u00e9es manuellement.",
+    "deliveryAddressHint": "Vous pouvez utiliser uniquement les coordonn\u00e9es, ou ajouter rue et district pour faciliter la livraison.",
     "notes": "Notes de Livraison",
     "pickupNotes": "Notes de retrait",
     "deliveryNotes": "Notes de livraison",
     "dpo": "Payer par Carte / Mobile Money (DPO)",
-    "cod": "Paiement à la Livraison",
-    "cashOnArrival": "Paiement à la remise",
+    "cod": "Paiement \u00e0 la Livraison",
+    "cashOnArrival": "Paiement \u00e0 la remise",
     "cashOnArrivalDesc": "Payez au moment du retrait",
-    "cashOnDelivery": "Paiement à la Livraison",
-    "cashOnDeliveryDesc": "Payez lorsque votre commande est livrée",
+    "cashOnDelivery": "Paiement \u00e0 la Livraison",
+    "cashOnDeliveryDesc": "Payez lorsque votre commande est livr\u00e9e",
     "placeOrder": "Passer la Commande",
     "processing": "Traitement en cours...",
-    "success": "Commande Passée !",
-    "successDesc": "Votre commande #{number} a été passée avec succès.",
+    "success": "Commande Pass\u00e9e !",
+    "successDesc": "Votre commande #{number} a \u00e9t\u00e9 pass\u00e9e avec succ\u00e8s.",
     "trackOrder": "Suivre Votre Commande",
     "payNow": "Payer Maintenant",
     "selectBranch": "Choisir la succursale de retrait",
     "loadingBranches": "Chargement des succursales...",
-    "contact": "Coordonnées",
+    "contact": "Coordonn\u00e9es",
     "pickupOrder": "Retrait",
-    "pickupOrderDesc": "Venez à la succursale récupérer votre commande",
+    "pickupOrderDesc": "Venez \u00e0 la succursale r\u00e9cup\u00e9rer votre commande",
     "deliveryOrder": "Livraison",
-    "deliveryOrderDesc": "Nous livrons votre commande à votre adresse",
+    "deliveryOrderDesc": "Nous livrons votre commande \u00e0 votre adresse",
     "deliveryAddress": "Adresse de livraison",
     "pickupDateTime": "Date et heure de retrait",
     "pickupDate": "Date de retrait",
     "pickupTime": "Heure de retrait",
-    "selectPickupTime": "Sélectionner l'heure de retrait",
-    "pickupNote": "Votre commande sera prête à l'heure sélectionnée. Veuillez arriver dans les 30 minutes suivant votre créneau.",
+    "selectPickupTime": "S\u00e9lectionner l'heure de retrait",
+    "pickupNote": "Votre commande sera pr\u00eate \u00e0 l'heure s\u00e9lectionn\u00e9e. Veuillez arriver dans les 30 minutes suivant votre cr\u00e9neau.",
     "pickupBranch": "Succursale de retrait",
     "dpoDesc": "Visa, Mastercard, MTN, Airtel",
-    "codDesc": "Payez à la réception",
+    "codDesc": "Payez \u00e0 la r\u00e9ception",
     "subtotal": "Sous-total",
     "deliveryFee": "Livraison",
     "totalAmount": "Total",
     "continueShopping": "Continuer les achats",
     "emptyCart": "Votre panier est vide. Ajoutez des articles d'abord.",
     "browseProducts": "Parcourir les produits",
-    "signInPrompt": "Veuillez vous connecter pour passer à la caisse",
+    "signInPrompt": "Veuillez vous connecter pour passer \u00e0 la caisse",
     "signIn": "Se connecter",
     "termsPrefix": "En passant votre commande, vous acceptez nos",
     "terms": "Conditions",
@@ -287,33 +287,33 @@
     "tomorrow": "Demain",
     "branchSwitchTitle": "Changer de succursale ?",
     "branchSwitchDescription": "{branch} n'a pas certains articles du panier.",
-    "branchSwitchRequestedAvailable": "Demandé {requested}, disponible {available}",
+    "branchSwitchRequestedAvailable": "Demand\u00e9 {requested}, disponible {available}",
     "branchSwitchRemove": "Supprimer",
     "branchSwitchConfirm": "Changer et supprimer les articles",
     "branchSwitchCancel": "Annuler",
-    "branchSwitched": "Passé à {branch}.",
-    "branchSwitchedRemoved": "Passé à {branch}. Les articles indisponibles ont été supprimés.",
+    "branchSwitched": "Pass\u00e9 \u00e0 {branch}.",
+    "branchSwitchedRemoved": "Pass\u00e9 \u00e0 {branch}. Les articles indisponibles ont \u00e9t\u00e9 supprim\u00e9s.",
     "placeholders": {
       "fullName": "Entrez votre nom",
-      "phone": "Entrez votre numéro de téléphone",
+      "phone": "Entrez votre num\u00e9ro de t\u00e9l\u00e9phone",
       "street": "Entrez votre adresse ex. KK 123 St, Kicukiro",
       "district": "Entrez votre district ex. Kicukiro",
       "sector": "Entrez votre secteur ex. Niboye",
-      "notes": "Instructions spéciales éventuelles..."
+      "notes": "Instructions sp\u00e9ciales \u00e9ventuelles..."
     },
     "errors": {
-      "fullNameMin": "Le nom complet doit contenir au moins 2 caractères",
-      "phoneMin": "Entrez un numéro de téléphone valide (min 10 chiffres)",
-      "phoneInvalid": "Entrez un numéro rwandais valide (ex. +250781234567)",
+      "fullNameMin": "Le nom complet doit contenir au moins 2 caract\u00e8res",
+      "phoneMin": "Entrez un num\u00e9ro de t\u00e9l\u00e9phone valide (min 10 chiffres)",
+      "phoneInvalid": "Entrez un num\u00e9ro rwandais valide (ex. +250781234567)",
       "streetMin": "Veuillez entrer votre adresse",
       "districtMin": "Veuillez entrer votre district",
-      "locationOrAddressRequired": "Ajoutez les coordonnées de livraison, ou indiquez rue et district",
-      "branchRequired": "Veuillez sélectionner une succursale de retrait",
-      "pickupRequired": "Veuillez sélectionner une heure de retrait",
+      "locationOrAddressRequired": "Ajoutez les coordonn\u00e9es de livraison, ou indiquez rue et district",
+      "branchRequired": "Veuillez s\u00e9lectionner une succursale de retrait",
+      "pickupRequired": "Veuillez s\u00e9lectionner une heure de retrait",
       "fillRequired": "Veuillez remplir tous les champs obligatoires",
-      "branchLoadFailed": "Échec du chargement des succursales",
+      "branchLoadFailed": "\u00c9chec du chargement des succursales",
       "cartEmpty": "Votre panier est vide",
-      "orderFailed": "Commande échouée. Veuillez réessayer.",
+      "orderFailed": "Commande \u00e9chou\u00e9e. Veuillez r\u00e9essayer.",
       "fixErrors": "Veuillez corriger les erreurs suivantes :",
       "field": "Champ",
       "minimumOrder": "La commande minimum est de {amount}. Veuillez ajouter plus d'articles."
@@ -322,49 +322,49 @@
   },
   "auth": {
     "signin": {
-      "title": "Le supermarché préféré du Rwanda, en ligne.",
-      "description": "Parcourez des milliers de produits et récupérez vos achats dans l'une de nos 9 succursales à Kigali.",
+      "title": "Le supermarch\u00e9 pr\u00e9f\u00e9r\u00e9 du Rwanda, en ligne.",
+      "description": "Parcourez des milliers de produits et r\u00e9cup\u00e9rez vos achats dans l'une de nos 9 succursales \u00e0 Kigali.",
       "features": {
-        "feature1": "Retrait rapide dans 9 succursales à Kigali",
-        "feature2": "Achats sécurisés et privés",
-        "feature3": "Approuvé par des milliers de clients à Kigali"
+        "feature1": "Retrait rapide dans 9 succursales \u00e0 Kigali",
+        "feature2": "Achats s\u00e9curis\u00e9s et priv\u00e9s",
+        "feature3": "Approuv\u00e9 par des milliers de clients \u00e0 Kigali"
       }
     },
     "signup": {
       "title": "Rejoignez Simba aujourd'hui",
-      "subtitle": "Vos courses, à votre façon.",
-      "description": "Créez un compte gratuit et commencez à commander auprès de la chaîne de supermarchés la plus fiable de Kigali.",
+      "subtitle": "Vos courses, \u00e0 votre fa\u00e7on.",
+      "description": "Cr\u00e9ez un compte gratuit et commencez \u00e0 commander aupr\u00e8s de la cha\u00eene de supermarch\u00e9s la plus fiable de Kigali.",
       "features": {
-        "feature1": "Suivez vos commandes de retrait en temps réel",
+        "feature1": "Suivez vos commandes de retrait en temps r\u00e9el",
         "feature2": "Enregistrez vos favoris dans votre liste de souhaits",
         "feature3": "Offres et avantages exclusifs pour membres",
         "feature4": "Recommandez rapidement depuis l'historique"
       },
-      "customer": "Clients à Kigali"
+      "customer": "Clients \u00e0 Kigali"
     },
     "show": "Afficher",
     "signIn": "Se Connecter",
-    "signUp": "Créer un Compte",
-    "signOut": "Se Déconnecter",
+    "signUp": "Cr\u00e9er un Compte",
+    "signOut": "Se D\u00e9connecter",
     "email": "Adresse E-mail",
     "password": "Mot de Passe",
     "confirmPassword": "Confirmer le Mot de Passe",
     "name": "Nom Complet",
-    "phone": "Numéro de Téléphone",
-    "forgotPassword": "Mot de Passe Oublié ?",
-    "resetPassword": "Réinitialiser le Mot de Passe",
+    "phone": "Num\u00e9ro de T\u00e9l\u00e9phone",
+    "forgotPassword": "Mot de Passe Oubli\u00e9 ?",
+    "resetPassword": "R\u00e9initialiser le Mot de Passe",
     "noAccount": "Vous n'avez pas de compte ?",
-    "hasAccount": "Vous avez déjà un compte ?",
+    "hasAccount": "Vous avez d\u00e9j\u00e0 un compte ?",
     "signInHere": "Connectez-vous ici",
-    "signUpHere": "Créez-en un",
+    "signUpHere": "Cr\u00e9ez-en un",
     "orContinueWith": "Ou continuer avec",
     "agreeTerms": "En vous connectant, vous acceptez nos {terms} et notre {privacy}",
-    "verifyEmail": "Vérifiez votre e-mail",
-    "resetSent": "Lien de réinitialisation envoyé à votre e-mail",
+    "verifyEmail": "V\u00e9rifiez votre e-mail",
+    "resetSent": "Lien de r\u00e9initialisation envoy\u00e9 \u00e0 votre e-mail",
     "passwordMismatch": "Les mots de passe ne correspondent pas",
     "loading": "Veuillez patienter...",
     "continueWithGoogle": "Continuer avec Google",
-    "backToSignIn": "Retour à la connexion",
+    "backToSignIn": "Retour \u00e0 la connexion",
     "placeholders": {
       "email": "Saisissez votre e-mail",
       "password": "Saisissez votre mot de passe",
@@ -375,47 +375,47 @@
       "emailRequired": "Veuillez saisir votre e-mail",
       "emailInvalid": "Veuillez saisir un e-mail valide",
       "passwordRequired": "Le mot de passe est requis",
-      "passwordMin": "Le mot de passe doit contenir au moins 6 caractères",
+      "passwordMin": "Le mot de passe doit contenir au moins 6 caract\u00e8res",
       "invalidCredentials": "E-mail ou mot de passe invalide",
-      "signInFailed": "Échec de la connexion. Veuillez réessayer.",
+      "signInFailed": "\u00c9chec de la connexion. Veuillez r\u00e9essayer.",
       "googleUnavailable": "La connexion avec Google est actuellement indisponible.",
-      "sendResetFailed": "Impossible d'envoyer l'e-mail de réinitialisation. Veuillez réessayer.",
-      "resetTokenInvalid": "Jeton de réinitialisation invalide ou manquant",
-      "resetTokenMissing": "Le lien de réinitialisation ne contient pas de jeton. Veuillez demander un nouvel e-mail.",
-      "resetPasswordFailed": "Impossible de réinitialiser le mot de passe",
+      "sendResetFailed": "Impossible d'envoyer l'e-mail de r\u00e9initialisation. Veuillez r\u00e9essayer.",
+      "resetTokenInvalid": "Jeton de r\u00e9initialisation invalide ou manquant",
+      "resetTokenMissing": "Le lien de r\u00e9initialisation ne contient pas de jeton. Veuillez demander un nouvel e-mail.",
+      "resetPasswordFailed": "Impossible de r\u00e9initialiser le mot de passe",
       "passwordMismatch": "Les mots de passe ne correspondent pas",
       "confirmPasswordRequired": "Veuillez confirmer votre mot de passe"
     },
     "forgotPage": {
-      "description": "Saisissez votre e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
-      "sentTitle": "Vérifiez votre boîte de réception",
-      "sentDescription": "Nous avons envoyé un lien de réinitialisation à",
-      "spamHint": "Vous ne l'avez pas reçu ? Vérifiez votre dossier spam, ou",
-      "tryAgain": "réessayez",
+      "description": "Saisissez votre e-mail et nous vous enverrons un lien pour r\u00e9initialiser votre mot de passe.",
+      "sentTitle": "V\u00e9rifiez votre bo\u00eete de r\u00e9ception",
+      "sentDescription": "Nous avons envoy\u00e9 un lien de r\u00e9initialisation \u00e0",
+      "spamHint": "Vous ne l'avez pas re\u00e7u ? V\u00e9rifiez votre dossier spam, ou",
+      "tryAgain": "r\u00e9essayez",
       "sendLink": "Envoyer le lien",
       "sending": "Envoi..."
     },
     "resetPage": {
-      "title": "Réinitialiser le mot de passe",
-      "description": "Saisissez votre nouveau mot de passe ci-dessous pour terminer la réinitialisation de votre compte.",
-      "secureHint": "Utilisez le lien sécurisé de votre e-mail pour continuer.",
-      "doneTitle": "Mot de passe mis à jour",
+      "title": "R\u00e9initialiser le mot de passe",
+      "description": "Saisissez votre nouveau mot de passe ci-dessous pour terminer la r\u00e9initialisation de votre compte.",
+      "secureHint": "Utilisez le lien s\u00e9curis\u00e9 de votre e-mail pour continuer.",
+      "doneTitle": "Mot de passe mis \u00e0 jour",
       "doneDescription": "Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.",
-      "passwordHint": "Assurez-vous que votre mot de passe est solide et facile à retenir.",
-      "submit": "Réinitialiser le mot de passe",
-      "successToast": "Mot de passe mis à jour avec succès"
+      "passwordHint": "Assurez-vous que votre mot de passe est solide et facile \u00e0 retenir.",
+      "submit": "R\u00e9initialiser le mot de passe",
+      "successToast": "Mot de passe mis \u00e0 jour avec succ\u00e8s"
     },
     "payment": {
       "success": {
-        "title": "Paiement réussi !",
-        "description": "Votre paiement a été traité avec succès.",
+        "title": "Paiement r\u00e9ussi !",
+        "description": "Votre paiement a \u00e9t\u00e9 trait\u00e9 avec succ\u00e8s.",
         "order": "Commande",
         "viewOrders": "Voir mes commandes",
         "continueShopping": "Continuer les achats"
       },
       "cancel": {
-        "title": "Paiement annulé",
-        "description": "Votre paiement a été annulé. Votre commande est toujours enregistrée - vous pouvez réessayer.",
+        "title": "Paiement annul\u00e9",
+        "description": "Votre paiement a \u00e9t\u00e9 annul\u00e9. Votre commande est toujours enregistr\u00e9e - vous pouvez r\u00e9essayer.",
         "myOrders": "Mes commandes",
         "backToCart": "Retour au panier"
       }
@@ -437,12 +437,12 @@
       "users": "Utilisateurs",
       "blogs": "Blogs",
       "messages": "Messages",
-      "banners": "Bannières",
-      "settings": "Paramètres",
+      "banners": "Banni\u00e8res",
+      "settings": "Param\u00e8tres",
       "account": "Compte",
       "myOrders": "Mes Commandes",
       "notifications": "Notifications",
-      "signOut": "Se Déconnecter"
+      "signOut": "Se D\u00e9connecter"
     },
     "dashboard": {
       "title": "Tableau de bord",
@@ -455,20 +455,20 @@
       "totalProducts": "Total des Produits",
       "totalUsers": "Total des Utilisateurs",
       "todayCount": "{count} aujourd'hui",
-      "needsAttention": "Nécessite une attention",
+      "needsAttention": "N\u00e9cessite une attention",
       "activeListings": "Annonces actives",
       "registered": "Inscrit",
       "revenue": "Revenu",
       "revenueTitle": "Revenu - {period}",
       "revenueCustomTitle": "Revenu - {from} au {to}",
-      "revenueCustomRange": "Revenu - Plage personnalisée",
-      "pickBothDates": "Choisissez les dates de début et de fin",
-      "startBeforeEnd": "La date de début doit être avant la date de fin",
+      "revenueCustomRange": "Revenu - Plage personnalis\u00e9e",
+      "pickBothDates": "Choisissez les dates de d\u00e9but et de fin",
+      "startBeforeEnd": "La date de d\u00e9but doit \u00eatre avant la date de fin",
       "topProducts": "Meilleurs Produits",
-      "recentOrders": "Commandes Récentes",
+      "recentOrders": "Commandes R\u00e9centes",
       "viewAll": "Voir tout",
       "sold": "{count} vendu(s)",
-      "selectPeriod": "Sélectionner la période",
+      "selectPeriod": "S\u00e9lectionner la p\u00e9riode",
       "pickDates": "Choisir les dates",
       "from": "Du",
       "to": "Au",
@@ -481,54 +481,54 @@
         "yesterday": "Hier",
         "week": "7 derniers jours",
         "month": "30 derniers jours",
-        "year": "Dernière année",
+        "year": "Derni\u00e8re ann\u00e9e",
         "lifetime": "Depuis toujours",
-        "custom": "Plage personnalisée"
+        "custom": "Plage personnalis\u00e9e"
       }
     },
     "users": {
       "title": "Utilisateurs",
       "searchPlaceholder": "Rechercher des utilisateurs...",
-      "allRoles": "Tous les Rôles",
+      "allRoles": "Tous les R\u00f4les",
       "cols": {
         "user": "Utilisateur",
         "email": "E-mail",
-        "phone": "Téléphone",
-        "role": "Rôle",
+        "phone": "T\u00e9l\u00e9phone",
+        "role": "R\u00f4le",
         "orders": "Commandes",
         "joined": "Inscrit le",
         "actions": "Actions"
       },
-      "changeRole": "Changer le Rôle",
+      "changeRole": "Changer le R\u00f4le",
       "saving": "Enregistrement...",
-      "updateRole": "Mettre à jour le Rôle",
+      "updateRole": "Mettre \u00e0 jour le R\u00f4le",
       "cancel": "Annuler",
       "roles": {
-        "super_admin": "Accès complet",
-        "admin": "Gérer la boutique",
+        "super_admin": "Acc\u00e8s complet",
+        "admin": "G\u00e9rer la boutique",
         "poster": "Publier produits/blogs",
-        "branch_manager": "Contrôle de succursale",
-        "branch_staff": "Opérations de succursale",
+        "branch_manager": "Contr\u00f4le de succursale",
+        "branch_staff": "Op\u00e9rations de succursale",
         "user": "Acheter uniquement"
       }
     },
     "banners": {
-      "title": "Bannières",
-      "add": "Ajouter une Bannière",
-      "empty": "Aucune bannière. Ajoutez votre première bannière.",
+      "title": "Banni\u00e8res",
+      "add": "Ajouter une Banni\u00e8re",
+      "empty": "Aucune banni\u00e8re. Ajoutez votre premi\u00e8re banni\u00e8re.",
       "active": "Actif",
       "inactive": "Inactif",
       "sortOrder": "Ordre de tri",
       "edit": "Modifier",
       "delete": "Supprimer",
-      "editBanner": "Modifier la Bannière",
-      "addBanner": "Ajouter une Bannière",
-      "created": "Bannière créée !",
-      "updated": "Bannière mise à jour !",
-      "deleted": "Bannière supprimée",
+      "editBanner": "Modifier la Banni\u00e8re",
+      "addBanner": "Ajouter une Banni\u00e8re",
+      "created": "Banni\u00e8re cr\u00e9\u00e9e !",
+      "updated": "Banni\u00e8re mise \u00e0 jour !",
+      "deleted": "Banni\u00e8re supprim\u00e9e",
       "saving": "Enregistrement...",
-      "update": "Mettre à jour",
-      "create": "Créer",
+      "update": "Mettre \u00e0 jour",
+      "create": "Cr\u00e9er",
       "cancel": "Annuler",
       "fields": {
         "title": "Titre *",
@@ -539,16 +539,16 @@
       }
     },
     "settings": {
-      "title": "Paramètres",
+      "title": "Param\u00e8tres",
       "storeConfiguration": "Configuration du Magasin",
-      "saved": "Paramètres enregistrés !",
-      "failed": "Échec de l'enregistrement des paramètres",
+      "saved": "Param\u00e8tres enregistr\u00e9s !",
+      "failed": "\u00c9chec de l'enregistrement des param\u00e8tres",
       "saving": "Enregistrement...",
-      "save": "Enregistrer les Paramètres",
+      "save": "Enregistrer les Param\u00e8tres",
       "fields": {
         "storeName": "Nom du Magasin",
         "storeEmail": "E-mail du Magasin",
-        "storePhone": "Téléphone du Magasin",
+        "storePhone": "T\u00e9l\u00e9phone du Magasin",
         "storeAddress": "Adresse du Magasin",
         "deliveryFee": "Frais de Livraison (RWF)",
         "freeDeliveryThreshold": "Seuil de Livraison Gratuite (RWF)",
@@ -559,24 +559,24 @@
       "title": "Mon Compte",
       "myOrders": "Mes Commandes",
       "trackOrders": "Suivre vos commandes",
-      "details": "Détails du Profil",
+      "details": "D\u00e9tails du Profil",
       "fullName": "Nom Complet",
       "email": "E-mail",
-      "emailLocked": "L'e-mail ne peut pas être modifié",
-      "phoneNumber": "Numéro de Téléphone",
-      "phonePlaceholder": "Votre numéro de téléphone",
+      "emailLocked": "L'e-mail ne peut pas \u00eatre modifi\u00e9",
+      "phoneNumber": "Num\u00e9ro de T\u00e9l\u00e9phone",
+      "phonePlaceholder": "Votre num\u00e9ro de t\u00e9l\u00e9phone",
       "deliveryStreet": "Rue de livraison",
-      "deliveryStreetPlaceholder": "Rue ou repère",
+      "deliveryStreetPlaceholder": "Rue ou rep\u00e8re",
       "deliveryDistrict": "District",
       "deliveryDistrictPlaceholder": "Votre district",
       "deliverySector": "Secteur / Zone",
       "deliverySectorPlaceholder": "Votre secteur ou zone",
-      "deliveryHint": "Ces informations seront réutilisées lors du paiement.",
+      "deliveryHint": "Ces informations seront r\u00e9utilis\u00e9es lors du paiement.",
       "deliveryMap": "Votre position sur la carte",
-      "deliveryMapHint": "Utilisez votre position actuelle ou saisissez les coordonnées manuellement.",
-      "deliveryMapEmpty": "Aucune position de carte sélectionnée.",
+      "deliveryMapHint": "Utilisez votre position actuelle ou saisissez les coordonn\u00e9es manuellement.",
+      "deliveryMapEmpty": "Aucune position de carte s\u00e9lectionn\u00e9e.",
       "useCurrentLocation": "Utiliser la position actuelle",
-      "role": "Rôle",
+      "role": "R\u00f4le",
       "saving": "Enregistrement...",
       "save": "Enregistrer les Modifications",
       "signInPrompt": "Veuillez vous connecter pour voir votre profil",
@@ -598,20 +598,20 @@
         "actions": "Actions"
       },
       "view": "Voir",
-      "replyViaEmail": "Répondre par E-mail",
+      "replyViaEmail": "R\u00e9pondre par E-mail",
       "close": "Fermer",
-      "replied": "Répondu",
-      "replyTo": "Répondre à",
+      "replied": "R\u00e9pondu",
+      "replyTo": "R\u00e9pondre \u00e0",
       "originalMessage": "Message original",
-      "replyTitle": "Rédiger une réponse",
-      "replySubtitle": "Utilisez l'éditeur ci-dessous pour envoyer une réponse enrichie.",
-      "replyPlaceholder": "Écrivez votre réponse ici...",
-      "sendReply": "Envoyer la réponse",
+      "replyTitle": "R\u00e9diger une r\u00e9ponse",
+      "replySubtitle": "Utilisez l'\u00e9diteur ci-dessous pour envoyer une r\u00e9ponse enrichie.",
+      "replyPlaceholder": "\u00c9crivez votre r\u00e9ponse ici...",
+      "sendReply": "Envoyer la r\u00e9ponse",
       "sendingReply": "Envoi...",
-      "replySent": "Réponse envoyée avec succès",
-      "replyFailed": "Échec de l'envoi de la réponse",
-      "replyRequired": "Écrivez une réponse avant d'envoyer",
-      "loadingEditor": "Chargement de l'éditeur..."
+      "replySent": "R\u00e9ponse envoy\u00e9e avec succ\u00e8s",
+      "replyFailed": "\u00c9chec de l'envoi de la r\u00e9ponse",
+      "replyRequired": "\u00c9crivez une r\u00e9ponse avant d'envoyer",
+      "loadingEditor": "Chargement de l'\u00e9diteur..."
     },
     "blogs": {
       "title": "Articles de Blog",
@@ -625,25 +625,25 @@
         "date": "Date",
         "actions": "Actions"
       },
-      "published": "Publié",
+      "published": "Publi\u00e9",
       "draft": "Brouillon",
       "editPost": "Modifier l'Article de Blog",
-      "placeholder": "Rédigez votre article ici...",
-      "created": "Article de blog créé !",
-      "updated": "Article de blog mis à jour !",
-      "deleted": "Article de blog supprimé",
+      "placeholder": "R\u00e9digez votre article ici...",
+      "created": "Article de blog cr\u00e9\u00e9 !",
+      "updated": "Article de blog mis \u00e0 jour !",
+      "deleted": "Article de blog supprim\u00e9",
       "saving": "Enregistrement...",
-      "updatePost": "Mettre à jour l'Article",
-      "createPost": "Créer l'Article",
+      "updatePost": "Mettre \u00e0 jour l'Article",
+      "createPost": "Cr\u00e9er l'Article",
       "cancel": "Annuler",
-      "loadingEditor": "Chargement de l'éditeur...",
+      "loadingEditor": "Chargement de l'\u00e9diteur...",
       "fields": {
         "title": "Titre *",
         "excerpt": "Extrait",
         "imageUrl": "URL de l'image de couverture",
-        "tags": "Tags (séparés par des virgules)",
+        "tags": "Tags (s\u00e9par\u00e9s par des virgules)",
         "content": "Contenu *",
-        "publishImmediately": "Publier immédiatement (visible par le public)"
+        "publishImmediately": "Publier imm\u00e9diatement (visible par le public)"
       }
     },
     "products": {
@@ -654,7 +654,7 @@
         "product": "Produit",
         "price": "Prix",
         "stock": "Stock",
-        "category": "Catégorie",
+        "category": "Cat\u00e9gorie",
         "status": "Statut",
         "sales": "Ventes",
         "actions": "Actions"
@@ -664,14 +664,14 @@
       "inactive": "Inactif",
       "editProduct": "Modifier le Produit",
       "addNewProduct": "Ajouter un Nouveau Produit",
-      "created": "Produit créé !",
-      "updated": "Produit mis à jour !",
-      "deleted": "Produit supprimé",
+      "created": "Produit cr\u00e9\u00e9 !",
+      "updated": "Produit mis \u00e0 jour !",
+      "deleted": "Produit supprim\u00e9",
       "saving": "Enregistrement...",
-      "updateProduct": "Mettre à jour le Produit",
-      "createProduct": "Créer le Produit",
+      "updateProduct": "Mettre \u00e0 jour le Produit",
+      "createProduct": "Cr\u00e9er le Produit",
       "deleteTitle": "Supprimer le Produit ?",
-      "deleteDesc": "Cela désactivera le produit. Il n'apparaîtra plus dans la boutique.",
+      "deleteDesc": "Cela d\u00e9sactivera le produit. Il n'appara\u00eetra plus dans la boutique.",
       "deleting": "Suppression...",
       "delete": "Supprimer",
       "cancel": "Annuler",
@@ -680,9 +680,9 @@
         "price": "Prix (RWF)",
         "comparePrice": "Prix Comparatif (RWF)",
         "stock": "Stock",
-        "category": "Catégorie",
-        "unit": "Unité",
-        "tags": "Tags (séparés par des virgules)",
+        "category": "Cat\u00e9gorie",
+        "unit": "Unit\u00e9",
+        "tags": "Tags (s\u00e9par\u00e9s par des virgules)",
         "shortDescription": "Description Courte",
         "description": "Description",
         "images": "URLs des images (une par ligne)",
@@ -695,26 +695,26 @@
         "price": "Entrez le prix ex. 8500",
         "comparePrice": "Entrez le prix comparatif ex. 10000",
         "stock": "Entrez le stock actuel ex. 100",
-        "category": "Sélectionner la catégorie",
-        "unit": "entrez les unités ex. 500ml, 5kg, pack",
+        "category": "S\u00e9lectionner la cat\u00e9gorie",
+        "unit": "entrez les unit\u00e9s ex. 500ml, 5kg, pack",
         "tags": "Entrez les tags ex. frais, bio, local",
-        "shortDescription": "entrez un résumé d'une ligne",
-        "description": "Entrez la description complète du produit...",
+        "shortDescription": "entrez un r\u00e9sum\u00e9 d'une ligne",
+        "description": "Entrez la description compl\u00e8te du produit...",
         "images": "https://example.com/image.jpg"
       }
     },
     "branches": {
       "title": "Succursales",
-      "subtitle": "Gérer tous les emplacements Simba Supermarket à Kigali",
+      "subtitle": "G\u00e9rer tous les emplacements Simba Supermarket \u00e0 Kigali",
       "add": "Ajouter une Succursale",
       "stats": {
         "totalBranches": "Total des Succursales",
         "active": "Actif",
         "districts": "Districts"
       },
-      "created": "Succursale créée !",
-      "updated": "Succursale mise à jour !",
-      "deactivated": "Succursale désactivée",
+      "created": "Succursale cr\u00e9\u00e9e !",
+      "updated": "Succursale mise \u00e0 jour !",
+      "deactivated": "Succursale d\u00e9sactiv\u00e9e",
       "inactive": "Inactif",
       "new": "Nouveau",
       "orders": "commandes",
@@ -722,8 +722,8 @@
       "more": "plus",
       "viewOnMaps": "Voir sur Maps",
       "edit": "Modifier",
-      "deactivate": "Désactiver",
-      "deleted": "Supprimé",
+      "deactivate": "D\u00e9sactiver",
+      "deleted": "Supprim\u00e9",
       "editBranch": "Modifier la Succursale",
       "addNewBranch": "Ajouter une Nouvelle Succursale",
       "quickFill": "Remplissage rapide depuis les succursales connues :",
@@ -733,7 +733,7 @@
         "district": "District",
         "latitude": "Latitude",
         "longitude": "Longitude",
-        "phone": "Téléphone",
+        "phone": "T\u00e9l\u00e9phone",
         "openTime": "Heure d'Ouverture",
         "closeTime": "Heure de Fermeture",
         "sortOrder": "Ordre de Tri"
@@ -741,18 +741,18 @@
       "placeholders": {
         "name": "Entrez le nom de la succursale",
         "address": "Entrez l'emplacement de la succursale",
-        "district": "Sélectionner le district",
+        "district": "S\u00e9lectionner le district",
         "latitude": "ex. -1.9441",
         "longitude": "ex. 30.1178",
         "phone": "+250 788 000 000"
       },
-      "sortOrderHint": "Plus bas = apparaît en premier",
+      "sortOrderHint": "Plus bas = appara\u00eet en premier",
       "saving": "Enregistrement...",
-      "updateBranch": "Mettre à jour la Succursale",
-      "createBranch": "Créer la Succursale",
+      "updateBranch": "Mettre \u00e0 jour la Succursale",
+      "createBranch": "Cr\u00e9er la Succursale",
       "cancel": "Annuler",
-      "deactivateTitle": "Désactiver la Succursale ?",
-      "deactivateDesc": "Cela masquera la succursale de la boutique publique. Les commandes existantes ne seront pas affectées.",
+      "deactivateTitle": "D\u00e9sactiver la Succursale ?",
+      "deactivateDesc": "Cela masquera la succursale de la boutique publique. Les commandes existantes ne seront pas affect\u00e9es.",
       "processing": "Traitement en cours..."
     },
     "branchDetail": {
@@ -760,11 +760,11 @@
       "staff": "personnel",
       "products": "produits",
       "inactive": "Inactif",
-      "team": "Équipe",
+      "team": "\u00c9quipe",
       "searchPlaceholder": "Rechercher des produits...",
       "cols": {
         "product": "Produit",
-        "category": "Catégorie",
+        "category": "Cat\u00e9gorie",
         "price": "Prix",
         "stock": "Stock",
         "status": "Statut",
@@ -773,43 +773,43 @@
       "save": "Enregistrer",
       "cancel": "Annuler",
       "active": "Actif",
-      "hidden": "Masqué",
-      "update": "Mettre à jour",
+      "hidden": "Masqu\u00e9",
+      "update": "Mettre \u00e0 jour",
       "hide": "Masquer",
       "show": "Afficher",
-      "stockUpdated": "Stock mis à jour"
+      "stockUpdated": "Stock mis \u00e0 jour"
     },
     "branchTeam": {
-      "backToBranch": "Retour à la succursale",
-      "teamTitle": "Équipe",
-      "inviteDescription": "Invitez des personnes ayant un compte à rejoindre cette succursale.",
-      "inviteTeamMember": "Inviter un membre de l'équipe",
+      "backToBranch": "Retour \u00e0 la succursale",
+      "teamTitle": "\u00c9quipe",
+      "inviteDescription": "Invitez des personnes ayant un compte \u00e0 rejoindre cette succursale.",
+      "inviteTeamMember": "Inviter un membre de l'\u00e9quipe",
       "searchPlaceholder": "Rechercher des utilisateurs par nom ou e-mail",
-      "role": "Rôle",
+      "role": "R\u00f4le",
       "branchStaff": "Personnel de succursale",
       "branchManager": "Responsable de succursale",
       "optionalNote": "Note facultative",
       "shortMessage": "Message court",
-      "sent": "Invitation envoyée",
+      "sent": "Invitation envoy\u00e9e",
       "sendInvite": "Envoyer l'invitation",
       "sending": "Envoi en cours...",
       "pendingInvites": "Invitations en attente",
       "noPendingInvites": "Aucune invitation en attente.",
-      "failed": "Échec de l'envoi de l'invitation"
+      "failed": "\u00c9chec de l'envoi de l'invitation"
     },
     "branchInvite": {
       "title": "Invitation de succursale",
-      "signInPrompt": "Connectez-vous pour voir cette invitation et y répondre.",
+      "signInPrompt": "Connectez-vous pour voir cette invitation et y r\u00e9pondre.",
       "signIn": "Se connecter",
       "invalidToken": "Jeton d'invitation invalide ou manquant.",
       "goBack": "Retour",
-      "description": "Vous avez une invitation pour rejoindre l'équipe de cette succursale. Acceptez-la pour rejoindre l'équipe, ou refusez-la si elle ne vous concerne pas.",
+      "description": "Vous avez une invitation pour rejoindre l'\u00e9quipe de cette succursale. Acceptez-la pour rejoindre l'\u00e9quipe, ou refusez-la si elle ne vous concerne pas.",
       "accept": "Accepter l'invitation",
       "accepting": "Acceptation...",
       "decline": "Refuser",
       "declining": "Refus...",
-      "updated": "Invitation mise à jour",
-      "failed": "Échec de la mise à jour de l'invitation"
+      "updated": "Invitation mise \u00e0 jour",
+      "failed": "\u00c9chec de la mise \u00e0 jour de l'invitation"
     },
     "orders": {
       "title": "Commandes",
@@ -827,14 +827,14 @@
         "actions": "Actions"
       },
       "itemsCount": "articles",
-      "manage": "Gérer",
-      "statusUpdated": "Statut de la commande mis à jour",
-      "statusError": "Échec de la mise à jour du statut",
+      "manage": "G\u00e9rer",
+      "statusUpdated": "Statut de la commande mis \u00e0 jour",
+      "statusError": "\u00c9chec de la mise \u00e0 jour du statut",
       "modal": {
-        "title": "Mettre à jour le Statut de la Commande",
+        "title": "Mettre \u00e0 jour le Statut de la Commande",
         "customer": "Client",
         "email": "E-mail",
-        "phone": "Téléphone",
+        "phone": "T\u00e9l\u00e9phone",
         "total": "Total",
         "branch": "Agence",
         "address": "Adresse",
@@ -844,25 +844,25 @@
         "newStatus": "Nouveau statut",
         "note": "Note",
         "notePlaceholder": "Ajouter une note...",
-        "updating": "Mise à jour...",
-        "update": "Mettre à jour le Statut",
+        "updating": "Mise \u00e0 jour...",
+        "update": "Mettre \u00e0 jour le Statut",
         "cancel": "Annuler"
       },
       "status": {
         "pending": "En attente",
-        "accepted": "Accepté",
-        "preparing": "En préparation",
-        "ready": "Prêt",
-        "picked_up": "Récupéré",
-        "cancelled": "Annulé"
+        "accepted": "Accept\u00e9",
+        "preparing": "En pr\u00e9paration",
+        "ready": "Pr\u00eat",
+        "picked_up": "R\u00e9cup\u00e9r\u00e9",
+        "cancelled": "Annul\u00e9"
       }
     }
   },
   "common": {
     "loading": "Chargement...",
     "error": "Une erreur s'est produite",
-    "retry": "Réessayer",
-    "noResults": "Aucun résultat trouvé",
+    "retry": "R\u00e9essayer",
+    "noResults": "Aucun r\u00e9sultat trouv\u00e9",
     "search": "Rechercher",
     "filter": "Filtrer",
     "sort": "Trier",
@@ -871,7 +871,7 @@
     "date": "Date",
     "asc": "Bas en Haut",
     "desc": "Haut en Bas",
-    "newest": "Plus Récent d'Abord",
+    "newest": "Plus R\u00e9cent d'Abord",
     "oldest": "Plus Ancien d'Abord",
     "popular": "Plus Populaire",
     "all": "Tout",
@@ -888,7 +888,7 @@
     "back": "Retour",
     "clear": "Effacer",
     "next": "Suivant",
-    "previous": "Précédent",
+    "previous": "Pr\u00e9c\u00e9dent",
     "page": "Page {page} sur {total}",
     "showing": "Affichage {from}-{to} sur {total}",
     "currency": "RWF",
@@ -903,39 +903,39 @@
     "allProducts": "Tous les Produits",
     "profile": "Profil",
     "sortOptions": {
-      "newestFirst": "Les plus récents",
+      "newestFirst": "Les plus r\u00e9cents",
       "mostPopular": "Les plus populaires",
       "priceLowToHigh": "Prix : Croissant",
-      "priceHighToLow": "Prix : Décroissant",
-      "highestRated": "Mieux notés"
+      "priceHighToLow": "Prix : D\u00e9croissant",
+      "highestRated": "Mieux not\u00e9s"
     }
   },
   "footer": {
-    "tagline": "Le supermarché favori de Kigali - frais, rapide et fiable.",
+    "tagline": "Le supermarch\u00e9 favori de Kigali - frais, rapide et fiable.",
     "shop": "Boutique",
     "allProducts": "Tous les Produits",
-    "categories": "Catégories",
+    "categories": "Cat\u00e9gories",
     "deals": "Offres du Jour",
-    "newArrivals": "Nouvelles Arrivées",
+    "newArrivals": "Nouvelles Arriv\u00e9es",
     "company": "Entreprise",
-    "about": "À Propos",
+    "about": "\u00c0 Propos",
     "blog": "Blog",
     "contact": "Contact",
-    "careers": "Carrières",
+    "careers": "Carri\u00e8res",
     "support": "Support",
     "faq": "FAQ",
     "returns": "Politique de Retour",
-    "privacy": "Politique de Confidentialité",
+    "privacy": "Politique de Confidentialit\u00e9",
     "terms": "Conditions d'Utilisation",
     "delivery": "Info Livraison",
-    "rights": "© {year} Simba Super Market. Tous droits réservés.",
-    "madeIn": "Fabriqué au Rwanda 🇷🇼"
+    "rights": "\u00a9 {year} Simba Super Market. Tous droits r\u00e9serv\u00e9s.",
+    "madeIn": "Fabriqu\u00e9 au Rwanda \ud83c\uddf7\ud83c\uddfc"
   },
   "branches": {
     "title": "Nos Agences",
     "backToBranches": "Retour aux agences",
     "branchNotFound": "Succursale introuvable",
-    "subtitle": "Retirez votre commande dans l'une de nos 9 agences à Kigali",
+    "subtitle": "Retirez votre commande dans l'une de nos 9 agences \u00e0 Kigali",
     "shoppingAt": "Achats chez",
     "selectBranch": "Choisir une Agence",
     "pickupTime": "Heure de Retrait",
@@ -946,33 +946,33 @@
     "outOfStock": "Indisponible dans cette agence",
     "placePickupOrder": "Passer une Commande de Retrait",
     "depositRequired": "Un acompte de RWF {amount} est requis pour confirmer votre commande.",
-    "depositNote": "Cela évite les absences et réserve votre commande.",
+    "depositNote": "Cela \u00e9vite les absences et r\u00e9serve votre commande.",
     "payDeposit": "Payer l'acompte de RWF {amount} via MoMo",
-    "momoNumber": "Numéro MoMo",
+    "momoNumber": "Num\u00e9ro MoMo",
     "momoPlaceholder": "+250 7XX XXX XXX",
-    "momoNote": "Entrez le numéro pour débiter l'acompte",
+    "momoNote": "Entrez le num\u00e9ro pour d\u00e9biter l'acompte",
     "processingPayment": "Traitement...",
-    "depositPaid": "Acompte payé ! Votre commande est confirmée.",
-    "orderConfirmed": "Commande Confirmée !",
-    "orderConfirmedDesc": "Commande #{number} confirmée à {branch}. Retrait à {time}.",
+    "depositPaid": "Acompte pay\u00e9 ! Votre commande est confirm\u00e9e.",
+    "orderConfirmed": "Commande Confirm\u00e9e !",
+    "orderConfirmedDesc": "Commande #{number} confirm\u00e9e \u00e0 {branch}. Retrait \u00e0 {time}.",
     "viewMyOrders": "Voir Mes Commandes",
     "rating": "Note de l'Agence",
     "reviewCount": "avis",
-    "reviewBranch": "Évaluez Votre Expérience",
-    "reviewPlaceholder": "Comment s'est passé votre retrait ?",
-    "submitReview": "Soumettre l'Évaluation",
-    "reviewSuccess": "Merci pour votre évaluation !",
-    "noReviews": "Aucune évaluation",
+    "reviewBranch": "\u00c9valuez Votre Exp\u00e9rience",
+    "reviewPlaceholder": "Comment s'est pass\u00e9 votre retrait ?",
+    "submitReview": "Soumettre l'\u00c9valuation",
+    "reviewSuccess": "Merci pour votre \u00e9valuation !",
+    "noReviews": "Aucune \u00e9valuation",
     "map": "Voir sur la Carte",
-    "distance": "agences près de vous",
+    "distance": "agences pr\u00e8s de vous",
     "myPickupOrders": "Mes Commandes de Retrait",
     "status": {
       "pending": "En attente",
-      "accepted": "Acceptée",
-      "preparing": "En préparation",
-      "ready": "Prête pour retrait",
-      "picked_up": "Retirée",
-      "cancelled": "Annulée"
+      "accepted": "Accept\u00e9e",
+      "preparing": "En pr\u00e9paration",
+      "ready": "Pr\u00eate pour retrait",
+      "picked_up": "Retir\u00e9e",
+      "cancelled": "Annul\u00e9e"
     },
     "switchingBranch": "Changement d'agence..."
   },
@@ -980,22 +980,22 @@
     "title": "Rechercher des Produits",
     "placeholder": "Posez n'importe quelle question - \"Avez-vous du lait frais ?\"",
     "searching": "Recherche...",
-    "results": "résultats trouvés",
-    "noResults": "Aucun produit trouvé. Essayez autre chose.",
-    "poweredBy": "Propulsé par l'IA",
-    "tryExample": "Essayez : \"légumes frais\", \"boissons froides\", \"petit-déjeuner\""
+    "results": "r\u00e9sultats trouv\u00e9s",
+    "noResults": "Aucun produit trouv\u00e9. Essayez autre chose.",
+    "poweredBy": "Propuls\u00e9 par l'IA",
+    "tryExample": "Essayez : \"l\u00e9gumes frais\", \"boissons froides\", \"petit-d\u00e9jeuner\""
   },
   "branchDashboard": {
     "title": "Tableau de bord",
     "panelTitle": "Panneau d'agence",
     "dashboard": "Tableau de bord",
-    "overview": "Aperçu",
+    "overview": "Aper\u00e7u",
     "orders": "Commandes",
     "hide": "Masquer",
-    "assignedOrders": "Commandes assignées",
+    "assignedOrders": "Commandes assign\u00e9es",
     "stock": "Stock",
-    "backToStore": "Retour à la boutique",
-    "signOut": "Se Déconnecter",
+    "backToStore": "Retour \u00e0 la boutique",
+    "signOut": "Se D\u00e9connecter",
     "notifications": "Notifications",
     "noNotifications": "Aucune notification",
     "markAllRead": "Tout marquer comme lu",
@@ -1004,47 +1004,47 @@
     "clearNotifications": "Effacer les notifications",
     "viewAllNotifications": "Voir toutes les notifications",
     "pending": "En attente",
-    "accepted": "Acceptée",
-    "preparing": "En préparation",
-    "ready": "Prête",
-    "pickedUp": "Récupérée",
-    "cancelled": "Annulée",
+    "accepted": "Accept\u00e9e",
+    "preparing": "En pr\u00e9paration",
+    "ready": "Pr\u00eate",
+    "pickedUp": "R\u00e9cup\u00e9r\u00e9e",
+    "cancelled": "Annul\u00e9e",
     "all": "Toutes",
     "delivery": "Livraison",
     "pickup": "Retrait",
     "total": "Total",
     "location": "Emplacement",
-    "coordinates": "Coordonnées",
+    "coordinates": "Coordonn\u00e9es",
     "openMap": "Ouvrir la carte",
     "ordersForBranch": "Commandes pour {branch}",
     "ordersForYourBranch": "Commandes de votre agence",
-    "recentOrders": "Commandes récentes",
-    "orderUpdated": "Commande mise à jour",
-    "orderAssigned": "Commande assignée",
+    "recentOrders": "Commandes r\u00e9centes",
+    "orderUpdated": "Commande mise \u00e0 jour",
+    "orderAssigned": "Commande assign\u00e9e",
     "newPickupOrder": "Nouvelle commande de retrait : {number}",
-    "inviteAccepted": "Invitation acceptée",
-    "inviteDeclined": "Invitation refusée",
-    "failed": "Échec",
-    "manage": "Gérer",
+    "inviteAccepted": "Invitation accept\u00e9e",
+    "inviteDeclined": "Invitation refus\u00e9e",
+    "failed": "\u00c9chec",
+    "manage": "G\u00e9rer",
     "orderTitle": "Commande {number}",
-    "currentAssignee": "Assigné actuel : {name}",
-    "assignHint": "Choisissez le membre de l'équipe le moins chargé.",
+    "currentAssignee": "Assign\u00e9 actuel : {name}",
+    "assignHint": "Choisissez le membre de l'\u00e9quipe le moins charg\u00e9.",
     "availableStaff": "{count} disponibles",
-    "selectStaff": "Sélectionner un membre",
+    "selectStaff": "S\u00e9lectionner un membre",
     "assigning": "Assignation...",
-    "reassignAndStart": "Réassigner et démarrer",
-    "assignAndStart": "Assigner et démarrer",
-    "updating": "Mise à jour...",
-    "nextStep": "Étape suivante",
+    "reassignAndStart": "R\u00e9assigner et d\u00e9marrer",
+    "assignAndStart": "Assigner et d\u00e9marrer",
+    "updating": "Mise \u00e0 jour...",
+    "nextStep": "\u00c9tape suivante",
     "cancelOrder": "Annuler la commande",
     "close": "Fermer",
     "active": "actif",
-    "hidden": "Masqué",
-    "update": "Mettre à jour",
+    "hidden": "Masqu\u00e9",
+    "update": "Mettre \u00e0 jour",
     "save": "Enregistrer",
     "cancel": "Annuler",
     "searchProducts": "Rechercher des produits...",
-    "stockUpdated": "Stock mis à jour",
+    "stockUpdated": "Stock mis \u00e0 jour",
     "cols": {
       "order": "Commande",
       "customer": "Client",
@@ -1052,58 +1052,62 @@
       "total": "Total",
       "pickupTime": "Heure de retrait",
       "status": "Statut",
-      "assignedTo": "Assigné à",
+      "assignedTo": "Assign\u00e9 \u00e0",
       "actions": "Actions",
       "product": "Produit",
-      "category": "Catégorie",
+      "category": "Cat\u00e9gorie",
       "price": "Prix",
       "branchStock": "Stock agence"
     },
     "assignTo": "Assigner au personnel",
-    "markPreparing": "Commencer la préparation",
-    "markReady": "Marquer prête",
-    "markPickedUp": "Marquer récupérée",
+    "markPreparing": "Commencer la pr\u00e9paration",
+    "markReady": "Marquer pr\u00eate",
+    "markPickedUp": "Marquer r\u00e9cup\u00e9r\u00e9e",
     "customerInfo": "Infos client",
-    "pickupAt": "Retrait à",
+    "pickupAt": "Retrait \u00e0",
     "items": "Articles",
     "deposit": "Acompte",
     "noOrders": "Aucune commande",
     "allOrders": "Toutes les commandes",
     "stockManagement": "Gestion des stocks",
-    "updateStock": "Mettre à jour le stock",
+    "updateStock": "Mettre \u00e0 jour le stock",
     "currentStock": "Stock actuel",
     "markOutOfStock": "Marquer en rupture",
-    "confirmDelivery": "Confirmer la réception",
-    "confirmDeliveryButton": "J'ai reçu la commande",
-    "confirmDeliveryDesc": "Veuillez confirmer que vous avez reçu votre commande. Cela permettra à l'agence de la marquer comme terminée.",
-    "confirmDeliveryTitle": "Confirmer la réception",
+    "confirmDelivery": "Confirmer la r\u00e9ception",
+    "confirmDeliveryButton": "J'ai re\u00e7u la commande",
+    "confirmDeliveryDesc": "Veuillez confirmer que vous avez re\u00e7u votre commande. Cela permettra \u00e0 l'agence de la marquer comme termin\u00e9e.",
+    "confirmDeliveryTitle": "Confirmer la r\u00e9ception",
     "confirming": "Confirmation...",
-    "customerConfirmedDelivery": "Client a confirmé la réception",
-    "deliveryConfirmed": "Livraison confirmée",
-    "onlyDeliveryTransfer": "Seules les commandes en livraison peuvent être transférées",
-    "orderTransferred": "Commande transférée avec succès",
-    "selectTargetBranch": "Sélectionner l'agence cible",
-    "transferFailed": "Échec du transfert",
-    "transferNotAllowed": "Cette commande ne peut plus être transférée",
-    "transferOrder": "Transférer la commande",
-    "transferToBranch": "Transférer vers une autre agence",
-    "transferToBranchHint": "Seules les commandes en livraison peuvent être transférées. Le stock sera déplacé vers la nouvelle agence.",
+    "customerConfirmedDelivery": "Client a confirm\u00e9 la r\u00e9ception",
+    "deliveryConfirmed": "Livraison confirm\u00e9e",
+    "onlyDeliveryTransfer": "Seules les commandes en livraison peuvent \u00eatre transf\u00e9r\u00e9es",
+    "orderTransferred": "Commande transf\u00e9r\u00e9e avec succ\u00e8s",
+    "selectTargetBranch": "S\u00e9lectionner l'agence cible",
+    "transferFailed": "\u00c9chec du transfert",
+    "transferNotAllowed": "Cette commande ne peut plus \u00eatre transf\u00e9r\u00e9e",
+    "transferOrder": "Transf\u00e9rer la commande",
+    "transferToBranch": "Transf\u00e9rer vers une autre agence",
+    "transferToBranchHint": "Seules les commandes en livraison peuvent \u00eatre transf\u00e9r\u00e9es. Le stock sera d\u00e9plac\u00e9 vers la nouvelle agence.",
     "transferring": "Transfert en cours...",
     "waitingForCustomerConfirmation": "En attente de confirmation client",
-    "acceptOrder": "Accepter la commande"
+    "acceptOrder": "Accepter la commande",
+    "assignDriver": "Assign Driver",
+    "assignDriverHint": "Choose a driver for this delivery order.",
+    "noDriversAvailable": "No drivers available. Please add drivers to staff first.",
+    "driverAssigned": "Driver already assigned"
   },
   "about": {
     "hero": {
       "eyebrow": "Profil de l'entreprise",
-      "title_line1": "À propos de Simba",
-      "title_line2": "Supermarché",
-      "subtitle": "Le supermarché le plus admiré du Rwanda - un témoignage de la reprise économique du pays, répondant fièrement aux besoins quotidiens de Kigali et au-delà depuis 2008."
+      "title_line1": "\u00c0 propos de Simba",
+      "title_line2": "Supermarch\u00e9",
+      "subtitle": "Le supermarch\u00e9 le plus admir\u00e9 du Rwanda - un t\u00e9moignage de la reprise \u00e9conomique du pays, r\u00e9pondant fi\u00e8rement aux besoins quotidiens de Kigali et au-del\u00e0 depuis 2008."
     },
     "origin": {
       "eyebrow": "Histoire des origines",
-      "heading": "Là où tout a commencé",
-      "paragraph1": "SIMBA SUPERMARKET LTD a été fondée le <strong>3 décembre 2007</strong> en tant que société à responsabilité limitée avec une ambition claire : devenir le plus grand point de vente de la région. Fondée par <strong>M. Teklay Teame</strong> et ses associés, l'entreprise importe des produits d'Europe, d'Égypte, de Dubaï, de Chine, de Turquie et d'ailleurs pour garantir une gamme de produits vraiment diversifiée.",
-      "paragraph2": "Le lancement officiel le <strong>8 août 2008</strong> a créé plus de <strong>450 emplois</strong> pour les citoyens rwandais. Avec 11 succursales à travers le Rwanda, Simba offre une expérience de shopping tout-en-un - boucherie, boulangerie, café et plus encore - au service des organisations internationales, des ONG locales, des entreprises privées et des ministères gouvernementaux."
+      "heading": "L\u00e0 o\u00f9 tout a commenc\u00e9",
+      "paragraph1": "SIMBA SUPERMARKET LTD a \u00e9t\u00e9 fond\u00e9e le <strong>3 d\u00e9cembre 2007</strong> en tant que soci\u00e9t\u00e9 \u00e0 responsabilit\u00e9 limit\u00e9e avec une ambition claire : devenir le plus grand point de vente de la r\u00e9gion. Fond\u00e9e par <strong>M. Teklay Teame</strong> et ses associ\u00e9s, l'entreprise importe des produits d'Europe, d'\u00c9gypte, de Duba\u00ef, de Chine, de Turquie et d'ailleurs pour garantir une gamme de produits vraiment diversifi\u00e9e.",
+      "paragraph2": "Le lancement officiel le <strong>8 ao\u00fbt 2008</strong> a cr\u00e9\u00e9 plus de <strong>450 emplois</strong> pour les citoyens rwandais. Avec 11 succursales \u00e0 travers le Rwanda, Simba offre une exp\u00e9rience de shopping tout-en-un - boucherie, boulangerie, caf\u00e9 et plus encore - au service des organisations internationales, des ONG locales, des entreprises priv\u00e9es et des minist\u00e8res gouvernementaux."
     },
     "values": {
       "eyebrow": "Croyances & Valeurs",
@@ -1111,101 +1115,101 @@
       "items": {
         "respect": {
           "title": "Respect de l'individu",
-          "body": "Nous sommes des gens ordinaires et travailleurs qui se sont associés pour accomplir des choses extraordinaires. Nous nous traitons mutuellement avec dignité et encourageons chacun à exprimer ses pensées - c'est ainsi que nous montrons notre respect."
+          "body": "Nous sommes des gens ordinaires et travailleurs qui se sont associ\u00e9s pour accomplir des choses extraordinaires. Nous nous traitons mutuellement avec dignit\u00e9 et encourageons chacun \u00e0 exprimer ses pens\u00e9es - c'est ainsi que nous montrons notre respect."
         },
         "service": {
           "title": "Service aux clients",
-          "body": "Nos clients sont la raison de notre existence. Nous offrons des marchandises de qualité aux prix les plus bas avec le meilleur service client possible, cherchant toujours à dépasser les attentes."
+          "body": "Nos clients sont la raison de notre existence. Nous offrons des marchandises de qualit\u00e9 aux prix les plus bas avec le meilleur service client possible, cherchant toujours \u00e0 d\u00e9passer les attentes."
         },
         "excellence": {
           "title": "Recherche de l'excellence",
-          "body": "Nous sommes fiers de nos réalisations mais jamais satisfaits. Nous cherchons constamment à aller plus loin pour donner vie à de nouvelles idées et objectifs - Est-ce le mieux que je puisse faire ? Cette question guide tout."
+          "body": "Nous sommes fiers de nos r\u00e9alisations mais jamais satisfaits. Nous cherchons constamment \u00e0 aller plus loin pour donner vie \u00e0 de nouvelles id\u00e9es et objectifs - Est-ce le mieux que je puisse faire ? Cette question guide tout."
         }
       }
     },
     "milestones": {
-      "eyebrow": "Étapes clés",
+      "eyebrow": "\u00c9tapes cl\u00e9s",
       "heading": "Notre parcours",
       "items": {
         "2007": {
           "label": "Fondation",
-          "desc": "Établie en tant que société à responsabilité limitée le 3 décembre par M. Teklay Teame et ses associés."
+          "desc": "\u00c9tablie en tant que soci\u00e9t\u00e9 \u00e0 responsabilit\u00e9 limit\u00e9e le 3 d\u00e9cembre par M. Teklay Teame et ses associ\u00e9s."
         },
         "2008": {
-          "label": "1ère Succursale",
-          "desc": "Lancement officiel le 8 août - ouverture de Simba Centenary, créant plus de 450 emplois pour les citoyens rwandais."
+          "label": "1\u00e8re Succursale",
+          "desc": "Lancement officiel le 8 ao\u00fbt - ouverture de Simba Centenary, cr\u00e9ant plus de 450 emplois pour les citoyens rwandais."
         },
         "2013": {
           "label": "1er Prix",
-          "desc": "1er meilleur exposant - Commerce de détail et distribution."
+          "desc": "1er meilleur exposant - Commerce de d\u00e9tail et distribution."
         },
         "2014": {
           "label": "Expansion",
-          "desc": "Ouverture de la succursale Simba Gishushu. Prix du meilleur exposant Commerce de détail & Distribution - EBM."
+          "desc": "Ouverture de la succursale Simba Gishushu. Prix du meilleur exposant Commerce de d\u00e9tail & Distribution - EBM."
         },
         "2015": {
           "label": "Croissance",
-          "desc": "Ouverture de la succursale Simba Kimironko. Statut de contribuable conforme RRA accordé."
+          "desc": "Ouverture de la succursale Simba Kimironko. Statut de contribuable conforme RRA accord\u00e9."
         },
         "2016": {
-          "label": "Montée en puissance",
+          "label": "Mont\u00e9e en puissance",
           "desc": "Deux nouvelles succursales ouvrent - Simba Kicukiro et Simba Kigali Height."
         },
         "2019": {
           "label": "Centre-ville",
-          "desc": "Simba UTC ouvre au cœur de Kigali."
+          "desc": "Simba UTC ouvre au c\u0153ur de Kigali."
         },
         "2020": {
-          "label": "Commerçant de l'année",
-          "desc": "Primé 1er Commerçant de l'Année au Rwanda."
+          "label": "Commer\u00e7ant de l'ann\u00e9e",
+          "desc": "Prim\u00e9 1er Commer\u00e7ant de l'Ann\u00e9e au Rwanda."
         },
         "2023": {
           "label": "Expansion majeure",
-          "desc": "Cinq nouvelles succursales ouvrent simultanément - Simba Gacuriro, Simba Gikondo, Simba Sonatube, Simba Kisimenti et Simba Rebero."
+          "desc": "Cinq nouvelles succursales ouvrent simultan\u00e9ment - Simba Gacuriro, Simba Gikondo, Simba Sonatube, Simba Kisimenti et Simba Rebero."
         },
         "2024": {
-          "label": "Transition numérique",
-          "desc": "Simba Online Sales est lancé - apportant l'expérience du supermarché directement à la porte des clients."
+          "label": "Transition num\u00e9rique",
+          "desc": "Simba Online Sales est lanc\u00e9 - apportant l'exp\u00e9rience du supermarch\u00e9 directement \u00e0 la porte des clients."
         }
       }
     },
     "categories": {
       "eyebrow": "Ce que nous offrons",
-      "heading": "Catégories de produits",
+      "heading": "Cat\u00e9gories de produits",
       "items": {
-        "fruitsVeg": "Fruits & Légumes",
+        "fruitsVeg": "Fruits & L\u00e9gumes",
         "meats": "Viandes",
-        "frozen": "Surgelés",
+        "frozen": "Surgel\u00e9s",
         "winesSpirits": "Vins & Spiritueux",
         "furniture": "Meubles",
-        "electronics": "Électronique",
+        "electronics": "\u00c9lectronique",
         "utensils": "Ustensiles & Ornements",
         "homecare": "Entretien maison",
-        "baby": "Produits bébé",
+        "baby": "Produits b\u00e9b\u00e9",
         "gym": "Gym & Sports",
-        "healthBeauty": "Santé & Beauté",
+        "healthBeauty": "Sant\u00e9 & Beaut\u00e9",
         "bakery": "Boulangerie"
       }
     },
     "services": {
       "eyebrow": "Services",
-      "heading": "Tout sous un même toit",
+      "heading": "Tout sous un m\u00eame toit",
       "items": {
         "supermarket": {
-          "title": "Supermarché",
-          "desc": "11 succursales à travers le Rwanda offrant une large gamme de produits pour les besoins quotidiens."
+          "title": "Supermarch\u00e9",
+          "desc": "11 succursales \u00e0 travers le Rwanda offrant une large gamme de produits pour les besoins quotidiens."
         },
         "coffee": {
-          "title": "Restaurant & Café",
-          "desc": "Trucillo Café et services de café dans 5 succursales Simba."
+          "title": "Restaurant & Caf\u00e9",
+          "desc": "Trucillo Caf\u00e9 et services de caf\u00e9 dans 5 succursales Simba."
         },
         "arcade": {
           "title": "Simba Arcade",
-          "desc": "Divertissement de jeux d'arcade disponible à la succursale Simba Gacuriro."
+          "desc": "Divertissement de jeux d'arcade disponible \u00e0 la succursale Simba Gacuriro."
         },
         "online": {
           "title": "Ventes en ligne",
-          "desc": "Étendre notre portée jusqu'à votre porte - Simba Supermarché est partout."
+          "desc": "\u00c9tendre notre port\u00e9e jusqu'\u00e0 votre porte - Simba Supermarch\u00e9 est partout."
         },
         "bakery": {
           "title": "Usine de boulangerie",
@@ -1218,26 +1222,26 @@
       "heading": "Nos 11 succursales"
     },
     "coffee": {
-      "eyebrow": "Café",
-      "heading": "Cafés",
-      "desc": "Cafés Simba et un Trucillo Café dans cinq succursales, offrant une expérience de détente pour chaque acheteur."
+      "eyebrow": "Caf\u00e9",
+      "heading": "Caf\u00e9s",
+      "desc": "Caf\u00e9s Simba et un Trucillo Caf\u00e9 dans cinq succursales, offrant une exp\u00e9rience de d\u00e9tente pour chaque acheteur."
     },
     "awards": {
-      "eyebrow": "Réalisations",
-      "heading": "Excellence primée",
+      "eyebrow": "R\u00e9alisations",
+      "heading": "Excellence prim\u00e9e",
       "items": {
-        "2013": "1er meilleur exposant - Commerce de détail & Distribution",
-        "2014": "Meilleur exposant Commerce de détail & Distribution - EBM",
+        "2013": "1er meilleur exposant - Commerce de d\u00e9tail & Distribution",
+        "2014": "Meilleur exposant Commerce de d\u00e9tail & Distribution - EBM",
         "2015": "Prix du contribuable conforme RRA",
-        "2020": "1er Commerçant de l'Année - Rwanda"
+        "2020": "1er Commer\u00e7ant de l'Ann\u00e9e - Rwanda"
       }
     }
   },
   "faq": {
     "hero": {
       "eyebrow": "Centre d'aide",
-      "title": "Questions fréquemment posées",
-      "subtitle": "Trouvez des réponses rapides aux questions les plus courantes sur vos achats chez Simba Supermarché."
+      "title": "Questions fr\u00e9quemment pos\u00e9es",
+      "subtitle": "Trouvez des r\u00e9ponses rapides aux questions les plus courantes sur vos achats chez Simba Supermarch\u00e9."
     },
     "categories": {
       "orders": "Commandes",
@@ -1250,19 +1254,19 @@
       "orders": {
         "0": {
           "q": "Comment passer une commande en ligne ?",
-          "a": "Visitez notre site, parcourez les produits, ajoutez des articles à votre panier et procédez au paiement. Vous devrez créer un compte ou vous connecter pour finaliser votre achat."
+          "a": "Visitez notre site, parcourez les produits, ajoutez des articles \u00e0 votre panier et proc\u00e9dez au paiement. Vous devrez cr\u00e9er un compte ou vous connecter pour finaliser votre achat."
         },
         "1": {
-          "q": "Puis-je modifier ou annuler ma commande après l'avoir passée ?",
-          "a": "Les commandes peuvent être modifiées ou annulées dans les 30 minutes suivant leur passage. Après ce délai, la commande entre en traitement et les modifications ne sont plus possibles."
+          "q": "Puis-je modifier ou annuler ma commande apr\u00e8s l'avoir pass\u00e9e ?",
+          "a": "Les commandes peuvent \u00eatre modifi\u00e9es ou annul\u00e9es dans les 30 minutes suivant leur passage. Apr\u00e8s ce d\u00e9lai, la commande entre en traitement et les modifications ne sont plus possibles."
         },
         "2": {
-          "q": "Comment saurai-je que ma commande a été confirmée ?",
-          "a": "Vous recevrez immédiatement un e-mail de confirmation avec votre numéro de commande et un récapitulatif. Vous pouvez également suivre le statut de votre commande dans votre tableau de bord."
+          "q": "Comment saurai-je que ma commande a \u00e9t\u00e9 confirm\u00e9e ?",
+          "a": "Vous recevrez imm\u00e9diatement un e-mail de confirmation avec votre num\u00e9ro de commande et un r\u00e9capitulatif. Vous pouvez \u00e9galement suivre le statut de votre commande dans votre tableau de bord."
         },
         "3": {
           "q": "Quels modes de paiement acceptez-vous ?",
-          "a": "Nous acceptons MTN Mobile Money, Airtel Money, Visa, Mastercard et le paiement à la livraison pour les commandes éligibles. Toutes les transactions en ligne sont sécurisées."
+          "a": "Nous acceptons MTN Mobile Money, Airtel Money, Visa, Mastercard et le paiement \u00e0 la livraison pour les commandes \u00e9ligibles. Toutes les transactions en ligne sont s\u00e9curis\u00e9es."
         }
       },
       "shipping": {
@@ -1272,63 +1276,63 @@
         },
         "1": {
           "q": "Combien de temps prend la livraison ?",
-          "a": "La livraison standard prend 2 à 4 heures pour les articles en stock commandés avant 15h. La livraison express est disponible en moins d'une heure moyennant des frais supplémentaires."
+          "a": "La livraison standard prend 2 \u00e0 4 heures pour les articles en stock command\u00e9s avant 15h. La livraison express est disponible en moins d'une heure moyennant des frais suppl\u00e9mentaires."
         },
         "2": {
           "q": "Y a-t-il un montant minimum de commande pour la livraison ?",
-          "a": "Oui, la commande minimum pour la livraison est de 5 000 RWF. Les commandes inférieures à ce montant sont éligibles uniquement au retrait en magasin."
+          "a": "Oui, la commande minimum pour la livraison est de 5 000 RWF. Les commandes inf\u00e9rieures \u00e0 ce montant sont \u00e9ligibles uniquement au retrait en magasin."
         },
         "3": {
-          "q": "Combien coûte la livraison ?",
-          "a": "La livraison standard coûte 1 000 RWF. La livraison express coûte 2 500 RWF. Les commandes supérieures à 50 000 RWF bénéficient de la livraison standard gratuite."
+          "q": "Combien co\u00fbte la livraison ?",
+          "a": "La livraison standard co\u00fbte 1 000 RWF. La livraison express co\u00fbte 2 500 RWF. Les commandes sup\u00e9rieures \u00e0 50 000 RWF b\u00e9n\u00e9ficient de la livraison standard gratuite."
         }
       },
       "returns": {
         "0": {
           "q": "Quelle est votre politique de retour ?",
-          "a": "Nous acceptons les retours dans les 7 jours suivant l'achat pour la plupart des articles non périssables, à condition qu'ils soient non ouverts dans leur emballage d'origine avec preuve d'achat."
+          "a": "Nous acceptons les retours dans les 7 jours suivant l'achat pour la plupart des articles non p\u00e9rissables, \u00e0 condition qu'ils soient non ouverts dans leur emballage d'origine avec preuve d'achat."
         },
         "1": {
           "q": "Comment initier un retour ?",
-          "a": "Contactez notre équipe d'assistance via la page Nous contacter ou appelez notre ligne d'assistance. Notre équipe vous guidera tout au long du processus de retour."
+          "a": "Contactez notre \u00e9quipe d'assistance via la page Nous contacter ou appelez notre ligne d'assistance. Notre \u00e9quipe vous guidera tout au long du processus de retour."
         },
         "2": {
           "q": "Quand recevrai-je mon remboursement ?",
-          "a": "Les remboursements sont traités dans les 3 à 5 jours ouvrables une fois le retour reçu et inspecté. Les remboursements Mobile Money sont généralement plus rapides."
+          "a": "Les remboursements sont trait\u00e9s dans les 3 \u00e0 5 jours ouvrables une fois le retour re\u00e7u et inspect\u00e9. Les remboursements Mobile Money sont g\u00e9n\u00e9ralement plus rapides."
         }
       },
       "products": {
         "0": {
-          "q": "Vos produits sont-ils frais et certifiés qualité ?",
-          "a": "Absolument. Tous les produits frais, viandes et articles de boulangerie sont approvisionnés quotidiennement et contrôlés avant mise en rayon. Nous respectons strictement les normes de sécurité alimentaire."
+          "q": "Vos produits sont-ils frais et certifi\u00e9s qualit\u00e9 ?",
+          "a": "Absolument. Tous les produits frais, viandes et articles de boulangerie sont approvisionn\u00e9s quotidiennement et contr\u00f4l\u00e9s avant mise en rayon. Nous respectons strictement les normes de s\u00e9curit\u00e9 alimentaire."
         },
         "1": {
           "q": "Proposez-vous des marques internationales ?",
-          "a": "Oui, Simba importe des produits d'Europe, de Dubaï, de Chine, d'Égypte, de Turquie et d'autres pays. Vous trouverez des marques internationales et des produits locaux de qualité dans toutes les catégories."
+          "a": "Oui, Simba importe des produits d'Europe, de Duba\u00ef, de Chine, d'\u00c9gypte, de Turquie et d'autres pays. Vous trouverez des marques internationales et des produits locaux de qualit\u00e9 dans toutes les cat\u00e9gories."
         },
         "2": {
-          "q": "Puis-je vérifier la disponibilité des produits avant de visiter ?",
-          "a": "Oui, vous pouvez parcourir notre catalogue complet sur le site ou l'application et filtrer par emplacement de succursale pour voir la disponibilité des stocks en temps réel."
+          "q": "Puis-je v\u00e9rifier la disponibilit\u00e9 des produits avant de visiter ?",
+          "a": "Oui, vous pouvez parcourir notre catalogue complet sur le site ou l'application et filtrer par emplacement de succursale pour voir la disponibilit\u00e9 des stocks en temps r\u00e9el."
         }
       },
       "account": {
         "0": {
-          "q": "Comment créer un compte ?",
-          "a": "Cliquez sur S'inscrire dans la navigation supérieure, entrez votre nom, numéro de téléphone ou adresse e-mail, et créez un mot de passe. Vous pouvez également vous inscrire rapidement avec votre compte Google."
+          "q": "Comment cr\u00e9er un compte ?",
+          "a": "Cliquez sur S'inscrire dans la navigation sup\u00e9rieure, entrez votre nom, num\u00e9ro de t\u00e9l\u00e9phone ou adresse e-mail, et cr\u00e9ez un mot de passe. Vous pouvez \u00e9galement vous inscrire rapidement avec votre compte Google."
         },
         "1": {
-          "q": "J'ai oublié mon mot de passe. Que dois-je faire ?",
-          "a": "Cliquez sur Mot de passe oublié sur la page de connexion et entrez votre adresse e-mail enregistrée. Vous recevrez un lien de réinitialisation en quelques minutes."
+          "q": "J'ai oubli\u00e9 mon mot de passe. Que dois-je faire ?",
+          "a": "Cliquez sur Mot de passe oubli\u00e9 sur la page de connexion et entrez votre adresse e-mail enregistr\u00e9e. Vous recevrez un lien de r\u00e9initialisation en quelques minutes."
         },
         "2": {
-          "q": "Comment mettre à jour mon adresse de livraison ?",
-          "a": "Connectez-vous à votre compte, accédez aux Paramètres et sélectionnez Adresses. Vous pouvez ajouter, modifier ou supprimer des adresses de livraison depuis cet espace."
+          "q": "Comment mettre \u00e0 jour mon adresse de livraison ?",
+          "a": "Connectez-vous \u00e0 votre compte, acc\u00e9dez aux Param\u00e8tres et s\u00e9lectionnez Adresses. Vous pouvez ajouter, modifier ou supprimer des adresses de livraison depuis cet espace."
         }
       }
     },
     "contact": {
       "heading": "Vous avez encore des questions ?",
-      "body": "Notre équipe est disponible 7 jours sur 7 pour vous aider avec tout ce dont vous avez besoin.",
+      "body": "Notre \u00e9quipe est disponible 7 jours sur 7 pour vous aider avec tout ce dont vous avez besoin.",
       "cta": "Nous contacter"
     }
   },
@@ -1336,52 +1340,52 @@
     "hero": {
       "eyebrow": "Service client",
       "title": "Politique de retour",
-      "subtitle": "Nous voulons que vous soyez entièrement satisfait de chaque achat. Si quelque chose ne va pas, nous arrangerons les choses."
+      "subtitle": "Nous voulons que vous soyez enti\u00e8rement satisfait de chaque achat. Si quelque chose ne va pas, nous arrangerons les choses."
     },
     "stats": {
-      "window": "Délai de retour de 7 jours",
-      "refundTime": "Remboursements en 3–5 jours ouvrables",
+      "window": "D\u00e9lai de retour de 7 jours",
+      "refundTime": "Remboursements en 3\u20135 jours ouvrables",
       "condition": "Emballage d'origine requis"
     },
     "eligibility": {
-      "heading": "Qu'est-ce qui peut être retourné ?",
+      "heading": "Qu'est-ce qui peut \u00eatre retourn\u00e9 ?",
       "eligible": {
-        "heading": "Éligible au retour",
+        "heading": "\u00c9ligible au retour",
         "items": {
           "unopened": "Articles non ouverts dans leur emballage d'origine",
-          "damaged": "Produits endommagés ou défectueux à la réception",
-          "wrong": "Mauvais article livré",
-          "quality": "La qualité ne correspond pas à la description"
+          "damaged": "Produits endommag\u00e9s ou d\u00e9fectueux \u00e0 la r\u00e9ception",
+          "wrong": "Mauvais article livr\u00e9",
+          "quality": "La qualit\u00e9 ne correspond pas \u00e0 la description"
         }
       },
       "ineligible": {
-        "heading": "Non éligible au retour",
+        "heading": "Non \u00e9ligible au retour",
         "items": {
-          "perishable": "Produits frais, viandes et denrées périssables",
-          "used": "Soins personnels et cosmétiques ouverts ou utilisés",
+          "perishable": "Produits frais, viandes et denr\u00e9es p\u00e9rissables",
+          "used": "Soins personnels et cosm\u00e9tiques ouverts ou utilis\u00e9s",
           "noReceipt": "Articles sans preuve d'achat"
         }
       }
     },
     "process": {
       "heading": "Comment retourner un article",
-      "subtitle": "Suivez ces étapes simples et notre équipe s'occupera du reste.",
+      "subtitle": "Suivez ces \u00e9tapes simples et notre \u00e9quipe s'occupera du reste.",
       "steps": {
         "contact": {
-          "title": "Contacter notre équipe",
+          "title": "Contacter notre \u00e9quipe",
           "desc": "Contactez-nous via la page Nous contacter, appelez notre assistance ou visitez une succursale Simba dans les 7 jours suivant l'achat."
         },
         "pack": {
           "title": "Emballer l'article",
-          "desc": "Assurez-vous que l'article est dans son emballage d'origine avec tous les accessoires, étiquettes et votre reçu."
+          "desc": "Assurez-vous que l'article est dans son emballage d'origine avec tous les accessoires, \u00e9tiquettes et votre re\u00e7u."
         },
         "drop": {
-          "title": "Déposer ou organiser un retrait",
-          "desc": "Déposez l'article dans une succursale Simba ou demandez une collecte à votre adresse moyennant une petite somme."
+          "title": "D\u00e9poser ou organiser un retrait",
+          "desc": "D\u00e9posez l'article dans une succursale Simba ou demandez une collecte \u00e0 votre adresse moyennant une petite somme."
         },
         "refund": {
           "title": "Recevoir votre remboursement",
-          "desc": "Une fois inspecté et approuvé, votre remboursement sera émis dans les 3 à 5 jours ouvrables."
+          "desc": "Une fois inspect\u00e9 et approuv\u00e9, votre remboursement sera \u00e9mis dans les 3 \u00e0 5 jours ouvrables."
         }
       }
     },
@@ -1389,39 +1393,39 @@
       "heading": "Options de remboursement",
       "methods": {
         "original": {
-          "title": "Méthode de paiement originale",
-          "desc": "Remboursé sur la carte ou le compte Mobile Money utilisé pour l'achat initial."
+          "title": "M\u00e9thode de paiement originale",
+          "desc": "Rembours\u00e9 sur la carte ou le compte Mobile Money utilis\u00e9 pour l'achat initial."
         },
         "storeCredit": {
-          "title": "Crédit en magasin",
-          "desc": "Recevez le montant total en crédit valable 12 mois dans toutes les succursales Simba."
+          "title": "Cr\u00e9dit en magasin",
+          "desc": "Recevez le montant total en cr\u00e9dit valable 12 mois dans toutes les succursales Simba."
         },
         "exchange": {
-          "title": "Échange",
-          "desc": "Échangez contre le même article ou un article de valeur égale dans n'importe quelle succursale Simba."
+          "title": "\u00c9change",
+          "desc": "\u00c9changez contre le m\u00eame article ou un article de valeur \u00e9gale dans n'importe quelle succursale Simba."
         }
       }
     },
     "note": {
       "heading": "Note importante",
-      "body": "Simba Supermarché se réserve le droit de refuser les retours qui ne satisfont pas aux conditions de notre politique. Les achats en magasin doivent être retournés dans une succursale physique ; les commandes en ligne peuvent être retournées en magasin ou via notre service de collecte."
+      "body": "Simba Supermarch\u00e9 se r\u00e9serve le droit de refuser les retours qui ne satisfont pas aux conditions de notre politique. Les achats en magasin doivent \u00eatre retourn\u00e9s dans une succursale physique ; les commandes en ligne peuvent \u00eatre retourn\u00e9es en magasin ou via notre service de collecte."
     }
   },
   "privacy": {
     "hero": {
       "eyebrow": "Juridique",
-      "title": "Politique de confidentialité",
-      "lastUpdated": "Dernière mise à jour : janvier 2025"
+      "title": "Politique de confidentialit\u00e9",
+      "lastUpdated": "Derni\u00e8re mise \u00e0 jour : janvier 2025"
     },
-    "intro": "Chez Simba Supermarché, votre confidentialité nous tient profondément à cœur. Cette politique explique comment nous collectons, utilisons et protégeons vos informations personnelles lorsque vous faites vos courses chez nous en ligne ou en magasin.",
+    "intro": "Chez Simba Supermarch\u00e9, votre confidentialit\u00e9 nous tient profond\u00e9ment \u00e0 c\u0153ur. Cette politique explique comment nous collectons, utilisons et prot\u00e9geons vos informations personnelles lorsque vous faites vos courses chez nous en ligne ou en magasin.",
     "sections": {
       "collection": {
-        "nav": "Données collectées",
+        "nav": "Donn\u00e9es collect\u00e9es",
         "heading": "Informations que nous collectons",
-        "body": "Nous collectons les informations que vous fournissez directement et celles générées lors de l'utilisation de nos services.",
+        "body": "Nous collectons les informations que vous fournissez directement et celles g\u00e9n\u00e9r\u00e9es lors de l'utilisation de nos services.",
         "points": {
-          "0": "Nom, adresse e-mail et numéro de téléphone lors de votre inscription",
-          "1": "Adresse de livraison et coordonnées de paiement",
+          "0": "Nom, adresse e-mail et num\u00e9ro de t\u00e9l\u00e9phone lors de votre inscription",
+          "1": "Adresse de livraison et coordonn\u00e9es de paiement",
           "2": "Historique des commandes et comportement de navigation",
           "3": "Type d'appareil, adresse IP et informations sur le navigateur"
         }
@@ -1429,49 +1433,49 @@
       "use": {
         "nav": "Utilisation",
         "heading": "Comment nous utilisons vos informations",
-        "body": "Vos données sont utilisées uniquement pour améliorer votre expérience d'achat et tenir nos engagements de service.",
+        "body": "Vos donn\u00e9es sont utilis\u00e9es uniquement pour am\u00e9liorer votre exp\u00e9rience d'achat et tenir nos engagements de service.",
         "points": {
-          "0": "Traitement et exécution de vos commandes",
-          "1": "Envoi des confirmations de commande et mises à jour de livraison",
+          "0": "Traitement et ex\u00e9cution de vos commandes",
+          "1": "Envoi des confirmations de commande et mises \u00e0 jour de livraison",
           "2": "Personnalisation des recommandations de produits",
-          "3": "Amélioration de notre site web et de la qualité du service"
+          "3": "Am\u00e9lioration de notre site web et de la qualit\u00e9 du service"
         }
       },
       "sharing": {
-        "nav": "Partage des données",
+        "nav": "Partage des donn\u00e9es",
         "heading": "Partage de vos informations",
-        "body": "Nous ne vendons pas vos données personnelles. Nous pouvons les partager uniquement avec des partenaires de service de confiance.",
+        "body": "Nous ne vendons pas vos donn\u00e9es personnelles. Nous pouvons les partager uniquement avec des partenaires de service de confiance.",
         "points": {
-          "0": "Partenaires de livraison pour exécuter vos commandes",
-          "1": "Processeurs de paiement pour sécuriser les transactions",
-          "2": "Fournisseurs d'analyses pour améliorer nos services",
-          "3": "Autorités réglementaires lorsque la loi l'exige"
+          "0": "Partenaires de livraison pour ex\u00e9cuter vos commandes",
+          "1": "Processeurs de paiement pour s\u00e9curiser les transactions",
+          "2": "Fournisseurs d'analyses pour am\u00e9liorer nos services",
+          "3": "Autorit\u00e9s r\u00e9glementaires lorsque la loi l'exige"
         }
       },
       "security": {
-        "nav": "Sécurité",
-        "heading": "Comment nous protégeons vos données",
-        "body": "Nous utilisons des pratiques de sécurité standard du secteur, notamment le chiffrement SSL, des serveurs sécurisés et des audits de sécurité réguliers pour protéger vos informations personnelles contre tout accès non autorisé."
+        "nav": "S\u00e9curit\u00e9",
+        "heading": "Comment nous prot\u00e9geons vos donn\u00e9es",
+        "body": "Nous utilisons des pratiques de s\u00e9curit\u00e9 standard du secteur, notamment le chiffrement SSL, des serveurs s\u00e9curis\u00e9s et des audits de s\u00e9curit\u00e9 r\u00e9guliers pour prot\u00e9ger vos informations personnelles contre tout acc\u00e8s non autoris\u00e9."
       },
       "cookies": {
         "nav": "Cookies",
         "heading": "Cookies et suivi",
-        "body": "Nous utilisons des cookies pour mémoriser vos préférences, vous maintenir connecté et comprendre comment vous utilisez notre site. Vous pouvez les désactiver dans les paramètres de votre navigateur, mais certaines fonctionnalités pourraient ne pas fonctionner correctement."
+        "body": "Nous utilisons des cookies pour m\u00e9moriser vos pr\u00e9f\u00e9rences, vous maintenir connect\u00e9 et comprendre comment vous utilisez notre site. Vous pouvez les d\u00e9sactiver dans les param\u00e8tres de votre navigateur, mais certaines fonctionnalit\u00e9s pourraient ne pas fonctionner correctement."
       },
       "contact": {
         "nav": "Contact",
-        "heading": "Questions sur votre confidentialité",
-        "body": "Pour toute question sur cette politique ou pour exercer vos droits sur vos données, contactez notre Délégué à la protection des données à privacy@simbasupermarket.rw ou visitez l'une de nos succursales."
+        "heading": "Questions sur votre confidentialit\u00e9",
+        "body": "Pour toute question sur cette politique ou pour exercer vos droits sur vos donn\u00e9es, contactez notre D\u00e9l\u00e9gu\u00e9 \u00e0 la protection des donn\u00e9es \u00e0 privacy@simbasupermarket.rw ou visitez l'une de nos succursales."
       }
     },
     "rights": {
       "heading": "Vos droits",
-      "body": "En vertu de la loi applicable sur la protection des données, vous disposez des droits suivants concernant vos informations personnelles.",
+      "body": "En vertu de la loi applicable sur la protection des donn\u00e9es, vous disposez des droits suivants concernant vos informations personnelles.",
       "items": {
-        "access": "Droit d'accès",
+        "access": "Droit d'acc\u00e8s",
         "correct": "Droit de rectification",
-        "delete": "Droit à l'effacement",
-        "portability": "Portabilité des données"
+        "delete": "Droit \u00e0 l'effacement",
+        "portability": "Portabilit\u00e9 des donn\u00e9es"
       }
     }
   },
@@ -1479,7 +1483,7 @@
     "hero": {
       "eyebrow": "Livraison",
       "title": "Informations de livraison",
-      "subtitle": "Livraison rapide et fiable depuis nos succursales directement à votre porte à Kigali et au-delà."
+      "subtitle": "Livraison rapide et fiable depuis nos succursales directement \u00e0 votre porte \u00e0 Kigali et au-del\u00e0."
     },
     "stats": {
       "branches": {
@@ -1501,74 +1505,74 @@
       "items": {
         "standard": {
           "title": "Standard",
-          "time": "2–4 heures",
+          "time": "2\u20134 heures",
           "price": "1 000 RWF",
-          "note": "Idéal pour les courses planifiées. Commandez avant 15h pour une livraison standard le jour même."
+          "note": "Id\u00e9al pour les courses planifi\u00e9es. Commandez avant 15h pour une livraison standard le jour m\u00eame."
         },
         "express": {
           "title": "Express",
           "time": "Moins d'une heure",
           "price": "2 500 RWF",
-          "note": "Besoin de rapidité ? La livraison express vous apporte votre commande en moins d'une heure."
+          "note": "Besoin de rapidit\u00e9 ? La livraison express vous apporte votre commande en moins d'une heure."
         },
         "sameDay": {
           "title": "Livraison offerte",
-          "time": "2–4 heures",
+          "time": "2\u20134 heures",
           "price": "Gratuit",
-          "note": "Les commandes supérieures à 50 000 RWF bénéficient de la livraison standard gratuite."
+          "note": "Les commandes sup\u00e9rieures \u00e0 50 000 RWF b\u00e9n\u00e9ficient de la livraison standard gratuite."
         }
       }
     },
     "zones": {
       "eyebrow": "Couverture",
       "heading": "Zones de livraison",
-      "subtitle": "Nous livrons actuellement dans toutes les grandes zones de Kigali. D'autres districts arrivent bientôt."
+      "subtitle": "Nous livrons actuellement dans toutes les grandes zones de Kigali. D'autres districts arrivent bient\u00f4t."
     },
     "howItWorks": {
       "heading": "Comment fonctionne la livraison",
       "steps": {
         "order": {
           "title": "Passez votre commande",
-          "desc": "Ajoutez des articles à votre panier et sélectionnez la livraison au paiement."
+          "desc": "Ajoutez des articles \u00e0 votre panier et s\u00e9lectionnez la livraison au paiement."
         },
         "confirm": {
-          "title": "Commande confirmée",
-          "desc": "Vous recevez immédiatement une confirmation par SMS et e-mail."
+          "title": "Commande confirm\u00e9e",
+          "desc": "Vous recevez imm\u00e9diatement une confirmation par SMS et e-mail."
         },
         "dispatch": {
-          "title": "Expédié",
-          "desc": "Notre équipe prépare votre commande dans la succursale la plus proche."
+          "title": "Exp\u00e9di\u00e9",
+          "desc": "Notre \u00e9quipe pr\u00e9pare votre commande dans la succursale la plus proche."
         },
         "deliver": {
-          "title": "Livré chez vous",
-          "desc": "Notre livreur livre à votre porte dans le délai promis."
+          "title": "Livr\u00e9 chez vous",
+          "desc": "Notre livreur livre \u00e0 votre porte dans le d\u00e9lai promis."
         }
       }
     },
     "important": {
-      "heading": "Bon à savoir",
+      "heading": "Bon \u00e0 savoir",
       "items": {
         "cutoff": {
           "title": "Heures limites de commande",
-          "desc": "Les commandes passées après 19h seront livrées le lendemain matin à partir de 8h."
+          "desc": "Les commandes pass\u00e9es apr\u00e8s 19h seront livr\u00e9es le lendemain matin \u00e0 partir de 8h."
         },
         "packaging": {
           "title": "Emballage",
-          "desc": "Toutes les commandes sont emballées de manière hygiénique et sécurisée pour préserver la qualité."
+          "desc": "Toutes les commandes sont emball\u00e9es de mani\u00e8re hygi\u00e9nique et s\u00e9curis\u00e9e pour pr\u00e9server la qualit\u00e9."
         },
         "tracking": {
           "title": "Suivi de commande",
-          "desc": "Suivez votre livraison en temps réel via l'application ou le lien de suivi par SMS."
+          "desc": "Suivez votre livraison en temps r\u00e9el via l'application ou le lien de suivi par SMS."
         },
         "failed": {
-          "title": "Livraison échouée",
+          "title": "Livraison \u00e9chou\u00e9e",
           "desc": "Si nous ne pouvons pas vous joindre, nous conserverons votre commande 2 heures avant de la retourner. Des frais de nouvelle livraison peuvent s'appliquer."
         }
       }
     },
     "contact": {
       "heading": "Des questions sur la livraison ?",
-      "body": "Notre équipe d'assistance est disponible 7 jours sur 7.",
+      "body": "Notre \u00e9quipe d'assistance est disponible 7 jours sur 7.",
       "cta": "Nous contacter"
     }
   },
@@ -1576,77 +1580,77 @@
     "hero": {
       "eyebrow": "Juridique",
       "title": "Conditions d'utilisation",
-      "subtitle": "Veuillez lire attentivement ces conditions avant d'utiliser notre site web, notre application mobile ou tout service Simba Supermarché.",
+      "subtitle": "Veuillez lire attentivement ces conditions avant d'utiliser notre site web, notre application mobile ou tout service Simba Supermarch\u00e9.",
       "effective": "En vigueur depuis : 1er janvier 2025",
-      "jurisdiction": "Régi par le droit rwandais"
+      "jurisdiction": "R\u00e9gi par le droit rwandais"
     },
-    "banner": "En accédant ou en utilisant tout service Simba Supermarché, vous confirmez avoir lu, compris et accepté d'être lié par ces Conditions d'utilisation. Si vous n'êtes pas d'accord, veuillez ne pas utiliser nos services.",
+    "banner": "En acc\u00e9dant ou en utilisant tout service Simba Supermarch\u00e9, vous confirmez avoir lu, compris et accept\u00e9 d'\u00eatre li\u00e9 par ces Conditions d'utilisation. Si vous n'\u00eates pas d'accord, veuillez ne pas utiliser nos services.",
     "toc": "Sommaire",
     "sections": {
       "acceptance": {
         "nav": "Acceptation",
         "heading": "Acceptation des conditions",
-        "body": "Ces Conditions d'utilisation régissent votre utilisation du site web, de l'application mobile et de tous les services connexes de Simba Supermarché. En créant un compte, en passant une commande ou simplement en naviguant sur notre plateforme, vous reconnaissez avoir lu et accepté ces conditions. Ces conditions s'appliquent à tous les utilisateurs, y compris les visiteurs, les clients enregistrés et les clients professionnels. Simba Supermarché se réserve le droit de mettre à jour ces conditions à tout moment. L'utilisation continue de nos services après toute modification constitue une acceptation des conditions révisées."
+        "body": "Ces Conditions d'utilisation r\u00e9gissent votre utilisation du site web, de l'application mobile et de tous les services connexes de Simba Supermarch\u00e9. En cr\u00e9ant un compte, en passant une commande ou simplement en naviguant sur notre plateforme, vous reconnaissez avoir lu et accept\u00e9 ces conditions. Ces conditions s'appliquent \u00e0 tous les utilisateurs, y compris les visiteurs, les clients enregistr\u00e9s et les clients professionnels. Simba Supermarch\u00e9 se r\u00e9serve le droit de mettre \u00e0 jour ces conditions \u00e0 tout moment. L'utilisation continue de nos services apr\u00e8s toute modification constitue une acceptation des conditions r\u00e9vis\u00e9es."
       },
       "purchases": {
         "nav": "Achats",
         "heading": "Achats et commandes",
-        "body": "Lorsque vous passez une commande chez Simba Supermarché, vous faites une offre d'achat de biens soumise à ces conditions. Toutes les commandes sont soumises à la disponibilité et à la confirmation.",
+        "body": "Lorsque vous passez une commande chez Simba Supermarch\u00e9, vous faites une offre d'achat de biens soumise \u00e0 ces conditions. Toutes les commandes sont soumises \u00e0 la disponibilit\u00e9 et \u00e0 la confirmation.",
         "points": {
-          "0": "Les commandes ne sont confirmées qu'à la réception du paiement ou de l'autorisation de paiement",
-          "1": "Les prix sont affichés en Francs Rwandais (RWF) et incluent les taxes applicables",
-          "2": "Nous nous réservons le droit d'annuler des commandes en raison d'une indisponibilité de stock ou d'erreurs de prix",
-          "3": "Les commandes en gros ou commerciales peuvent nécessiter un arrangement préalable et sont soumises à des conditions distinctes"
+          "0": "Les commandes ne sont confirm\u00e9es qu'\u00e0 la r\u00e9ception du paiement ou de l'autorisation de paiement",
+          "1": "Les prix sont affich\u00e9s en Francs Rwandais (RWF) et incluent les taxes applicables",
+          "2": "Nous nous r\u00e9servons le droit d'annuler des commandes en raison d'une indisponibilit\u00e9 de stock ou d'erreurs de prix",
+          "3": "Les commandes en gros ou commerciales peuvent n\u00e9cessiter un arrangement pr\u00e9alable et sont soumises \u00e0 des conditions distinctes"
         }
       },
       "payments": {
         "nav": "Paiements",
         "heading": "Conditions de paiement",
-        "body": "Simba Supermarché accepte MTN Mobile Money, Airtel Money, Visa, Mastercard et le paiement à la livraison pour les commandes éligibles. Tous les paiements en ligne sont traités via des passerelles sécurisées et cryptées. En fournissant vos informations de paiement, vous confirmez que vous êtes autorisé à utiliser le mode de paiement. En cas d'échec de paiement, votre commande sera annulée et vous en serez informé. Tout litige concernant les charges doit être signalé à notre équipe d'assistance dans les 14 jours suivant la transaction."
+        "body": "Simba Supermarch\u00e9 accepte MTN Mobile Money, Airtel Money, Visa, Mastercard et le paiement \u00e0 la livraison pour les commandes \u00e9ligibles. Tous les paiements en ligne sont trait\u00e9s via des passerelles s\u00e9curis\u00e9es et crypt\u00e9es. En fournissant vos informations de paiement, vous confirmez que vous \u00eates autoris\u00e9 \u00e0 utiliser le mode de paiement. En cas d'\u00e9chec de paiement, votre commande sera annul\u00e9e et vous en serez inform\u00e9. Tout litige concernant les charges doit \u00eatre signal\u00e9 \u00e0 notre \u00e9quipe d'assistance dans les 14 jours suivant la transaction."
       },
       "liability": {
-        "nav": "Responsabilité",
-        "heading": "Limitation de responsabilité",
-        "body": "Dans toute la mesure permise par la loi, Simba Supermarché ne sera pas responsable des dommages indirects, accessoires ou consécutifs découlant de l'utilisation de nos services.",
+        "nav": "Responsabilit\u00e9",
+        "heading": "Limitation de responsabilit\u00e9",
+        "body": "Dans toute la mesure permise par la loi, Simba Supermarch\u00e9 ne sera pas responsable des dommages indirects, accessoires ou cons\u00e9cutifs d\u00e9coulant de l'utilisation de nos services.",
         "points": {
-          "0": "Nous ne sommes pas responsables des retards causés par des circonstances indépendantes de notre volonté raisonnable",
-          "1": "Notre responsabilité pour toute réclamation est limitée à la valeur de la commande en litige",
-          "2": "Nous ne garantissons pas un fonctionnement ininterrompu ou sans erreur de nos plateformes numériques",
-          "3": "Les images de produits sont fournies à titre illustratif uniquement ; les produits réels peuvent légèrement varier"
+          "0": "Nous ne sommes pas responsables des retards caus\u00e9s par des circonstances ind\u00e9pendantes de notre volont\u00e9 raisonnable",
+          "1": "Notre responsabilit\u00e9 pour toute r\u00e9clamation est limit\u00e9e \u00e0 la valeur de la commande en litige",
+          "2": "Nous ne garantissons pas un fonctionnement ininterrompu ou sans erreur de nos plateformes num\u00e9riques",
+          "3": "Les images de produits sont fournies \u00e0 titre illustratif uniquement ; les produits r\u00e9els peuvent l\u00e9g\u00e8rement varier"
         }
       },
       "prohibited": {
         "nav": "Utilisations interdites",
-        "heading": "Activités interdites",
-        "body": "Vous acceptez de ne pas utiliser abusivement nos services ou d'aider d'autres personnes à le faire. Les activités suivantes sont strictement interdites :",
+        "heading": "Activit\u00e9s interdites",
+        "body": "Vous acceptez de ne pas utiliser abusivement nos services ou d'aider d'autres personnes \u00e0 le faire. Les activit\u00e9s suivantes sont strictement interdites :",
         "points": {
-          "0": "Utiliser notre plateforme à des fins illégales, frauduleuses ou préjudiciables",
-          "1": "Tenter d'obtenir un accès non autorisé à nos systèmes ou données",
+          "0": "Utiliser notre plateforme \u00e0 des fins ill\u00e9gales, frauduleuses ou pr\u00e9judiciables",
+          "1": "Tenter d'obtenir un acc\u00e8s non autoris\u00e9 \u00e0 nos syst\u00e8mes ou donn\u00e9es",
           "2": "Soumettre des avis ou contenus faux, trompeurs ou abusifs",
-          "3": "Revendre des produits achetés chez Simba sans consentement écrit préalable"
+          "3": "Revendre des produits achet\u00e9s chez Simba sans consentement \u00e9crit pr\u00e9alable"
         }
       },
       "disputes": {
         "nav": "Litiges",
-        "heading": "Résolution des litiges",
-        "body": "En cas de litige découlant de ces conditions ou de votre utilisation de nos services, nous vous encourageons à contacter d'abord notre équipe d'assistance pour trouver une résolution à l'amiable. Si un litige ne peut être résolu de manière informelle, il sera soumis aux tribunaux compétents du Rwanda conformément au droit rwandais applicable. Simba Supermarché s'engage à une résolution juste et transparente de toutes les préoccupations des clients."
+        "heading": "R\u00e9solution des litiges",
+        "body": "En cas de litige d\u00e9coulant de ces conditions ou de votre utilisation de nos services, nous vous encourageons \u00e0 contacter d'abord notre \u00e9quipe d'assistance pour trouver une r\u00e9solution \u00e0 l'amiable. Si un litige ne peut \u00eatre r\u00e9solu de mani\u00e8re informelle, il sera soumis aux tribunaux comp\u00e9tents du Rwanda conform\u00e9ment au droit rwandais applicable. Simba Supermarch\u00e9 s'engage \u00e0 une r\u00e9solution juste et transparente de toutes les pr\u00e9occupations des clients."
       },
       "changes": {
         "nav": "Modifications",
-        "heading": "Modifications des présentes conditions",
-        "body": "Simba Supermarché se réserve le droit de modifier ces Conditions d'utilisation à tout moment. Lorsque nous apportons des modifications importantes, nous en informerons les utilisateurs enregistrés par e-mail ou notification intégrée à l'application au moins 14 jours avant l'entrée en vigueur des modifications. La date d'entrée en vigueur en haut de cette page reflétera toujours la révision la plus récente. Votre utilisation continue de nos services après la date d'entrée en vigueur constitue une acceptation des conditions mises à jour."
+        "heading": "Modifications des pr\u00e9sentes conditions",
+        "body": "Simba Supermarch\u00e9 se r\u00e9serve le droit de modifier ces Conditions d'utilisation \u00e0 tout moment. Lorsque nous apportons des modifications importantes, nous en informerons les utilisateurs enregistr\u00e9s par e-mail ou notification int\u00e9gr\u00e9e \u00e0 l'application au moins 14 jours avant l'entr\u00e9e en vigueur des modifications. La date d'entr\u00e9e en vigueur en haut de cette page refl\u00e9tera toujours la r\u00e9vision la plus r\u00e9cente. Votre utilisation continue de nos services apr\u00e8s la date d'entr\u00e9e en vigueur constitue une acceptation des conditions mises \u00e0 jour."
       },
       "contact": {
         "nav": "Contact",
         "heading": "Nous contacter",
-        "body": "Si vous avez des questions, des préoccupations ou des demandes concernant ces Conditions d'utilisation, n'hésitez pas à nous contacter. Nos équipes juridique et d'assistance client sont disponibles pour vous aider. Vous pouvez nous contacter via la page Nous contacter sur notre site web, en envoyant un e-mail à legal@simbasupermarket.rw, ou en visitant l'une de nos 11 succursales à travers le Rwanda."
+        "body": "Si vous avez des questions, des pr\u00e9occupations ou des demandes concernant ces Conditions d'utilisation, n'h\u00e9sitez pas \u00e0 nous contacter. Nos \u00e9quipes juridique et d'assistance client sont disponibles pour vous aider. Vous pouvez nous contacter via la page Nous contacter sur notre site web, en envoyant un e-mail \u00e0 legal@simbasupermarket.rw, ou en visitant l'une de nos 11 succursales \u00e0 travers le Rwanda."
       }
     },
     "agreement": {
-      "heading": "Vous êtes protégé",
-      "body": "Ces conditions existent pour vous protéger, vous et Simba Supermarché. Nous nous engageons à la transparence, l'équité et un service exceptionnel pour chaque client.",
+      "heading": "Vous \u00eates prot\u00e9g\u00e9",
+      "body": "Ces conditions existent pour vous prot\u00e9ger, vous et Simba Supermarch\u00e9. Nous nous engageons \u00e0 la transparence, l'\u00e9quit\u00e9 et un service exceptionnel pour chaque client.",
       "ctaContact": "Nous contacter",
-      "ctaPrivacy": "Politique de confidentialité"
+      "ctaPrivacy": "Politique de confidentialit\u00e9"
     }
   }
 }

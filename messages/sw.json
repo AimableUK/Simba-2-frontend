@@ -101,8 +101,8 @@
     "emailLabel": "Barua Pepe",
     "phoneLabel": "Simu",
     "hours": "Masaa ya Kazi",
-    "hoursValue": "Jte–Jmosi: 8asubuhi–8jioni",
-    "hoursValueSun": "Jmapumziko: 9asubuhi–5jioni"
+    "hoursValue": "Jte\u2013Jmosi: 8asubuhi\u20138jioni",
+    "hoursValueSun": "Jmapumziko: 9asubuhi\u20135jioni"
   },
   "cart": {
     "title": "Kikapu Chako",
@@ -928,8 +928,8 @@
     "privacy": "Sera ya Faragha",
     "terms": "Masharti ya Huduma",
     "delivery": "Taarifa ya Uwasilishaji",
-    "rights": "© {year} Simba Super Market. Haki zote zimehifadhiwa.",
-    "madeIn": "Imetengenezwa Rwanda 🇷🇼"
+    "rights": "\u00a9 {year} Simba Super Market. Haki zote zimehifadhiwa.",
+    "madeIn": "Imetengenezwa Rwanda \ud83c\uddf7\ud83c\uddfc"
   },
   "branches": {
     "title": "Matawi Yetu",
@@ -1090,7 +1090,11 @@
     "transferToBranchHint": "Maagizo ya usambazaji peke ndiyo yanaweza kuhamishwa. Hesabi itahamishwa kwa tawi jipya.",
     "transferring": "Inahamisha...",
     "waitingForCustomerConfirmation": "Inasubiri uthibitisho wa mteja",
-    "acceptOrder": "Kubali Agizo"
+    "acceptOrder": "Kubali Agizo",
+    "assignDriver": "Assign Driver",
+    "assignDriverHint": "Choose a driver for this delivery order.",
+    "noDriversAvailable": "No drivers available. Please add drivers to staff first.",
+    "driverAssigned": "Driver already assigned"
   },
   "about": {
     "hero": {
@@ -1197,7 +1201,7 @@
         },
         "coffee": {
           "title": "Mkahawa & Cafe",
-          "desc": "Trucillo Café na huduma za cafe katika matawi 5 ya Simba."
+          "desc": "Trucillo Caf\u00e9 na huduma za cafe katika matawi 5 ya Simba."
         },
         "arcade": {
           "title": "Simba Arcade",
@@ -1220,7 +1224,7 @@
     "coffee": {
       "eyebrow": "Cafe",
       "heading": "Maduka ya Cafe",
-      "desc": "Maduka ya Cafe ya Simba na Trucillo Café moja katika matawi matano, yakitoa uzoefu wa kupumzika kwa kila mnunuzi."
+      "desc": "Maduka ya Cafe ya Simba na Trucillo Caf\u00e9 moja katika matawi matano, yakitoa uzoefu wa kupumzika kwa kila mnunuzi."
     },
     "awards": {
       "eyebrow": "Mafanikio",
@@ -1340,7 +1344,7 @@
     },
     "stats": {
       "window": "Dirisha la kurudisha la siku 7",
-      "refundTime": "Malipo ya kurudisha ndani ya siku 3–5 za kazi",
+      "refundTime": "Malipo ya kurudisha ndani ya siku 3\u20135 za kazi",
       "condition": "Ufungaji wa asili unahitajika"
     },
     "eligibility": {
@@ -1501,7 +1505,7 @@
       "items": {
         "standard": {
           "title": "Kawaida",
-          "time": "Masaa 2–4",
+          "time": "Masaa 2\u20134",
           "price": "RWF 1,000",
           "note": "Bora kwa ununuzi uliopangwa. Agiza kabla ya saa 9 jioni kwa uwasilishaji wa kawaida siku hiyo."
         },
@@ -1513,7 +1517,7 @@
         },
         "sameDay": {
           "title": "Uwasilishaji Bure",
-          "time": "Masaa 2–4",
+          "time": "Masaa 2\u20134",
           "price": "Bure",
           "note": "Maagizo zaidi ya RWF 50,000 yanastahili uwasilishaji wa kawaida bila malipo."
         }

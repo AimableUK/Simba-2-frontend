@@ -39,6 +39,7 @@ export default function BranchOrdersPage() {
   const [statusFilter, setStatusFilter] = useState("");
   const [selected, setSelected] = useState<any>(null);
   const [selectedStaffId, setSelectedStaffId] = useState("");
+  const [selectedDriverId, setSelectedDriverId] = useState("");
   const [transferOpen, setTransferOpen] = useState(false);
   const [transferBranchId, setTransferBranchId] = useState("");
 
@@ -76,8 +77,8 @@ export default function BranchOrdersPage() {
   }, [selected, branchStaff, session?.user?.id]);
 
   const statusMutation = useMutation({
-    mutationFn: ({ id, status }: { id: string; status: string }) =>
-      branchApi.updateStatus(id, { status }),
+    mutationFn: ({ id, status, driverId }: { id: string; status: string; driverId?: string }) =>
+      branchApi.updateStatus(id, { status, driverId }),
     onSuccess: () => {
       toast.success(t("orderUpdated"));
       setSelected(null);
@@ -409,6 +410,46 @@ export default function BranchOrdersPage() {
 
               <div className="space-y-2">
                 {isManager &&
+                  ["delivery"].includes(selected.fulfillmentType) &&
+                  !["picked_up", "cancelled"].includes(selected.status) && (
+                    <div className="space-y-2 rounded-xl border border-border bg-muted/20 p-3">
+                      <div className="flex items-center justify-between gap-3">
+                        <div>
+                          <p className="text-sm font-medium">
+                            {t("assignDriver")}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {selected.driverId
+                              ? t("driverAssigned")
+                              : t("assignDriverHint")}
+                          </p>
+                        </div>
+                      </div>
+
+                      <select
+                        value={selectedDriverId}
+                        onChange={(e) => setSelectedDriverId(e.target.value)}
+                        className="w-full rounded-xl border border-border bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                      >
+                        <option value="">{t("selectDriver")}</option>
+                        {branchStaff
+                          .filter((staff: any) => staff.user?.role === "driver")
+                          .map((staff: any) => (
+                            <option key={staff.id} value={staff.user?.id}>
+                              {staff.user?.name} ({staff.activeOrders || 0} {t("active")})
+                            </option>
+                          ))}
+                      </select>
+
+                      {!branchStaff.some((staff: any) => staff.user?.role === "driver") && (
+                        <p className="text-xs text-yellow-600 dark:text-yellow-400">
+                          {t("noDriversAvailable")}
+                        </p>
+                      )}
+                    </div>
+                  )}
+
+                {isManager &&
                   !["picked_up", "cancelled"].includes(selected.status) && (
                     <div className="space-y-2 rounded-xl border border-border bg-muted/20 p-3">
                       <div className="flex items-center justify-between gap-3">
@@ -470,6 +511,11 @@ export default function BranchOrdersPage() {
                       statusMutation.mutate({
                         id: selected.id,
                         status: NEXT_STATUS[selected.status],
+                        driverId:
+                          selected.fulfillmentType === "delivery" &&
+                          NEXT_STATUS[selected.status] === "ready"
+                            ? selectedDriverId || selected.driverId
+                            : undefined,
                       })
                     }
                     disabled={

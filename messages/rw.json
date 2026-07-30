@@ -928,8 +928,8 @@
     "privacy": "Politiki y'Ubuzima bwite",
     "terms": "Amategeko y'Ikoranabuhanga",
     "delivery": "amakuru yo Gutumiza",
-    "rights": "© {year} Simba Super Market. Uburenganzira bwose burabitswe.",
-    "madeIn": "Byakozwe mu Rwanda 🇷🇼"
+    "rights": "\u00a9 {year} Simba Super Market. Uburenganzira bwose burabitswe.",
+    "madeIn": "Byakozwe mu Rwanda \ud83c\uddf7\ud83c\uddfc"
   },
   "branches": {
     "title": "Amashami Yacu",
@@ -1090,7 +1090,11 @@
     "transferToBranchHint": "Ibintu byoherejwe gusa byobishake kwimura. Ububiko buzajya ku shami rishya.",
     "transferring": "Kurimo kwimura...",
     "waitingForCustomerConfirmation": "Kurimo gutegereza emezo ry'umukiriya",
-    "acceptOrder": "Emereza Ibintu"
+    "acceptOrder": "Emereza Ibintu",
+    "assignDriver": "Assign Driver",
+    "assignDriverHint": "Choose a driver for this delivery order.",
+    "noDriversAvailable": "No drivers available. Please add drivers to staff first.",
+    "driverAssigned": "Driver already assigned"
   },
   "about": {
     "hero": {
@@ -1102,7 +1106,7 @@
     "origin": {
       "eyebrow": "Amateka y'Inkomoko",
       "heading": "Aho Byatangiriye",
-      "paragraph1": "SIMBA SUPERMARKET LTD yashinzwe ku wa <strong>3 Ukuboza 2007</strong> nk'Isosiyete y'Inshingano Nkeya ifite intego igaragara: kuba iduka rinini cyane ry'ubucuruzi mu karere. Yashinzwe na <strong>Bwana Teklay Teame</strong> n'inshuti ze, sosiyete itera mu mahanga ibicuruzwa biva mu Burayi, Misiri, Dubayı, Ubushinwa, Ubuturukiya no handi kugira ngo igwize urutonde rw'ibicuruzwa.",
+      "paragraph1": "SIMBA SUPERMARKET LTD yashinzwe ku wa <strong>3 Ukuboza 2007</strong> nk'Isosiyete y'Inshingano Nkeya ifite intego igaragara: kuba iduka rinini cyane ry'ubucuruzi mu karere. Yashinzwe na <strong>Bwana Teklay Teame</strong> n'inshuti ze, sosiyete itera mu mahanga ibicuruzwa biva mu Burayi, Misiri, Dubay\u0131, Ubushinwa, Ubuturukiya no handi kugira ngo igwize urutonde rw'ibicuruzwa.",
       "paragraph2": "Ugufungurwa gusesuye ku wa <strong>8 Kanama 2008</strong> kwatumye habaho akazi ka <strong>abantu barenga 450</strong> b'abanyarwanda. Ifite amashami 11 mu Rwanda hose, Simba itanga serivisi zuzuye z'ubukiranyi - inyama, imigati, kafeteriya n'ibindi byinshi - ikorera imiryango mpuzamahanga, amashyirahamwe y'abaturage, sosiyete za leta n'abikorera."
     },
     "values": {
@@ -1197,7 +1201,7 @@
         },
         "coffee": {
           "title": "Resitora & Kafeteriya",
-          "desc": "Trucillo Café na serivisi za kafeteriya mu mashami 5 ya Simba."
+          "desc": "Trucillo Caf\u00e9 na serivisi za kafeteriya mu mashami 5 ya Simba."
         },
         "arcade": {
           "title": "Simba Arcade",
@@ -1220,7 +1224,7 @@
     "coffee": {
       "eyebrow": "Kafeteriya",
       "heading": "Kafeteriya zacu",
-      "desc": "Kafeteriya za Simba hamwe na Trucillo Café imwe mu mashami atanu, zitanga uburambe bwo kuruhuka ku mucuruzi wese."
+      "desc": "Kafeteriya za Simba hamwe na Trucillo Caf\u00e9 imwe mu mashami atanu, zitanga uburambe bwo kuruhuka ku mucuruzi wese."
     },
     "awards": {
       "eyebrow": "Ibikorwa Biheruye",
@@ -1340,7 +1344,7 @@
     },
     "stats": {
       "window": "Igihe cy'iminsi 7 cyo gusubiza",
-      "refundTime": "Gusubizwa mu minsi 3–5 y'akazi",
+      "refundTime": "Gusubizwa mu minsi 3\u20135 y'akazi",
       "condition": "Kifurushi cya mbere gisabwa"
     },
     "eligibility": {
@@ -1501,7 +1505,7 @@
       "items": {
         "standard": {
           "title": "Bisanzwe",
-          "time": "Amasaha 2–4",
+          "time": "Amasaha 2\u20134",
           "price": "RWF 1,000",
           "note": "Beza ku kugura byateganyijwe. Lagiza mbere ya saa 9 z'ijoro kwa kohereza bisanzwe uwo munsi."
         },
@@ -1513,7 +1517,7 @@
         },
         "sameDay": {
           "title": "Kohereza Bure",
-          "time": "Amasaha 2–4",
+          "time": "Amasaha 2\u20134",
           "price": "Bure",
           "note": "Amalagizo asumba RWF 50,000 asumba kohereza bisanzwe ku buntu."
         }
