@@ -1089,7 +1089,8 @@
     "transferToBranch": "Imura ku shami rindi",
     "transferToBranchHint": "Ibintu byoherejwe gusa byobishake kwimura. Ububiko buzajya ku shami rishya.",
     "transferring": "Kurimo kwimura...",
-    "waitingForCustomerConfirmation": "Kurimo gutegereza emezo ry'umukiriya"
+    "waitingForCustomerConfirmation": "Kurimo gutegereza emezo ry'umukiriya",
+    "acceptOrder": "Emereza Ibintu"
   },
   "about": {
     "hero": {

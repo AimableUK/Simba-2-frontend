@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { Pagination } from "@/components/common/pagination";
 import { TableRowSkeleton } from "@/components/common/skeletons";
 import { useAdminSocket } from "@/hooks/useSocket";
-import { User, Clock, Package, ArrowRight } from "lucide-react";
+import { User, Clock, Package, ArrowRight, MapPin, ExternalLink } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 const STATUS_COLORS: Record<string, string> = {
@@ -25,6 +25,7 @@ const STATUS_COLORS: Record<string, string> = {
 };
 
 const NEXT_STATUS: Record<string, string> = {
+  pending: "accepted",
   accepted: "preparing",
   preparing: "ready",
   ready: "picked_up",
@@ -328,6 +329,20 @@ export default function BranchOrdersPage() {
                   selected.deliveryLongitude !== undefined && (
                     <p className="pl-5 text-xs text-muted-foreground">
                       {t("coordinates")}: {selected.deliveryLatitude}, {selected.deliveryLongitude}
+                      <button
+                        type="button"
+                        onClick={() =>
+                          window.open(
+                            `https://www.openstreetmap.org/?mlat=${selected.deliveryLatitude}&mlon=${selected.deliveryLongitude}#map=18/${selected.deliveryLatitude}/${selected.deliveryLongitude}`,
+                            "_blank",
+                            "noopener,noreferrer",
+                          )
+                        }
+                        className="ml-2 inline-flex items-center gap-1 rounded-lg bg-primary/10 px-2 py-1 text-[11px] font-medium text-primary transition-colors hover:bg-primary/20"
+                      >
+                        <MapPin className="h-3 w-3" />
+                        {t("openMap")}
+                      </button>
                     </p>
                   )}
                 {selected.fulfillmentType === "delivery" &&
@@ -465,15 +480,19 @@ export default function BranchOrdersPage() {
                     }
                     className="w-full rounded-xl bg-primary py-3 font-semibold text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
                   >
-                    {statusMutation.isPending
-                      ? t("updating")
-                      : selected.status === "preparing"
-                        ? t("markReady")
-                        : selected.status === "ready"
-                          ? selected.fulfillmentType === "delivery" && !selected.deliveryConfirmed
-                            ? t("waitingForCustomerConfirmation")
-                            : t("markPickedUp")
-                          : t("nextStep")}
+                     {statusMutation.isPending
+                       ? t("updating")
+                       : selected.status === "pending"
+                         ? t("acceptOrder")
+                         : selected.status === "accepted"
+                           ? t("markPreparing")
+                           : selected.status === "preparing"
+                             ? t("markReady")
+                             : selected.status === "ready"
+                               ? selected.fulfillmentType === "delivery" && !selected.deliveryConfirmed
+                                 ? t("waitingForCustomerConfirmation")
+                                 : t("markPickedUp")
+                               : t("nextStep")}
                   </button>
                 )}
 

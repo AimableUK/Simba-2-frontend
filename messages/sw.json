@@ -1089,7 +1089,8 @@
     "transferToBranch": "Hamisha kwa tawi lingine",
     "transferToBranchHint": "Maagizo ya usambazaji peke ndiyo yanaweza kuhamishwa. Hesabi itahamishwa kwa tawi jipya.",
     "transferring": "Inahamisha...",
-    "waitingForCustomerConfirmation": "Inasubiri uthibitisho wa mteja"
+    "waitingForCustomerConfirmation": "Inasubiri uthibitisho wa mteja",
+    "acceptOrder": "Kubali Agizo"
   },
   "about": {
     "hero": {

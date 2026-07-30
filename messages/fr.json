@@ -1089,7 +1089,8 @@
     "transferToBranch": "Transférer vers une autre agence",
     "transferToBranchHint": "Seules les commandes en livraison peuvent être transférées. Le stock sera déplacé vers la nouvelle agence.",
     "transferring": "Transfert en cours...",
-    "waitingForCustomerConfirmation": "En attente de confirmation client"
+    "waitingForCustomerConfirmation": "En attente de confirmation client",
+    "acceptOrder": "Accepter la commande"
   },
   "about": {
     "hero": {

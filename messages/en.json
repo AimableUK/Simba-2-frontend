@@ -1089,7 +1089,8 @@
     "confirming": "Confirming...",
     "deliveryConfirmed": "Delivery confirmed successfully",
     "waitingForCustomerConfirmation": "Waiting for customer confirmation",
-    "confirmDeliveryButton": "I Have Received the Order"
+    "confirmDeliveryButton": "I Have Received the Order",
+    "acceptOrder": "Accept Order"
   },
   "about": {
     "hero": {
