@@ -366,45 +366,44 @@ export function CalendarWithTime({
 
             <div className="space-y-1.5">
               <div>
-                <label
-                  className="mb-1 block text-sm font-medium"
-                  htmlFor="pickup-hour-input"
-                >
+                <label className="mb-1 block text-sm font-medium">
                   {timeLabel}
                 </label>
                 {timeSlots ? (
-                  <Select
-                    value={
-                      tempParts.hour && tempParts.minute && tempParts.period
-                        ? `${tempParts.hour}:${tempParts.minute} ${tempParts.period}`
-                        : undefined
-                    }
-                    onValueChange={(value) =>
-                      handleTimeSlotSelect(value.replace(" ", ""))
-                    }
-                  >
-                    <SelectTrigger className="h-9 w-full rounded-lg bg-background">
-                      <SelectValue placeholder={timePlaceholder} />
-                    </SelectTrigger>
-                    <SelectContent>
+                  <div className="rounded-lg border border-border/70 bg-background p-2">
+                    <div className="grid grid-cols-3 gap-1.5">
                       {timeSlots.map((slot) => {
                         const [h, m] = slot.split(":").map(Number);
                         const period = h >= 12 ? "PM" : "AM";
                         const label = `${String(normalizeHour12(h)).padStart(2, "0")}:${String(m).padStart(2, "0")} ${period}`;
                         const disabled = timeSlotDisabled(slot);
+                        const isSelected =
+                          tempParts.hour &&
+                          tempParts.minute &&
+                          tempParts.period &&
+                          `${tempParts.hour}:${tempParts.minute} ${tempParts.period}` === label;
+
                         return (
-                          <SelectItem
+                          <button
                             key={slot}
-                            value={`${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")} ${period}`}
+                            type="button"
                             disabled={disabled}
+                            onClick={() => handleTimeSlotSelect(slot)}
+                            className={cn(
+                              "rounded-lg px-2 py-2 text-xs font-medium transition-colors",
+                              isSelected
+                                ? "bg-primary text-primary-foreground shadow-sm"
+                                : "bg-card text-foreground hover:bg-accent",
+                              disabled &&
+                                "opacity-40 cursor-not-allowed hover:bg-card",
+                            )}
                           >
                             {label}
-                            {disabled ? " (unavailable)" : ""}
-                          </SelectItem>
+                          </button>
                         );
                       })}
-                    </SelectContent>
-                  </Select>
+                    </div>
+                  </div>
                 ) : (
                   <div className="grid grid-cols-[1fr_1fr_auto] gap-2">
                     <Input
