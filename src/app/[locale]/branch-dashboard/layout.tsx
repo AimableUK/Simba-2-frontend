@@ -84,33 +84,44 @@ export default function BranchDashboardLayout({
     );
   }
 
-  const NAV = role === "driver"
-    ? [
-        {
-          href: `/${resolvedLocale}/branch-dashboard/driver`,
-          icon: ClipboardList,
-          label: t("assignedOrders"),
-          exact: true,
-        },
-      ]
-    : [
-        {
-          href: `/${resolvedLocale}/branch-dashboard`,
-          icon: BarChart2,
-          label: role === "branch_staff" ? t("overview") : t("dashboard"),
-          exact: true,
-        },
-        {
-          href: `/${resolvedLocale}/branch-dashboard/orders`,
-          icon: ClipboardList,
-          label: role === "branch_staff" ? t("assignedOrders") : t("orders"),
-        },
-        {
-          href: `/${resolvedLocale}/branch-dashboard/stock`,
-          icon: Package,
-          label: t("stock"),
-        },
-      ];
+  const NAV =
+    role === "branch_staff" || role === "driver"
+      ? [
+          {
+            href: `/${resolvedLocale}/branch-dashboard`,
+            icon: BarChart2,
+            label: t("overview"),
+            exact: true,
+          },
+          {
+            href: `/${resolvedLocale}/branch-dashboard/orders`,
+            icon: ClipboardList,
+            label: t("assignedOrders"),
+          },
+          {
+            href: `/${resolvedLocale}/branch-dashboard/stock`,
+            icon: Package,
+            label: t("stock"),
+          },
+        ]
+      : [
+          {
+            href: `/${resolvedLocale}/branch-dashboard`,
+            icon: BarChart2,
+            label: t("dashboard"),
+            exact: true,
+          },
+          {
+            href: `/${resolvedLocale}/branch-dashboard/orders`,
+            icon: ClipboardList,
+            label: t("orders"),
+          },
+          {
+            href: `/${resolvedLocale}/branch-dashboard/stock`,
+            icon: Package,
+            label: t("stock"),
+          },
+        ];
 
   const resolveLink = (link?: string) =>
     link ? resolveLocalizedPath(link, resolvedLocale) : undefined;
@@ -132,7 +143,7 @@ export default function BranchDashboardLayout({
       );
       if (action === "accept") {
         const nextRole = res.data?.role;
-        if (nextRole === "branch_staff" || nextRole === "branch_manager") {
+        if (nextRole === "branch_staff" || nextRole === "branch_manager" || nextRole === "driver") {
           router.push(`/${resolvedLocale}/branch-dashboard`);
         } else if (res.data?.branch?.slug) {
           router.push(
@@ -488,11 +499,11 @@ export default function BranchDashboardLayout({
                       type="button"
                       onClick={() => {
                         setNotifOpen(false);
-                        router.push(
-                          role === "driver"
-                            ? `/${resolvedLocale}/branch-dashboard/driver`
-                            : `/${locale}/admin/notifications`,
-                        );
+                      router.push(
+                        role === "admin" || role === "super_admin"
+                          ? `/${resolvedLocale}/admin/notifications`
+                          : `/${resolvedLocale}/branch-dashboard/orders`,
+                      );
                       }}
                       className="text-xs font-medium text-primary hover:underline"
                     >

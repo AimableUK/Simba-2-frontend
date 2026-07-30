@@ -668,7 +668,7 @@ export function Navbar() {
                           </Link>
                           <Link
                             href={
-                              userRole === "branch_staff"
+                              userRole === "branch_staff" || userRole === "driver"
                                 ? `/${locale}/admin/account`
                                 : `/${locale}/admin`
                             }
@@ -676,7 +676,7 @@ export function Navbar() {
                             className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-accent transition-colors text-primary font-medium"
                           >
                             <Settings className="w-4 h-4" />
-                            {userRole === "branch_staff"
+                            {userRole === "branch_staff" || userRole === "driver"
                               ? t("accountCenter")
                               : t("admin")}
                           </Link>
