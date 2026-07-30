@@ -15,6 +15,7 @@ import {
   X,
   Clock,
   Menu,
+  Users,
 } from "lucide-react";
 import { useSession } from "@/lib/auth-client";
 import { cn, resolveLocalizedPath } from "@/lib/utils";
@@ -103,25 +104,58 @@ export default function BranchDashboardLayout({
             icon: Package,
             label: t("stock"),
           },
+          ...((role as string) === "branch_manager"
+            ? [
+                {
+                  href: `/${resolvedLocale}/branch-dashboard/team`,
+                  icon: Users,
+                  label: t("team"),
+                },
+              ]
+            : []),
         ]
-      : [
-          {
-            href: `/${resolvedLocale}/branch-dashboard`,
-            icon: BarChart2,
-            label: t("dashboard"),
-            exact: true,
-          },
-          {
-            href: `/${resolvedLocale}/branch-dashboard/orders`,
-            icon: ClipboardList,
-            label: t("orders"),
-          },
-          {
-            href: `/${resolvedLocale}/branch-dashboard/stock`,
-            icon: Package,
-            label: t("stock"),
-          },
-        ];
+      : role === "super_admin"
+        ? [
+            {
+              href: `/${resolvedLocale}/branch-dashboard`,
+              icon: BarChart2,
+              label: t("dashboard"),
+              exact: true,
+            },
+            {
+              href: `/${resolvedLocale}/branch-dashboard/orders`,
+              icon: ClipboardList,
+              label: t("orders"),
+            },
+            {
+              href: `/${resolvedLocale}/branch-dashboard/stock`,
+              icon: Package,
+              label: t("stock"),
+            },
+            {
+              href: `/${resolvedLocale}/branch-dashboard/team`,
+              icon: Users,
+              label: t("team"),
+            },
+          ]
+        : [
+            {
+              href: `/${resolvedLocale}/branch-dashboard`,
+              icon: BarChart2,
+              label: t("dashboard"),
+              exact: true,
+            },
+            {
+              href: `/${resolvedLocale}/branch-dashboard/orders`,
+              icon: ClipboardList,
+              label: t("orders"),
+            },
+            {
+              href: `/${resolvedLocale}/branch-dashboard/stock`,
+              icon: Package,
+              label: t("stock"),
+            },
+          ];
 
   const resolveLink = (link?: string) =>
     link ? resolveLocalizedPath(link, resolvedLocale) : undefined;

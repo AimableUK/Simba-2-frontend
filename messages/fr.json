@@ -789,6 +789,7 @@
       "role": "R\u00f4le",
       "branchStaff": "Personnel de succursale",
       "branchManager": "Responsable de succursale",
+      "driver": "Livreur",
       "optionalNote": "Note facultative",
       "shortMessage": "Message court",
       "sent": "Invitation envoy\u00e9e",
@@ -995,6 +996,7 @@
     "hide": "Masquer",
     "assignedOrders": "Commandes assign\u00e9es",
     "stock": "Stock",
+    "team": "\u00c9quipe",
     "backToStore": "Retour \u00e0 la boutique",
     "signOut": "Se D\u00e9connecter",
     "notifications": "Notifications",
@@ -1097,7 +1099,7 @@
     "noDriversAvailable": "No drivers available. Please add drivers to staff first.",
     "driverAssigned": "Driver already assigned",
     "assignStaff": "Assigner le personnel",
-    "selectDriver": "S\u00e9lectionner le chauffeur",
+    "selectDriver": "S\u00e9lectionner le chauffeur"
   },
   "about": {
     "hero": {

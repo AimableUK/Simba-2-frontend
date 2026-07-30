@@ -24,11 +24,17 @@ export default function BranchTeamPage({
   const t = useTranslations("admin.branchTeam");
   const { data: session } = useSession();
   const role = (session?.user as any)?.role as string;
+
+  useEffect(() => {
+    if (!["branch_manager", "admin", "super_admin"].includes(role)) {
+      router.replace(`/${locale}/admin/branches`);
+    }
+  }, [role, locale, router]);
   const [search, setSearch] = useState("");
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
-  const [inviteRole, setInviteRole] = useState<"branch_manager" | "branch_staff">(
-    "branch_staff",
-  );
+  const [inviteRole, setInviteRole] = useState<
+    "branch_manager" | "branch_staff" | "driver"
+  >("branch_staff");
   const [message, setMessage] = useState("");
 
   const { data: branch, isLoading: branchLoading } = useQuery({
@@ -164,16 +170,19 @@ export default function BranchTeamPage({
           <div className="grid sm:grid-cols-2 gap-3">
             <label className="block">
               <span className="block text-sm font-medium mb-1.5">{t("role")}</span>
-              <select
-                value={inviteRole}
-                onChange={(e) =>
-                  setInviteRole(e.target.value as "branch_manager" | "branch_staff")
-                }
-                className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
-              >
-                <option value="branch_staff">{t("branchStaff")}</option>
-                <option value="branch_manager">{t("branchManager")}</option>
-              </select>
+               <select
+                 value={inviteRole}
+                 onChange={(e) =>
+                   setInviteRole(
+                     e.target.value as "branch_manager" | "branch_staff" | "driver",
+                   )
+                 }
+                 className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+               >
+                 <option value="branch_staff">{t("branchStaff")}</option>
+                 <option value="branch_manager">{t("branchManager")}</option>
+                 <option value="driver">{t("driver")}</option>
+               </select>
             </label>
             <label className="block">
                 <span className="block text-sm font-medium mb-1.5">

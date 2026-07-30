@@ -789,6 +789,7 @@
       "role": "Uruhare",
       "branchStaff": "Umukozi w'ishami",
       "branchManager": "Umuyobozi w'ishami",
+      "driver": "Uwasoroye ibicuruzwa",
       "optionalNote": "Icyitonderwa (ntibisabwa)",
       "shortMessage": "Ubutumwa bugufi",
       "sent": "Inzaprezi yoherejwe",
@@ -995,6 +996,7 @@
     "hide": "Hisha",
     "assignedOrders": "Amatumiza yahawe",
     "stock": "Ububiko",
+    "team": "Itsinda",
     "backToStore": "Subira ku Isoko",
     "signOut": "Sohoka",
     "notifications": "Notifications",
@@ -1097,7 +1099,7 @@
     "noDriversAvailable": "No drivers available. Please add drivers to staff first.",
     "driverAssigned": "Driver already assigned",
     "assignStaff": "Shyiraho Umukozi",
-    "selectDriver": "Hitamo mufereshi",
+    "selectDriver": "Hitamo mufereshi"
   },
   "about": {
     "hero": {
