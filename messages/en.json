@@ -797,7 +797,16 @@
       "sending": "Sending...",
       "pendingInvites": "Pending invites",
       "noPendingInvites": "No pending invites.",
-      "failed": "Failed to send invite"
+      "failed": "Failed to send invite",
+      "teamMembers": "Team Members",
+      "inviteNew": "Invite team member",
+      "noTeamMembers": "No team members yet",
+      "changeRole": "Change role",
+      "remove": "Remove",
+      "confirmRemove": "Are you sure you want to remove this member?",
+      "removed": "Member removed",
+      "roleUpdated": "Role updated",
+      "backToBranch": "Back to branch"
     },
     "branchInvite": {
       "title": "Branch invite",

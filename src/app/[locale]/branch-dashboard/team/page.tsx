@@ -6,7 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useSession } from "@/lib/auth-client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { ArrowLeft, Search, Send, UserPlus, Trash2, Users } from "lucide-react";
+import { ArrowLeft, Search, Send, UserPlus, Trash2, Users, MoreVertical, X } from "lucide-react";
 import { branchApi, userApi } from "@/lib/api";
 import Image from "next/image";
 
@@ -24,6 +24,33 @@ export default function BranchTeamPage() {
     "branch_staff",
   );
   const [message, setMessage] = useState("");
+  const [actionMemberId, setActionMemberId] = useState<string | null>(null);
+  const [newRole, setNewRole] = useState<string>("");
+  const [confirmRemoveId, setConfirmRemoveId] = useState<string | null>(null);
+
+  const updateRoleMutation = useMutation({
+    mutationFn: ({ staffId, role }: { staffId: string; role: string }) =>
+      branchApi.updateStaffRole(staffId, role),
+    onSuccess: () => {
+      toast.success(tTeam("roleUpdated"));
+      setActionMemberId(null);
+      setNewRole("");
+      qc.invalidateQueries({ queryKey: ["branch-dashboard"] });
+    },
+    onError: (err: any) =>
+      toast.error(err?.response?.data?.message || tTeam("failed")),
+  });
+
+  const removeMutation = useMutation({
+    mutationFn: (staffId: string) => branchApi.removeStaff(staffId),
+    onSuccess: () => {
+      toast.success(tTeam("removed"));
+      setConfirmRemoveId(null);
+      qc.invalidateQueries({ queryKey: ["branch-dashboard"] });
+    },
+    onError: (err: any) =>
+      toast.error(err?.response?.data?.message || tTeam("failed")),
+  });
 
   useEffect(() => {
     if (role === "super_admin") {
@@ -128,15 +155,72 @@ export default function BranchTeamPage() {
                   </p>
                 </div>
               </div>
-              <span
-                className={`text-xs font-medium px-2.5 py-1 rounded-full ${
-                  member.role === "branch_manager"
-                    ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
-                    : "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-400"
-                }`}
-              >
-                {member.role.replace("_", " ")}
-              </span>
+              <div className="flex items-center gap-2">
+                {actionMemberId === member.id ? (
+                  <>
+                    <select
+                      value={newRole}
+                      onChange={(e) => setNewRole(e.target.value)}
+                      className="rounded-lg border border-border bg-background px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30"
+                    >
+                      <option value="branch_staff">{tTeam("branchStaff")}</option>
+                      <option value="driver">{tTeam("driver")}</option>
+                    </select>
+                    <button
+                      onClick={() => {
+                        if (!newRole || newRole === member.role) {
+                          setActionMemberId(null);
+                          return;
+                        }
+                        updateRoleMutation.mutate({ staffId: member.id, role: newRole });
+                      }}
+                      disabled={updateRoleMutation.isPending}
+                      className="text-xs bg-primary text-primary-foreground px-2.5 py-1.5 rounded-lg hover:bg-primary/90 disabled:opacity-50"
+                    >
+                      {updateRoleMutation.isPending ? tTeam("sending") : "Save"}
+                    </button>
+                    <button
+                      onClick={() => {
+                        setActionMemberId(null);
+                        setNewRole("");
+                      }}
+                      className="p-1.5 hover:bg-muted rounded-lg transition-colors"
+                    >
+                      <X className="h-3.5 w-3.5 text-muted-foreground" />
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <span
+                      className={`text-xs font-medium px-2.5 py-1 rounded-full ${
+                        member.role === "branch_manager"
+                          ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
+                          : "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-400"
+                      }`}
+                    >
+                      {member.role.replace("_", " ")}
+                    </span>
+                    <button
+                      onClick={() => {
+                        setActionMemberId(member.id);
+                        setNewRole(member.role);
+                      }}
+                      className="text-xs text-primary hover:underline font-medium"
+                    >
+                      {tTeam("changeRole")}
+                    </button>
+                    {member.role !== "branch_manager" && (
+                      <button
+                        onClick={() => setConfirmRemoveId(member.id)}
+                        className="p-1.5 hover:bg-destructive/10 rounded-lg transition-colors"
+                        title={tTeam("remove")}
+                      >
+                        <Trash2 className="h-3.5 w-3.5 text-destructive" />
+                      </button>
+                    )}
+                  </>
+                )}
+              </div>
             </div>
           ))}
           {!(branch?.staff || []).length && (
@@ -282,6 +366,41 @@ export default function BranchTeamPage() {
           </div>
         )}
       </div>
+
+      {confirmRemoveId && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+          onClick={() => setConfirmRemoveId(null)}
+        >
+          <div
+            className="w-full max-w-sm rounded-2xl border border-border bg-card p-6 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="text-lg font-bold mb-2">{tTeam("remove")}</h3>
+            <p className="text-sm text-muted-foreground mb-6">
+              {tTeam("confirmRemove")}
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => {
+                  removeMutation.mutate(confirmRemoveId);
+                  setConfirmRemoveId(null);
+                }}
+                disabled={removeMutation.isPending}
+                className="flex-1 bg-destructive text-destructive-foreground font-semibold py-2.5 rounded-xl hover:bg-destructive/90 disabled:opacity-50"
+              >
+                {removeMutation.isPending ? tTeam("sending") : tTeam("remove")}
+              </button>
+              <button
+                onClick={() => setConfirmRemoveId(null)}
+                className="flex-1 border border-border rounded-xl font-medium hover:bg-muted transition-colors"
+              >
+                {tTeam("cancel", { default: "Cancel" })}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

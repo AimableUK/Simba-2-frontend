@@ -797,7 +797,16 @@
       "sending": "Envoi en cours...",
       "pendingInvites": "Invitations en attente",
       "noPendingInvites": "Aucune invitation en attente.",
-      "failed": "\u00c9chec de l'envoi de l'invitation"
+      "failed": "\u00c9chec de l'envoi de l'invitation",
+      "teamMembers": "Membres de l'\u00e9quipe",
+      "inviteNew": "Inviter un nouveau membre",
+      "noTeamMembers": "Aucun membre dans l'\u00e9quipe",
+      "changeRole": "Changer le r\u00f4le",
+      "remove": "Supprimer",
+      "confirmRemove": "\u00cates-vous s\u00fbr de vouloir supprimer ce membre?",
+      "removed": "Membre supprim\u00e9",
+      "roleUpdated": "R\u00f4le mis \u00e0 jour",
+      "backToBranch": "Retour \u00e0 la succursale"
     },
     "branchInvite": {
       "title": "Invitation de succursale",

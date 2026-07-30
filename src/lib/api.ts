@@ -213,6 +213,10 @@ export const branchApi = {
   }) => api.post("/branches/admin/invites", data),
   respondInvite: (token: string, action: "accept" | "decline") =>
     api.post(`/branches/admin/invites/${token}/respond`, { action }),
+  updateStaffRole: (staffId: string, role: string) =>
+    api.put(`/branches/admin/staff/${staffId}/role`, { role }),
+  removeStaff: (staffId: string) =>
+    api.delete(`/branches/admin/staff/${staffId}`),
   createBranch: (data: any) => api.post("/branches/admin", data),
   updateBranch: (id: string, data: any) =>
     api.put(`/branches/admin/${id}`, data),

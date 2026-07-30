@@ -797,7 +797,16 @@
       "sending": "Kohereza...",
       "pendingInvites": "Inzaprezi Zitegereje",
       "noPendingInvites": "Nta nzaprezi zitegereje.",
-      "failed": "Kohereza inzaprezi byanze"
+      "failed": "Kohereza inzaprezi byanze",
+      "teamMembers": "Abanyamuryango b'ishami",
+      "inviteNew": "Tuma inzaprezi ku mukozi mushya",
+      "noTeamMembers": "Nta banyamuryango b'ishami bariho",
+      "changeRole": "Guhindura uruhare",
+      "remove": "Gukuramo",
+      "confirmRemove": "Urasabwe kugira ngo ukure uyu mukozi mu ishami. Urifuza gukomeza?",
+      "removed": "Umukozi yakuweho",
+      "roleUpdated": "Urubare rwahindutse",
+      "backToBranch": "Garuka ku ishami"
     },
     "branchInvite": {
       "title": "Inzaprezi y'ishami",

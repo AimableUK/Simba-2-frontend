@@ -797,7 +797,16 @@
       "sending": "Inatuma...",
       "pendingInvites": "Mialiko Inayosubiri",
       "noPendingInvites": "Hakuna mialiko inayosubiri.",
-      "failed": "Imeshindwa kutuma mwaliko"
+      "failed": "Imeshindwa kutuma mwaliko",
+      "teamMembers": "Wanachama wa Timu",
+      "inviteNew": "Mualikie mwanachama mpya",
+      "noTeamMembers": "Hakuna wanachama wa timu",
+      "changeRole": "Badilisha jukumu",
+      "remove": "Ondoa",
+      "confirmRemove": "Una uhakika unataka kumtoa huyu mwanachama?",
+      "removed": "Mwanachama ondolewa",
+      "roleUpdated": "Jukumu lilibadilishwa",
+      "backToBranch": "Rudi kwa Tawi"
     },
     "branchInvite": {
       "title": "Mwaliko wa tawi",

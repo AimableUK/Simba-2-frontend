@@ -87,81 +87,96 @@ export default function BranchDashboardLayout({
   }
 
   const NAV =
-    role === "branch_staff" || role === "driver"
+    role === "branch_manager"
       ? [
           {
             href: `/${resolvedLocale}/branch-dashboard`,
             icon: BarChart2,
-            label: t("overview"),
+            label: t("dashboard"),
             exact: true,
           },
           {
             href: `/${resolvedLocale}/branch-dashboard/orders`,
             icon: ClipboardList,
-            label: t("assignedOrders"),
+            label: t("orders"),
           },
           {
             href: `/${resolvedLocale}/branch-dashboard/stock`,
             icon: Package,
             label: t("stock"),
           },
-          ...((role as string) === "branch_manager"
-            ? [
-                {
-                  href: `/${resolvedLocale}/branch-dashboard/products`,
-                  icon: Tag,
-                  label: t("products", { default: "Products" }),
-                },
-                {
-                  href: `/${resolvedLocale}/branch-dashboard/team`,
-                  icon: Users,
-                  label: t("team"),
-                },
-              ]
-            : []),
+          {
+            href: `/${resolvedLocale}/branch-dashboard/products`,
+            icon: Tag,
+            label: t("products", { default: "Products" }),
+          },
+          {
+            href: `/${resolvedLocale}/branch-dashboard/team`,
+            icon: Users,
+            label: t("team"),
+          },
         ]
-      : role === "super_admin"
+      : role === "branch_staff" || role === "driver"
         ? [
             {
               href: `/${resolvedLocale}/branch-dashboard`,
               icon: BarChart2,
-              label: t("dashboard"),
+              label: t("overview"),
               exact: true,
             },
             {
               href: `/${resolvedLocale}/branch-dashboard/orders`,
               icon: ClipboardList,
-              label: t("orders"),
+              label: t("assignedOrders"),
             },
             {
               href: `/${resolvedLocale}/branch-dashboard/stock`,
               icon: Package,
               label: t("stock"),
-            },
-            {
-              href: `/${resolvedLocale}/branch-dashboard/team`,
-              icon: Users,
-              label: t("team"),
             },
           ]
-        : [
-            {
-              href: `/${resolvedLocale}/branch-dashboard`,
-              icon: BarChart2,
-              label: t("dashboard"),
-              exact: true,
-            },
-            {
-              href: `/${resolvedLocale}/branch-dashboard/orders`,
-              icon: ClipboardList,
-              label: t("orders"),
-            },
-            {
-              href: `/${resolvedLocale}/branch-dashboard/stock`,
-              icon: Package,
-              label: t("stock"),
-            },
-          ];
+        : role === "super_admin"
+          ? [
+              {
+                href: `/${resolvedLocale}/branch-dashboard`,
+                icon: BarChart2,
+                label: t("dashboard"),
+                exact: true,
+              },
+              {
+                href: `/${resolvedLocale}/branch-dashboard/orders`,
+                icon: ClipboardList,
+                label: t("orders"),
+              },
+              {
+                href: `/${resolvedLocale}/branch-dashboard/stock`,
+                icon: Package,
+                label: t("stock"),
+              },
+              {
+                href: `/${resolvedLocale}/branch-dashboard/team`,
+                icon: Users,
+                label: t("team"),
+              },
+            ]
+          : [
+              {
+                href: `/${resolvedLocale}/branch-dashboard`,
+                icon: BarChart2,
+                label: t("dashboard"),
+                exact: true,
+              },
+              {
+                href: `/${resolvedLocale}/branch-dashboard/orders`,
+                icon: ClipboardList,
+                label: t("orders"),
+              },
+              {
+                href: `/${resolvedLocale}/branch-dashboard/stock`,
+                icon: Package,
+                label: t("stock"),
+              },
+            ];
 
   const resolveLink = (link?: string) =>
     link ? resolveLocalizedPath(link, resolvedLocale) : undefined;
