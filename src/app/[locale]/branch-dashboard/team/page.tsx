@@ -14,6 +14,11 @@ export default function BranchTeamRedirectPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (role === "super_admin") {
+      router.replace(`/${locale}/admin/branches`);
+      return;
+    }
+
     if (role !== "branch_manager") {
       router.replace(`/${locale}/branch-dashboard`);
       return;

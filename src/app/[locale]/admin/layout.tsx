@@ -77,7 +77,7 @@ export default function AdminLayout({
       label: tMenu("branches"),
       href: "branches",
       icon: MapPin,
-      roles: ["admin", "super_admin", "branch_manager"],
+      roles: ["admin", "super_admin"],
     },
     {
       label: tMenu("users"),
@@ -201,7 +201,6 @@ export default function AdminLayout({
           ? new Set([
               "",
               "products",
-              "branches",
               "users",
               "account",
               "my-orders",
