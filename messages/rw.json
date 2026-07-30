@@ -972,7 +972,8 @@
       "ready": "Riteguye Guturwa",
       "picked_up": "Ryaturiwe",
       "cancelled": "Rirahagaritswe"
-    }
+    },
+    "switchingBranch": "Kurimo guhindura shami..."
   },
   "search": {
     "title": "Shakisha Ibicuruzwa",

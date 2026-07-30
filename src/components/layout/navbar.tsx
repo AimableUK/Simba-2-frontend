@@ -21,6 +21,7 @@ import {
   MapPin,
   Bell,
   CheckCheck,
+  Loader2,
 } from "lucide-react";
 import {
   useCartStore,
@@ -291,12 +292,22 @@ export function Navbar() {
           <span className="hidden sm:inline">{tBranch("shoppingAt")}:</span>
           <div className="relative">
             <button
-              onClick={() => setBranchOpen(!branchOpen)}
-              className="inline-flex items-center gap-1 rounded-full border border-white/20 bg-white/10 px-3 py-1 font-semibold hover:bg-white/20 transition-colors"
+              onClick={() => !branchChecking && setBranchOpen(!branchOpen)}
+              disabled={branchChecking}
+              className="inline-flex items-center gap-1 rounded-full border border-white/20 bg-white/10 px-3 py-1 font-semibold hover:bg-white/20 transition-colors disabled:opacity-70"
             >
-              {selectedBranchName?.replace("Simba Supermarket ", "") ||
-                tBranch("selectBranch")}
-              <ChevronDown className="w-3 h-3" />
+              {branchChecking ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  <span className="hidden sm:inline">{tBranch("switchingBranch")}</span>
+                </>
+              ) : (
+                <>
+                  {selectedBranchName?.replace("Simba Supermarket ", "") ||
+                    tBranch("selectBranch")}
+                  <ChevronDown className="w-3 h-3" />
+                </>
+              )}
             </button>
 
             <AnimatePresence>

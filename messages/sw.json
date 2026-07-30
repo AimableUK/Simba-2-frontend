@@ -972,7 +972,8 @@
       "ready": "Tayari Kuchukuliwa",
       "picked_up": "Imechukuliwa",
       "cancelled": "Imeghairiwa"
-    }
+    },
+    "switchingBranch": "Inabadilisha tawi..."
   },
   "search": {
     "title": "Tafuta Bidhaa",

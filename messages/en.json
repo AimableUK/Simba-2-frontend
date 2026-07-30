@@ -973,7 +973,8 @@
       "ready": "Ready for Pick-up",
       "picked_up": "Picked Up",
       "cancelled": "Cancelled"
-    }
+    },
+    "switchingBranch": "Switching branch..."
   },
   "search": {
     "title": "Search Products",

@@ -972,7 +972,8 @@
       "ready": "Prête pour retrait",
       "picked_up": "Retirée",
       "cancelled": "Annulée"
-    }
+    },
+    "switchingBranch": "Changement d'agence..."
   },
   "search": {
     "title": "Rechercher des Produits",
