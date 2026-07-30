@@ -806,7 +806,8 @@
       "confirmRemove": "Una uhakika unataka kumtoa huyu mwanachama?",
       "removed": "Mwanachama ondolewa",
       "roleUpdated": "Jukumu lilibadilishwa",
-      "backToBranch": "Rudi kwa Tawi"
+      "backToBranch": "Rudi kwa Tawi",
+      "cancel": "Ghairi"
     },
     "branchInvite": {
       "title": "Mwaliko wa tawi",
@@ -1006,6 +1007,11 @@
     "assignedOrders": "Maagizo yaliyopangiwa",
     "stock": "Hisa",
     "team": "Timu",
+    "products": "Bidhaa",
+    "productsForBranch": "Bidhaa za tawi:",
+    "searchPlaceholder": "Tafuta bidhaa...",
+    "image": "Picha",
+    "category": "Kategoria",
     "backToStore": "Rudi kwenye Duka",
     "signOut": "Toka",
     "notifications": "Notifications",
@@ -1051,6 +1057,7 @@
     "cancelOrder": "Cancel Order",
     "close": "Close",
     "active": "active",
+    "inactive": "inactive",
     "hidden": "Hidden",
     "update": "Update",
     "save": "Save",
@@ -1066,6 +1073,7 @@
       "status": "Status",
       "assignedTo": "Assigned To",
       "actions": "Actions",
+      "name": "Bidhaa",
       "product": "Product",
       "category": "Category",
       "price": "Price",

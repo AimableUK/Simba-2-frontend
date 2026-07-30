@@ -806,7 +806,8 @@
       "confirmRemove": "\u00cates-vous s\u00fbr de vouloir supprimer ce membre?",
       "removed": "Membre supprim\u00e9",
       "roleUpdated": "R\u00f4le mis \u00e0 jour",
-      "backToBranch": "Retour \u00e0 la succursale"
+      "backToBranch": "Retour \u00e0 la succursale",
+      "cancel": "Annuler"
     },
     "branchInvite": {
       "title": "Invitation de succursale",
@@ -1006,6 +1007,11 @@
     "assignedOrders": "Commandes assign\u00e9es",
     "stock": "Stock",
     "team": "\u00c9quipe",
+    "products": "Produits",
+    "productsForBranch": "Produits pour",
+    "searchPlaceholder": "Rechercher des produits...",
+    "image": "Image",
+    "category": "Cat\u00e9gorie",
     "backToStore": "Retour \u00e0 la boutique",
     "signOut": "Se D\u00e9connecter",
     "notifications": "Notifications",
@@ -1051,6 +1057,7 @@
     "cancelOrder": "Annuler la commande",
     "close": "Fermer",
     "active": "actif",
+    "inactive": "inactif",
     "hidden": "Masqu\u00e9",
     "update": "Mettre \u00e0 jour",
     "save": "Enregistrer",
@@ -1066,6 +1073,7 @@
       "status": "Statut",
       "assignedTo": "Assign\u00e9 \u00e0",
       "actions": "Actions",
+      "name": "Produit",
       "product": "Produit",
       "category": "Cat\u00e9gorie",
       "price": "Prix",

@@ -806,7 +806,8 @@
       "confirmRemove": "Are you sure you want to remove this member?",
       "removed": "Member removed",
       "roleUpdated": "Role updated",
-      "backToBranch": "Back to branch"
+      "backToBranch": "Back to branch",
+      "cancel": "Cancel"
     },
     "branchInvite": {
       "title": "Branch invite",
@@ -1007,6 +1008,11 @@
     "assignedOrders": "Assigned Orders",
     "stock": "Stock",
     "team": "Team",
+    "products": "Products",
+    "productsForBranch": "Products for",
+    "searchPlaceholder": "Search products...",
+    "image": "Image",
+    "category": "Category",
     "backToStore": "Back to Store",
     "signOut": "Sign Out",
     "notifications": "Notifications",
@@ -1052,6 +1058,7 @@
     "cancelOrder": "Cancel Order",
     "close": "Close",
     "active": "active",
+    "inactive": "inactive",
     "hidden": "Hidden",
     "update": "Update",
     "save": "Save",
@@ -1067,6 +1074,7 @@
       "status": "Status",
       "assignedTo": "Assigned To",
       "actions": "Actions",
+      "name": "Product",
       "product": "Product",
       "category": "Category",
       "price": "Price",
