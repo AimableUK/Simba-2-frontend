@@ -514,7 +514,7 @@ export default function CheckoutPage() {
                   <span className="text-sm">{t("loadingBranches")}</span>
                 </div>
               ) : (
-                <div className="grid sm:grid-cols-2 gap-3">
+                <div className="relative grid sm:grid-cols-2 gap-3">
                   {branches.map((branch) => (
                     <button
                       key={branch.id}
@@ -550,6 +550,17 @@ export default function CheckoutPage() {
                       </div>
                     </button>
                   ))}
+
+                  {branchChecking && (
+                    <div className="absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-background/80 backdrop-blur-sm">
+                      <div className="flex flex-col items-center gap-2">
+                        <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                        <span className="text-xs font-medium text-muted-foreground">
+                          {t("loadingBranches")}
+                        </span>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 

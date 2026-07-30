@@ -294,11 +294,11 @@ export function Navbar() {
             <button
               onClick={() => !branchChecking && setBranchOpen(!branchOpen)}
               disabled={branchChecking}
-              className="inline-flex items-center gap-1 rounded-full border border-white/20 bg-white/10 px-3 py-1 font-semibold hover:bg-white/20 transition-colors disabled:opacity-70"
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 font-semibold hover:bg-white/20 transition-colors disabled:opacity-70"
             >
               {branchChecking ? (
                 <>
-                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  <Loader2 className="w-4 h-4 animate-spin" />
                   <span className="hidden sm:inline">{tBranch("switchingBranch")}</span>
                 </>
               ) : (
@@ -324,24 +324,31 @@ export function Navbar() {
                     </p>
                   </div>
                   <div className="max-h-60 overflow-y-auto">
-                    {branches?.map((b: any) => (
-                      <button
-                        key={b.id}
-                        onClick={() => void verifyBranchSwitch(b)}
-                        disabled={branchChecking}
-                        className={cn(
-                          "w-full text-left px-4 py-2.5 text-sm hover:bg-accent transition-colors flex flex-col gap-0.5",
-                          selectedBranchId === b.id && "bg-accent text-primary",
-                        )}
-                      >
-                        <span className="font-medium">
-                          {b.name.replace("Simba Supermarket ", "")}
-                        </span>
-                        <span className="text-[10px] text-muted-foreground line-clamp-1">
-                          {b.address}
-                        </span>
-                      </button>
-                    ))}
+                    {branchChecking ? (
+                      <div className="flex flex-col items-center justify-center gap-2 py-8 text-muted-foreground">
+                        <Loader2 className="h-5 w-5 animate-spin text-primary" />
+                        <span className="text-xs">{tBranch("switchingBranch")}</span>
+                      </div>
+                    ) : (
+                      branches?.map((b: any) => (
+                        <button
+                          key={b.id}
+                          onClick={() => void verifyBranchSwitch(b)}
+                          disabled={branchChecking}
+                          className={cn(
+                            "w-full text-left px-4 py-2.5 text-sm hover:bg-accent transition-colors flex flex-col gap-0.5",
+                            selectedBranchId === b.id && "bg-accent text-primary",
+                          )}
+                        >
+                          <span className="font-medium">
+                            {b.name.replace("Simba Supermarket ", "")}
+                          </span>
+                          <span className="text-[10px] text-muted-foreground line-clamp-1">
+                            {b.address}
+                          </span>
+                        </button>
+                      ))
+                    )}
                   </div>
                 </motion.div>
               )}
