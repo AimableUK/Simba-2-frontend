@@ -187,7 +187,15 @@
       "ready": "Riteguye Gufatwa",
       "picked_up": "Rafashwe",
       "cancelled": "Rahagaritswe"
-    }
+    },
+    "confirmDeliveryTitle": "Emeza Koherezwa",
+    "confirmDeliveryDesc": "Nyamuneka emeza ko wakiriye ibintu byawe. Bishaka bishaka biremewe n'abakozi ba shami kw'ishira.",
+    "confirmDelivery": "Emeza Koherezwa",
+    "deliveryConfirmed": "Koherezwa kwemejwe",
+    "confirming": "Kurema...",
+    "waitingForCustomerConfirmation": "Kurimo gutegereza emezo ry'umukiriya",
+    "customerConfirmedDelivery": "Umukiriya yemeje koherwa",
+    "confirmDeliveryButton": "Nakiriye Ibintu"
   },
   "product": {
     "addToCart": "Shyira mu Gasanduku",
@@ -260,7 +268,7 @@
     "pickupDateTime": "Itariki n'igihe cyo gufata",
     "pickupDate": "Itariki yo gufata",
     "pickupTime": "Igihe cyo Gufata",
-    "selectPickupTime": "Hitamo igihe cyo gufata...",
+    "selectPickupTime": "Hitamo isaha yo kwifata",
     "pickupNote": "Itumiza ryawe rizaba ryiteguye mu gihe wahisemo. Nyamuneka gera mu minota 30 y'igihe cyawe.",
     "pickupBranch": "Ishami ryo gufatira",
     "dpoDesc": "Visa, Mastercard, MTN, Airtel",

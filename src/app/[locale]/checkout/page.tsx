@@ -637,6 +637,20 @@ export default function CheckoutPage() {
                   closingHour={20}
                   leadTimeMinutes={60}
                   maxDaysAhead={3}
+                  timeSlots={[
+                    "09:00",
+                    "10:00",
+                    "11:00",
+                    "12:00",
+                    "13:00",
+                    "14:00",
+                    "15:00",
+                    "16:00",
+                    "17:00",
+                    "18:00",
+                    "19:00",
+                  ]}
+                  timePlaceholder={t("selectPickupTime")}
                 />
                 {pickupError && (
                   <p className="text-sm text-destructive mt-2 flex items-center gap-1">

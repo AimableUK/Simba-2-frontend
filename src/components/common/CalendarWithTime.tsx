@@ -40,6 +40,8 @@ export interface CalendarWithTimeProps {
   closingHour?: number;
   leadTimeMinutes?: number;
   maxDaysAhead?: number;
+  timeSlots?: string[];
+  timePlaceholder?: string;
 }
 
 const DEFAULT_OPENING_HOUR = 8;
@@ -187,6 +189,8 @@ export function CalendarWithTime({
   closingHour = DEFAULT_CLOSING_HOUR,
   leadTimeMinutes = DEFAULT_LEAD_TIME_MINUTES,
   maxDaysAhead = DEFAULT_MAX_DAYS_AHEAD,
+  timeSlots,
+  timePlaceholder = "Select time",
 }: CalendarWithTimeProps) {
   const [open, setOpen] = React.useState(false);
   const [tempDate, setTempDate] = React.useState<Date | undefined>(selectedDate);
@@ -275,6 +279,36 @@ export function CalendarWithTime({
     );
   };
 
+  const timeSlotDisabled = React.useCallback(
+    (slot: string) => {
+      if (!tempDate) return true;
+      const [h, m] = slot.split(":").map(Number);
+      const combined = new Date(tempDate);
+      combined.setHours(h, m, 0, 0);
+      const now = new Date();
+      const minTime = new Date(now.getTime() + leadTimeMinutes * 60 * 1000);
+      const hour = combined.getHours();
+      if (hour < openingHour || hour >= closingHour) return true;
+      if (combined < minTime) return true;
+      return false;
+    },
+    [tempDate, openingHour, closingHour, leadTimeMinutes],
+  );
+
+  const handleTimeSlotSelect = (slot: string) => {
+    if (!tempDate) return;
+    const [h, m] = slot.split(":").map(Number);
+    const combined = new Date(tempDate);
+    combined.setHours(h, m, 0, 0);
+    onTimeChange(combined.toISOString());
+    setTempParts({
+      hour: String(normalizeHour12(h)).padStart(2, "0"),
+      minute: String(m).padStart(2, "0"),
+      period: h >= 12 ? "PM" : "AM",
+    });
+    setTimeError("");
+  };
+
   return (
     <div className={cn("space-y-2", className)}>
       <Popover open={open} onOpenChange={handleOpenChange}>
@@ -338,40 +372,75 @@ export function CalendarWithTime({
                 >
                   {timeLabel}
                 </label>
-                <div className="grid grid-cols-[1fr_1fr_auto] gap-2">
-                  <Input
-                    id="pickup-hour-input"
-                    inputMode="numeric"
-                    placeholder="HH"
-                    value={tempParts.hour}
-                    onChange={(e) => handlePartChange("hour", e.target.value)}
-                    className="h-9 rounded-lg bg-background text-center"
-                    maxLength={2}
-                  />
-                  <Input
-                    id="pickup-minute-input"
-                    inputMode="numeric"
-                    placeholder="MM"
-                    value={tempParts.minute}
-                    onChange={(e) => handlePartChange("minute", e.target.value)}
-                    className="h-9 rounded-lg bg-background text-center"
-                    maxLength={2}
-                  />
+                {timeSlots ? (
                   <Select
-                    value={tempParts.period}
+                    value={
+                      tempParts.hour && tempParts.minute && tempParts.period
+                        ? `${tempParts.hour}:${tempParts.minute} ${tempParts.period}`
+                        : undefined
+                    }
                     onValueChange={(value) =>
-                      handlePartChange("period", value as TimeParts["period"])
+                      handleTimeSlotSelect(value.replace(" ", ""))
                     }
                   >
-                    <SelectTrigger className="h-9 w-[82px] rounded-lg bg-background">
-                      <SelectValue placeholder="AM/PM" />
+                    <SelectTrigger className="h-9 w-full rounded-lg bg-background">
+                      <SelectValue placeholder={timePlaceholder} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="AM">AM</SelectItem>
-                      <SelectItem value="PM">PM</SelectItem>
+                      {timeSlots.map((slot) => {
+                        const [h, m] = slot.split(":").map(Number);
+                        const period = h >= 12 ? "PM" : "AM";
+                        const label = `${String(normalizeHour12(h)).padStart(2, "0")}:${String(m).padStart(2, "0")} ${period}`;
+                        const disabled = timeSlotDisabled(slot);
+                        return (
+                          <SelectItem
+                            key={slot}
+                            value={`${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")} ${period}`}
+                            disabled={disabled}
+                          >
+                            {label}
+                            {disabled ? " (unavailable)" : ""}
+                          </SelectItem>
+                        );
+                      })}
                     </SelectContent>
                   </Select>
-                </div>
+                ) : (
+                  <div className="grid grid-cols-[1fr_1fr_auto] gap-2">
+                    <Input
+                      id="pickup-hour-input"
+                      inputMode="numeric"
+                      placeholder="HH"
+                      value={tempParts.hour}
+                      onChange={(e) => handlePartChange("hour", e.target.value)}
+                      className="h-9 rounded-lg bg-background text-center"
+                      maxLength={2}
+                    />
+                    <Input
+                      id="pickup-minute-input"
+                      inputMode="numeric"
+                      placeholder="MM"
+                      value={tempParts.minute}
+                      onChange={(e) => handlePartChange("minute", e.target.value)}
+                      className="h-9 rounded-lg bg-background text-center"
+                      maxLength={2}
+                    />
+                    <Select
+                      value={tempParts.period}
+                      onValueChange={(value) =>
+                        handlePartChange("period", value as TimeParts["period"])
+                      }
+                    >
+                      <SelectTrigger className="h-9 w-[82px] rounded-lg bg-background">
+                        <SelectValue placeholder="AM/PM" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="AM">AM</SelectItem>
+                        <SelectItem value="PM">PM</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
               </div>
 
               {timeError ? (

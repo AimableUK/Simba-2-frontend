@@ -187,7 +187,15 @@
       "ready": "Prête pour le retrait",
       "picked_up": "Récupérée",
       "cancelled": "Annulée"
-    }
+    },
+    "confirmDeliveryTitle": "Confirmer la réception",
+    "confirmDeliveryDesc": "Veuillez confirmer que vous avez reçu votre commande. Cela permettra à l'agence de la marquer comme terminée.",
+    "confirmDelivery": "Confirmer la réception",
+    "deliveryConfirmed": "Livraison confirmée",
+    "confirming": "Confirmation...",
+    "waitingForCustomerConfirmation": "En attente de confirmation client",
+    "customerConfirmedDelivery": "Client a confirmé la réception",
+    "confirmDeliveryButton": "J'ai reçu la commande"
   },
   "product": {
     "addToCart": "Ajouter au Panier",
@@ -260,7 +268,7 @@
     "pickupDateTime": "Date et heure de retrait",
     "pickupDate": "Date de retrait",
     "pickupTime": "Heure de retrait",
-    "selectPickupTime": "Sélectionner une heure de retrait...",
+    "selectPickupTime": "Sélectionner l'heure de retrait",
     "pickupNote": "Votre commande sera prête à l'heure sélectionnée. Veuillez arriver dans les 30 minutes suivant votre créneau.",
     "pickupBranch": "Succursale de retrait",
     "dpoDesc": "Visa, Mastercard, MTN, Airtel",

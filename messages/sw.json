@@ -187,7 +187,15 @@
       "ready": "Iko Tayari Kuchukuliwa",
       "picked_up": "Imechukuliwa",
       "cancelled": "Imefutwa"
-    }
+    },
+    "confirmDeliveryTitle": "Thibitisha Upokeaji",
+    "confirmDeliveryDesc": "Tafadhali thibitisha kuwa umepokea agizo lako. Hii itawawezeshwa wafanyakazi kuiweka kamilifu.",
+    "confirmDelivery": "Thibitisha upokeaji",
+    "deliveryConfirmed": "Uwasilishaji umethibitishwa",
+    "confirming": "Inathibitisha...",
+    "waitingForCustomerConfirmation": "Inasubiri uthibitisho wa mteja",
+    "customerConfirmedDelivery": "Mteja amethibitisha upokeaji",
+    "confirmDeliveryButton": "Nimekipokea"
   },
   "product": {
     "addToCart": "Ongeza kwenye Kikapu",
@@ -260,7 +268,7 @@
     "pickupDateTime": "Tarehe na wakati wa kuchukua",
     "pickupDate": "Tarehe ya kuchukua",
     "pickupTime": "Wakati wa Kuchukua",
-    "selectPickupTime": "Chagua wakati wa kuchukua...",
+    "selectPickupTime": "Chagua wakati wa kuchukua",
     "pickupNote": "Agizo lako litakuwa tayari wakati uliochaguliwa. Tafadhali fika ndani ya dakika 30 za wakati wako.",
     "pickupBranch": "Tawi la kuchukua",
     "dpoDesc": "Visa, Mastercard, MTN, Airtel",
