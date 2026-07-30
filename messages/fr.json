@@ -1094,7 +1094,9 @@
     "assignDriver": "Assign Driver",
     "assignDriverHint": "Choose a driver for this delivery order.",
     "noDriversAvailable": "No drivers available. Please add drivers to staff first.",
-    "driverAssigned": "Driver already assigned"
+    "driverAssigned": "Driver already assigned",
+    "assignStaff": "Assigner le personnel",
+    "selectDriver": "S\u00e9lectionner le chauffeur"
   },
   "about": {
     "hero": {
