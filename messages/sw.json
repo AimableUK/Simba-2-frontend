@@ -317,7 +317,8 @@
       "fixErrors": "Tafadhali rekebisha makosa yafuatayo:",
       "field": "Sehemu",
       "minimumOrder": "Agizo la chini ni {amount}. Tafadhali ongeza vitu zaidi."
-    }
+    },
+    "switchingBranch": "Inabadilisha tawi..."
   },
   "auth": {
     "signin": {

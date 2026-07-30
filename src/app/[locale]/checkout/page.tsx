@@ -556,7 +556,7 @@ export default function CheckoutPage() {
                       <div className="flex flex-col items-center gap-2">
                         <Loader2 className="h-6 w-6 animate-spin text-primary" />
                         <span className="text-xs font-medium text-muted-foreground">
-                          {t("loadingBranches")}
+                          {t("switchingBranch")}
                         </span>
                       </div>
                     </div>

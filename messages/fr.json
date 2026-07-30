@@ -317,7 +317,8 @@
       "fixErrors": "Veuillez corriger les erreurs suivantes :",
       "field": "Champ",
       "minimumOrder": "La commande minimum est de {amount}. Veuillez ajouter plus d'articles."
-    }
+    },
+    "switchingBranch": "Changement d'agence..."
   },
   "auth": {
     "signin": {

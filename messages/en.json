@@ -317,7 +317,8 @@
       "fixErrors": "Please fix the following errors:",
       "field": "Field",
       "minimumOrder": "Minimum order is {amount}. Please add more items."
-    }
+    },
+    "switchingBranch": "Switching branch..."
   },
   "auth": {
     "signin": {

@@ -317,7 +317,8 @@
       "fixErrors": "Nyamuneka hindura amakosa akurikira:",
       "field": "Inzego",
       "minimumOrder": "Agaciro gato k'itumiza ni {amount}. Nyamuneka ongeraho ibintu byinshi."
-    }
+    },
+    "switchingBranch": "Kurimo guhindura shami..."
   },
   "auth": {
     "signin": {
