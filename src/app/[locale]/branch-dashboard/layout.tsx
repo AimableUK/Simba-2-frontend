@@ -116,7 +116,7 @@ export default function BranchDashboardLayout({
             label: t("team"),
           },
         ]
-      : role === "branch_staff" || role === "driver"
+       : role === "branch_staff"
         ? [
             {
               href: `/${resolvedLocale}/branch-dashboard`,
@@ -135,7 +135,21 @@ export default function BranchDashboardLayout({
               label: t("stock"),
             },
           ]
-        : role === "super_admin"
+        : role === "driver"
+          ? [
+              {
+                href: `/${resolvedLocale}/branch-dashboard`,
+                icon: BarChart2,
+                label: t("overview"),
+                exact: true,
+              },
+              {
+                href: `/${resolvedLocale}/branch-dashboard/orders`,
+                icon: ClipboardList,
+                label: t("assignedOrders"),
+              },
+            ]
+          : role === "super_admin"
           ? [
               {
                 href: `/${resolvedLocale}/branch-dashboard`,
