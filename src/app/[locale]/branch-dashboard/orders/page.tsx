@@ -44,6 +44,7 @@ export default function BranchOrdersPage() {
   const [transferBranchId, setTransferBranchId] = useState("");
 
   const role = (session?.user as any)?.role as string;
+  const isDriver = role === "driver";
   const isManager = ["branch_manager", "admin", "super_admin"].includes(role);
   const isStaff = role === "branch_staff";
 
@@ -409,7 +410,7 @@ export default function BranchOrdersPage() {
               )}
 
               <div className="space-y-2">
-                {isManager &&
+                {!isDriver && isManager &&
                   ["delivery"].includes(selected.fulfillmentType) &&
                   !["picked_up", "cancelled"].includes(selected.status) && (
                     <div className="space-y-2 rounded-xl border border-border bg-muted/20 p-3">
@@ -449,7 +450,7 @@ export default function BranchOrdersPage() {
                     </div>
                   )}
 
-                {isManager &&
+                {!isDriver && isManager &&
                   !["picked_up", "cancelled"].includes(selected.status) && (
                     <div className="space-y-2 rounded-xl border border-border bg-muted/20 p-3">
                       <div className="flex items-center justify-between gap-3">
@@ -505,7 +506,7 @@ export default function BranchOrdersPage() {
                     </div>
                   )}
 
-                {NEXT_STATUS[selected.status] && (
+                {!isDriver && NEXT_STATUS[selected.status] && (
                   <button
                     onClick={() =>
                       statusMutation.mutate({
@@ -542,7 +543,7 @@ export default function BranchOrdersPage() {
                   </button>
                 )}
 
-                 {["pending", "accepted"].includes(selected.status) && (
+                 {!isDriver && ["pending", "accepted"].includes(selected.status) && (
                    <button
                      onClick={() =>
                        statusMutation.mutate({
@@ -557,22 +558,42 @@ export default function BranchOrdersPage() {
                    </button>
                  )}
 
-                 {isManager &&
-                   selected.fulfillmentType === "delivery" &&
-                   !["picked_up", "cancelled"].includes(selected.status) && (
-                     <button
-                       onClick={() => {
-                         setTransferOpen(true);
-                         setTransferBranchId("");
-                       }}
-                       className="w-full rounded-xl border border-primary py-2.5 font-medium text-primary transition-colors hover:bg-primary/5"
-                     >
-                       <span className="flex items-center justify-center gap-2">
-                         <ArrowRight className="h-4 w-4" />
-                         {t("transferOrder")}
-                       </span>
-                     </button>
-                   )}
+                  {isManager &&
+                    selected.fulfillmentType === "delivery" &&
+                    !["picked_up", "cancelled"].includes(selected.status) && (
+                      <button
+                        onClick={() => {
+                          setTransferOpen(true);
+                          setTransferBranchId("");
+                        }}
+                        className="w-full rounded-xl border border-primary py-2.5 font-medium text-primary transition-colors hover:bg-primary/5"
+                      >
+                        <span className="flex items-center justify-center gap-2">
+                          <ArrowRight className="h-4 w-4" />
+                          {t("transferOrder")}
+                        </span>
+                      </button>
+                    )}
+
+                  {isDriver &&
+                    selected.fulfillmentType === "delivery" &&
+                    selected.status === "ready" &&
+                    selected.deliveryConfirmed && (
+                      <button
+                        onClick={() =>
+                          statusMutation.mutate({
+                            id: selected.id,
+                            status: "picked_up",
+                          })
+                        }
+                        disabled={statusMutation.isPending}
+                        className="w-full rounded-xl bg-primary py-3 font-semibold text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
+                      >
+                        {statusMutation.isPending
+                          ? t("updating")
+                          : t("markPickedUp")}
+                      </button>
+                    )}
 
                  <button
                   onClick={() => setSelected(null)}

@@ -7,6 +7,7 @@ import { Clock, Package, CheckCircle, ChevronRight } from "lucide-react";
 import { branchApi } from "@/lib/api";
 import { formatPrice, formatDateTime } from "@/lib/utils";
 import { Skeleton } from "@/components/common/skeletons";
+import { useSession } from "@/lib/auth-client";
 
 const STATUS_COLORS: Record<string, string> = {
   pending:
@@ -20,8 +21,12 @@ const STATUS_COLORS: Record<string, string> = {
 };
 
 export default function BranchDashboardPage() {
+  const { data: session } = useSession();
   const locale = useLocale();
   const t = useTranslations("branchDashboard");
+
+  const role = (session?.user as any)?.role as string;
+  const isDriver = role === "driver";
 
   const { data, isLoading } = useQuery({
     queryKey: ["branch-dashboard"],
@@ -77,12 +82,14 @@ export default function BranchDashboardPage() {
               : t("ordersForYourBranch")}
           </p>
         </div>
+      {!isDriver && (
         <Link
           href={`/${locale}/branch-dashboard/orders`}
           className="flex items-center gap-1 text-sm font-medium text-primary hover:underline"
         >
           {t("allOrders")} <ChevronRight className="h-4 w-4" />
         </Link>
+      )}
       </div>
 
       <div className="grid grid-cols-3 gap-4">
